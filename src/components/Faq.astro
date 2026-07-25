@@ -1,0 +1,57 @@
+---
+// Native <details> accordion — open by default for the first item, and every
+// answer is in the DOM regardless of open state so crawlers read all of it.
+const { items = [] } = Astro.props;
+---
+
+<div class="faq">
+  {items.map((item, i) => (
+    <details open={i === 0}>
+      <summary>{item.q}</summary>
+      <p>{item.a}</p>
+    </details>
+  ))}
+</div>
+
+<style>
+  .faq { display: grid; gap: 12px; margin-top: 30px; }
+  details {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 4px 22px;
+    box-shadow: var(--shadow-sm);
+  }
+  details[open] { border-color: var(--brand-line); }
+  summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 18px 28px 18px 0;
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: 17.5px;
+    letter-spacing: -0.015em;
+    position: relative;
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary::after {
+    content: '+';
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--brand);
+  }
+  details[open] summary::after { content: '−'; }
+  details p {
+    margin: 0;
+    padding: 0 0 20px;
+    font-size: 16px;
+    line-height: 1.65;
+    color: var(--ink-3);
+    max-width: 74ch;
+    text-wrap: pretty;
+  }
+</style>

@@ -1,0 +1,262 @@
+---
+import Base from '../layouts/Base.astro';
+import core from '../data/core.json';
+import copy from '../data/copy.json';
+import guides from '../data/guides.json';
+import reviews from '../data/reviews.json';
+import seo from '../data/seo.json';
+
+const [title, description] = seo.home;
+
+const featured = guides.filter((g) => g.published).slice(0, 3);
+
+// The prototype's stats array was inside the truncated region; these three are
+// reconstructed from the copy that does survive (the v1 stat band and the
+// hero's trust line).
+const stats = [
+  { k: '25 yrs', v: 'In and around the automotive business' },
+  { k: 'Retail first', v: 'Sales floor and operations experience behind every campaign' },
+  { k: 'One line', v: 'You deal with me directly, every time' },
+];
+---
+
+<Base title={title} description={description} path="/">
+  <section class="hero">
+    <div class="wrap inner">
+      <div>
+        <div class="badge"><span class="dot"></span>25 years in the car business</div>
+        <h1>Digital marketing that shows up on the sales board.</h1>
+        <p class="lede">
+          I'm Shawn Ryder. I worked the retail side of this business before I ran digital for
+          dealers — so we skip the education phase and start where your store is actually
+          losing deals.
+        </p>
+        <div class="actions">
+          <a href="/contact" class="btn btn-primary">Get a free dealership audit</a>
+          <a href="tel:+19024884107" class="btn btn-ghost">902-488-4107</a>
+        </div>
+        <div class="trust">
+          <span>✓ No long-term contract required</span>
+          <span>✓ You deal with me directly</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="brandband">
+    <div class="wrap row">
+      <div class="label">Experience across brands</div>
+      <div class="chips">
+        {copy.brands.map((brand) => <span class="chip">{brand}</span>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap section">
+    <div class="grid grid-3">
+      {stats.map((stat) => (
+        <div class="card stat">
+          <div class="k">{stat.k}</div>
+          <p>{stat.v}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="wrap section">
+    <div class="head">
+      <div>
+        <div class="kicker">Services</div>
+        <h2>Five ways I keep your showroom busy.</h2>
+      </div>
+      <a href="/services" class="btn btn-ghost small">See full detail →</a>
+    </div>
+    <div class="grid grid-3">
+      {core.services.map((service) => (
+        <a class="card service" href="/services">
+          <div class="num">{service.num}</div>
+          <h3>{service.title}</h3>
+          <p>{service.blurb}</p>
+        </a>
+      ))}
+      <a class="card invite" href="/contact">
+        <h3>Not sure which one you need?</h3>
+        <span>Start with the audit →</span>
+      </a>
+    </div>
+  </section>
+
+  <section class="dark">
+    <div class="wrap section">
+      <div class="kicker light">How it goes</div>
+      <h2>Three steps. No mystery.</h2>
+      <div class="grid grid-3 steps">
+        {core.steps.map((step) => (
+          <div class="step">
+            <div class="n">{step.n}</div>
+            <h3>{step.title}</h3>
+            <p>{step.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap section">
+    <div class="kicker">Why dealers call me</div>
+    <h2>I've been on your side of the desk.</h2>
+    <div class="diffs">
+      {core.diffs.map((diff) => (
+        <div class="diff"><span>/</span>{diff}</div>
+      ))}
+    </div>
+  </section>
+
+  {featured.length > 0 && (
+    <section class="wrap section">
+      <div class="head">
+        <div>
+          <div class="kicker">Guides</div>
+          <h2>Playbooks you can run this week.</h2>
+        </div>
+        <a href="/guides" class="btn btn-ghost small">All guides →</a>
+      </div>
+      <div class="grid grid-3">
+        {featured.map((guide) => (
+          <a class="card" href={`/guides/${guide.slug}`}>
+            <div class="tag">{guide.category} · {guide.read}</div>
+            <h3>{guide.title}</h3>
+            <p>{guide.excerpt}</p>
+          </a>
+        ))}
+      </div>
+    </section>
+  )}
+
+  <section class="wrap section">
+    <div class="kicker">From the dealers</div>
+    <h2>What they say after 90 days.</h2>
+    <div class="grid grid-3 quotes">
+      {reviews.map((review) => (
+        <blockquote class="card">
+          <p>{review.text}</p>
+          <footer>
+            <span class="initials">{review.initials}</span>
+            <span>
+              <strong>{review.name}</strong>
+              <em>{review.role}</em>
+            </span>
+          </footer>
+        </blockquote>
+      ))}
+    </div>
+  </section>
+
+  <section class="cta-band">
+    <div class="wrap">
+      <div>
+        <h2>Want to know what your store is leaving on the table?</h2>
+        <p>
+          I'll audit your site, Google Business Profile, reviews and lead follow-up, and send you
+          the honest version. No charge, no pitch deck.
+        </p>
+      </div>
+      <a href="/contact" class="btn btn-dark">Request the audit</a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .hero {
+    background:
+      radial-gradient(900px 460px at 78% 10%, var(--brand-tint) 0%, rgba(238, 241, 255, 0) 70%),
+      var(--bg);
+    border-bottom: 1px solid var(--line-2);
+  }
+  .hero .inner { padding-top: 78px; padding-bottom: 84px; }
+  .badge {
+    display: inline-flex; align-items: center; gap: 9px;
+    background: var(--surface); border: 1px solid var(--line); border-radius: 999px;
+    padding: 7px 14px 7px 10px;
+    font-size: 13.5px; font-weight: 600; color: var(--ink-2);
+    margin-bottom: 26px; box-shadow: var(--shadow-sm);
+  }
+  .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); }
+  .hero .lede { max-width: 52ch; margin: 22px 0 34px; }
+  .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 34px; }
+  .trust { display: flex; gap: 26px; flex-wrap: wrap; font-size: 14.5px; color: var(--muted); }
+
+  .brandband { background: var(--surface); border-bottom: 1px solid var(--line-2); }
+  .brandband .row {
+    padding-top: 34px; padding-bottom: 34px;
+    display: flex; align-items: center; gap: 40px;
+    flex-wrap: wrap; justify-content: space-between;
+  }
+  .label { font-size: 13px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--faint); }
+  .chips { display: flex; gap: 12px; flex-wrap: wrap; }
+  .chip {
+    padding: 10px 18px; border-radius: 999px; background: var(--surface-2);
+    font-family: var(--display); font-weight: 700; font-size: 15px; color: var(--ink-2);
+  }
+
+  .stat .k { font-family: var(--display); font-weight: 800; font-size: 38px; letter-spacing: -0.035em; color: var(--brand); line-height: 1; }
+  .stat p { font-size: 15.5px; color: var(--ink-2); margin: 10px 0 0; line-height: 1.5; }
+
+  .head {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    gap: 32px; flex-wrap: wrap; margin-bottom: 36px;
+  }
+  .btn.small { padding: 13px 22px; font-size: 14.5px; }
+
+  .service { display: flex; flex-direction: column; min-height: 250px; }
+  .num {
+    width: 38px; height: 38px; border-radius: 11px; background: var(--brand-tint);
+    display: grid; place-items: center;
+    font-family: var(--display); font-weight: 800; font-size: 14px;
+    color: var(--brand); margin-bottom: 20px;
+  }
+  .service h3 { margin-bottom: 10px; }
+  .service p, .card p { font-size: 15.5px; line-height: 1.6; color: var(--ink-3); margin: 0; text-wrap: pretty; }
+  .invite {
+    background: var(--ink); color: #fff;
+    display: flex; flex-direction: column; justify-content: space-between; min-height: 250px;
+  }
+  .invite h3 { color: #fff; }
+  .invite span { font-family: var(--display); font-weight: 700; font-size: 15px; color: #9fb0ff; }
+
+  .dark { background: var(--ink); color: #fff; }
+  .dark h2 { color: #fff; }
+  .kicker.light { color: #9fb0ff; }
+  .steps { margin-top: 36px; }
+  .step .n { font-family: var(--display); font-weight: 800; font-size: 54px; color: var(--brand); letter-spacing: -0.04em; line-height: 1; margin-bottom: 16px; }
+  .step h3 { color: #fff; margin-bottom: 10px; }
+  .step p { font-size: 16px; line-height: 1.6; color: #a6aab1; margin: 0; text-wrap: pretty; }
+
+  .diffs { display: grid; gap: 1px; background: var(--line); border-block: 1px solid var(--line); margin-top: 30px; }
+  .diff { background: var(--bg); padding: 18px 0; display: flex; gap: 16px; align-items: baseline; font-size: 16.5px; font-weight: 500; }
+  .diff span { font-family: var(--display); font-weight: 800; color: var(--brand); }
+
+  .card .tag { font-size: 13px; font-weight: 600; color: var(--brand); margin-bottom: 12px; }
+  .card h3 { margin-bottom: 10px; }
+
+  .quotes blockquote { margin: 0; display: flex; flex-direction: column; justify-content: space-between; min-height: 240px; }
+  .quotes p { font-size: 16.5px; line-height: 1.6; color: var(--ink-2); margin: 0 0 24px; }
+  .quotes footer { display: flex; align-items: center; gap: 12px; padding-top: 18px; border-top: 1px solid var(--line-2); }
+  .initials {
+    width: 38px; height: 38px; border-radius: 50%; background: var(--brand-tint);
+    display: grid; place-items: center;
+    font-family: var(--display); font-weight: 800; font-size: 13px; color: var(--brand);
+    flex: 0 0 auto;
+  }
+  .quotes strong { display: block; font-family: var(--display); font-size: 15px; }
+  .quotes em { font-style: normal; font-size: 13.5px; color: var(--faint); }
+
+  .cta-band { background: var(--brand-tint); border-top: 1px solid var(--brand-line); }
+  .cta-band .wrap {
+    padding-top: 56px; padding-bottom: 56px;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 40px; flex-wrap: wrap;
+  }
+  .cta-band h2 { font-size: 34px; max-width: 22ch; margin-bottom: 10px; }
+  .cta-band p { font-size: 16.5px; color: var(--ink-2); margin: 0; max-width: 56ch; }
+</style>

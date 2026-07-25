@@ -1,0 +1,157 @@
+[
+  {
+    "slotId": "guide-1",
+    "category": "Local SEO",
+    "read": "6 min read",
+    "date": "July 2026",
+    "title": "The Google Business Profile checklist most dealers skip",
+    "excerpt": "Twelve fields, three habits, and the one category setting that quietly keeps you out of the local pack.",
+    "points": [
+      "What to fix in the first hour",
+      "A weekly 10-minute posting habit",
+      "How to track local pack position by model line"
+    ],
+    "slug": "google-business-profile-checklist-for-dealerships",
+    "published": true
+  },
+  {
+    "slotId": "guide-ai-1",
+    "category": "AI",
+    "read": "7 min read",
+    "date": "July 2026",
+    "title": "Ask ChatGPT about your dealership — then read this",
+    "excerpt": "What assistants say about your store, where they get it, and the six fixes that change the answer.",
+    "slug": "ask-chatgpt-about-your-dealership",
+    "published": true
+  },
+  {
+    "slotId": "guide-2",
+    "category": "Follow-up",
+    "read": "5 min read",
+    "date": "June 2026",
+    "title": "Why your 5:40pm Friday lead never gets called back",
+    "excerpt": "Speed to lead is a staffing and process problem, not a CRM problem. Here is the shift schedule that fixes it.",
+    "slug": "speed-to-lead-friday-afternoon",
+    "published": true
+  },
+  {
+    "slotId": "guide-3",
+    "category": "Reputation",
+    "read": "7 min read",
+    "date": "June 2026",
+    "title": "How to raise a dealership review score without begging",
+    "excerpt": "A simple ask process for sales and service, plus response templates for the reviews that sting.",
+    "slug": "raise-dealership-review-score",
+    "published": false
+  },
+  {
+    "slotId": "guide-4",
+    "category": "Email",
+    "read": "6 min read",
+    "date": "May 2026",
+    "title": "Equity mining your own database before you buy another lead",
+    "excerpt": "You already own the cheapest buyers in your market. Here is how to segment and message them.",
+    "slug": "equity-mining-your-database",
+    "published": false
+  },
+  {
+    "slotId": "guide-5",
+    "category": "Social",
+    "read": "4 min read",
+    "date": "May 2026",
+    "title": "A monthly social calendar your team will actually keep up with",
+    "excerpt": "Twelve post types, shot on your lot with a phone. No stock photos of cars you do not stock.",
+    "slug": "dealership-social-calendar",
+    "published": false
+  },
+  {
+    "slotId": "guide-6",
+    "category": "Local SEO",
+    "read": "8 min read",
+    "date": "April 2026",
+    "title": "Inventory pages that rank instead of expiring",
+    "excerpt": "Model-line landing pages, internal linking and what to do when a unit sells.",
+    "slug": "inventory-pages-that-rank",
+    "published": false
+  },
+  {
+    "slotId": "guide-7",
+    "category": "Follow-up",
+    "read": "5 min read",
+    "date": "April 2026",
+    "title": "Mystery shop your own store in fifteen minutes",
+    "excerpt": "Submit a lead, call the number, text the store. Score what happens next against this rubric.",
+    "slug": "mystery-shop-your-own-store",
+    "published": false
+  },
+  {
+    "slotId": "guide-8",
+    "category": "Local SEO",
+    "read": "7 min read",
+    "date": "July 2026",
+    "title": "Car dealership SEO in Atlantic Canada: what ranks in a small market",
+    "excerpt": "Halifax, Moncton and Charlottetown don’t behave like Toronto. Fewer searches, longer drive radius, and a local pack you can actually win.",
+    "slug": "car-dealership-seo-atlantic-canada",
+    "published": false
+  },
+  {
+    "slotId": "guide-9",
+    "category": "Local SEO",
+    "read": "6 min read",
+    "date": "June 2026",
+    "title": "Ranking for “used cars near me” without buying the keyword",
+    "excerpt": "The organic side of near-me search: proximity, prominence and the pages that make you the obvious answer within a 40-minute drive.",
+    "slug": "ranking-for-used-cars-near-me",
+    "published": false
+  },
+  {
+    "slotId": "guide-10",
+    "category": "Reputation",
+    "read": "5 min read",
+    "date": "May 2026",
+    "title": "How many Google reviews does a dealership actually need?",
+    "excerpt": "Recency beats total count more than dealers think. Here is the volume and cadence that holds a local pack position.",
+    "slug": "how-many-google-reviews-dealership",
+    "published": false
+  },
+  {
+    "slotId": "guide-11",
+    "category": "AI",
+    "read": "6 min read",
+    "date": "July 2026",
+    "title": "Schema markup for dealership websites, explained without the code talk",
+    "excerpt": "What structured data does, which types a dealer needs, and how to check whether your provider actually implemented it.",
+    "slug": "schema-markup-for-dealership-websites",
+    "published": false
+  },
+  {
+    "slotId": "guide-12",
+    "category": "Email",
+    "read": "5 min read",
+    "date": "April 2026",
+    "title": "Service-to-sales: turning the appointment list into trade leads",
+    "excerpt": "Every equity customer drives into your service lane twice a year. Here is the handoff most stores never build.",
+    "slug": "service-to-sales-trade-leads",
+    "published": false
+  },
+  {
+    "slotId": "guide-13",
+    "category": "Email",
+    "read": "6 min read",
+    "date": "July 2026",
+    "title": "Email marketing is old. It still beats every lead you buy.",
+    "excerpt": "Why the oldest channel in the building outperforms the newest one, and the five sends every dealership should have running.",
+    "slug": "dealership-email-marketing-beats-bought-leads",
+    "published": true
+  },
+  {
+    "slotId": "guide-14",
+    "category": "Email",
+    "read": "5 min read",
+    "date": "June 2026",
+    "title": "Stop sending one blast a month to ten thousand people",
+    "excerpt": "Segmenting a dealership database by equity, service history and last contact — with the queries to pull each list.",
+    "slug": "segmenting-a-dealership-database",
+    "published": false
+  }
+]

@@ -1,0 +1,140 @@
+---
+import Base from '../layouts/Base.astro';
+import Faq from '../components/Faq.astro';
+import copy from '../data/copy.json';
+import seo from '../data/seo.json';
+import { faqSchema } from '../lib/site.js';
+
+const [title, description] = seo.ai;
+---
+
+<Base title={title} description={description} path="/ai" schema={faqSchema(copy.aiFaqs)}>
+  <section class="hero">
+    <div class="wrap">
+      <div class="kicker light">AI</div>
+      <h1>What AI actually changes for a dealership.</h1>
+      <p class="lede">
+        Not the hype version. What's genuinely different for a store trying to sell cars this
+        month, what's still years out, and a rollout you can follow without betting the business.
+      </p>
+      <div class="teasers">
+        {copy.aiTeasers.map((teaser) => (
+          <div class="teaser">
+            <h3>{teaser.h}</h3>
+            <p>{teaser.p}</p>
+          </div>
+        ))}
+      </div>
+      <a href="/ai-search-visibility" class="btn btn-primary">Start with AI search visibility →</a>
+    </div>
+  </section>
+
+  <section class="wrap section">
+    <div class="kicker">What's actually shifting</div>
+    <h2>Four changes that matter to a rooftop.</h2>
+    <div class="shifts">
+      {copy.aiShifts.map((shift) => (
+        <div class="shift">
+          <div class="n">{shift.n}</div>
+          <div>
+            <h3>{shift.h}</h3>
+            <p>{shift.p}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap section">
+      <div class="kicker">The honest split</div>
+      <h2>Where AI earns its keep — and where it doesn't.</h2>
+      <div class="grid grid-2 split">
+        <div class="col yes">
+          <h3>Worth doing now</h3>
+          <ul>{copy.aiYes.map((item) => <li>{item}</li>)}</ul>
+        </div>
+        <div class="col no">
+          <h3>Don't hand this to a machine</h3>
+          <ul>{copy.aiNo.map((item) => <li>{item}</li>)}</ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap section">
+    <div class="kicker">Rollout</div>
+    <h2>A 24-month plan you can actually follow.</h2>
+    <div class="roadmap">
+      {copy.aiRoadmap.map((phase) => (
+        <div class="phase">
+          <div class="when">{phase.when}</div>
+          <h3>{phase.h}</h3>
+          <p>{phase.p}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="wrap section">
+    <div class="kicker">Questions</div>
+    <h2>What dealers ask about this.</h2>
+    <Faq items={copy.aiFaqs} />
+  </section>
+
+  <section class="cta-band">
+    <div class="wrap">
+      <div>
+        <h2>Curious what assistants say about your store right now?</h2>
+        <p>I'll run real shopper prompts across the major assistants and send you the transcript.</p>
+      </div>
+      <a href="/contact" class="btn btn-dark">Ask for the baseline</a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .hero { background: var(--ink); color: #fff; padding: 66px 0 72px; }
+  .hero h1 { color: #fff; }
+  .hero .lede { color: #b9bcc2; max-width: 60ch; margin: 22px 0 40px; }
+  .kicker.light { color: #9fb0ff; }
+
+  .teasers { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; margin-bottom: 36px; }
+  .teaser { background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 16px; padding: 24px 22px; }
+  .teaser h3 { color: #fff; font-size: 18px; margin-bottom: 8px; }
+  .teaser p { font-size: 15px; line-height: 1.55; color: #a6aab1; margin: 0; }
+
+  .shifts { display: grid; gap: 1px; background: var(--line); border-block: 1px solid var(--line); margin-top: 32px; }
+  .shift { background: var(--bg); padding: 26px 0; display: grid; grid-template-columns: 120px minmax(0, 1fr); gap: 28px; }
+  .shift .n { font-family: var(--display); font-weight: 800; font-size: 13px; letter-spacing: 0.1em; color: var(--brand); padding-top: 4px; }
+  .shift h3 { margin-bottom: 8px; }
+  .shift p { font-size: 16.5px; line-height: 1.62; color: var(--ink-3); margin: 0; text-wrap: pretty; }
+
+  .band { background: var(--surface); border-block: 1px solid var(--line-2); }
+  .split { margin-top: 32px; }
+  .col { border-top: 3px solid var(--brand); padding-top: 22px; }
+  .col.no { border-top-color: #d9534f; }
+  .col h3 { margin-bottom: 16px; }
+  .col ul { margin: 0; padding-left: 20px; display: grid; gap: 11px; }
+  .col li { font-size: 16px; line-height: 1.55; color: var(--ink-2); text-wrap: pretty; }
+
+  .roadmap { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; margin-top: 32px; }
+  .phase { border-top: 2px solid var(--brand); padding-top: 18px; }
+  .when { font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--brand); margin-bottom: 10px; }
+  .phase h3 { font-size: 18px; margin-bottom: 8px; }
+  .phase p { font-size: 15px; line-height: 1.58; color: var(--ink-3); margin: 0; text-wrap: pretty; }
+
+  .cta-band { background: var(--brand-tint); border-top: 1px solid var(--brand-line); }
+  .cta-band .wrap {
+    padding-top: 56px; padding-bottom: 56px;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 40px; flex-wrap: wrap;
+  }
+  .cta-band h2 { font-size: 32px; max-width: 24ch; margin-bottom: 10px; }
+  .cta-band p { font-size: 16.5px; color: var(--ink-2); margin: 0; max-width: 56ch; }
+
+  @media (max-width: 900px) {
+    .teasers, .roadmap { grid-template-columns: minmax(0, 1fr); }
+    .shift { grid-template-columns: minmax(0, 1fr); gap: 10px; }
+  }
+</style>

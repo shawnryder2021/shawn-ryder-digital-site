@@ -1,0 +1,20 @@
+[
+  {
+    "text": "Google review to be added here — send me your three best and I’ll drop them in verbatim.",
+    "name": "Dealer name",
+    "role": "Dealer Principal",
+    "initials": "DP"
+  },
+  {
+    "text": "Google review to be added here — ideally one that mentions a specific result.",
+    "name": "Dealer name",
+    "role": "General Sales Manager",
+    "initials": "GS"
+  },
+  {
+    "text": "Google review to be added here — one from a service or used-vehicle manager rounds it out.",
+    "name": "Dealer name",
+    "role": "Used Car Manager",
+    "initials": "UC"
+  }
+]

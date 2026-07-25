@@ -1,0 +1,23 @@
+{
+  "name": "shawnryder-site",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "test": "node tests/functions.test.mjs",
+    "audit": "npm run build && node tests/build-audit.mjs"
+  },
+  "dependencies": {
+    "astro": "^5.6.1"
+  },
+  "devDependencies": {
+    "@supabase/supabase-js": "^2.49.4"
+  }
+}

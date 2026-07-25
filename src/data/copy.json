@@ -1,0 +1,306 @@
+{
+  "aiTeasers": [
+    {
+      "h": "AI answer visibility",
+      "p": "Whether assistants name your store when a local shopper asks."
+    },
+    {
+      "h": "Faster lead handling",
+      "p": "Drafted responses and summaries so nobody waits on a callback."
+    },
+    {
+      "h": "Content without the grind",
+      "p": "More model and service pages, still written in your store’s voice."
+    }
+  ],
+  "aiShifts": [
+    {
+      "n": "SHIFT 01",
+      "h": "Shoppers ask, they don’t browse",
+      "p": "A chunk of research now happens inside an assistant. Instead of ten blue links, the shopper gets a short answer with two or three stores named. You either appear in it or you don’t exist for that question.",
+      "action": "Fix: make your site and profile answer real shopper questions plainly."
+    },
+    {
+      "n": "SHIFT 02",
+      "h": "Your reviews became training data",
+      "p": "Assistants summarise sentiment across your reviews, not just the star average. A pattern of complaints about the same thing shows up in the answer as a warning, in plain English.",
+      "action": "Fix: treat review responses as public record, because now they are."
+    },
+    {
+      "n": "SHIFT 03",
+      "h": "Response speed is now table stakes",
+      "p": "Shoppers who used a chat assistant to research expect a reply in minutes, not by tomorrow morning. AI can draft the reply and summarise the lead, but somebody at the store still has to hit send.",
+      "action": "Fix: use AI for the first draft, keep a human on the send."
+    },
+    {
+      "n": "SHIFT 04",
+      "h": "Content cost dropped, the bar went up",
+      "p": "Everyone can now produce model comparison pages in bulk, which means generic pages are worthless. What still works is specifics: your inventory, your market, your pricing, your people.",
+      "action": "Fix: publish what only your store can say."
+    }
+  ],
+  "aiYes": [
+    "Drafting first replies to leads for a human to check and send",
+    "Summarising long email and chat threads before a callback",
+    "Turning one walk-around video into posts, captions and a page",
+    "Writing service and model FAQ content from real questions",
+    "Spotting patterns across reviews and CRM notes",
+    "Cleaning and tagging inventory and photo data"
+  ],
+  "aiNo": [
+    "Negotiating price or payment with a live shopper",
+    "Answering an upset customer’s review unsupervised",
+    "Making trade appraisal calls without eyes on the vehicle",
+    "Publishing anything about your store nobody has read",
+    "Handling a service complaint that should get a phone call",
+    "Anything where being wrong costs you the relationship"
+  ],
+  "aiRoadmap": [
+    {
+      "when": "Now",
+      "h": "Get your facts machine-readable",
+      "p": "Hours, departments, staff, brands, service offerings and inventory structured properly on your own site. Assistants can only repeat what they can parse."
+    },
+    {
+      "when": "Next 90 days",
+      "h": "Build the answer library",
+      "p": "One clear page per question shoppers actually ask — financing, trade, warranty, service intervals, model comparisons in your market."
+    },
+    {
+      "when": "6–12 months",
+      "h": "Tighten response time",
+      "p": "AI-drafted replies with human approval, measured on minutes-to-first-contact. This is where most stores gain the fastest."
+    },
+    {
+      "when": "12–24 months",
+      "h": "Track AI as a channel",
+      "p": "Assistant referrals get reported like any other source, and stores start optimising for them the way they did for search a decade ago."
+    }
+  ],
+  "aeoSteps": [
+    {
+      "n": "01",
+      "h": "Be findable",
+      "p": "Clean structured data, complete Google Business Profile, consistent details everywhere. If the basic facts conflict, assistants hedge or skip you."
+    },
+    {
+      "n": "02",
+      "h": "Be quotable",
+      "p": "Short, direct answers on your own pages — the kind an assistant can lift a sentence from. Marketing fluff never gets quoted."
+    },
+    {
+      "n": "03",
+      "h": "Be trusted",
+      "p": "Volume and recency of good reviews, real staff pages, real photos, plus mentions on local sites the assistants already trust."
+    }
+  ],
+  "aiPrompts": [
+    "Best dealership to buy a used SUV in {your city}?",
+    "Which {brand} dealer near {your city} has the best service reputation?",
+    "Is {your dealership} a good place to buy a car?",
+    "Where can I get a {model} serviced in {your city}?",
+    "Compare {your dealership} and {competitor}.",
+    "Which dealer near me is best for first-time buyers with no credit?"
+  ],
+  "aeoWork": [
+    {
+      "h": "Baseline check",
+      "p": "I run a set of real shopper prompts across the major assistants and record exactly what they say about your store today."
+    },
+    {
+      "h": "Structured data fixes",
+      "p": "Dealer, department, service and vehicle markup so machines read your site the way a person would."
+    },
+    {
+      "h": "Answer pages",
+      "p": "A batch of plain-language pages covering the questions shoppers actually ask in your market."
+    },
+    {
+      "h": "Profile and citation cleanup",
+      "p": "Consistent details across Google, directories and local listings so nothing contradicts."
+    },
+    {
+      "h": "Review engine",
+      "p": "A steady request process plus response coaching, because sentiment feeds directly into AI answers."
+    },
+    {
+      "h": "Quarterly re-check",
+      "p": "Same prompts, re-run, so you can see movement instead of taking my word for it."
+    }
+  ],
+  "aiFaqs": [
+    {
+      "q": "Is this just SEO with a new name?",
+      "a": "It overlaps a lot. Clean structure, good content, strong reviews help both. The difference is what you optimise for: being the sentence an assistant repeats, not the tenth link on a page."
+    },
+    {
+      "q": "Should we put an AI chatbot on the website?",
+      "a": "Only if someone is watching it. A bot that books appointments and hands off cleanly is useful. One that invents a payment or ignores a question costs you the lead and the trust."
+    },
+    {
+      "q": "Will AI write all our content now?",
+      "a": "It writes drafts. I still edit everything, and the specifics — your inventory, your market, your people — have to come from your store. Generic AI content ranks and converts about as well as it deserves to."
+    },
+    {
+      "q": "Can you prove any of this moved?",
+      "a": "I baseline the same prompts before and after, and track calls, form fills and appointments the way we always have. If a change doesn’t move something you can count, I’ll say so."
+    }
+  ],
+  "timeline": [
+    {
+      "when": "First years",
+      "h": "On the floor",
+      "p": "Retail sales. Walk-ins, phone ups, month-end. Learned that the deal is won long before anybody talks numbers."
+    },
+    {
+      "when": "Then",
+      "h": "Behind the desk",
+      "p": "Dealership operations — inventory, process, staffing, the CRM nobody wanted to use. Saw where leads actually die."
+    },
+    {
+      "when": "The switch",
+      "h": "Into digital",
+      "p": "Started fixing the marketing side because the marketing side kept sending the store the wrong people."
+    },
+    {
+      "when": "Now",
+      "h": "Shawn Ryder Digital",
+      "p": "One person running search, profile, social, email, reviews and follow-up for a short list of dealers."
+    }
+  ],
+  "roles": [
+    "Dealer principals",
+    "General managers",
+    "General sales managers",
+    "Marketing managers",
+    "Internet sales managers",
+    "Used car managers",
+    "Service managers"
+  ],
+  "brandTypes": [
+    {
+      "h": "Volkswagen",
+      "p": "Franchise rooftops"
+    },
+    {
+      "h": "Hyundai",
+      "p": "Franchise rooftops"
+    },
+    {
+      "h": "Audi",
+      "p": "Franchise rooftops"
+    },
+    {
+      "h": "Subaru",
+      "p": "Franchise rooftops"
+    },
+    {
+      "h": "Independent used",
+      "p": "Single stores and small groups"
+    }
+  ],
+  "markets": [
+    {
+      "h": "Atlantic Canada",
+      "p": "Halifax, Dartmouth, Truro, Sydney, Moncton, Saint John, Fredericton, Charlottetown, St. John’s — home ground."
+    },
+    {
+      "h": "Rest of Canada",
+      "p": "Ontario, Quebec and the West. Provincial ad rules differ; the process doesn’t."
+    },
+    {
+      "h": "United States",
+      "p": "Single rooftops and small groups. Same channels, different compliance and a much noisier local pack."
+    },
+    {
+      "h": "Fully remote",
+      "p": "Video calls, shared reporting, and a phone number you can actually reach during your hours."
+    }
+  ],
+  "emailStats": [
+    {
+      "h": "You own the list",
+      "p": "No platform between you and the customer, and nobody can raise the price of reaching them."
+    },
+    {
+      "h": "Cheapest source",
+      "p": "A past customer costs a fraction of a third-party lead and closes at a far better rate."
+    },
+    {
+      "h": "Works with service",
+      "p": "Your service lane sees equity customers twice a year. Email is how you get in front of them between visits."
+    },
+    {
+      "h": "Measurable",
+      "p": "Opens are noise now. I report replies, appointments booked and units delivered."
+    }
+  ],
+  "emailSends": [
+    {
+      "h": "Equity / trade offer",
+      "p": "Customers in a payment position to upgrade, matched to units you actually have."
+    },
+    {
+      "h": "Service reminder",
+      "p": "Timed to the vehicle, not the calendar, with a booking link that works on a phone."
+    },
+    {
+      "h": "Lease / finance end",
+      "p": "Ninety, sixty and thirty days out, before the other store gets there first."
+    },
+    {
+      "h": "Post-purchase series",
+      "p": "Three touches in the first month — this is where reviews and referrals come from."
+    },
+    {
+      "h": "Win-back",
+      "p": "Customers who haven’t been in for eighteen months and think you forgot them."
+    }
+  ],
+  "personal": [
+    {
+      "k": "Based in",
+      "v": "Nova Scotia, working with stores across Canada and the US — on the phone during your hours, not mine."
+    },
+    {
+      "k": "Client load",
+      "v": "Deliberately small. I turn down work rather than hand it to someone you’ve never met."
+    },
+    {
+      "k": "Contracts",
+      "v": "Month to month. If I’m not earning it, you shouldn’t be locked in."
+    },
+    {
+      "k": "Reporting",
+      "v": "Calls, forms, appointments. Not impressions and reach."
+    },
+    {
+      "k": "Spelling",
+      "v": "Canadian. Your shoppers notice when the copy sounds American."
+    }
+  ],
+  "brands": [
+    "Volkswagen",
+    "Hyundai",
+    "Audi",
+    "Subaru",
+    "Independent used"
+  ],
+  "checkLabels": [
+    "Leads sometimes sit for hours before anyone calls",
+    "Nobody owns our Google Business Profile posts",
+    "Our review score doesn’t match how we treat people",
+    "Social is whatever someone remembers to post",
+    "We never market to our own customer database",
+    "We pay several vendors and can’t tell what works"
+  ],
+  "verdicts": [
+    "Nothing ticked yet — start ticking, or just ask for the audit and I’ll find the gaps myself.",
+    "One gap. Usually the cheapest kind to fix, and often the fastest payback.",
+    "Two gaps. That’s typically a process problem, not a spend problem.",
+    "Three gaps. There are deals in your market you’re currently handing to the store down the road.",
+    "Four gaps. Your traffic is probably fine — the handling of it isn’t.",
+    "Five gaps. Worth a call this week, honestly.",
+    "Six of six. Nothing here is unfixable, but it needs one person owning all of it."
+  ]
+}

@@ -1,0 +1,83 @@
+---
+import { site } from '../lib/site.js';
+
+const year = new Date().getFullYear();
+---
+
+<footer>
+  <div class="wrap top">
+    <div class="about">
+      <div class="name">{site.name}</div>
+      <p>
+        Digital marketing for car dealerships — search, social, email, reputation and the
+        follow-up process that closes the loop. Remote across Canada and the United States.
+      </p>
+      <div class="direct">
+        <a href={`mailto:${site.email}`}>{site.email}</a>
+        <a href={site.phoneHref}>{site.phone}</a>
+      </div>
+    </div>
+
+    <div class="cols">
+      <div>
+        <div class="head">Site</div>
+        <a href="/services">Services</a>
+        <a href="/ai-search-visibility">AI search visibility</a>
+        <a href="/guides">Guides</a>
+        <a href="/faq">FAQ</a>
+        <a href="/about">About</a>
+        <a href="/contact">Contact</a>
+      </div>
+      <div>
+        <div class="head">Markets</div>
+        <a href="/markets">All markets</a>
+        <a href="/markets/halifax">Halifax, NS</a>
+        <a href="/markets/moncton">Moncton, NB</a>
+        <a href="/markets/toronto">Toronto, ON</a>
+        <a href="/markets/boston">Boston, MA</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="bottom">
+    <div class="wrap row">
+      <span>© {year} {site.name}</span>
+      <a href="/sitemap.xml">Sitemap</a>
+    </div>
+  </div>
+</footer>
+
+<style>
+  footer { background: var(--surface); border-top: 1px solid var(--line-2); margin-top: 8px; }
+  .top {
+    padding: 56px var(--pad) 44px;
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+    gap: 48px;
+  }
+  .name { font-family: var(--display); font-weight: 800; font-size: 20px; letter-spacing: -0.02em; margin-bottom: 12px; }
+  .about p { font-size: 15.5px; line-height: 1.6; color: var(--ink-3); margin: 0 0 20px; max-width: 46ch; }
+  .direct { display: flex; gap: 20px; flex-wrap: wrap; font-weight: 600; font-size: 15px; }
+
+  .cols { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px; }
+  .cols > div { display: grid; gap: 9px; align-content: start; }
+  .head {
+    font-size: 13px; font-weight: 600; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--faint);
+  }
+  .cols a { color: var(--ink-2); font-size: 15px; }
+  .cols a:hover { color: var(--ink); }
+
+  .bottom { border-top: 1px solid var(--line-2); }
+  .row {
+    padding-top: 20px; padding-bottom: 20px;
+    font-size: 13.5px; color: var(--faint);
+    display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap;
+  }
+  .row a { color: var(--faint); }
+  .row a:hover { color: var(--ink); }
+
+  @media (max-width: 900px) {
+    .top { grid-template-columns: minmax(0, 1fr); gap: 36px; }
+  }
+</style>

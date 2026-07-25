@@ -1,0 +1,84 @@
+---
+import Base from '../layouts/Base.astro';
+import Faq from '../components/Faq.astro';
+import groups from '../data/faq.json';
+import seo from '../data/seo.json';
+import { faqSchema } from '../lib/site.js';
+
+const [title, description] = seo.faq;
+
+// The prototype tabbed between groups client-side, which hid four fifths of the
+// answers from crawlers. Here every group renders, and the nav is anchor links.
+const all = groups.flatMap((g) => g.items);
+---
+
+<Base title={title} description={description} path="/faq" schema={faqSchema(all)}>
+  <section class="hero">
+    <div class="wrap">
+      <div class="kicker">FAQ</div>
+      <h1>Straight answers, no sales voice.</h1>
+      <p class="lede">
+        The questions dealer principals and GSMs actually ask — about SEO, Google Business
+        Profile, reviews, email, AI search, and what working with one accountable person is
+        really like. {all.length} of them.
+      </p>
+      <nav class="jump">
+        {groups.map((group) => (
+          <a href={`#${group.name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`}>{group.name}</a>
+        ))}
+      </nav>
+    </div>
+  </section>
+
+  {groups.map((group) => (
+    <section class="wrap section" id={group.name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}>
+      <div class="head">
+        <h2>{group.name}</h2>
+        <span>{group.items.length} questions</span>
+      </div>
+      <Faq items={group.items} />
+    </section>
+  ))}
+
+  <section class="cta-band">
+    <div class="wrap">
+      <div>
+        <h2>Question that isn't here?</h2>
+        <p>Ask it directly. Same business day reply, and I'll tell you if we're not a fit.</p>
+      </div>
+      <a href="/contact" class="btn btn-dark">Ask Shawn</a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .hero {
+    background:
+      radial-gradient(900px 460px at 78% 10%, var(--brand-tint) 0%, rgba(238, 241, 255, 0) 70%),
+      var(--bg);
+    border-bottom: 1px solid var(--line-2);
+    padding: 62px 0 60px;
+  }
+  .hero .lede { max-width: 62ch; margin: 22px 0 0; }
+  .jump { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 30px; }
+  .jump a {
+    padding: 9px 16px; border-radius: 999px;
+    background: var(--surface); border: 1px solid var(--line);
+    font-size: 14.5px; font-weight: 600; color: var(--ink-2);
+  }
+  .jump a:hover { border-color: var(--ink); color: var(--ink); }
+
+  section[id] { scroll-margin-top: 88px; }
+  .head { display: flex; align-items: baseline; gap: 16px; }
+  .head h2 { font-size: 32px; }
+  .head span { font-size: 14.5px; color: var(--faint); }
+
+  .cta-band { background: var(--brand-tint); border-top: 1px solid var(--brand-line); }
+  .cta-band .wrap {
+    padding-top: 56px; padding-bottom: 56px;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 40px; flex-wrap: wrap;
+  }
+  .cta-band h2 { font-size: 32px; margin-bottom: 10px; }
+  .cta-band p { font-size: 16.5px; color: var(--ink-2); margin: 0; max-width: 56ch; }
+</style>

@@ -1,0 +1,115 @@
+---
+// Posts to /api/subscribe → Netlify function → Supabase (upsert) → webhook.
+---
+
+<form id="subscribe-form" class="subscribe" novalidate>
+  <div class="copy">
+    <h2>Get the next one when it goes up.</h2>
+    <p>New guide every few weeks. No drip sequence, no pitch — unsubscribe in one click.</p>
+  </div>
+
+  <div class="row">
+    <label class="sr">
+      Email address
+      <input name="email" type="email" autocomplete="email" placeholder="you@dealership.com" required />
+    </label>
+    <button type="submit" class="btn btn-primary">Notify me</button>
+  </div>
+
+  <div class="hp" aria-hidden="true">
+    <label>Company website<input name="company_website" type="text" tabindex="-1" autocomplete="off" /></label>
+  </div>
+
+  <p class="status" role="status" aria-live="polite"></p>
+</form>
+
+<script>
+  const form = document.getElementById('subscribe-form');
+  if (form) {
+    const button = form.querySelector('button');
+    const status = form.querySelector('.status');
+    const original = button.textContent;
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const data = new FormData(form);
+      status.textContent = '';
+      status.className = 'status';
+      button.disabled = true;
+      button.textContent = 'Adding…';
+
+      try {
+        const res = await fetch('/api/subscribe', {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify({
+            email: data.get('email') || '',
+            company_website: data.get('company_website') || '',
+            source_page: location.pathname,
+          }),
+        });
+        const body = await res.json().catch(() => ({}));
+
+        if (res.ok && body.ok) {
+          form.querySelector('.row').remove();
+          status.className = 'status good';
+          status.textContent = "You're on the list.";
+          return;
+        }
+        status.className = 'status bad';
+        status.textContent = body.details?.email || body.error || 'That did not go through.';
+      } catch {
+        status.className = 'status bad';
+        status.textContent = 'Could not reach the server. Try again shortly.';
+      } finally {
+        if (button.isConnected) {
+          button.disabled = false;
+          button.textContent = original;
+        }
+      }
+    });
+  }
+</script>
+
+<style>
+  .subscribe {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 22px;
+    padding: 40px 36px;
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+    gap: 32px;
+    align-items: center;
+    box-shadow: var(--shadow-sm);
+  }
+  .copy h2 { font-size: 28px; margin-bottom: 10px; }
+  .copy p { font-size: 16px; line-height: 1.6; color: var(--ink-3); margin: 0; max-width: 46ch; }
+
+  .row { display: flex; gap: 10px; flex-wrap: wrap; }
+  .sr { flex: 1 1 220px; display: grid; font-size: 0; }
+  input[type='email'] {
+    width: 100%;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: var(--bg);
+    padding: 15px 20px;
+    font-size: 16px;
+    color: var(--ink);
+    outline: none;
+  }
+  input:focus { border-color: var(--brand); background: #fff; }
+  button { border: 0; flex: 0 0 auto; }
+  button[disabled] { opacity: 0.6; cursor: progress; }
+
+  .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+
+  .status { grid-column: 1 / -1; margin: 0; font-size: 15.5px; }
+  .status:empty { display: none; }
+  .status.good { color: #0a7f5a; font-weight: 600; }
+  .status.bad { color: #c0392b; }
+
+  @media (max-width: 900px) {
+    .subscribe { grid-template-columns: minmax(0, 1fr); padding: 28px 22px; }
+  }
+</style>

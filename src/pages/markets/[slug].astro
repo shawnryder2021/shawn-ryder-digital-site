@@ -1,0 +1,179 @@
+---
+import Base from '../../layouts/Base.astro';
+import Faq from '../../components/Faq.astro';
+import markets from '../../data/markets.json';
+import guides from '../../data/guides.json';
+import { faqSchema } from '../../lib/site.js';
+
+export function getStaticPaths() {
+  return markets.map((market) => ({ params: { slug: market.slug }, props: { market } }));
+}
+
+const { market } = Astro.props;
+
+const others = markets.filter((m) => m.slug !== market.slug && m.country === market.country).slice(0, 8);
+const localSeoGuides = guides.filter((g) => g.category === 'Local SEO' && g.published).slice(0, 3);
+---
+
+<Base
+  title={market.seoTitle}
+  description={market.seoDesc}
+  path={`/markets/${market.slug}`}
+  schema={faqSchema(market.faqs)}
+>
+  <section class="hero">
+    <div class="wrap">
+      <p class="crumb"><a href="/markets">Markets</a> / {market.region}</p>
+      <div class="kicker">{market.kicker}</div>
+      <h1>{market.h1}</h1>
+      <p class="lede">{market.lede}</p>
+      <div class="actions">
+        <a href="/contact" class="btn btn-primary">Get a free audit for your store</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap section-tight">
+    <div class="grid grid-4">
+      {market.stats.map((stat) => (
+        <div class="card stat">
+          <div class="k">{stat.k}</div>
+          <div class="v">{stat.v}</div>
+          <p>{stat.n}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="wrap section">
+    <div class="kicker">What this market is actually like</div>
+    <h2>{market.city} is not a template.</h2>
+    <div class="grid grid-2 notes">
+      {market.whats.map((note) => (
+        <div class="card">
+          <h3>{note.h}</h3>
+          <p>{note.p}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="seasons-band">
+    <div class="wrap section">
+      <div class="kicker">The calendar</div>
+      <h2>When to push, and what to push.</h2>
+      <div class="grid grid-4 seasons">
+        {market.seasons.map((season) => (
+          <div class="season">
+            <div class="when">{season.when}</div>
+            <h3>{season.h}</h3>
+            <p>{season.p}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  {market.faqs?.length > 0 && (
+    <section class="wrap section">
+      <div class="kicker">Questions from {market.city} dealers</div>
+      <h2>Straight answers.</h2>
+      <Faq items={market.faqs} />
+    </section>
+  )}
+
+  {localSeoGuides.length > 0 && (
+    <section class="wrap section-tight">
+      <h2 class="small">Local SEO guides worth reading</h2>
+      <div class="grid grid-3">
+        {localSeoGuides.map((guide) => (
+          <a class="card" href={`/guides/${guide.slug}`}>
+            <div class="tag">{guide.category} · {guide.read}</div>
+            <h3>{guide.title}</h3>
+            <p>{guide.excerpt}</p>
+          </a>
+        ))}
+      </div>
+    </section>
+  )}
+
+  <section class="wrap section-tight">
+    <h2 class="small">Other markets in {market.country}</h2>
+    <div class="chips">
+      {others.map((other) => (
+        <a href={`/markets/${other.slug}`} class="chip">{other.city}, {other.region}</a>
+      ))}
+      <a href="/markets" class="chip all">All markets →</a>
+    </div>
+  </section>
+
+  <section class="cta-band">
+    <div class="wrap">
+      <div>
+        <h2>Want to know what your {market.city} store is leaving on the table?</h2>
+        <p>Website, Google Business Profile, reviews and lead follow-up — audited and written up in plain language. No charge.</p>
+      </div>
+      <a href="/contact" class="btn btn-dark">Request the audit</a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .hero {
+    background:
+      radial-gradient(900px 460px at 78% 10%, var(--brand-tint) 0%, rgba(238, 241, 255, 0) 70%),
+      var(--bg);
+    border-bottom: 1px solid var(--line-2);
+    padding: 56px 0 64px;
+  }
+  .crumb { font-size: 14px; color: var(--faint); margin: 0 0 18px; }
+  .hero .lede { max-width: 62ch; margin: 20px 0 0; }
+  .actions { margin-top: 30px; }
+
+  .grid-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .stat { padding: 24px 22px; }
+  .stat .k { font-size: 13px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--faint); }
+  .stat .v { font-family: var(--display); font-weight: 800; font-size: 28px; letter-spacing: -0.03em; color: var(--brand); margin: 8px 0 8px; }
+  .stat p { font-size: 14.5px; line-height: 1.5; color: var(--ink-3); margin: 0; }
+
+  .notes { margin-top: 32px; }
+  .notes h3 { margin-bottom: 10px; }
+  .notes p { font-size: 16px; line-height: 1.62; color: var(--ink-3); margin: 0; text-wrap: pretty; }
+
+  .seasons-band { background: var(--surface); border-block: 1px solid var(--line-2); }
+  .seasons { margin-top: 32px; }
+  .season { border-top: 2px solid var(--brand); padding-top: 18px; }
+  .season .when { font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--brand); margin-bottom: 10px; }
+  .season h3 { font-size: 18px; margin-bottom: 8px; }
+  .season p { font-size: 15px; line-height: 1.58; color: var(--ink-3); margin: 0; text-wrap: pretty; }
+
+  h2.small { font-size: 26px; margin-bottom: 22px; }
+  .card .tag { font-size: 13px; font-weight: 600; color: var(--brand); margin-bottom: 12px; }
+  .card h3 { margin-bottom: 10px; }
+  .card p { font-size: 15.5px; line-height: 1.6; color: var(--ink-3); margin: 0; }
+
+  .chips { display: flex; flex-wrap: wrap; gap: 10px; }
+  .chip {
+    padding: 10px 16px; border-radius: 999px;
+    background: var(--surface); border: 1px solid var(--line);
+    font-size: 14.5px; font-weight: 600; color: var(--ink-2);
+  }
+  .chip:hover { border-color: var(--ink); color: var(--ink); }
+  .chip.all { background: var(--brand-tint); border-color: var(--brand-line); color: var(--brand); }
+
+  .cta-band { background: var(--brand-tint); border-top: 1px solid var(--brand-line); }
+  .cta-band .wrap {
+    padding-top: 56px; padding-bottom: 56px;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 40px; flex-wrap: wrap;
+  }
+  .cta-band h2 { font-size: 32px; max-width: 22ch; margin-bottom: 10px; }
+  .cta-band p { font-size: 16.5px; color: var(--ink-2); margin: 0; max-width: 56ch; }
+
+  @media (max-width: 900px) {
+    .grid-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (max-width: 620px) {
+    .grid-4 { grid-template-columns: minmax(0, 1fr); }
+  }
+</style>

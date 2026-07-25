@@ -1,0 +1,128 @@
+---
+import Base from '../layouts/Base.astro';
+import core from '../data/core.json';
+import copy from '../data/copy.json';
+import seo from '../data/seo.json';
+import { site } from '../lib/site.js';
+
+const [title, description] = seo.services;
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: 'Dealership digital marketing services',
+  itemListElement: core.services.map((service, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    item: {
+      '@type': 'Service',
+      name: service.title,
+      description: service.long,
+      provider: { '@id': `${site.url}/#business` },
+      areaServed: [
+        { '@type': 'Country', name: 'Canada' },
+        { '@type': 'Country', name: 'United States' },
+      ],
+    },
+  })),
+};
+---
+
+<Base title={title} description={description} path="/services" schema={schema}>
+  <section class="hero">
+    <div class="wrap">
+      <div class="kicker">Services</div>
+      <h1>Pick a piece, or hand me the whole thing.</h1>
+      <p class="lede">
+        Every one of these ties back to the same question: does it put a buyer in front of your
+        salespeople this month? If it doesn't, I'll tell you to skip it.
+      </p>
+    </div>
+  </section>
+
+  <div class="wrap">
+    {core.services.map((service) => (
+      <section class="service">
+        <div class="num">{service.num}</div>
+        <div class="what">
+          <h2>{service.title}</h2>
+          <p>{service.long}</p>
+        </div>
+        <ul class="items">
+          {service.items.map((item) => <li>{item}</li>)}
+        </ul>
+      </section>
+    ))}
+  </div>
+
+  <section class="wrap section">
+    <div class="kicker">Who this is for</div>
+    <h2>Stores, roles and brands I work with.</h2>
+    <div class="grid grid-2 who">
+      <div class="card">
+        <h3>Roles</h3>
+        <ul>{copy.roles.map((role) => <li>{role}</li>)}</ul>
+      </div>
+      <div class="card">
+        <h3>Store types</h3>
+        <ul>{copy.brandTypes.map((type) => <li>{type.h ?? type}</li>)}</ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-band">
+    <div class="wrap">
+      <div>
+        <h2>Start with the audit. It's free.</h2>
+        <p>You'll get a straight read on where your store is losing leads — and what I'd fix first.</p>
+      </div>
+      <a href="/contact" class="btn btn-dark">Get in touch</a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .hero {
+    background:
+      radial-gradient(900px 460px at 78% 10%, var(--brand-tint) 0%, rgba(238, 241, 255, 0) 70%),
+      var(--bg);
+    border-bottom: 1px solid var(--line-2);
+    padding: 62px 0 68px;
+  }
+  .hero .lede { max-width: 62ch; margin: 22px 0 0; }
+
+  .service {
+    display: grid;
+    grid-template-columns: 76px minmax(0, 1fr) minmax(0, 1fr);
+    gap: 44px;
+    padding: 52px 0;
+    border-bottom: 1px solid var(--line);
+    align-items: start;
+  }
+  .num { font-family: var(--display); font-weight: 800; font-size: 40px; color: var(--brand); letter-spacing: -0.04em; line-height: 0.9; }
+  .what h2 { font-size: 30px; margin-bottom: 14px; }
+  .what p { font-size: 17px; line-height: 1.62; color: var(--ink-2); margin: 0; text-wrap: pretty; }
+
+  .items { margin: 0; padding: 0; list-style: none; display: grid; gap: 1px; background: var(--line); border-top: 1px solid var(--line); }
+  .items li { background: var(--bg); padding: 14px 0 14px 26px; font-size: 16px; font-weight: 500; position: relative; }
+  .items li::before { content: '→'; position: absolute; left: 0; color: var(--brand); font-weight: 700; }
+
+  .who { margin-top: 30px; }
+  .who h3 { margin-bottom: 14px; }
+  .who ul { margin: 0; padding-left: 20px; display: grid; gap: 8px; }
+  .who li { font-size: 16px; line-height: 1.5; color: var(--ink-2); }
+
+  .cta-band { background: var(--brand-tint); border-top: 1px solid var(--brand-line); }
+  .cta-band .wrap {
+    padding-top: 56px; padding-bottom: 56px;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 40px; flex-wrap: wrap;
+  }
+  .cta-band h2 { font-size: 32px; margin-bottom: 10px; }
+  .cta-band p { font-size: 16.5px; color: var(--ink-2); margin: 0; max-width: 56ch; }
+
+  @media (max-width: 900px) {
+    .service { grid-template-columns: minmax(0, 1fr); gap: 20px; padding: 36px 0; }
+    .num { font-size: 30px; }
+  }
+</style>

@@ -1,0 +1,106 @@
+{
+  "_source": "Recovered verbatim from 'Shawn Ryder Digital.dc.html' (v1). The v2 file exceeded the 256 KiB design-API read cap and was truncated mid-renderVals(), taking its copies of these arrays with it. v2 may have revised this wording — worth a read-through before launch.",
+  "services": [
+    {
+      "num": "01",
+      "title": "Local SEO & Google Business Profile",
+      "blurb": "When someone searches your brand plus your city, you should own that page. Most stores don’t.",
+      "long": "Your Google Business Profile does more selling than most of your website. I get it filled out properly, posted to consistently, and ranking in the local pack for the searches that actually end in a visit — not vanity keywords.",
+      "items": [
+        "Profile build-out and category fixes",
+        "Local pack rank tracking by model line",
+        "Location and inventory landing pages",
+        "Photo, post and Q&A upkeep"
+      ]
+    },
+    {
+      "num": "02",
+      "title": "Social media content",
+      "blurb": "Real content from your lot, in your voice — not stock photos of cars you don’t stock.",
+      "long": "Dealership social works when it looks like your store, not a template. I build a simple monthly rhythm your team can actually keep up with: units on the lot, delivery photos, staff, service specials, community stuff.",
+      "items": [
+        "Monthly content calendar",
+        "Post copy and creative direction",
+        "Reels and short-form guidance",
+        "Comment and message triage"
+      ]
+    },
+    {
+      "num": "03",
+      "title": "Email marketing",
+      "blurb": "Your database is the cheapest inventory of buyers you own. Most dealers ignore it.",
+      "long": "Equity mining, service-to-sales, lease maturity, sold-customer follow-up. Emails written like a person wrote them, sent on a schedule, measured on appointments — not open rates.",
+      "items": [
+        "Segment your existing database",
+        "Monthly campaigns and offers",
+        "Service-to-sales sequences",
+        "Reporting tied to set appointments"
+      ]
+    },
+    {
+      "num": "04",
+      "title": "Reputation management",
+      "blurb": "One angry review at the top of your profile costs more than any ad you’re running.",
+      "long": "A steady ask process for happy customers, fast honest responses to the unhappy ones, and a score that reflects how your store actually treats people.",
+      "items": [
+        "Review request process for sales and service",
+        "Response templates and coaching",
+        "Alerting on new reviews",
+        "Score trend reporting"
+      ]
+    },
+    {
+      "num": "05",
+      "title": "Full-service digital retainer",
+      "blurb": "Hand me the whole stack and stop coordinating five vendors.",
+      "long": "Search, social, email, reputation, website content and lead-follow-up process under one roof, with one person accountable. You get a monthly plan, the work done, and a plain-language report on what it produced.",
+      "items": [
+        "All of the above, coordinated",
+        "Website content and SEO",
+        "Paid search and social oversight",
+        "CRM and follow-up process audits"
+      ]
+    }
+  ],
+  "diffs": [
+    "25 years in and around the automotive business",
+    "Retail sales and dealership operations experience",
+    "You talk to me — not an account coordinator",
+    "Plain-language reporting you can read in five minutes"
+  ],
+  "steps": [
+    {
+      "n": "01",
+      "title": "The audit",
+      "body": "I go through your site, Google profile, reviews and lead response like a shopper would, then tell you the honest version of what I find."
+    },
+    {
+      "n": "02",
+      "title": "The plan",
+      "body": "One page. What we fix first, what it should produce, what it costs. No 40-slide deck, no jargon."
+    },
+    {
+      "n": "03",
+      "title": "The work",
+      "body": "I execute, you sell cars. Monthly check-in on what moved and what we’re changing next."
+    }
+  ],
+  "beliefs": [
+    {
+      "h": "Leads are worthless unattended",
+      "p": "Speed to lead beats every clever campaign. If your follow-up is broken, fixing ads is a waste of money."
+    },
+    {
+      "h": "Your market is small",
+      "p": "Reputation travels fast in a local market. Treating reviews as marketing — not admin — pays for itself."
+    },
+    {
+      "h": "Simple beats sophisticated",
+      "p": "A process your team will actually run every day outperforms the platform nobody logs into."
+    },
+    {
+      "h": "Report on units, not clicks",
+      "p": "Impressions don’t hit a forecast. Appointments, shows and deliveries do."
+    }
+  ]
+}

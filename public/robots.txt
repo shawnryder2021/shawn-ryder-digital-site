@@ -1,0 +1,24 @@
+User-agent: *
+Allow: /
+
+# AI crawlers — allowed on purpose. Assistants can only quote what they can read,
+# and getting named in those answers is the point of /ai-search-visibility.
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+Sitemap: https://shawnryder.com/sitemap.xml

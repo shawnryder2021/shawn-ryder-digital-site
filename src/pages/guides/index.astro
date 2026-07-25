@@ -1,0 +1,110 @@
+---
+import Base from '../../layouts/Base.astro';
+import SubscribeForm from '../../components/SubscribeForm.astro';
+import guides from '../../data/guides.json';
+import seo from '../../data/seo.json';
+
+const [title, description] = seo.guides;
+
+// Published first — a visitor should hit real writing before placeholders.
+const published = guides.filter((g) => g.published);
+const queued = guides.filter((g) => !g.published);
+const [featured, ...rest] = published;
+---
+
+<Base title={title} description={description} path="/guides">
+  <section class="hero">
+    <div class="wrap">
+      <div class="kicker">Guides</div>
+      <h1>Playbooks, not gated PDFs.</h1>
+      <p class="lede">
+        Written for dealer principals, GSMs and internet managers. Read it and go run it this
+        week — there's no form in front of any of them.
+      </p>
+    </div>
+  </section>
+
+  {featured && (
+    <section class="wrap section-tight">
+      <a class="featured" href={`/guides/${featured.slug}`}>
+        <div class="tag">{featured.category} · {featured.read} · {featured.date}</div>
+        <h2>{featured.title}</h2>
+        <p>{featured.excerpt}</p>
+        <span class="more">Read the guide →</span>
+      </a>
+    </section>
+  )}
+
+  {rest.length > 0 && (
+    <section class="wrap section-tight">
+      <h2 class="small">More guides</h2>
+      <div class="grid grid-3">
+        {rest.map((guide) => (
+          <a class="card" href={`/guides/${guide.slug}`}>
+            <div class="tag">{guide.category} · {guide.read}</div>
+            <h3>{guide.title}</h3>
+            <p>{guide.excerpt}</p>
+          </a>
+        ))}
+      </div>
+    </section>
+  )}
+
+  {queued.length > 0 && (
+    <section class="wrap section-tight">
+      <h2 class="small">In the queue</h2>
+      <p class="note">Written next. Say the word if one of these is the one you need.</p>
+      <div class="grid grid-3">
+        {queued.map((guide) => (
+          <a class="card queued" href={`/guides/${guide.slug}`}>
+            <div class="tag muted">{guide.category}</div>
+            <h3>{guide.title}</h3>
+            <p>{guide.excerpt}</p>
+          </a>
+        ))}
+      </div>
+    </section>
+  )}
+
+  <section class="wrap section">
+    <SubscribeForm />
+  </section>
+</Base>
+
+<style>
+  .hero {
+    background:
+      radial-gradient(900px 460px at 78% 10%, var(--brand-tint) 0%, rgba(238, 241, 255, 0) 70%),
+      var(--bg);
+    border-bottom: 1px solid var(--line-2);
+    padding: 62px 0 68px;
+  }
+  .hero .lede { max-width: 60ch; margin: 22px 0 0; }
+
+  .featured {
+    display: block;
+    background: var(--ink);
+    color: #fff;
+    border-radius: 22px;
+    padding: 44px 40px;
+  }
+  .featured:hover { color: #fff; }
+  .featured .tag { font-size: 13.5px; font-weight: 600; color: #9fb0ff; margin-bottom: 18px; }
+  .featured h2 { font-size: 38px; max-width: 22ch; margin-bottom: 16px; color: #fff; }
+  .featured p { font-size: 18px; line-height: 1.6; color: #c3c7d4; margin: 0 0 26px; max-width: 62ch; }
+  .more { font-family: var(--display); font-weight: 700; font-size: 15.5px; color: #9fb0ff; }
+
+  h2.small { font-size: 26px; margin-bottom: 22px; }
+  .note { font-size: 15.5px; color: var(--faint); margin: -12px 0 22px; }
+
+  .card .tag { font-size: 13px; font-weight: 600; color: var(--brand); margin-bottom: 12px; }
+  .card .tag.muted { color: var(--faint); }
+  .card h3 { margin-bottom: 10px; }
+  .card p { font-size: 15.5px; line-height: 1.6; color: var(--ink-3); margin: 0; text-wrap: pretty; }
+  .card.queued { background: transparent; border-style: dashed; }
+
+  @media (max-width: 900px) {
+    .featured { padding: 30px 24px; }
+    .featured h2 { font-size: 28px; }
+  }
+</style>

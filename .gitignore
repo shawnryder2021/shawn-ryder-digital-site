@@ -1,0 +1,13 @@
+node_modules/
+dist/
+.astro/
+.netlify/
+.env
+.env.*
+!.env.example
+.DS_Store
+npm-debug.log*
+
+# Working files from the design-prototype import, not part of the site
+_design_export/
+_extract/

@@ -1,0 +1,83 @@
+---
+import Base from '../../layouts/Base.astro';
+import markets from '../../data/markets.json';
+import seo from '../../data/seo.json';
+
+const [title, description] = seo.markets;
+
+const countries = ['Canada', 'United States'];
+const grouped = countries.map((country) => ({
+  country,
+  entries: markets.filter((m) => m.country === country),
+}));
+---
+
+<Base title={title} description={description} path="/markets">
+  <section class="hero">
+    <div class="wrap">
+      <div class="kicker">Markets</div>
+      <h1>Dealership marketing, market by market.</h1>
+      <p class="lede">
+        {markets.length} markets across Canada and the United States. Each page is written from
+        what the market is actually like — drive radius, dealer clusters, seasonality — not a
+        template with the city name swapped in.
+      </p>
+    </div>
+  </section>
+
+  {grouped.map(({ country, entries }) => (
+    <section class="wrap section">
+      <div class="head">
+        <h2>{country}</h2>
+        <span>{entries.length} markets</span>
+      </div>
+      <div class="grid grid-3">
+        {entries.map((market) => (
+          <a class="card" href={`/markets/${market.slug}`}>
+            <div class="region">{market.region}</div>
+            <h3>{market.city}</h3>
+            <p>{market.blurb}</p>
+          </a>
+        ))}
+      </div>
+    </section>
+  ))}
+
+  <section class="cta-band">
+    <div class="wrap">
+      <div>
+        <h2>Don't see your market?</h2>
+        <p>The work is remote either way. Send your store name and I'll audit it regardless of where you are.</p>
+      </div>
+      <a href="/contact" class="btn btn-dark">Request the audit</a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .hero {
+    background:
+      radial-gradient(900px 460px at 78% 10%, var(--brand-tint) 0%, rgba(238, 241, 255, 0) 70%),
+      var(--bg);
+    border-bottom: 1px solid var(--line-2);
+    padding: 62px 0 68px;
+  }
+  .hero .lede { max-width: 64ch; margin: 22px 0 0; }
+
+  .head { display: flex; align-items: baseline; gap: 16px; margin-bottom: 28px; }
+  .head h2 { font-size: 32px; }
+  .head span { font-size: 14.5px; color: var(--faint); }
+
+  .region { font-size: 13px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--brand); margin-bottom: 10px; }
+  .card h3 { font-size: 22px; margin-bottom: 10px; }
+  .card p { font-size: 15.5px; line-height: 1.6; color: var(--ink-3); margin: 0; text-wrap: pretty; }
+
+  .cta-band { background: var(--brand-tint); border-top: 1px solid var(--brand-line); }
+  .cta-band .wrap {
+    padding-top: 56px; padding-bottom: 56px;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 40px; flex-wrap: wrap;
+  }
+  .cta-band h2 { font-size: 32px; margin-bottom: 10px; }
+  .cta-band p { font-size: 16.5px; color: var(--ink-2); margin: 0; max-width: 56ch; }
+</style>

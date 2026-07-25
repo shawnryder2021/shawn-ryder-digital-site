@@ -1,0 +1,206 @@
+---
+import Base from '../../layouts/Base.astro';
+import guides from '../../data/guides.json';
+import articles from '../../data/articles.json';
+import { site } from '../../lib/site.js';
+
+// Every guide gets a URL. Ones without a written body render an honest
+// "not published yet" state rather than a thin page pretending otherwise —
+// and they are excluded from the sitemap (see src/pages/sitemap.xml.js).
+export function getStaticPaths() {
+  return guides
+    .filter((g) => g.slug)
+    .map((guide) => ({
+      params: { slug: guide.slug },
+      props: { guide, article: articles[guide.slug] ?? null },
+    }));
+}
+
+const { guide, article } = Astro.props;
+const blocks = article?.blocks ?? [];
+
+// Several guide headlines are long on their own. Only brand the title when the
+// suffix still fits inside the ~70 characters Google renders.
+const branded = `${guide.title} | ${site.name}`;
+const pageTitle = branded.length <= 70 ? branded : guide.title;
+
+const related = (() => {
+  const sameCategory = guides.filter(
+    (g) => g.slug !== guide.slug && g.category === guide.category && g.published
+  );
+  const filler = guides.filter((g) => g.slug !== guide.slug && g.published);
+  return [...new Set([...sameCategory, ...filler])].slice(0, 3);
+})();
+
+const schema = article
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'Article',
+      headline: guide.title,
+      description: guide.excerpt,
+      articleSection: guide.category,
+      datePublished: guide.date,
+      url: `${site.url}/guides/${guide.slug}`,
+      author: { '@id': `${site.url}/#shawn` },
+      publisher: { '@id': `${site.url}/#business` },
+    }
+  : null;
+---
+
+<Base
+  title={pageTitle}
+  description={guide.excerpt}
+  path={`/guides/${guide.slug}`}
+  ogType="article"
+  schema={schema}
+>
+  <article>
+    <header class="head">
+      <div class="wrap">
+        <p class="crumb"><a href="/guides">Guides</a> / {guide.category}</p>
+        <h1>{guide.title}</h1>
+        <p class="lede">{guide.excerpt}</p>
+        <div class="meta">
+          <span>{guide.category}</span>
+          <span>{guide.read}</span>
+          <span>{guide.date}</span>
+        </div>
+      </div>
+    </header>
+
+    {article?.takeaways?.length > 0 && (
+      <div class="wrap">
+        <aside class="takeaways">
+          <div class="kicker">What you'll walk away with</div>
+          <ul>
+            {article.takeaways.map((t) => <li>{t}</li>)}
+          </ul>
+        </aside>
+      </div>
+    )}
+
+    {blocks.length > 0 ? (
+      <div class="wrap body">
+        {blocks.map((block) => {
+          if (block.t === 'h') return <h2>{block.x}</h2>;
+          if (block.t === 'p') return <p>{block.x}</p>;
+          if (block.t === 'pull') return <blockquote>{block.x}</blockquote>;
+          if (block.t === 'ul') return <ul>{block.items.map((i) => <li>{i}</li>)}</ul>;
+          if (block.t === 'ol') return <ol>{block.items.map((i) => <li>{i}</li>)}</ol>;
+          return null;
+        })}
+      </div>
+    ) : (
+      <div class="wrap">
+        <div class="unwritten">
+          <h2>This one isn't written yet.</h2>
+          <p>
+            It's on the list. If it's the one you need, say so and I'll move it up — or just ask
+            me the question directly and skip the article.
+          </p>
+          <a href="/contact" class="btn btn-primary">Ask me instead</a>
+        </div>
+      </div>
+    )}
+  </article>
+
+  {related.length > 0 && (
+    <section class="wrap section-tight related">
+      <h2 class="small">Read next</h2>
+      <div class="grid grid-3">
+        {related.map((g) => (
+          <a class="card" href={`/guides/${g.slug}`}>
+            <div class="tag">{g.category} · {g.read}</div>
+            <h3>{g.title}</h3>
+            <p>{g.excerpt}</p>
+          </a>
+        ))}
+      </div>
+    </section>
+  )}
+
+  <section class="cta-band">
+    <div class="wrap">
+      <div>
+        <h2>Rather have me just do it?</h2>
+        <p>Free audit of your website, Google profile, reviews and follow-up. Plain language, no pitch deck.</p>
+      </div>
+      <a href="/contact" class="btn btn-dark">Request the audit</a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .head {
+    background: var(--surface);
+    border-bottom: 1px solid var(--line-2);
+    padding: 52px 0 46px;
+  }
+  .crumb { font-size: 14px; color: var(--faint); margin: 0 0 18px; }
+  .head h1 { font-size: 46px; max-width: 22ch; }
+  .head .lede { max-width: 62ch; margin: 20px 0 0; }
+  .meta {
+    display: flex; gap: 10px; flex-wrap: wrap;
+    margin-top: 24px; font-size: 13.5px; font-weight: 600; color: var(--muted);
+  }
+  .meta span { background: var(--surface-2); border-radius: 999px; padding: 7px 14px; }
+
+  .takeaways {
+    max-width: 74ch;
+    margin: 40px 0 0;
+    background: var(--brand-tint);
+    border: 1px solid var(--brand-line);
+    border-radius: 16px;
+    padding: 26px 28px;
+  }
+  .takeaways ul { margin: 0; padding-left: 20px; display: grid; gap: 9px; }
+  .takeaways li { font-size: 16px; line-height: 1.55; color: var(--ink-2); }
+
+  .body { max-width: calc(74ch + var(--pad) * 2); padding-top: 40px; padding-bottom: 56px; }
+  .body h2 { font-size: 30px; margin: 44px 0 16px; }
+  .body p { font-size: 17.5px; line-height: 1.72; color: var(--ink-2); margin: 0 0 20px; text-wrap: pretty; }
+  .body ul, .body ol { margin: 0 0 24px; padding-left: 22px; display: grid; gap: 12px; }
+  .body li { font-size: 17px; line-height: 1.65; color: var(--ink-2); text-wrap: pretty; }
+  .body blockquote {
+    margin: 34px 0;
+    padding: 4px 0 4px 26px;
+    border-left: 3px solid var(--brand);
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: 21px;
+    line-height: 1.45;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    text-wrap: pretty;
+  }
+
+  .unwritten {
+    max-width: 62ch;
+    margin: 56px 0;
+    background: var(--surface);
+    border: 1px dashed var(--line);
+    border-radius: 18px;
+    padding: 40px 34px;
+  }
+  .unwritten h2 { font-size: 28px; margin-bottom: 14px; }
+  .unwritten p { font-size: 17px; line-height: 1.65; color: var(--ink-3); margin: 0 0 26px; }
+
+  .related { border-top: 1px solid var(--line-2); }
+  h2.small { font-size: 26px; margin-bottom: 22px; }
+  .card .tag { font-size: 13px; font-weight: 600; color: var(--brand); margin-bottom: 12px; }
+  .card h3 { margin-bottom: 10px; }
+  .card p { font-size: 15.5px; line-height: 1.6; color: var(--ink-3); margin: 0; }
+
+  .cta-band { background: var(--brand-tint); border-top: 1px solid var(--brand-line); }
+  .cta-band .wrap {
+    padding-top: 56px; padding-bottom: 56px;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 40px; flex-wrap: wrap;
+  }
+  .cta-band h2 { font-size: 32px; margin-bottom: 10px; }
+  .cta-band p { font-size: 16.5px; color: var(--ink-2); margin: 0; max-width: 56ch; }
+
+  @media (max-width: 900px) {
+    .head h1 { font-size: 34px; }
+  }
+</style>

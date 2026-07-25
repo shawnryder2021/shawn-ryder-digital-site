@@ -1,0 +1,217 @@
+---
+// The free-audit form. Posts JSON to /api/audit-request (Netlify function →
+// Supabase → Activepieces). The `action` attribute is a real mailto fallback:
+// if JS fails to load, the form still gives the dealer a way through.
+import { site } from '../lib/site.js';
+
+const { checklist = [], sourcePage = Astro.url.pathname, marketSlug = '' } = Astro.props;
+---
+
+<form id="audit-form" novalidate data-source={sourcePage} data-market={marketSlug}>
+  <h2>Request your free audit</h2>
+  <p class="sub">
+    Send your store name and I'll come back with what I'd fix first — website, Google profile,
+    reviews, follow-up. Same business day.
+  </p>
+
+  <div class="fields">
+    <label>
+      <span>Your name <em>*</em></span>
+      <input name="name" type="text" autocomplete="name" placeholder="First and last" required />
+      <small class="err" data-for="name"></small>
+    </label>
+
+    <label>
+      <span>Dealership</span>
+      <input name="dealership" type="text" autocomplete="organization" placeholder="Store name" />
+    </label>
+
+    <label>
+      <span>Email <em>*</em></span>
+      <input name="email" type="email" autocomplete="email" placeholder="you@dealership.com" required />
+      <small class="err" data-for="email"></small>
+    </label>
+
+    <label>
+      <span>Phone</span>
+      <input name="phone" type="tel" autocomplete="tel" placeholder="(902) 000-0000" />
+    </label>
+  </div>
+
+  <label class="full">
+    <span>What's the biggest headache right now?</span>
+    <textarea name="message" rows="4" placeholder="Lead volume, review score, website, follow-up…"></textarea>
+  </label>
+
+  {checklist.length > 0 && (
+    <fieldset>
+      <legend>Tick anything that sounds like your store</legend>
+      {checklist.map((item) => (
+        <label class="check">
+          <input type="checkbox" name="checklist" value={item} />
+          <span>{item}</span>
+        </label>
+      ))}
+    </fieldset>
+  )}
+
+  {/* Honeypot: hidden from people, irresistible to bots. */}
+  <div class="hp" aria-hidden="true">
+    <label>
+      Company website
+      <input name="company_website" type="text" tabindex="-1" autocomplete="off" />
+    </label>
+  </div>
+
+  <button type="submit" class="btn btn-primary">Send it to Shawn</button>
+
+  <p class="status" role="status" aria-live="polite"></p>
+  <p class="fallback">
+    Prefer email? <a href={`mailto:${site.email}`}>{site.email}</a> ·
+    <a href={site.phoneHref}>{site.phone}</a>
+  </p>
+</form>
+
+<script>
+  const form = document.getElementById('audit-form');
+  if (form) {
+    const button = form.querySelector('button[type="submit"]');
+    const status = form.querySelector('.status');
+    const original = button.textContent;
+
+    const clearErrors = () =>
+      form.querySelectorAll('.err').forEach((el) => { el.textContent = ''; });
+
+    const showErrors = (details = {}) => {
+      for (const [field, message] of Object.entries(details)) {
+        const el = form.querySelector(`.err[data-for="${field}"]`);
+        if (el) el.textContent = message;
+      }
+    };
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      clearErrors();
+      status.textContent = '';
+      status.className = 'status';
+
+      const data = new FormData(form);
+      const payload = {
+        name: data.get('name') || '',
+        dealership: data.get('dealership') || '',
+        email: data.get('email') || '',
+        phone: data.get('phone') || '',
+        message: data.get('message') || '',
+        company_website: data.get('company_website') || '',
+        checklist: data.getAll('checklist'),
+        source_page: form.dataset.source || location.pathname,
+        market_slug: form.dataset.market || '',
+      };
+
+      button.disabled = true;
+      button.textContent = 'Sending…';
+
+      try {
+        const res = await fetch('/api/audit-request', {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+        const body = await res.json().catch(() => ({}));
+
+        if (res.ok && body.ok) {
+          form.querySelector('.fields').style.display = 'none';
+          form.querySelector('.full')?.remove();
+          form.querySelector('fieldset')?.remove();
+          button.remove();
+          status.className = 'status good';
+          status.textContent = "Got it — I'll come back to you the same business day.";
+          return;
+        }
+
+        if (body.details) showErrors(body.details);
+        status.className = 'status bad';
+        status.textContent = body.error || 'That did not go through. Please try again.';
+      } catch {
+        status.className = 'status bad';
+        status.textContent =
+          'Could not reach the server. Please email shawn@shawnryder.com instead.';
+      } finally {
+        if (button.isConnected) {
+          button.disabled = false;
+          button.textContent = original;
+        }
+      }
+    });
+  }
+</script>
+
+<style>
+  form {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 22px;
+    padding: 36px 32px 32px;
+    box-shadow: var(--shadow-sm);
+  }
+  h2 { font-size: 26px; margin-bottom: 8px; }
+  .sub { font-size: 15.5px; line-height: 1.6; color: var(--ink-3); margin: 0 0 26px; }
+
+  .fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+  label { display: grid; gap: 7px; }
+  label > span {
+    font-size: 12.5px; font-weight: 600; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--muted);
+  }
+  label em { color: var(--brand); font-style: normal; }
+
+  input[type='text'], input[type='email'], input[type='tel'], textarea {
+    width: 100%;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: var(--bg);
+    padding: 13px 14px;
+    font-size: 16px;
+    color: var(--ink);
+    outline: none;
+    resize: vertical;
+  }
+  input:focus, textarea:focus { border-color: var(--brand); background: #fff; }
+
+  .full { margin-top: 18px; }
+
+  fieldset { border: 0; padding: 22px 0 0; margin: 0; display: grid; gap: 10px; }
+  legend {
+    padding: 0;
+    font-size: 12.5px; font-weight: 600; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--muted);
+    margin-bottom: 4px;
+  }
+  .check {
+    grid-template-columns: auto 1fr;
+    align-items: start;
+    gap: 11px;
+    font-size: 15.5px;
+    color: var(--ink-2);
+    cursor: pointer;
+  }
+  .check input { margin-top: 3px; accent-color: var(--brand); }
+  .check span { text-transform: none; letter-spacing: 0; font-size: 15.5px; font-weight: 400; color: var(--ink-2); }
+
+  /* Off-screen rather than display:none — some bots skip hidden inputs. */
+  .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+
+  button { margin-top: 24px; width: 100%; border: 0; }
+  button[disabled] { opacity: 0.6; cursor: progress; }
+
+  .err { color: #c0392b; font-size: 13.5px; min-height: 0; }
+  .status { margin: 16px 0 0; font-size: 15.5px; }
+  .status.good { color: #0a7f5a; font-weight: 600; }
+  .status.bad { color: #c0392b; }
+  .fallback { margin: 14px 0 0; font-size: 14px; color: var(--faint); }
+
+  @media (max-width: 700px) {
+    form { padding: 26px 20px 24px; }
+    .fields { grid-template-columns: minmax(0, 1fr); }
+  }
+</style>

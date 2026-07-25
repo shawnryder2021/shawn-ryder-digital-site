@@ -1,0 +1,82 @@
+---
+import Base from '../layouts/Base.astro';
+import AuditForm from '../components/AuditForm.astro';
+import seo from '../data/seo.json';
+import { site } from '../lib/site.js';
+
+const [title, description] = seo.contact;
+
+// Verbatim from the prototype's self-assessment checklist. These ride along
+// with the lead so Shawn sees what the dealer admitted before the first call.
+const checklist = [
+  'Leads sometimes sit for hours before anyone calls',
+  'Nobody owns our Google Business Profile posts',
+  'Our review score doesn’t match how we treat people',
+  'Social is whatever someone remembers to post',
+  'We never market to our own customer database',
+  'We pay several vendors and can’t tell what works',
+];
+---
+
+<Base title={title} description={description} path="/contact">
+  <section class="wrap page">
+    <div class="left">
+      <div class="kicker">Contact</div>
+      <h1>Free audit. Straight answers.</h1>
+      <p class="lede">
+        Send me your store's name and I'll come back with what I'd fix first — site, Google
+        profile, reviews, follow-up. If we're not a fit, I'll say so.
+      </p>
+
+      <dl class="facts">
+        <div>
+          <dt>Email</dt>
+          <dd><a href={`mailto:${site.email}`}>{site.email}</a></dd>
+        </div>
+        <div>
+          <dt>Phone</dt>
+          <dd><a href={site.phoneHref}>{site.phone}</a></dd>
+        </div>
+        <div>
+          <dt>Response time</dt>
+          <dd>Same business day</dd>
+        </div>
+        <div>
+          <dt>Contract</dt>
+          <dd>No long-term commitment required</dd>
+        </div>
+      </dl>
+    </div>
+
+    <div class="right">
+      <AuditForm checklist={checklist} sourcePage="/contact" />
+    </div>
+  </section>
+</Base>
+
+<style>
+  .page {
+    padding-top: 62px;
+    padding-bottom: 88px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 64px;
+    align-items: start;
+  }
+  h1 { font-size: 50px; }
+  .lede { max-width: 46ch; margin: 20px 0 40px; }
+
+  .facts { margin: 0; display: grid; gap: 1px; background: var(--line); border-block: 1px solid var(--line); }
+  .facts > div {
+    background: var(--bg);
+    padding: 18px 0;
+    display: flex; justify-content: space-between; align-items: baseline; gap: 20px;
+  }
+  dt { font-size: 12.5px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--faint); }
+  dd { margin: 0; font-family: var(--display); font-weight: 700; font-size: 17px; text-align: right; }
+
+  @media (max-width: 1000px) {
+    .page { grid-template-columns: minmax(0, 1fr); gap: 40px; padding-top: 40px; }
+    h1 { font-size: 36px; }
+  }
+</style>

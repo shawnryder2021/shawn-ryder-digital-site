@@ -1,0 +1,130 @@
+---
+import Base from '../layouts/Base.astro';
+import copy from '../data/copy.json';
+import seo from '../data/seo.json';
+import { site } from '../lib/site.js';
+
+const [title, description] = seo['ai-search'];
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: 'AI search visibility for car dealerships',
+  serviceType: 'Answer engine optimization (AEO)',
+  description,
+  provider: { '@id': `${site.url}/#business` },
+  areaServed: [
+    { '@type': 'Country', name: 'Canada' },
+    { '@type': 'Country', name: 'United States' },
+  ],
+};
+---
+
+<Base title={title} description={description} path="/ai-search-visibility" schema={schema}>
+  <section class="hero">
+    <div class="wrap">
+      <div class="kicker light">AI search visibility</div>
+      <h1>Get named when a shopper asks an assistant.</h1>
+      <p class="lede">
+        Shoppers are asking ChatGPT and Google's AI which dealership to use. Those answers come
+        from what the assistants can read about you — and most stores are invisible or
+        misrepresented. This is the work that changes the answer.
+      </p>
+      <a href="/contact" class="btn btn-primary">Get your baseline check</a>
+    </div>
+  </section>
+
+  <section class="wrap section">
+    <div class="kicker">What shoppers are actually typing</div>
+    <h2>Real prompts, real answers about your store.</h2>
+    <div class="prompts">
+      {copy.aiPrompts.map((prompt) => (
+        <div class="prompt">{prompt}</div>
+      ))}
+    </div>
+    <p class="note">
+      Try one yourself with your city in place of the placeholder. Whatever comes back is what
+      your next shopper is reading.
+    </p>
+  </section>
+
+  <section class="band">
+    <div class="wrap section">
+      <div class="kicker">How it works</div>
+      <h2>Three things decide whether you get named.</h2>
+      <div class="grid grid-3 steps">
+        {copy.aeoSteps.map((step) => (
+          <div class="step">
+            <div class="n">{step.n}</div>
+            <h3>{step.h}</h3>
+            <p>{step.p}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap section">
+    <div class="kicker">The engagement</div>
+    <h2>What I actually do.</h2>
+    <div class="grid grid-2 work">
+      {copy.aeoWork.map((item) => (
+        <div class="card">
+          <h3>{item.h}</h3>
+          <p>{item.p}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="cta-band">
+    <div class="wrap">
+      <div>
+        <h2>Find out what they say about you today.</h2>
+        <p>
+          Baseline check across the major assistants, written up plainly, with the fixes ranked
+          by what moves the answer fastest.
+        </p>
+      </div>
+      <a href="/contact" class="btn btn-dark">Request the baseline</a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .hero { background: var(--ink); color: #fff; padding: 66px 0 72px; }
+  .hero h1 { color: #fff; max-width: 20ch; }
+  .hero .lede { color: #b9bcc2; max-width: 62ch; margin: 22px 0 34px; }
+  .kicker.light { color: #9fb0ff; }
+
+  .prompts { display: grid; gap: 12px; margin-top: 30px; }
+  .prompt {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--brand);
+    border-radius: 12px;
+    padding: 16px 20px;
+    font-size: 16.5px;
+    color: var(--ink-2);
+  }
+  .note { font-size: 15px; color: var(--faint); margin: 20px 0 0; max-width: 60ch; }
+
+  .band { background: var(--surface); border-block: 1px solid var(--line-2); }
+  .steps { margin-top: 32px; }
+  .step .n { font-family: var(--display); font-weight: 800; font-size: 40px; color: var(--brand); letter-spacing: -0.04em; line-height: 1; margin-bottom: 14px; }
+  .step h3 { margin-bottom: 10px; }
+  .step p { font-size: 16px; line-height: 1.6; color: var(--ink-3); margin: 0; text-wrap: pretty; }
+
+  .work { margin-top: 32px; }
+  .work h3 { margin-bottom: 10px; }
+  .work p { font-size: 15.5px; line-height: 1.6; color: var(--ink-3); margin: 0; text-wrap: pretty; }
+
+  .cta-band { background: var(--brand-tint); border-top: 1px solid var(--brand-line); }
+  .cta-band .wrap {
+    padding-top: 56px; padding-bottom: 56px;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 40px; flex-wrap: wrap;
+  }
+  .cta-band h2 { font-size: 32px; margin-bottom: 10px; }
+  .cta-band p { font-size: 16.5px; color: var(--ink-2); margin: 0; max-width: 56ch; }
+</style>

@@ -1,0 +1,119 @@
+[
+  {
+    "name": "Working together",
+    "items": [
+      {
+        "q": "Do I have to sign a long-term contract?",
+        "a": "No. Most stores start with the free audit, then a project with a defined start and finish. Retainers are month to month once we both know the work is producing."
+      },
+      {
+        "q": "Who actually does the work?",
+        "a": "I do. There is no junior account manager, no offshore content team, and you will not be re-explaining your store every month to somebody new."
+      },
+      {
+        "q": "How many dealers do you work with at once?",
+        "a": "Deliberately few. I turn work down rather than hand it to someone you have never met. That is the trade-off of a one-person shop and it is on purpose."
+      },
+      {
+        "q": "Will you work with a store that already has vendors?",
+        "a": "Constantly. Plenty of dealers keep their website or ad provider and bring me in for the pieces nobody owns — profile, reviews, social, email, follow-up process."
+      },
+      {
+        "q": "What does the free audit actually include?",
+        "a": "A website and content review, a Google Business Profile check, a review and response audit, and a lead-response mystery shop of your own store. You get a one-page plan and you keep it either way."
+      },
+      {
+        "q": "Do you work outside Atlantic Canada?",
+        "a": "Yes — across Canada and the United States. Atlantic Canada is where I am based and where a lot of my experience comes from. The playbook travels; what changes is drive radius, competition and local ad rules."
+      }
+    ]
+  },
+  {
+    "name": "SEO and local search",
+    "items": [
+      {
+        "q": "How long before SEO shows results?",
+        "a": "Google Business Profile and reputation fixes usually move in weeks. Content and organic search compound over months. I will tell you up front which bucket your problem falls into instead of promising both at once."
+      },
+      {
+        "q": "Is search volume high enough in a small market?",
+        "a": "Lower volume, lower competition. In a market of a few hundred thousand people, organic is often the cheapest cost per delivered unit on the whole marketing report."
+      },
+      {
+        "q": "Should I build pages for every vehicle in stock?",
+        "a": "No. Build model-line and category pages that outlive the inventory, and let your inventory feed handle individual units. Pages that expire when a unit sells are wasted effort."
+      },
+      {
+        "q": "Do I need schema markup?",
+        "a": "Yes, and most dealer website providers implement it partially or not at all. It is how machines — search engines and AI assistants both — read what your store actually is."
+      },
+      {
+        "q": "What is the fastest local search win?",
+        "a": "Almost always the Google Business Profile: categories, departments as separate listings, correct hours, weekly posts. It costs nothing but an hour a month and it moves first."
+      }
+    ]
+  },
+  {
+    "name": "Reviews and reputation",
+    "items": [
+      {
+        "q": "How many Google reviews does my store need?",
+        "a": "Fewer than you think, more recently than you are getting them. Recency and response quality carry more weight than a big historical total sitting untouched."
+      },
+      {
+        "q": "Should I respond to negative reviews?",
+        "a": "Every one of them, in a way that reads like a person wrote it. Assume the response is being read by the next hundred shoppers and, now, summarised by AI assistants."
+      },
+      {
+        "q": "Can you get bad reviews removed?",
+        "a": "Only the ones that genuinely violate policy, and that is a small number. Anyone promising to make real reviews disappear is selling you a problem."
+      },
+      {
+        "q": "What is a realistic review request process?",
+        "a": "A named person asking at a specific moment in the sale and the service visit, with a link that takes two taps. Process beats incentives, and incentives are against the rules anyway."
+      }
+    ]
+  },
+  {
+    "name": "Email and follow-up",
+    "items": [
+      {
+        "q": "Is email really worth it with a small database?",
+        "a": "A few thousand past customers will out-produce the same spend on third-party leads almost every time. They already bought from you once."
+      },
+      {
+        "q": "What should we actually send?",
+        "a": "Five sends cover most of the opportunity: equity and trade, service reminders timed to the vehicle, lease and finance end, a post-purchase series, and win-back at eighteen months."
+      },
+      {
+        "q": "How fast do we need to respond to leads?",
+        "a": "Median first human contact under ten minutes during the hours your shoppers are actually shopping. Not average — median, by day of week."
+      },
+      {
+        "q": "Do you set up the CRM?",
+        "a": "I do not replace your CRM. I fix the process around it: coverage windows, templates, handoffs, and the one number that tells you whether it is holding."
+      }
+    ]
+  },
+  {
+    "name": "AI and the future",
+    "items": [
+      {
+        "q": "Can you get my dealership into ChatGPT results?",
+        "a": "There is no ad inventory to buy. What works is being findable, quotable and trusted: clean structured data, plain-language answer pages, consistent facts everywhere, and real review sentiment."
+      },
+      {
+        "q": "Is AI search visibility just SEO with a new name?",
+        "a": "It overlaps heavily. The difference is the target — being the sentence an assistant repeats, rather than the tenth link on a results page."
+      },
+      {
+        "q": "Should we add an AI chatbot to the site?",
+        "a": "Only if someone is watching it. A bot that books appointments and hands off cleanly earns its keep. One that invents a payment costs you the lead and the trust at once."
+      },
+      {
+        "q": "Will AI write our content?",
+        "a": "It writes drafts. The specifics that make content worth reading — your inventory, your market, your people — come from your store, and I edit everything before it goes out."
+      }
+    ]
+  }
+]
