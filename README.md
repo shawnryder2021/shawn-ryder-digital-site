@@ -73,6 +73,34 @@ Set in Netlify under **Site configuration → Environment variables**. See
 | `SUPABASE_SERVICE_ROLE_KEY` | Secret. Bypasses RLS — functions only |
 | `LEAD_WEBHOOK_URL` | Activepieces webhook |
 | `ALLOWED_ORIGINS` | Comma-separated. Leave unset locally |
+| `PUBLIC_SUPABASE_URL` | Same URL, exposed to the browser for `/admin` |
+| `PUBLIC_SUPABASE_PUBLISHABLE_KEY` | Publishable key. Public by design |
+
+The two `PUBLIC_` values are embedded in the client bundle at build time. That
+is intended — they grant nothing on their own, and RLS decides what a signed-in
+user can actually see. `npm run audit` fails the build if a service role key or
+any JWT ever ends up in `dist/`.
+
+## Admin area
+
+`/admin` is a static shell; all data is fetched in the browser under the
+signed-in user's RLS context, so the served HTML contains no lead data at all.
+It is `noindex` and disallowed in `robots.txt`.
+
+Two roles, defined in `supabase/migrations/0002`:
+
+| Role | Leads and subscribers | Profiles |
+| --- | --- | --- |
+| `admin` | Read, change status, delete | Read all, change roles |
+| `user` | Read only | Own row only |
+
+New accounts default to `user` — promoting someone is a deliberate `update
+public.profiles set role = 'admin'`. There is **no INSERT policy on any table**:
+the public site writes only through the Netlify functions with the service role
+key, so a compromised browser session cannot forge a lead.
+
+Adding staff: create the user in Supabase → Authentication → Users. A trigger
+creates their profile at `user` automatically.
 
 ## Deploying
 

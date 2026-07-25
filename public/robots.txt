@@ -1,24 +1,32 @@
 User-agent: *
 Allow: /
+# Staff area. No data is served in its HTML, but there is no reason to crawl it.
+Disallow: /admin
 
 # AI crawlers — allowed on purpose. Assistants can only quote what they can read,
 # and getting named in those answers is the point of /ai-search-visibility.
 User-agent: GPTBot
 Allow: /
+Disallow: /admin
 
 User-agent: OAI-SearchBot
 Allow: /
+Disallow: /admin
 
 User-agent: ChatGPT-User
 Allow: /
+Disallow: /admin
 
 User-agent: PerplexityBot
 Allow: /
+Disallow: /admin
 
 User-agent: Google-Extended
 Allow: /
+Disallow: /admin
 
 User-agent: ClaudeBot
 Allow: /
+Disallow: /admin
 
 Sitemap: https://shawnryder.com/sitemap.xml

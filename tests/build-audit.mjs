@@ -11,7 +11,12 @@ function walk(dir) {
   });
 }
 
-const pages = walk(DIST).filter((f) => f.endsWith('.html'));
+// /admin is deliberately noindex and carries no public SEO surface, so it is
+// held to the auth checks below rather than the marketing-page checks.
+const NOINDEX = new Set(['dist/admin.html']);
+
+const allPages = walk(DIST).filter((f) => f.endsWith('.html'));
+const pages = allPages.filter((f) => !NOINDEX.has(f));
 const titles = new Map();
 const descriptions = new Map();
 
@@ -49,9 +54,34 @@ for (const [desc, files] of descriptions) {
   if (files.length > 1) problems.push(`duplicate description across ${files.length} pages: "${desc.slice(0, 60)}"`);
 }
 
+// The admin page must be noindex, must not leak the service role key, and must
+// not ship any lead data in its static HTML.
+for (const file of NOINDEX) {
+  const html = readFileSync(file, 'utf8');
+  if (!/<meta name="robots" content="noindex/.test(html)) {
+    problems.push(`${file}: missing noindex meta`);
+  }
+  if (/service_role|SUPABASE_SERVICE_ROLE/.test(html)) {
+    problems.push(`${file}: service role key referenced in client HTML`);
+  }
+}
+// The publishable key is safe to ship; the service role key never is. Match on
+// actual key material — supabase-js itself contains the bare string
+// "sb_secret_" for prefix validation, which is not a leak.
+const SECRET_PATTERNS = [
+  /sb_secret_[A-Za-z0-9_-]{12,}/,                       // modern secret key
+  /\beyJ[A-Za-z0-9_-]{10,}\.[A-Za-z0-9_-]{20,}\./,      // any JWT (incl. legacy service_role)
+  /SUPABASE_SERVICE_ROLE_KEY\s*[:=]\s*["'][^"']{12,}/,  // hardcoded assignment
+];
+for (const file of walk(DIST).filter((f) => /\.(html|js)$/.test(f))) {
+  const contents = readFileSync(file, 'utf8');
+  const hit = SECRET_PATTERNS.find((re) => re.test(contents));
+  if (hit) problems.push(`${file}: possible secret in client bundle (matched ${hit})`);
+}
+
 // Internal links must resolve to a built page.
 const routes = new Set(
-  pages.map((f) => '/' + f.slice(DIST.length + 1).replace(/\.html$/, '').replace(/^index$/, ''))
+  allPages.map((f) => '/' + f.slice(DIST.length + 1).replace(/\.html$/, '').replace(/^index$/, ''))
 );
 routes.add('/sitemap.xml');
 routes.add('/robots.txt');

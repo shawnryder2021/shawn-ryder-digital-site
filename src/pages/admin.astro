@@ -1,0 +1,392 @@
+---
+// Staff-only. Static shell; everything inside is fetched in the browser under
+// the signed-in user's RLS context, so an unauthenticated visitor who loads
+// this page sees a login form and nothing else — there is no data in the HTML.
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Admin — Shawn Ryder Digital</title>
+    <meta name="robots" content="noindex, nofollow" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Instrument+Sans:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <Header path="/admin" />
+
+    <main class="wrap">
+      <div id="boot" class="state">Checking your session…</div>
+
+      <!-- Signed out -->
+      <section id="login" hidden>
+        <h1>Sign in</h1>
+        <p class="sub">Staff access to leads and subscribers.</p>
+        <form id="login-form" novalidate>
+          <label>
+            <span>Email</span>
+            <input name="email" type="email" autocomplete="username" required />
+          </label>
+          <label>
+            <span>Password</span>
+            <input name="password" type="password" autocomplete="current-password" required />
+          </label>
+          <button type="submit" class="btn btn-primary">Sign in</button>
+          <p class="status" role="status" aria-live="polite"></p>
+        </form>
+      </section>
+
+      <!-- Signed in -->
+      <section id="app" hidden>
+        <header class="topbar">
+          <div>
+            <h1>Admin</h1>
+            <p class="who">
+              <span id="who-email"></span>
+              <span id="who-role" class="pill"></span>
+            </p>
+          </div>
+          <button id="signout" class="btn btn-ghost">Sign out</button>
+        </header>
+
+        <p id="readonly-note" class="note" hidden>
+          Read-only access. Ask an admin if you need to change lead status.
+        </p>
+
+        <nav class="tabs">
+          <button data-tab="leads" class="tab on">Leads (<span id="count-leads">0</span>)</button>
+          <button data-tab="subs" class="tab">Subscribers (<span id="count-subs">0</span>)</button>
+        </nav>
+
+        <div id="panel-leads" class="panel">
+          <div id="leads-empty" class="empty" hidden>
+            No leads yet. They'll appear here the moment someone submits the audit form.
+          </div>
+          <div class="scroll">
+            <table id="leads-table" hidden>
+              <thead>
+                <tr>
+                  <th>Received</th><th>Name</th><th>Dealership</th>
+                  <th>Contact</th><th>Notes</th><th>Status</th><th>Webhook</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div id="panel-subs" class="panel" hidden>
+          <div id="subs-empty" class="empty" hidden>No subscribers yet.</div>
+          <div class="scroll">
+            <table id="subs-table" hidden>
+              <thead>
+                <tr><th>Joined</th><th>Email</th><th>Source</th><th>Status</th></tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      import { supabase, configured, currentProfile } from '../lib/supabase-client.js';
+
+      const $ = (id) => document.getElementById(id);
+      const boot = $('boot');
+
+      if (!configured) {
+        boot.textContent =
+          'Supabase is not configured for this build. Set PUBLIC_SUPABASE_URL and PUBLIC_SUPABASE_PUBLISHABLE_KEY, then redeploy.';
+      } else {
+        start();
+      }
+
+      const fmtDate = (iso) =>
+        new Date(iso).toLocaleString('en-CA', {
+          year: 'numeric', month: 'short', day: 'numeric',
+          hour: '2-digit', minute: '2-digit',
+        });
+
+      const esc = (s) =>
+        String(s ?? '').replace(/[&<>"']/g, (c) =>
+          ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])
+        );
+
+      const STATUSES = ['new', 'contacted', 'qualified', 'closed', 'spam'];
+
+      async function start() {
+        const profile = await currentProfile();
+        boot.hidden = true;
+        profile ? showApp(profile) : showLogin();
+      }
+
+      function showLogin() {
+        $('app').hidden = true;
+        $('login').hidden = false;
+      }
+
+      $('login-form').addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const form = event.target;
+        const status = form.querySelector('.status');
+        const button = form.querySelector('button');
+        const data = new FormData(form);
+
+        button.disabled = true;
+        status.className = 'status';
+        status.textContent = 'Signing in…';
+
+        const { error } = await supabase.auth.signInWithPassword({
+          email: String(data.get('email') || '').trim(),
+          password: String(data.get('password') || ''),
+        });
+
+        if (error) {
+          status.className = 'status bad';
+          status.textContent = error.message;
+          button.disabled = false;
+          return;
+        }
+
+        const profile = await currentProfile();
+        if (!profile) {
+          // Authenticated but no profile row — not staff.
+          await supabase.auth.signOut();
+          status.className = 'status bad';
+          status.textContent = 'That account does not have access.';
+          button.disabled = false;
+          return;
+        }
+
+        form.reset();
+        button.disabled = false;
+        status.textContent = '';
+        $('login').hidden = true;
+        showApp(profile);
+      });
+
+      $('signout').addEventListener('click', async () => {
+        await supabase.auth.signOut();
+        location.reload();
+      });
+
+      document.querySelectorAll('.tab').forEach((tab) => {
+        tab.addEventListener('click', () => {
+          document.querySelectorAll('.tab').forEach((t) => t.classList.toggle('on', t === tab));
+          $('panel-leads').hidden = tab.dataset.tab !== 'leads';
+          $('panel-subs').hidden = tab.dataset.tab !== 'subs';
+        });
+      });
+
+      async function showApp(profile) {
+        const isAdmin = profile.role === 'admin';
+        $('app').hidden = false;
+        $('who-email').textContent = profile.email;
+        $('who-role').textContent = profile.role;
+        $('readonly-note').hidden = isAdmin;
+
+        await Promise.all([loadLeads(isAdmin), loadSubscribers()]);
+      }
+
+      async function loadLeads(isAdmin) {
+        const { data, error } = await supabase
+          .from('leads')
+          .select('id, created_at, name, dealership, email, phone, message, checklist, status, webhook_status, source_page, market_slug')
+          .order('created_at', { ascending: false })
+          .limit(500);
+
+        const table = $('leads-table');
+        const body = table.querySelector('tbody');
+
+        if (error) {
+          $('leads-empty').hidden = false;
+          $('leads-empty').textContent = `Could not load leads: ${error.message}`;
+          return;
+        }
+
+        $('count-leads').textContent = data.length;
+        if (!data.length) {
+          $('leads-empty').hidden = false;
+          return;
+        }
+
+        table.hidden = false;
+        body.innerHTML = data
+          .map((lead) => {
+            const ticked = (lead.checklist || []).length
+              ? `<ul class="ticks">${lead.checklist.map((c) => `<li>${esc(c)}</li>`).join('')}</ul>`
+              : '';
+            const from = [lead.source_page, lead.market_slug].filter(Boolean).join(' · ');
+            const statusCell = isAdmin
+              ? `<select data-lead="${lead.id}" class="status-select">${STATUSES.map(
+                  (s) => `<option value="${s}"${s === lead.status ? ' selected' : ''}>${s}</option>`
+                ).join('')}</select>`
+              : `<span class="pill">${esc(lead.status)}</span>`;
+
+            return `<tr>
+              <td class="nowrap">${fmtDate(lead.created_at)}${from ? `<small>${esc(from)}</small>` : ''}</td>
+              <td>${esc(lead.name)}</td>
+              <td>${esc(lead.dealership) || '—'}</td>
+              <td>
+                <a href="mailto:${esc(lead.email)}">${esc(lead.email)}</a>
+                ${lead.phone ? `<small><a href="tel:${esc(lead.phone)}">${esc(lead.phone)}</a></small>` : ''}
+              </td>
+              <td class="notes">${esc(lead.message) || '—'}${ticked}</td>
+              <td>${statusCell}</td>
+              <td><span class="pill ${lead.webhook_status === 'delivered' ? 'ok' : 'warn'}">${esc(lead.webhook_status) || 'n/a'}</span></td>
+            </tr>`;
+          })
+          .join('');
+
+        if (!isAdmin) return;
+
+        body.querySelectorAll('.status-select').forEach((select) => {
+          select.addEventListener('change', async (event) => {
+            const el = event.target;
+            const previous = el.dataset.previous || el.querySelector('[selected]')?.value;
+            el.disabled = true;
+            const { error: updateError } = await supabase
+              .from('leads')
+              .update({ status: el.value })
+              .eq('id', el.dataset.lead);
+            el.disabled = false;
+
+            if (updateError) {
+              el.value = previous;
+              alert(`Could not update: ${updateError.message}`);
+              return;
+            }
+            el.dataset.previous = el.value;
+            el.classList.add('saved');
+            setTimeout(() => el.classList.remove('saved'), 1200);
+          });
+        });
+      }
+
+      async function loadSubscribers() {
+        const { data, error } = await supabase
+          .from('newsletter_subscribers')
+          .select('id, created_at, email, source_page, unsubscribed_at')
+          .order('created_at', { ascending: false })
+          .limit(500);
+
+        const table = $('subs-table');
+        if (error) {
+          $('subs-empty').hidden = false;
+          $('subs-empty').textContent = `Could not load subscribers: ${error.message}`;
+          return;
+        }
+
+        $('count-subs').textContent = data.length;
+        if (!data.length) {
+          $('subs-empty').hidden = false;
+          return;
+        }
+
+        table.hidden = false;
+        table.querySelector('tbody').innerHTML = data
+          .map(
+            (sub) => `<tr>
+              <td class="nowrap">${fmtDate(sub.created_at)}</td>
+              <td><a href="mailto:${esc(sub.email)}">${esc(sub.email)}</a></td>
+              <td>${esc(sub.source_page) || '—'}</td>
+              <td><span class="pill ${sub.unsubscribed_at ? 'warn' : 'ok'}">${
+                sub.unsubscribed_at ? 'unsubscribed' : 'active'
+              }</span></td>
+            </tr>`
+          )
+          .join('');
+      }
+    </script>
+
+    <style>
+      main { padding-top: 40px; padding-bottom: 80px; }
+      .state { font-size: 16px; color: var(--muted); padding: 40px 0; }
+
+      h1 { font-size: 34px; }
+      .sub { font-size: 16px; color: var(--ink-3); margin: 8px 0 28px; }
+
+      #login form {
+        max-width: 380px; display: grid; gap: 16px;
+        background: var(--surface); border: 1px solid var(--line);
+        border-radius: 18px; padding: 28px 26px;
+      }
+      label { display: grid; gap: 7px; }
+      label span {
+        font-size: 12.5px; font-weight: 600; letter-spacing: 0.08em;
+        text-transform: uppercase; color: var(--muted);
+      }
+      input {
+        border: 1px solid var(--line); border-radius: 12px; background: var(--bg);
+        padding: 13px 14px; font-size: 16px; color: var(--ink); outline: none;
+      }
+      input:focus { border-color: var(--brand); background: #fff; }
+      #login button { border: 0; }
+      .status { margin: 0; font-size: 14.5px; }
+      .status:empty { display: none; }
+      .status.bad { color: #c0392b; }
+
+      .topbar {
+        display: flex; justify-content: space-between; align-items: flex-start;
+        gap: 24px; flex-wrap: wrap; margin-bottom: 20px;
+      }
+      .who { display: flex; align-items: center; gap: 10px; margin: 8px 0 0; font-size: 15px; color: var(--ink-3); }
+      #signout { padding: 11px 20px; font-size: 14.5px; }
+
+      .pill {
+        display: inline-block; padding: 4px 11px; border-radius: 999px;
+        background: var(--surface-2); border: 1px solid var(--line);
+        font-size: 12.5px; font-weight: 600; color: var(--ink-2); text-transform: lowercase;
+      }
+      .pill.ok { background: #e7f7f1; border-color: #b6e6d4; color: #0a7f5a; }
+      .pill.warn { background: #fdf0ec; border-color: #f6cfc2; color: #b4482a; }
+
+      .note {
+        background: var(--brand-tint); border: 1px solid var(--brand-line);
+        border-radius: 12px; padding: 14px 18px; font-size: 15px; color: var(--ink-2);
+        margin: 0 0 24px;
+      }
+
+      .tabs { display: flex; gap: 8px; margin-bottom: 20px; }
+      .tab {
+        padding: 10px 18px; border-radius: 999px; cursor: pointer;
+        border: 1px solid var(--line); background: var(--surface);
+        font-family: var(--display); font-weight: 700; font-size: 14.5px; color: var(--muted);
+      }
+      .tab.on { background: var(--brand-tint); border-color: var(--brand-line); color: var(--brand); }
+
+      .empty {
+        background: var(--surface); border: 1px dashed var(--line); border-radius: 14px;
+        padding: 36px 28px; font-size: 16px; color: var(--ink-3);
+      }
+
+      .scroll { overflow-x: auto; }
+      table { width: 100%; border-collapse: collapse; background: var(--surface); border-radius: 14px; }
+      th, td { text-align: left; padding: 14px 16px; border-bottom: 1px solid var(--line-2); vertical-align: top; }
+      th {
+        font-size: 12px; font-weight: 600; letter-spacing: 0.08em;
+        text-transform: uppercase; color: var(--faint); white-space: nowrap;
+      }
+      td { font-size: 14.5px; color: var(--ink-2); }
+      td small { display: block; margin-top: 3px; font-size: 12.5px; color: var(--faint); }
+      .nowrap { white-space: nowrap; }
+      .notes { max-width: 360px; }
+      .ticks { margin: 8px 0 0; padding-left: 16px; }
+      .ticks li { font-size: 13px; color: var(--muted); margin-bottom: 3px; }
+
+      .status-select {
+        border: 1px solid var(--line); border-radius: 999px; padding: 6px 10px;
+        font-size: 13px; font-weight: 600; background: var(--bg); color: var(--ink-2);
+      }
+      .status-select.saved { border-color: #0a7f5a; background: #e7f7f1; }
+    </style>
+  </body>
+</html>
