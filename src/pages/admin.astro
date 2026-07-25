@@ -1,9 +1,8 @@
 ---
-// Staff-only. Static shell; everything inside is fetched in the browser under
-// the signed-in user's RLS context, so an unauthenticated visitor who loads
-// this page sees a login form and nothing else — there is no data in the HTML.
+// Staff-only CMS. Static shell — every byte of content is fetched in the
+// browser under the signed-in user's RLS context, so an unauthenticated visitor
+// who loads this page gets a login form and nothing else.
 import '../styles/global.css';
-import Header from '../components/Header.astro';
 ---
 
 <!doctype html>
@@ -19,16 +18,13 @@ import Header from '../components/Header.astro';
     />
   </head>
 
-  <body>
-    <Header path="/admin" />
+  <body class="admin">
+    <div id="boot" class="state">Checking your session…</div>
 
-    <main class="wrap">
-      <div id="boot" class="state">Checking your session…</div>
-
-      <!-- Signed out -->
-      <section id="login" hidden>
+    <section id="login" hidden>
+      <div class="loginbox">
         <h1>Sign in</h1>
-        <p class="sub">Staff access to leads and subscribers.</p>
+        <p class="sub">Staff access to leads, content and publishing.</p>
         <form id="login-form" novalidate>
           <label>
             <span>Email</span>
@@ -41,101 +37,48 @@ import Header from '../components/Header.astro';
           <button type="submit" class="btn btn-primary">Sign in</button>
           <p class="status" role="status" aria-live="polite"></p>
         </form>
-      </section>
+      </div>
+    </section>
 
-      <!-- Signed in -->
-      <section id="app" hidden>
-        <header class="topbar">
-          <div>
-            <h1>Admin</h1>
-            <p class="who">
-              <span id="who-email"></span>
-              <span id="who-role" class="pill"></span>
-            </p>
-          </div>
-          <button id="signout" class="btn btn-ghost">Sign out</button>
-        </header>
-
-        <p id="readonly-note" class="note" hidden>
-          Read-only access. Ask an admin if you need to change lead status.
-        </p>
-
-        <nav class="tabs">
-          <button data-tab="leads" class="tab on">Leads (<span id="count-leads">0</span>)</button>
-          <button data-tab="subs" class="tab">Subscribers (<span id="count-subs">0</span>)</button>
-        </nav>
-
-        <div id="panel-leads" class="panel">
-          <div id="leads-empty" class="empty" hidden>
-            No leads yet. They'll appear here the moment someone submits the audit form.
-          </div>
-          <div class="scroll">
-            <table id="leads-table" hidden>
-              <thead>
-                <tr>
-                  <th>Received</th><th>Name</th><th>Dealership</th>
-                  <th>Contact</th><th>Notes</th><th>Status</th><th>Webhook</th>
-                </tr>
-              </thead>
-              <tbody></tbody>
-            </table>
-          </div>
+    <div id="app" hidden>
+      <header class="topbar">
+        <div class="brand">
+          <span class="mark">SR</span>
+          <strong>Admin</strong>
         </div>
-
-        <div id="panel-subs" class="panel" hidden>
-          <div id="subs-empty" class="empty" hidden>No subscribers yet.</div>
-          <div class="scroll">
-            <table id="subs-table" hidden>
-              <thead>
-                <tr><th>Joined</th><th>Email</th><th>Source</th><th>Status</th></tr>
-              </thead>
-              <tbody></tbody>
-            </table>
-          </div>
+        <div class="grow"></div>
+        <div class="pubstate">
+          <span id="pending" class="pill warn" hidden></span>
+          <small id="lastpub"></small>
         </div>
-      </section>
-    </main>
+        <button id="publish" class="btn btn-primary sm" hidden>Publish</button>
+        <div class="who">
+          <span id="who-email"></span>
+          <span id="who-role" class="pill"></span>
+        </div>
+        <button id="signout" class="btn btn-ghost sm">Sign out</button>
+      </header>
+
+      <p id="readonly-note" class="note" hidden>
+        Read-only access. You can see everything here but not change it — ask an admin.
+      </p>
+
+      <div class="layout">
+        <nav id="snav" class="snav"></nav>
+        <main id="section-body"></main>
+      </div>
+    </div>
+
+    <div id="toast" class="toast"></div>
 
     <script>
-      import { supabase, configured, currentProfile } from '../lib/supabase-client.js';
+      import { boot, signIn } from '../scripts/admin-app.js';
 
-      const $ = (id) => document.getElementById(id);
-      const boot = $('boot');
+      boot();
 
-      if (!configured) {
-        boot.textContent =
-          'Supabase is not configured for this build. Set PUBLIC_SUPABASE_URL and PUBLIC_SUPABASE_PUBLISHABLE_KEY, then redeploy.';
-      } else {
-        start();
-      }
-
-      const fmtDate = (iso) =>
-        new Date(iso).toLocaleString('en-CA', {
-          year: 'numeric', month: 'short', day: 'numeric',
-          hour: '2-digit', minute: '2-digit',
-        });
-
-      const esc = (s) =>
-        String(s ?? '').replace(/[&<>"']/g, (c) =>
-          ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])
-        );
-
-      const STATUSES = ['new', 'contacted', 'qualified', 'closed', 'spam'];
-
-      async function start() {
-        const profile = await currentProfile();
-        boot.hidden = true;
-        profile ? showApp(profile) : showLogin();
-      }
-
-      function showLogin() {
-        $('app').hidden = true;
-        $('login').hidden = false;
-      }
-
-      $('login-form').addEventListener('submit', async (event) => {
+      const form = document.getElementById('login-form');
+      form.addEventListener('submit', async (event) => {
         event.preventDefault();
-        const form = event.target;
         const status = form.querySelector('.status');
         const button = form.querySelector('button');
         const data = new FormData(form);
@@ -144,249 +87,205 @@ import Header from '../components/Header.astro';
         status.className = 'status';
         status.textContent = 'Signing in…';
 
-        const { error } = await supabase.auth.signInWithPassword({
-          email: String(data.get('email') || '').trim(),
-          password: String(data.get('password') || ''),
-        });
+        const error = await signIn(
+          String(data.get('email') || '').trim(),
+          String(data.get('password') || '')
+        );
 
         if (error) {
           status.className = 'status bad';
-          status.textContent = error.message;
+          status.textContent = error;
           button.disabled = false;
           return;
         }
-
-        const profile = await currentProfile();
-        if (!profile) {
-          // Authenticated but no profile row — not staff.
-          await supabase.auth.signOut();
-          status.className = 'status bad';
-          status.textContent = 'That account does not have access.';
-          button.disabled = false;
-          return;
-        }
-
-        form.reset();
-        button.disabled = false;
-        status.textContent = '';
-        $('login').hidden = true;
-        showApp(profile);
-      });
-
-      $('signout').addEventListener('click', async () => {
-        await supabase.auth.signOut();
         location.reload();
       });
-
-      document.querySelectorAll('.tab').forEach((tab) => {
-        tab.addEventListener('click', () => {
-          document.querySelectorAll('.tab').forEach((t) => t.classList.toggle('on', t === tab));
-          $('panel-leads').hidden = tab.dataset.tab !== 'leads';
-          $('panel-subs').hidden = tab.dataset.tab !== 'subs';
-        });
-      });
-
-      async function showApp(profile) {
-        const isAdmin = profile.role === 'admin';
-        $('app').hidden = false;
-        $('who-email').textContent = profile.email;
-        $('who-role').textContent = profile.role;
-        $('readonly-note').hidden = isAdmin;
-
-        await Promise.all([loadLeads(isAdmin), loadSubscribers()]);
-      }
-
-      async function loadLeads(isAdmin) {
-        const { data, error } = await supabase
-          .from('leads')
-          .select('id, created_at, name, dealership, email, phone, message, checklist, status, webhook_status, source_page, market_slug')
-          .order('created_at', { ascending: false })
-          .limit(500);
-
-        const table = $('leads-table');
-        const body = table.querySelector('tbody');
-
-        if (error) {
-          $('leads-empty').hidden = false;
-          $('leads-empty').textContent = `Could not load leads: ${error.message}`;
-          return;
-        }
-
-        $('count-leads').textContent = data.length;
-        if (!data.length) {
-          $('leads-empty').hidden = false;
-          return;
-        }
-
-        table.hidden = false;
-        body.innerHTML = data
-          .map((lead) => {
-            const ticked = (lead.checklist || []).length
-              ? `<ul class="ticks">${lead.checklist.map((c) => `<li>${esc(c)}</li>`).join('')}</ul>`
-              : '';
-            const from = [lead.source_page, lead.market_slug].filter(Boolean).join(' · ');
-            const statusCell = isAdmin
-              ? `<select data-lead="${lead.id}" class="status-select">${STATUSES.map(
-                  (s) => `<option value="${s}"${s === lead.status ? ' selected' : ''}>${s}</option>`
-                ).join('')}</select>`
-              : `<span class="pill">${esc(lead.status)}</span>`;
-
-            return `<tr>
-              <td class="nowrap">${fmtDate(lead.created_at)}${from ? `<small>${esc(from)}</small>` : ''}</td>
-              <td>${esc(lead.name)}</td>
-              <td>${esc(lead.dealership) || '—'}</td>
-              <td>
-                <a href="mailto:${esc(lead.email)}">${esc(lead.email)}</a>
-                ${lead.phone ? `<small><a href="tel:${esc(lead.phone)}">${esc(lead.phone)}</a></small>` : ''}
-              </td>
-              <td class="notes">${esc(lead.message) || '—'}${ticked}</td>
-              <td>${statusCell}</td>
-              <td><span class="pill ${lead.webhook_status === 'delivered' ? 'ok' : 'warn'}">${esc(lead.webhook_status) || 'n/a'}</span></td>
-            </tr>`;
-          })
-          .join('');
-
-        if (!isAdmin) return;
-
-        body.querySelectorAll('.status-select').forEach((select) => {
-          select.addEventListener('change', async (event) => {
-            const el = event.target;
-            const previous = el.dataset.previous || el.querySelector('[selected]')?.value;
-            el.disabled = true;
-            const { error: updateError } = await supabase
-              .from('leads')
-              .update({ status: el.value })
-              .eq('id', el.dataset.lead);
-            el.disabled = false;
-
-            if (updateError) {
-              el.value = previous;
-              alert(`Could not update: ${updateError.message}`);
-              return;
-            }
-            el.dataset.previous = el.value;
-            el.classList.add('saved');
-            setTimeout(() => el.classList.remove('saved'), 1200);
-          });
-        });
-      }
-
-      async function loadSubscribers() {
-        const { data, error } = await supabase
-          .from('newsletter_subscribers')
-          .select('id, created_at, email, source_page, unsubscribed_at')
-          .order('created_at', { ascending: false })
-          .limit(500);
-
-        const table = $('subs-table');
-        if (error) {
-          $('subs-empty').hidden = false;
-          $('subs-empty').textContent = `Could not load subscribers: ${error.message}`;
-          return;
-        }
-
-        $('count-subs').textContent = data.length;
-        if (!data.length) {
-          $('subs-empty').hidden = false;
-          return;
-        }
-
-        table.hidden = false;
-        table.querySelector('tbody').innerHTML = data
-          .map(
-            (sub) => `<tr>
-              <td class="nowrap">${fmtDate(sub.created_at)}</td>
-              <td><a href="mailto:${esc(sub.email)}">${esc(sub.email)}</a></td>
-              <td>${esc(sub.source_page) || '—'}</td>
-              <td><span class="pill ${sub.unsubscribed_at ? 'warn' : 'ok'}">${
-                sub.unsubscribed_at ? 'unsubscribed' : 'active'
-              }</span></td>
-            </tr>`
-          )
-          .join('');
-      }
     </script>
 
-    <style>
-      main { padding-top: 40px; padding-bottom: 80px; }
-      .state { font-size: 16px; color: var(--muted); padding: 40px 0; }
+    <style is:global>
+      body.admin { background: var(--bg); }
+      .state, .loading { padding: 48px 28px; font-size: 16px; color: var(--muted); }
 
-      h1 { font-size: 34px; }
-      .sub { font-size: 16px; color: var(--ink-3); margin: 8px 0 28px; }
-
-      #login form {
-        max-width: 380px; display: grid; gap: 16px;
+      /* ---------------------------------------------------------- login -- */
+      #login { display: grid; place-items: center; min-height: 100vh; padding: 24px; }
+      .loginbox {
+        width: 100%; max-width: 380px;
         background: var(--surface); border: 1px solid var(--line);
-        border-radius: 18px; padding: 28px 26px;
+        border-radius: 18px; padding: 32px 28px;
       }
-      label { display: grid; gap: 7px; }
-      label span {
-        font-size: 12.5px; font-weight: 600; letter-spacing: 0.08em;
+      .loginbox h1 { font-size: 28px; }
+      .loginbox .sub { font-size: 15px; color: var(--ink-3); margin: 8px 0 24px; }
+      .loginbox form { display: grid; gap: 16px; }
+
+      /* --------------------------------------------------------- shell -- */
+      .topbar {
+        position: sticky; top: 0; z-index: 20;
+        display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+        padding: 14px 24px;
+        background: rgba(250, 250, 251, 0.9); backdrop-filter: blur(12px);
+        border-bottom: 1px solid var(--line);
+      }
+      .topbar .brand { display: flex; align-items: center; gap: 10px; }
+      .topbar .mark {
+        width: 28px; height: 28px; border-radius: 9px; background: var(--brand);
+        display: grid; place-items: center;
+        font-family: var(--display); font-weight: 800; font-size: 12px; color: #fff;
+      }
+      .topbar strong { font-family: var(--display); font-size: 16px; }
+      .grow { flex: 1; }
+      .pubstate { display: grid; gap: 3px; justify-items: end; text-align: right; }
+      .pubstate small { font-size: 12px; color: var(--faint); }
+      .who { display: flex; align-items: center; gap: 8px; font-size: 14px; color: var(--ink-3); }
+
+      .note {
+        margin: 16px 24px 0; padding: 12px 16px;
+        background: var(--brand-tint); border: 1px solid var(--brand-line);
+        border-radius: 12px; font-size: 14.5px; color: var(--ink-2);
+      }
+
+      .layout { display: grid; grid-template-columns: 190px minmax(0, 1fr); gap: 28px; padding: 24px; }
+      .snav { display: grid; gap: 3px; align-content: start; position: sticky; top: 84px; }
+      .snav button {
+        text-align: left; padding: 9px 14px; border-radius: 10px;
+        border: 0; background: transparent; cursor: pointer;
+        font-family: var(--display); font-weight: 600; font-size: 14.5px; color: var(--muted);
+      }
+      .snav button:hover { background: var(--surface-2); color: var(--ink); }
+      .snav button.on { background: var(--brand-tint); color: var(--brand); }
+
+      main { min-width: 0; }
+      main h2 { font-size: 22px; margin: 28px 0 6px; }
+      main h2:first-child { margin-top: 0; }
+      .muted { font-size: 14.5px; color: var(--muted); margin: 0 0 18px; }
+
+      /* --------------------------------------------------------- lists -- */
+      .listhead { display: flex; align-items: center; gap: 16px; margin-bottom: 16px; }
+      .listhead .muted { margin: 0; flex: 1; }
+      .search {
+        width: 100%; margin-bottom: 14px; padding: 11px 14px;
+        border: 1px solid var(--line); border-radius: 10px; background: var(--surface); font-size: 15px;
+      }
+      .cards { display: grid; gap: 8px; }
+      .rowcard {
+        display: flex; align-items: center; justify-content: space-between; gap: 16px;
+        width: 100%; text-align: left; cursor: pointer;
+        padding: 14px 18px; border: 1px solid var(--line); border-radius: 12px;
+        background: var(--surface); font: inherit;
+      }
+      .rowcard:hover { border-color: var(--brand-line); }
+      .rowcard strong { display: block; font-family: var(--display); font-size: 15.5px; }
+      .rowcard small { display: block; margin-top: 3px; font-size: 13px; color: var(--faint); }
+
+      .editorhead { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; }
+      .back { border: 0; background: none; cursor: pointer; font: inherit; font-size: 14.5px; color: var(--brand); padding: 0; }
+      .faqgroup { margin-bottom: 36px; }
+
+      /* --------------------------------------------------------- forms -- */
+      .fields { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+      .f { display: grid; gap: 6px; grid-column: span 4; }
+      .f-sm { grid-column: span 2; }
+      .f-xs { grid-column: span 1; }
+      .f > span, .flabel {
+        font-size: 12px; font-weight: 600; letter-spacing: 0.07em;
         text-transform: uppercase; color: var(--muted);
       }
-      input {
-        border: 1px solid var(--line); border-radius: 12px; background: var(--bg);
-        padding: 13px 14px; font-size: 16px; color: var(--ink); outline: none;
+      .f input[type='text'], .f input[type='number'], .f input[type='search'],
+      .f textarea, .f select, .row input {
+        width: 100%; padding: 10px 12px; font-size: 15px; color: var(--ink);
+        border: 1px solid var(--line); border-radius: 10px; background: var(--surface); outline: none;
       }
-      input:focus { border-color: var(--brand); background: #fff; }
-      #login button { border: 0; }
-      .status { margin: 0; font-size: 14.5px; }
-      .status:empty { display: none; }
-      .status.bad { color: #c0392b; }
+      .f textarea { resize: vertical; line-height: 1.55; }
+      .f textarea.mono {
+        font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+        font-size: 13.5px; line-height: 1.65;
+      }
+      .f input:focus, .f textarea:focus, .f select:focus, .row input:focus { border-color: var(--brand); }
+      .f-check { grid-column: span 4; display: flex; align-items: center; gap: 10px; }
+      .f-check input { width: 18px; height: 18px; accent-color: var(--brand); }
+      .f-check span { text-transform: none; letter-spacing: 0; font-size: 15px; color: var(--ink); }
+      .help { font-size: 12.5px; color: var(--faint); text-transform: none; letter-spacing: 0; }
 
-      .topbar {
-        display: flex; justify-content: space-between; align-items: flex-start;
-        gap: 24px; flex-wrap: wrap; margin-bottom: 20px;
+      .listbox { display: grid; gap: 8px; }
+      .rows { display: grid; gap: 6px; }
+      .row { display: flex; gap: 6px; align-items: center; }
+      .icon {
+        flex: 0 0 auto; width: 32px; height: 36px; cursor: pointer;
+        border: 1px solid var(--line); border-radius: 8px; background: var(--surface);
+        font-size: 14px; color: var(--muted);
       }
-      .who { display: flex; align-items: center; gap: 10px; margin: 8px 0 0; font-size: 15px; color: var(--ink-3); }
-      #signout { padding: 11px 20px; font-size: 14.5px; }
+      .icon:hover { border-color: var(--ink); color: var(--ink); }
+      .icon.danger { width: auto; padding: 0 10px; }
+      .icon.danger:hover { border-color: #c0392b; color: #c0392b; }
+      .add {
+        justify-self: start; padding: 8px 14px; cursor: pointer;
+        border: 1px dashed var(--line); border-radius: 999px; background: transparent;
+        font-family: var(--display); font-weight: 600; font-size: 13.5px; color: var(--brand);
+      }
+      .add:hover { border-color: var(--brand); }
+
+      .rep { display: grid; gap: 10px; }
+      .repcard { border: 1px solid var(--line); border-radius: 12px; background: var(--surface); overflow: hidden; }
+      .rephead {
+        display: flex; align-items: center; gap: 6px;
+        padding: 8px 10px 8px 14px; background: var(--surface-2); border-bottom: 1px solid var(--line);
+      }
+      .repnum {
+        flex: 1; font-size: 12px; font-weight: 600; letter-spacing: 0.07em;
+        text-transform: uppercase; color: var(--muted);
+      }
+      .repbody { padding: 16px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+
+      /* -------------------------------------------------------- tables -- */
+      .scroll { overflow-x: auto; }
+      table { width: 100%; border-collapse: collapse; background: var(--surface); border-radius: 12px; }
+      th, td { text-align: left; padding: 13px 15px; border-bottom: 1px solid var(--line-2); vertical-align: top; }
+      th { font-size: 11.5px; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: var(--faint); white-space: nowrap; }
+      td { font-size: 14px; color: var(--ink-2); }
+      td small { display: block; margin-top: 3px; font-size: 12.5px; color: var(--faint); }
+      .nowrap { white-space: nowrap; }
+      .notes { max-width: 340px; }
+      .ticks { margin: 8px 0 0; padding-left: 15px; }
+      .ticks li { font-size: 12.5px; color: var(--muted); }
 
       .pill {
-        display: inline-block; padding: 4px 11px; border-radius: 999px;
+        display: inline-block; padding: 4px 10px; border-radius: 999px;
         background: var(--surface-2); border: 1px solid var(--line);
-        font-size: 12.5px; font-weight: 600; color: var(--ink-2); text-transform: lowercase;
+        font-size: 12px; font-weight: 600; color: var(--ink-2);
       }
       .pill.ok { background: #e7f7f1; border-color: #b6e6d4; color: #0a7f5a; }
       .pill.warn { background: #fdf0ec; border-color: #f6cfc2; color: #b4482a; }
-
-      .note {
-        background: var(--brand-tint); border: 1px solid var(--brand-line);
-        border-radius: 12px; padding: 14px 18px; font-size: 15px; color: var(--ink-2);
-        margin: 0 0 24px;
+      .pill-select {
+        padding: 5px 9px; border-radius: 999px; border: 1px solid var(--line);
+        background: var(--bg); font-size: 12.5px; font-weight: 600; color: var(--ink-2);
       }
-
-      .tabs { display: flex; gap: 8px; margin-bottom: 20px; }
-      .tab {
-        padding: 10px 18px; border-radius: 999px; cursor: pointer;
-        border: 1px solid var(--line); background: var(--surface);
-        font-family: var(--display); font-weight: 700; font-size: 14.5px; color: var(--muted);
-      }
-      .tab.on { background: var(--brand-tint); border-color: var(--brand-line); color: var(--brand); }
 
       .empty {
         background: var(--surface); border: 1px dashed var(--line); border-radius: 14px;
-        padding: 36px 28px; font-size: 16px; color: var(--ink-3);
+        padding: 32px 26px; font-size: 15.5px; color: var(--ink-3);
       }
 
-      .scroll { overflow-x: auto; }
-      table { width: 100%; border-collapse: collapse; background: var(--surface); border-radius: 14px; }
-      th, td { text-align: left; padding: 14px 16px; border-bottom: 1px solid var(--line-2); vertical-align: top; }
-      th {
-        font-size: 12px; font-weight: 600; letter-spacing: 0.08em;
-        text-transform: uppercase; color: var(--faint); white-space: nowrap;
-      }
-      td { font-size: 14.5px; color: var(--ink-2); }
-      td small { display: block; margin-top: 3px; font-size: 12.5px; color: var(--faint); }
-      .nowrap { white-space: nowrap; }
-      .notes { max-width: 360px; }
-      .ticks { margin: 8px 0 0; padding-left: 16px; }
-      .ticks li { font-size: 13px; color: var(--muted); margin-bottom: 3px; }
+      .btn.sm { padding: 9px 16px; font-size: 14px; border: 0; }
+      .btn.sm.btn-ghost { border: 1px solid var(--line); }
+      .btn.sm.danger { color: #c0392b; }
+      .status { margin: 0; font-size: 14px; }
+      .status:empty { display: none; }
+      .status.bad { color: #c0392b; }
 
-      .status-select {
-        border: 1px solid var(--line); border-radius: 999px; padding: 6px 10px;
-        font-size: 13px; font-weight: 600; background: var(--bg); color: var(--ink-2);
+      .toast {
+        position: fixed; left: 50%; bottom: 24px; transform: translate(-50%, 20px);
+        padding: 12px 20px; border-radius: 999px;
+        font-size: 14.5px; font-weight: 600; color: #fff; background: #0a7f5a;
+        opacity: 0; pointer-events: none; transition: opacity 0.18s, transform 0.18s; z-index: 60;
       }
-      .status-select.saved { border-color: #0a7f5a; background: #e7f7f1; }
+      .toast.bad { background: #c0392b; }
+      .toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+      @media (max-width: 900px) {
+        .layout { grid-template-columns: minmax(0, 1fr); }
+        .snav { position: static; grid-auto-flow: column; overflow-x: auto; }
+        .fields, .repbody { grid-template-columns: minmax(0, 1fr); }
+        .f-sm, .f-xs { grid-column: span 1; }
+      }
     </style>
   </body>
 </html>

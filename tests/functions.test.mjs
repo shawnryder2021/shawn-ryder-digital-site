@@ -113,5 +113,62 @@ delete process.env.SUPABASE_URL;
 await check('supabase unconfigured', await audit(post({ name: 'A', email: 'a@b.co' })), 503,
   (b) => !b.ok);
 
+
+// ---- publish (admin gating) ----------------------------------------------
+process.env.NETLIFY_BUILD_HOOK_URL = 'https://api.netlify.com/build_hooks/STUB';
+let whoami = { id: 'user-1' };
+let profileRole = 'admin';
+
+const baseFetch = globalThis.fetch;
+globalThis.fetch = async (url, opts = {}) => {
+  const u = String(url);
+  if (u.includes('/auth/v1/user')) {
+    return whoami
+      ? new Response(JSON.stringify(whoami), { status: 200 })
+      : new Response('{}', { status: 401 });
+  }
+  if (u.includes('/rest/v1/profiles')) {
+    return new Response(JSON.stringify([{ id: 'user-1', email: 'a@b.co', role: profileRole }]), { status: 200 });
+  }
+  if (u.includes('build_hooks')) {
+    calls.push({ url: u, method: opts.method });
+    return new Response('', { status: 200 });
+  }
+  return baseFetch(url, opts);
+};
+
+const publish = (await import('../netlify/functions/publish.mjs')).default;
+const authed = (token) =>
+  new Request('https://shawnryder.com/api/publish', {
+    method: 'POST',
+    headers: {
+      'content-type': 'application/json',
+      origin: 'https://shawnryder.com',
+      ...(token ? { authorization: `Bearer ${token}` } : {}),
+    },
+    body: '{}',
+  });
+
+process.env.SUPABASE_URL = 'https://stub.supabase.co';
+
+await check('publish: no token → 401', await publish(authed(null)), 401, (b) => !b.ok);
+
+profileRole = 'user';
+await check('publish: user role → 403', await publish(authed('tok')), 403,
+  (b) => !b.ok && /admin/i.test(b.error));
+
+profileRole = 'admin';
+calls = [];
+await check('publish: admin → 200', await publish(authed('tok')), 200, (b) => b.ok && b.buildStarted);
+console.log('      build hook POSTed:', calls.some((c) => c.url.includes('build_hooks') && c.method === 'POST'));
+
+whoami = null;
+await check('publish: bad token → 401', await publish(authed('bad')), 401, (b) => !b.ok);
+whoami = { id: 'user-1' };
+
+delete process.env.NETLIFY_BUILD_HOOK_URL;
+await check('publish: no build hook configured → 503', await publish(authed('tok')), 503,
+  (b) => !b.ok && /build hook/i.test(b.error));
+
 console.log(failures ? `\n${failures} FAILING` : '\nall checks passed');
 process.exit(failures ? 1 : 0);

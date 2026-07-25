@@ -1,23 +1,26 @@
 ---
 import Base from '../../layouts/Base.astro';
-import guides from '../../data/guides.json';
-import articles from '../../data/articles.json';
+import { getGuides } from '../../lib/content.js';
+import { renderMarkdown, blocksToMarkdown } from '../../lib/markdown.js';
 import { site } from '../../lib/site.js';
 
 // Every guide gets a URL. Ones without a written body render an honest
 // "not published yet" state rather than a thin page pretending otherwise —
 // and they are excluded from the sitemap (see src/pages/sitemap.xml.js).
-export function getStaticPaths() {
+export async function getStaticPaths() {
+  const guides = await getGuides();
   return guides
     .filter((g) => g.slug)
-    .map((guide) => ({
-      params: { slug: guide.slug },
-      props: { guide, article: articles[guide.slug] ?? null },
-    }));
+    .map((guide) => ({ params: { slug: guide.slug }, props: { guide, guides } }));
 }
 
-const { guide, article } = Astro.props;
-const blocks = article?.blocks ?? [];
+const { guide, guides } = Astro.props;
+
+// Body may arrive as Markdown (CMS) or as the prototype's block array (JSON
+// fallback). Normalise to Markdown, then render once.
+const markdown = guide.body || blocksToMarkdown(guide.blocks ?? []);
+const bodyHtml = renderMarkdown(markdown);
+const takeaways = guide.takeaways ?? [];
 
 // Several guide headlines are long on their own. Only brand the title when the
 // suffix still fits inside the ~70 characters Google renders.
@@ -32,7 +35,7 @@ const related = (() => {
   return [...new Set([...sameCategory, ...filler])].slice(0, 3);
 })();
 
-const schema = article
+const schema = bodyHtml
   ? {
       '@context': 'https://schema.org',
       '@type': 'Article',
@@ -68,28 +71,19 @@ const schema = article
       </div>
     </header>
 
-    {article?.takeaways?.length > 0 && (
+    {takeaways.length > 0 && (
       <div class="wrap">
         <aside class="takeaways">
           <div class="kicker">What you'll walk away with</div>
           <ul>
-            {article.takeaways.map((t) => <li>{t}</li>)}
+            {takeaways.map((t) => <li>{t}</li>)}
           </ul>
         </aside>
       </div>
     )}
 
-    {blocks.length > 0 ? (
-      <div class="wrap body">
-        {blocks.map((block) => {
-          if (block.t === 'h') return <h2>{block.x}</h2>;
-          if (block.t === 'p') return <p>{block.x}</p>;
-          if (block.t === 'pull') return <blockquote>{block.x}</blockquote>;
-          if (block.t === 'ul') return <ul>{block.items.map((i) => <li>{i}</li>)}</ul>;
-          if (block.t === 'ol') return <ol>{block.items.map((i) => <li>{i}</li>)}</ol>;
-          return null;
-        })}
-      </div>
+    {bodyHtml ? (
+      <div class="wrap body" set:html={bodyHtml} />
     ) : (
       <div class="wrap">
         <div class="unwritten">

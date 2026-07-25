@@ -1,41 +1,40 @@
 ---
 import { site } from '../lib/site.js';
+import { getNav, getSettings } from '../lib/content.js';
 
 const year = new Date().getFullYear();
+const settings = await getSettings();
+const contact = settings.contact ?? {};
+const footerLinks = (await getNav()).footer;
+
+// Group footer links by their column heading, preserving insertion order.
+const columns = [];
+for (const link of footerLinks) {
+  const name = link.group_label || 'Site';
+  let col = columns.find((c) => c.name === name);
+  if (!col) columns.push((col = { name, links: [] }));
+  col.links.push(link);
+}
 ---
 
 <footer>
   <div class="wrap top">
     <div class="about">
       <div class="name">{site.name}</div>
-      <p>
-        Digital marketing for car dealerships — search, social, email, reputation and the
-        follow-up process that closes the loop. Remote across Canada and the United States.
-      </p>
+      <p>{settings.footer_blurb}</p>
       <div class="direct">
-        <a href={`mailto:${site.email}`}>{site.email}</a>
-        <a href={site.phoneHref}>{site.phone}</a>
+        <a href={`mailto:${contact.email ?? site.email}`}>{contact.email ?? site.email}</a>
+        <a href={contact.phone_href ?? site.phoneHref}>{contact.phone ?? site.phone}</a>
       </div>
     </div>
 
     <div class="cols">
-      <div>
-        <div class="head">Site</div>
-        <a href="/services">Services</a>
-        <a href="/ai-search-visibility">AI search visibility</a>
-        <a href="/guides">Guides</a>
-        <a href="/faq">FAQ</a>
-        <a href="/about">About</a>
-        <a href="/contact">Contact</a>
-      </div>
-      <div>
-        <div class="head">Markets</div>
-        <a href="/markets">All markets</a>
-        <a href="/markets/halifax">Halifax, NS</a>
-        <a href="/markets/moncton">Moncton, NB</a>
-        <a href="/markets/toronto">Toronto, ON</a>
-        <a href="/markets/boston">Boston, MA</a>
-      </div>
+      {columns.map((col) => (
+        <div>
+          <div class="head">{col.name}</div>
+          {col.links.map((link) => <a href={link.href}>{link.label}</a>)}
+        </div>
+      ))}
     </div>
   </div>
 

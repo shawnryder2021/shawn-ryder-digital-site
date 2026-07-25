@@ -1,9 +1,9 @@
 ---
 import Base from '../layouts/Base.astro';
-import core from '../data/core.json';
-import copy from '../data/copy.json';
+import { getBlocks } from '../lib/content.js';
 import seo from '../data/seo.json';
 
+const blocks = await getBlocks();
 const [title, description] = seo.about;
 ---
 
@@ -51,7 +51,7 @@ const [title, description] = seo.about;
       <div class="kicker">The path</div>
       <h2>How I got here.</h2>
       <div class="timeline">
-        {copy.timeline.map((entry) => (
+        {blocks.timeline.map((entry) => (
           <div class="entry">
             <div class="when">{entry.when}</div>
             <h3>{entry.h}</h3>
@@ -66,7 +66,7 @@ const [title, description] = seo.about;
     <div class="kicker">What I believe</div>
     <h2>Four things I'd tell any dealer principal.</h2>
     <div class="grid grid-2 beliefs">
-      {core.beliefs.map((belief) => (
+      {blocks.beliefs.map((belief) => (
         <div class="card">
           <h3>{belief.h}</h3>
           <p>{belief.p}</p>
@@ -78,7 +78,7 @@ const [title, description] = seo.about;
   <section class="wrap section-tight">
     <div class="kicker">The practical stuff</div>
     <dl class="facts">
-      {copy.personal.map((fact) => (
+      {blocks.personal.map((fact) => (
         <div>
           <dt>{fact.k}</dt>
           <dd>{fact.v}</dd>

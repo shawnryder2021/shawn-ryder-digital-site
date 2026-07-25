@@ -1,8 +1,9 @@
 ---
 import Base from '../../layouts/Base.astro';
-import markets from '../../data/markets.json';
+import { getMarkets } from '../../lib/content.js';
 import seo from '../../data/seo.json';
 
+const markets = await getMarkets();
 const [title, description] = seo.markets;
 
 const countries = ['Canada', 'United States'];

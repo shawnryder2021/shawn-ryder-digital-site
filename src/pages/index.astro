@@ -1,23 +1,17 @@
 ---
 import Base from '../layouts/Base.astro';
-import core from '../data/core.json';
-import copy from '../data/copy.json';
-import guides from '../data/guides.json';
-import reviews from '../data/reviews.json';
+import { getBlocks, getGuides, getReviews, getSettings } from '../lib/content.js';
 import seo from '../data/seo.json';
 
+const blocks = await getBlocks();
+const settings = await getSettings();
+const guides = await getGuides();
+const reviews = await getReviews();
 const [title, description] = seo.home;
 
 const featured = guides.filter((g) => g.published).slice(0, 3);
 
-// The prototype's stats array was inside the truncated region; these three are
-// reconstructed from the copy that does survive (the v1 stat band and the
-// hero's trust line).
-const stats = [
-  { k: '25 yrs', v: 'In and around the automotive business' },
-  { k: 'Retail first', v: 'Sales floor and operations experience behind every campaign' },
-  { k: 'One line', v: 'You deal with me directly, every time' },
-];
+const stats = blocks.home_stats;
 ---
 
 <Base title={title} description={description} path="/">
@@ -47,7 +41,7 @@ const stats = [
     <div class="wrap row">
       <div class="label">Experience across brands</div>
       <div class="chips">
-        {copy.brands.map((brand) => <span class="chip">{brand}</span>)}
+        {settings.brands.map((brand) => <span class="chip">{brand}</span>)}
       </div>
     </div>
   </section>
@@ -72,7 +66,7 @@ const stats = [
       <a href="/services" class="btn btn-ghost small">See full detail →</a>
     </div>
     <div class="grid grid-3">
-      {core.services.map((service) => (
+      {blocks.services.map((service) => (
         <a class="card service" href="/services">
           <div class="num">{service.num}</div>
           <h3>{service.title}</h3>
@@ -91,7 +85,7 @@ const stats = [
       <div class="kicker light">How it goes</div>
       <h2>Three steps. No mystery.</h2>
       <div class="grid grid-3 steps">
-        {core.steps.map((step) => (
+        {blocks.steps.map((step) => (
           <div class="step">
             <div class="n">{step.n}</div>
             <h3>{step.title}</h3>
@@ -106,8 +100,8 @@ const stats = [
     <div class="kicker">Why dealers call me</div>
     <h2>I've been on your side of the desk.</h2>
     <div class="diffs">
-      {core.diffs.map((diff) => (
-        <div class="diff"><span>/</span>{diff}</div>
+      {blocks.diffs.map((diff) => (
+        <div class="diff"><span>/</span>{diff.v ?? diff}</div>
       ))}
     </div>
   </section>

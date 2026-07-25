@@ -12,10 +12,12 @@
     "preview": "astro preview",
     "check": "astro check",
     "test": "node tests/functions.test.mjs",
-    "audit": "npm run build && node tests/build-audit.mjs"
+    "audit": "npm run build && node tests/build-audit.mjs",
+    "seed": "node scripts/seed.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.110.8",
-    "astro": "^5.6.1"
+    "astro": "^5.6.1",
+    "marked": "^18.0.7"
   }
 }

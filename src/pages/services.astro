@@ -1,17 +1,17 @@
 ---
 import Base from '../layouts/Base.astro';
-import core from '../data/core.json';
-import copy from '../data/copy.json';
+import { getBlocks } from '../lib/content.js';
 import seo from '../data/seo.json';
 import { site } from '../lib/site.js';
 
+const blocks = await getBlocks();
 const [title, description] = seo.services;
 
 const schema = {
   '@context': 'https://schema.org',
   '@type': 'ItemList',
   name: 'Dealership digital marketing services',
-  itemListElement: core.services.map((service, i) => ({
+  itemListElement: blocks.services.map((service, i) => ({
     '@type': 'ListItem',
     position: i + 1,
     item: {
@@ -41,7 +41,7 @@ const schema = {
   </section>
 
   <div class="wrap">
-    {core.services.map((service) => (
+    {blocks.services.map((service) => (
       <section class="service">
         <div class="num">{service.num}</div>
         <div class="what">
@@ -61,11 +61,11 @@ const schema = {
     <div class="grid grid-2 who">
       <div class="card">
         <h3>Roles</h3>
-        <ul>{copy.roles.map((role) => <li>{role}</li>)}</ul>
+        <ul>{blocks.roles.map((role) => <li>{role.v ?? role}</li>)}</ul>
       </div>
       <div class="card">
         <h3>Store types</h3>
-        <ul>{copy.brandTypes.map((type) => <li>{type.h ?? type}</li>)}</ul>
+        <ul>{blocks.brand_types.map((type) => <li>{type.h ?? type}</li>)}</ul>
       </div>
     </div>
   </section>

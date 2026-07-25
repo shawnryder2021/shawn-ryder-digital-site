@@ -2,8 +2,7 @@
 // never drift the way a hand-maintained sitemap.xml does. Unpublished guides
 // are excluded automatically — publishing one adds it here with no extra step.
 
-import markets from '../data/markets.json';
-import guides from '../data/guides.json';
+import { getMarkets, getGuides } from '../lib/content.js';
 import { site } from '../lib/site.js';
 
 const STATIC_PAGES = [
@@ -28,7 +27,9 @@ const PRIORITY_MARKETS = new Set([
   'st-johns',
 ]);
 
-export function GET() {
+export async function GET() {
+  const markets = await getMarkets();
+  const guides = await getGuides();
   const lastmod = new Date().toISOString().slice(0, 10);
 
   const urls = [

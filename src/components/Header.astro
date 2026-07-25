@@ -1,7 +1,8 @@
 ---
-import { nav } from '../lib/site.js';
+import { getNav } from '../lib/content.js';
 
 const { path = '/' } = Astro.props;
+const nav = (await getNav()).header;
 
 // /markets/halifax should still light up "Markets"; /guides/<slug> lights up
 // "Guides". Home only matches exactly.

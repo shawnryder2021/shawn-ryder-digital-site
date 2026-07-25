@@ -1,9 +1,10 @@
 ---
 import Base from '../layouts/Base.astro';
-import copy from '../data/copy.json';
+import { getBlocks } from '../lib/content.js';
 import seo from '../data/seo.json';
 import { site } from '../lib/site.js';
 
+const blocks = await getBlocks();
 const [title, description] = seo['ai-search'];
 
 const schema = {
@@ -38,8 +39,8 @@ const schema = {
     <div class="kicker">What shoppers are actually typing</div>
     <h2>Real prompts, real answers about your store.</h2>
     <div class="prompts">
-      {copy.aiPrompts.map((prompt) => (
-        <div class="prompt">{prompt}</div>
+      {blocks.ai_prompts.map((prompt) => (
+        <div class="prompt">{prompt.v ?? prompt}</div>
       ))}
     </div>
     <p class="note">
@@ -53,7 +54,7 @@ const schema = {
       <div class="kicker">How it works</div>
       <h2>Three things decide whether you get named.</h2>
       <div class="grid grid-3 steps">
-        {copy.aeoSteps.map((step) => (
+        {blocks.aeo_steps.map((step) => (
           <div class="step">
             <div class="n">{step.n}</div>
             <h3>{step.h}</h3>
@@ -68,7 +69,7 @@ const schema = {
     <div class="kicker">The engagement</div>
     <h2>What I actually do.</h2>
     <div class="grid grid-2 work">
-      {copy.aeoWork.map((item) => (
+      {blocks.aeo_work.map((item) => (
         <div class="card">
           <h3>{item.h}</h3>
           <p>{item.p}</p>

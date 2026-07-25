@@ -1,10 +1,11 @@
 ---
 import Base from '../layouts/Base.astro';
 import Faq from '../components/Faq.astro';
-import groups from '../data/faq.json';
+import { getFaq } from '../lib/content.js';
 import seo from '../data/seo.json';
 import { faqSchema } from '../lib/site.js';
 
+const groups = await getFaq();
 const [title, description] = seo.faq;
 
 // The prototype tabbed between groups client-side, which hid four fifths of the

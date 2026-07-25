@@ -41,6 +41,11 @@ async function request(path, { method = 'POST', body, prefer, query = '' } = {})
   return text ? JSON.parse(text) : null;
 }
 
+/** Read rows. `query` is a PostgREST query string starting with '?'. */
+export async function select(table, query) {
+  return request(table, { method: 'GET', query });
+}
+
 /** Insert one row and return it. */
 export async function insert(table, row) {
   const rows = await request(table, {

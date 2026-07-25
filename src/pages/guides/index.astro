@@ -1,9 +1,10 @@
 ---
 import Base from '../../layouts/Base.astro';
 import SubscribeForm from '../../components/SubscribeForm.astro';
-import guides from '../../data/guides.json';
+import { getGuides } from '../../lib/content.js';
 import seo from '../../data/seo.json';
 
+const guides = await getGuides();
 const [title, description] = seo.guides;
 
 // Published first — a visitor should hit real writing before placeholders.

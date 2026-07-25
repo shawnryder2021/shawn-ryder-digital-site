@@ -1,15 +1,16 @@
 ---
 import Base from '../../layouts/Base.astro';
 import Faq from '../../components/Faq.astro';
-import markets from '../../data/markets.json';
-import guides from '../../data/guides.json';
+import { getMarkets, getGuides } from '../../lib/content.js';
 import { faqSchema } from '../../lib/site.js';
 
-export function getStaticPaths() {
-  return markets.map((market) => ({ params: { slug: market.slug }, props: { market } }));
+export async function getStaticPaths() {
+  const markets = await getMarkets();
+  return markets.map((market) => ({ params: { slug: market.slug }, props: { market, markets } }));
 }
 
-const { market } = Astro.props;
+const { market, markets } = Astro.props;
+const guides = await getGuides();
 
 const others = markets.filter((m) => m.slug !== market.slug && m.country === market.country).slice(0, 8);
 const localSeoGuides = guides.filter((g) => g.category === 'Local SEO' && g.published).slice(0, 3);
