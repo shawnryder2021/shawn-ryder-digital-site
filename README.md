@@ -97,10 +97,11 @@ Content lives in Supabase and is read **at build time**. The JSON in
 deploy, the build logs a warning and ships the last committed content rather
 than an empty site.
 
-Seed a fresh database once:
+Seed a fresh database once. Put your `service_role` key in `.env` (the file is
+gitignored), then:
 
 ```bash
-SUPABASE_SERVICE_ROLE_KEY=... npm run seed
+npm run seed
 ```
 
 It upserts on natural keys and skips any table that already has rows, so a
