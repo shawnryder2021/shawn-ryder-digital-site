@@ -1,29 +1,23 @@
 [build]
   command = "npm run build"
   publish = "dist"
-  functions = "netlify/functions"
 
 [build.environment]
   NODE_VERSION = "20"
 
-# Friendly paths for the two form endpoints.
-[[redirects]]
-  from = "/api/audit-request"
-  to = "/.netlify/functions/audit-request"
-  status = 200
-  force = true
-
-[[redirects]]
-  from = "/api/subscribe"
-  to = "/.netlify/functions/subscribe"
-  status = 200
-  force = true
-
-[[redirects]]
-  from = "/api/publish"
-  to = "/.netlify/functions/publish"
-  status = 200
-  force = true
+# Each function declares its own route with `export const config = { path }`
+# (Netlify Functions v2), which serves it at /api/<name> and NOT at
+# /.netlify/functions/<name>.
+#
+# There used to be forced redirects here sending /api/* to
+# /.netlify/functions/*. On the edge those won, and they pointed at paths that
+# no longer exist once config.path is used — so every endpoint 404'd in
+# production while working locally, where functions are matched before
+# redirects. Do not add them back; the routing lives in the functions.
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+  included_files = ["netlify/lib/**"]
 
 [[headers]]
   for = "/*"
