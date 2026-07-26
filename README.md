@@ -29,6 +29,7 @@ npx netlify dev      # serves the site and /api/* together
 | `npm test` | Exercises both functions against a stubbed Supabase + webhook |
 | `npm run audit` | Builds, then checks titles, descriptions, h1s, schema and internal links |
 | `npm run seed` | Seeds the CMS tables from `src/data/*.json` (idempotent) |
+| `npm run test:images` | Builds against a stub API and asserts images reach the HTML |
 
 ## Architecture
 
@@ -115,7 +116,7 @@ of rows edited since `site_settings.last_published_at`, shown in the admin
 header. Changes go live a minute or two after publishing.
 
 Editable from the admin: guides (Markdown), all 31 market pages, page copy,
-FAQ, reviews, header/footer menus, and site settings. The editors are generated
+FAQ, reviews, images, header/footer menus, and site settings. The editors are generated
 from field schemas in `src/lib/admin-schema.js` — adding a new editable section
 is a schema entry, not a new UI.
 
@@ -123,6 +124,24 @@ The four sections lost when the design prototype was truncated (`tiers`,
 `audiences`, `audit_includes`, `home_faqs`) exist as empty blocks under **Page
 copy**. Every template hides its section while the list is empty, so they can be
 filled in whenever without a code change.
+
+### Images
+
+Uploads go to a public Supabase Storage bucket (`media`); the `media` table
+tracks alt text and dimensions, and `image_slots` maps named template positions
+(homepage hero, about portrait, AI hero, homepage feature) onto them. Guides
+additionally carry their own cover image.
+
+**Uploads are downscaled in the browser before they are sent** — longest edge
+capped at 2000px, re-encoded to WebP (PNG keeps its transparency, GIF is passed
+through so animation survives). A 4000x3000 phone photo lands around 90%
+smaller. Supabase's free tier has no server-side image transforms, so doing it
+client-side is what keeps page weight sane.
+
+Every `<img>` is rendered with `width`/`height` so pages do not shift while
+images load, and an unassigned slot renders no markup at all rather than an
+empty box — the homepage hero, for instance, drops back to a single-column
+layout when no image is set.
 
 ## Admin area
 
@@ -175,8 +194,7 @@ recovered verbatim from the v1 design file; v2 may have revised that wording, so
 they are worth a read-through. The homepage stat band is reconstructed from
 surviving copy rather than the original array.
 
-**No images.** The prototype had 8 drag-and-drop image slots (hero, dealership,
-portrait, AI hero, guide covers). They held no real files, so nothing carried
-across and the site currently ships with no photography — most visible as empty
-space beside the homepage hero. Real photos need wiring in as `<img>` with
-dimensions set.
+**No photography yet.** The prototype's 8 image slots held no real files, so
+nothing carried across. The plumbing now exists — upload under **Images** in the
+admin and assign to a slot — but until real photos are added the site renders
+without them (by design, not as a broken state).
