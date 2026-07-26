@@ -76,13 +76,16 @@ export async function getMarkets() {
 /* -------------------------------------------------------------- guides ---- */
 
 export async function getGuides() {
-  const rows = await table('guides?order=sort_order.asc&select=*');
+  const rows = await table(
+    'guides?order=sort_order.asc&select=*,cover:cover_media_id(url,alt,width,height)'
+  );
   if (!rows) {
     // JSON fallback: body lives in articles.json keyed by slug.
     return guidesJson.map((g) => ({
       ...g,
       read: g.read,
       body: null,
+      cover: null,
       blocks: articlesJson[g.slug]?.blocks ?? [],
       takeaways: articlesJson[g.slug]?.takeaways ?? [],
     }));
@@ -98,8 +101,23 @@ export async function getGuides() {
     takeaways: g.takeaways ?? [],
     body: g.body_markdown || null,
     blocks: [],
+    cover: g.cover?.url ? g.cover : null,
     published: g.published && Boolean(g.body_markdown),
   }));
+}
+
+/* -------------------------------------------------------------- images ---- */
+
+/**
+ * Named image positions, keyed by slot. Returns {} when unset or unreachable —
+ * every template treats a missing image as "render the section without one".
+ */
+export async function getImageSlots() {
+  const rows = await table('image_slots?select=key,media:media_id(url,alt,width,height)');
+  if (!rows) return {};
+  return Object.fromEntries(
+    rows.filter((r) => r.media?.url).map((r) => [r.key, r.media])
+  );
 }
 
 /* ------------------------------------------------------------- reviews ---- */

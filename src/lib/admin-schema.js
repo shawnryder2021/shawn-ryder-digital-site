@@ -204,4 +204,5 @@ export const NAV_FIELDS = [
 export const CONTENT_TABLES = [
   'site_settings', 'nav_links', 'content_blocks',
   'guides', 'markets', 'reviews', 'faq_groups', 'faq_items',
+  'media', 'image_slots',
 ];

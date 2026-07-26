@@ -71,6 +71,36 @@ export function renderField(field, value) {
     return { node: rep.node, read: rep.read };
   }
 
+  // Picks an existing library image. `field.media` is the library, supplied by
+  // the caller so the picker does not fetch on every field render.
+  if (field.type === 'image') {
+    const select = el('select', {},
+      el('option', { value: '' }, '— none —'),
+      ...(field.media || []).map((m) =>
+        el('option', { value: m.id, ...(m.id === value ? { selected: true } : {}) },
+          `${m.path}${m.alt ? ` — ${m.alt}` : ' — (no alt text)'}`)));
+
+    const preview = el('div', { class: 'imgpreview' });
+    const paint = () => {
+      const chosen = (field.media || []).find((m) => m.id === select.value);
+      preview.replaceChildren(
+        chosen
+          ? el('img', { src: chosen.url, alt: chosen.alt || '', loading: 'lazy' })
+          : el('span', { class: 'nopic' }, 'No image selected')
+      );
+    };
+    select.addEventListener('change', paint);
+    paint();
+
+    return {
+      node: el('div', { class: 'f f-full' },
+        el('span', { class: 'flabel' }, field.label),
+        field.help ? el('small', { class: 'help' }, field.help) : null,
+        preview, select),
+      read: () => select.value || null,
+    };
+  }
+
   const input = el('input', { type: field.type === 'number' ? 'number' : 'text' });
   input.value = value ?? '';
   return { node: labelled(field, input), read: () => input.value };

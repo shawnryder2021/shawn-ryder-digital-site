@@ -1,9 +1,11 @@
 ---
 import Base from '../layouts/Base.astro';
-import { getBlocks, getGuides, getReviews, getSettings } from '../lib/content.js';
+import { getBlocks, getGuides, getReviews, getSettings, getImageSlots } from '../lib/content.js';
 import seo from '../data/seo.json';
 
 const blocks = await getBlocks();
+const images = await getImageSlots();
+const hero = images.home_hero;
 const settings = await getSettings();
 const guides = await getGuides();
 const reviews = await getReviews();
@@ -16,7 +18,7 @@ const stats = blocks.home_stats;
 
 <Base title={title} description={description} path="/">
   <section class="hero">
-    <div class="wrap inner">
+    <div class:list={['wrap', 'inner', { 'has-image': hero }]}>
       <div>
         <div class="badge"><span class="dot"></span>25 years in the car business</div>
         <h1>Digital marketing that shows up on the sales board.</h1>
@@ -34,6 +36,18 @@ const stats = blocks.home_stats;
           <span>✓ You deal with me directly</span>
         </div>
       </div>
+
+      {hero && (
+        <div class="heroimg">
+          <img
+            src={hero.url}
+            alt={hero.alt}
+            width={hero.width}
+            height={hero.height}
+            fetchpriority="high"
+          />
+        </div>
+      )}
     </div>
   </section>
 
@@ -168,6 +182,24 @@ const stats = blocks.home_stats;
     border-bottom: 1px solid var(--line-2);
   }
   .hero .inner { padding-top: 78px; padding-bottom: 84px; }
+  /* Two columns only when there is an image to fill the second one, so an
+     empty slot reads as a deliberate single-column hero rather than a gap. */
+  .hero .inner.has-image {
+    display: grid;
+    grid-template-columns: minmax(0, 1.06fr) minmax(0, 0.94fr);
+    gap: 56px;
+    align-items: center;
+  }
+  .heroimg {
+    border-radius: 22px; overflow: hidden;
+    box-shadow: 0 40px 80px -40px rgba(11, 13, 18, 0.4);
+    aspect-ratio: 4 / 5; max-height: 520px;
+  }
+  .heroimg img { width: 100%; height: 100%; object-fit: cover; }
+  @media (max-width: 900px) {
+    .hero .inner.has-image { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+    .heroimg { aspect-ratio: 16 / 10; }
+  }
   .badge {
     display: inline-flex; align-items: center; gap: 9px;
     background: var(--surface); border: 1px solid var(--line); border-radius: 999px;

@@ -1,9 +1,10 @@
 ---
 import Base from '../layouts/Base.astro';
-import { getBlocks } from '../lib/content.js';
+import { getBlocks, getImageSlots } from '../lib/content.js';
 import seo from '../data/seo.json';
 
 const blocks = await getBlocks();
+const portrait = (await getImageSlots()).about_portrait;
 const [title, description] = seo.about;
 ---
 
@@ -18,6 +19,14 @@ const [title, description] = seo.about;
       </p>
     </div>
   </section>
+
+  {portrait && (
+    <section class="wrap section-tight">
+      <div class="portrait">
+        <img src={portrait.url} alt={portrait.alt} width={portrait.width} height={portrait.height} loading="lazy" />
+      </div>
+    </section>
+  )}
 
   <section class="wrap section">
     <div class="grid grid-2 story">
@@ -107,6 +116,12 @@ const [title, description] = seo.about;
     padding: 62px 0 68px;
   }
   .hero .lede { max-width: 58ch; margin: 22px 0 0; }
+
+  .portrait {
+    max-width: 420px; border-radius: 20px; overflow: hidden;
+    box-shadow: 0 30px 60px -34px rgba(11, 13, 18, 0.42);
+  }
+  .portrait img { width: 100%; height: auto; display: block; }
 
   .story { gap: 56px; }
   .story h2 { font-size: 30px; margin-bottom: 18px; }

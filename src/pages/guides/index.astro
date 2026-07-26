@@ -28,6 +28,10 @@ const [featured, ...rest] = published;
   {featured && (
     <section class="wrap section-tight">
       <a class="featured" href={`/guides/${featured.slug}`}>
+        {featured.cover && (
+          <img class="featimg" src={featured.cover.url} alt={featured.cover.alt}
+               width={featured.cover.width} height={featured.cover.height} loading="lazy" />
+        )}
         <div class="tag">{featured.category} · {featured.read} · {featured.date}</div>
         <h2>{featured.title}</h2>
         <p>{featured.excerpt}</p>
@@ -42,6 +46,10 @@ const [featured, ...rest] = published;
       <div class="grid grid-3">
         {rest.map((guide) => (
           <a class="card" href={`/guides/${guide.slug}`}>
+            {guide.cover && (
+              <img class="thumb" src={guide.cover.url} alt={guide.cover.alt}
+                   width={guide.cover.width} height={guide.cover.height} loading="lazy" />
+            )}
             <div class="tag">{guide.category} · {guide.read}</div>
             <h3>{guide.title}</h3>
             <p>{guide.excerpt}</p>
@@ -94,6 +102,16 @@ const [featured, ...rest] = published;
   .featured h2 { font-size: 38px; max-width: 22ch; margin-bottom: 16px; color: #fff; }
   .featured p { font-size: 18px; line-height: 1.6; color: #c3c7d4; margin: 0 0 26px; max-width: 62ch; }
   .more { font-family: var(--display); font-weight: 700; font-size: 15.5px; color: #9fb0ff; }
+
+  .featimg {
+    width: 100%; aspect-ratio: 21 / 9; object-fit: cover;
+    border-radius: 14px; margin-bottom: 24px;
+  }
+  .thumb {
+    width: calc(100% + 52px); margin: -28px -26px 20px;
+    aspect-ratio: 16 / 9; object-fit: cover;
+    border-radius: 18px 18px 0 0;
+  }
 
   h2.small { font-size: 26px; margin-bottom: 22px; }
   .note { font-size: 15.5px; color: var(--faint); margin: -12px 0 22px; }

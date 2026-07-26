@@ -9,6 +9,9 @@ import {
   BLOCK_SCHEMAS, GUIDE_FIELDS, MARKET_FIELDS, REVIEW_FIELDS, NAV_FIELDS, CONTENT_TABLES,
 } from '../lib/admin-schema.js';
 import { el, renderForm, renderSimpleList, toStrings } from './admin-forms.js';
+import {
+  uploadImage, deleteImage, listMedia, listSlots, formatBytes,
+} from './admin-media.js';
 
 let profile = null;
 let isAdmin = false;
@@ -58,6 +61,7 @@ const SECTIONS = [
   { id: 'guides', label: 'Guides', render: renderGuides },
   { id: 'markets', label: 'Markets', render: renderMarkets },
   { id: 'pages', label: 'Page copy', render: renderPages },
+  { id: 'images', label: 'Images', render: renderImages },
   { id: 'faq', label: 'FAQ', render: renderFaq },
   { id: 'reviews', label: 'Reviews', render: renderReviews },
   { id: 'menus', label: 'Menus', render: renderMenus },
@@ -160,14 +164,25 @@ async function renderGuides() {
   );
 }
 
-function editGuide(guide) {
+async function editGuide(guide) {
   const isNew = !guide;
   const record = guide ?? {
     slug: '', title: '', category: 'Local SEO', excerpt: '', read_time: '5 min read',
     date_label: new Date().toLocaleString('en-CA', { month: 'long', year: 'numeric' }),
-    takeaways: [], body_markdown: '', published: false,
+    takeaways: [], body_markdown: '', published: false, cover_media_id: null,
   };
-  const form = renderForm(GUIDE_FIELDS, record);
+
+  // The cover picker needs the library, so fetch it before building the form.
+  let library = [];
+  try { library = await listMedia(); } catch { /* picker just shows "none" */ }
+
+  const fields = [
+    ...GUIDE_FIELDS.filter((f) => f.name !== 'body_markdown' && f.name !== 'published'),
+    { name: 'cover_media_id', label: 'Cover image', type: 'image', media: library,
+      help: 'Shown on guide cards and at the top of the article. Upload images under Images first.' },
+    ...GUIDE_FIELDS.filter((f) => f.name === 'body_markdown' || f.name === 'published'),
+  ];
+  const form = renderForm(fields, record);
 
   main().replaceChildren(
     el('div', { class: 'editorhead' },
@@ -314,6 +329,120 @@ function editBlock(block) {
       () => supabase.from('content_blocks').update({ content }).eq('key', block.key));
     if (ok) renderPages();
   }
+}
+
+/* --------------------------------------------------------------- images --- */
+
+async function renderImages() {
+  let slots, library;
+  try {
+    [slots, library] = await Promise.all([listSlots(), listMedia()]);
+  } catch (err) {
+    return main().replaceChildren(el('div', { class: 'empty' }, err.message));
+  }
+
+  const fileInput = el('input', {
+    type: 'file', accept: 'image/*', multiple: true, hidden: true,
+    onChange: async (e) => {
+      const files = [...e.target.files];
+      e.target.value = '';
+      if (!files.length) return;
+      if (!guard()) return;
+
+      const progress = $('upload-progress');
+      let done = 0;
+      for (const file of files) {
+        progress.textContent = `Uploading ${file.name} (${done + 1} of ${files.length})…`;
+        try {
+          await uploadImage(file);
+          done++;
+        } catch (err) {
+          toast(`${file.name}: ${err.message}`, 'bad');
+        }
+      }
+      progress.textContent = '';
+      if (done) {
+        toast(`${done} image${done === 1 ? '' : 's'} uploaded`);
+        refreshPublishState();
+        renderImages();
+      }
+    },
+  });
+
+  const missingAlt = library.filter((m) => !m.alt.trim()).length;
+
+  main().replaceChildren(
+    el('div', { class: 'listhead' },
+      el('p', { class: 'muted' },
+        `${library.length} image(s) in the library.` +
+        (missingAlt ? `  ${missingAlt} still need alt text.` : '')),
+      isAdmin ? el('button', { class: 'btn btn-primary sm', onClick: () => fileInput.click() }, '+ Upload images') : null),
+    fileInput,
+    el('p', { id: 'upload-progress', class: 'muted' }),
+    el('p', { class: 'muted' },
+      'Large photos are automatically resized to 2000px and compressed before upload, so a phone photo will not slow the site down.'),
+
+    el('h2', {}, 'Page positions'),
+    el('p', { class: 'muted' }, 'Where each image appears. An empty slot means that section renders without an image.'),
+    el('div', { class: 'cards' }, ...slots.map((slot) => renderSlot(slot, library))),
+
+    el('h2', {}, 'Library'),
+    library.length
+      ? el('div', { class: 'gallery' }, ...library.map((m) => renderMediaCard(m)))
+      : el('div', { class: 'empty' }, 'Nothing uploaded yet. Use “Upload images” above.')
+  );
+}
+
+function renderSlot(slot, library) {
+  const select = el('select', {},
+    el('option', { value: '' }, '— none —'),
+    ...library.map((m) => el('option', {
+      value: m.id, ...(m.id === slot.media_id ? { selected: true } : {}),
+    }, `${m.path}${m.alt ? '' : '  (no alt text)'}`)));
+
+  select.disabled = !isAdmin;
+  select.addEventListener('change', async () => {
+    if (!guard()) return;
+    const ok = await save(
+      () => supabase.from('image_slots').update({ media_id: select.value || null }).eq('key', slot.key),
+      `${slot.label} updated`);
+    if (ok) renderImages();
+  });
+
+  return el('div', { class: 'slotcard' },
+    el('div', { class: 'slotpic' },
+      slot.media
+        ? el('img', { src: slot.media.url, alt: slot.media.alt || '', loading: 'lazy' })
+        : el('span', { class: 'nopic' }, 'Empty')),
+    el('div', { class: 'slotmeta' },
+      el('strong', {}, slot.label),
+      slot.help ? el('small', {}, slot.help) : null,
+      select));
+}
+
+function renderMediaCard(m) {
+  const altInput = el('input', { type: 'text', value: m.alt, placeholder: 'Describe the image…' });
+  altInput.disabled = !isAdmin;
+  altInput.addEventListener('change', async () => {
+    if (!guard()) return;
+    await save(() => supabase.from('media').update({ alt: altInput.value }).eq('id', m.id), 'Alt text saved');
+  });
+
+  return el('figure', { class: 'mediacard' },
+    el('img', { src: m.url, alt: m.alt || '', loading: 'lazy' }),
+    el('figcaption', {},
+      altInput,
+      el('small', {}, `${m.width}×${m.height} · ${formatBytes(m.bytes || 0)}`),
+      isAdmin
+        ? el('button', { class: 'icon danger', onClick: async () => {
+            if (!confirm(`Delete this image? Any page using it will fall back to no image.`)) return;
+            try {
+              await deleteImage(m);
+              toast('Image deleted');
+              renderImages();
+            } catch (err) { toast(err.message, 'bad'); }
+          } }, 'Delete')
+        : null));
 }
 
 /* ------------------------------------------------------------------ faq --- */

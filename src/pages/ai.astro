@@ -1,11 +1,12 @@
 ---
 import Base from '../layouts/Base.astro';
 import Faq from '../components/Faq.astro';
-import { getBlocks } from '../lib/content.js';
+import { getBlocks, getImageSlots } from '../lib/content.js';
 import seo from '../data/seo.json';
 import { faqSchema } from '../lib/site.js';
 
 const blocks = await getBlocks();
+const aiHero = (await getImageSlots()).ai_hero;
 const [title, description] = seo.ai;
 ---
 
@@ -27,6 +28,12 @@ const [title, description] = seo.ai;
         ))}
       </div>
       <a href="/ai-search-visibility" class="btn btn-primary">Start with AI search visibility →</a>
+
+      {aiHero && (
+        <div class="aihero">
+          <img src={aiHero.url} alt={aiHero.alt} width={aiHero.width} height={aiHero.height} loading="lazy" />
+        </div>
+      )}
     </div>
   </section>
 
@@ -99,6 +106,12 @@ const [title, description] = seo.ai;
   .hero h1 { color: #fff; }
   .hero .lede { color: #b9bcc2; max-width: 60ch; margin: 22px 0 40px; }
   .kicker.light { color: #9fb0ff; }
+
+  .aihero {
+    margin-top: 44px; border-radius: 20px; overflow: hidden;
+    aspect-ratio: 21 / 9;
+  }
+  .aihero img { width: 100%; height: 100%; object-fit: cover; }
 
   .teasers { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; margin-bottom: 36px; }
   .teaser { background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 16px; padding: 24px 22px; }
