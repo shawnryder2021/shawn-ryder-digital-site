@@ -11,3 +11,6 @@ npm-debug.log*
 # Working files from the design-prototype import, not part of the site
 _design_export/
 _extract/
+
+# Netlify CLI artifact from `netlify dev`
+deno.lock
