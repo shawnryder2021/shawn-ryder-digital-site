@@ -10,17 +10,39 @@
 // it, tables that already hold rows are left alone so a stray run can never
 // clobber content edited in the admin.
 
-import { readFileSync } from 'node:fs';
+import { readFileSync, existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
-const url = (process.env.SUPABASE_URL || '').replace(/\/+$/, '');
+
+// Read .env automatically so this is a one-word command rather than a line of
+// shell that also leaves the secret in your terminal history.
+const envFile = join(root, '.env');
+if (existsSync(envFile) && typeof process.loadEnvFile === 'function') {
+  process.loadEnvFile(envFile);
+}
+
+const url = (process.env.SUPABASE_URL || process.env.PUBLIC_SUPABASE_URL || '').replace(/\/+$/, '');
 const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
 const force = process.argv.includes('--force');
 
-if (!url || !key) {
-  console.error('Set SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY first.');
+if (!key) {
+  console.error(`
+Missing SUPABASE_SERVICE_ROLE_KEY.
+
+  1. Open your Supabase project → Project Settings → API keys
+  2. Copy the "service_role" key (the secret one, not "anon"/"publishable")
+  3. Paste it into the .env file in this folder, on this line:
+
+       SUPABASE_SERVICE_ROLE_KEY=paste_it_here
+
+  4. Run  npm run seed  again
+`);
+  process.exit(1);
+}
+if (!url) {
+  console.error('Missing SUPABASE_URL in .env.');
   process.exit(1);
 }
 
