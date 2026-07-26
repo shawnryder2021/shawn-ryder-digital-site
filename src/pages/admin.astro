@@ -103,6 +103,14 @@ import '../styles/global.css';
     </script>
 
     <style is:global>
+      /* The [hidden] attribute must beat every author rule below. Several
+         elements here carry their own display value — #login is grid, .btn is
+         inline-block, .pill is inline-block — and an author selector outranks
+         the browser's built-in [hidden] rule. Without this, hiding the login
+         form after a successful sign-in left it on screen filling the viewport,
+         with the signed-in admin pushed below the fold. */
+      [hidden] { display: none !important; }
+
       body.admin { background: var(--bg); }
       .state, .loading { padding: 48px 28px; font-size: 16px; color: var(--muted); }
 

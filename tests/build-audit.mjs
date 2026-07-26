@@ -64,6 +64,27 @@ for (const file of NOINDEX) {
   if (/service_role|SUPABASE_SERVICE_ROLE/.test(html)) {
     problems.push(`${file}: service role key referenced in client HTML`);
   }
+  // The admin toggles sections with the [hidden] attribute, but several of them
+  // carry an author display value (#login grid, .btn/.pill inline-block) that
+  // outranks the browser's built-in [hidden] rule. Without an explicit override
+  // a "hidden" login form stays on screen and the signed-in UI lands below the
+  // fold — which reads exactly like a broken login.
+  //
+  // Astro extracts <style> into a linked file, so search the HTML *and* every
+  // local stylesheet it pulls in.
+  const styleSources = [html];
+  for (const m of html.matchAll(/<link[^>]*href="(\/[^"]+\.css)"/g)) {
+    const cssPath = join(DIST, m[1].slice(1));
+    try {
+      styleSources.push(readFileSync(cssPath, 'utf8'));
+    } catch {
+      problems.push(`${file}: links a stylesheet that is not in the build: ${m[1]}`);
+    }
+  }
+  const hiddenRule = /\[hidden\]\s*\{\s*display:\s*none\s*!important/;
+  if (!styleSources.some((s) => hiddenRule.test(s))) {
+    problems.push(`${file}: missing "[hidden] { display: none !important }" — hidden sections can stay visible`);
+  }
 }
 // The publishable key is safe to ship; the service role key never is. Match on
 // actual key material — supabase-js itself contains the bare string
