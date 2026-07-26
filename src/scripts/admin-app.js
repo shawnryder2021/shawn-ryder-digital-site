@@ -120,8 +120,19 @@ async function renderLeads() {
       }, lead.webhook_status || 'n/a')));
   });
 
-  main().replaceChildren(table(
-    ['Received', 'Name', 'Dealership', 'Contact', 'Notes', 'Status', 'Webhook'], rows));
+  // A failing webhook is invisible otherwise — the lead still saves, so nothing
+  // looks broken until you notice notifications stopped arriving.
+  const failed = data.filter((l) => l.webhook_status === 'failed');
+  const banner = failed.length
+    ? el('div', { class: 'warnbar' },
+        el('strong', {}, `${failed.length} lead${failed.length === 1 ? '' : 's'} did not reach your notification webhook.`),
+        el('span', {}, ' The leads themselves are safe and listed below — only the notification failed. '),
+        el('code', {}, failed[0].webhook_error || 'unknown error'))
+    : null;
+
+  main().replaceChildren(
+    banner,
+    table(['Received', 'Name', 'Dealership', 'Contact', 'Notes', 'Status', 'Webhook'], rows));
 }
 
 async function renderSubscribers() {
@@ -607,7 +618,11 @@ async function refreshPublishState() {
 
   let changed = 0;
   await Promise.all(CONTENT_TABLES.map(async (t) => {
-    const query = supabase.from(t).select('*', { count: 'exact', head: true });
+    let query = supabase.from(t).select('*', { count: 'exact', head: true });
+    // The publish stamp lives in site_settings and is written *by* publishing,
+    // so counting it would leave "1 unpublished change" on screen forever
+    // immediately after every publish.
+    if (t === 'site_settings') query = query.neq('key', 'last_published_at');
     const { count } = since ? await query.gt('updated_at', since) : await query;
     changed += count ?? 0;
   }));
