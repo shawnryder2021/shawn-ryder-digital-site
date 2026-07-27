@@ -14,7 +14,9 @@ import * as db from '../lib/supabase.mjs';
 import { str, email as validEmail, isBot } from '../lib/validate.mjs';
 import { createHash } from 'node:crypto';
 
-const MODEL = process.env.OPENROUTER_MODEL || 'anthropic/claude-3.5-haiku';
+// Verified against https://openrouter.ai/api/v1/models — "anthropic/claude-3.5-haiku"
+// was wrong and OpenRouter answers "No endpoints found" for it.
+const MODEL = process.env.OPENROUTER_MODEL || 'anthropic/claude-haiku-4.5';
 const PER_IP_PER_DAY = 3;
 const GLOBAL_PER_DAY = 150;      // hard ceiling on the API bill
 // Netlify kills a synchronous function at 10 seconds, so the whole run has to

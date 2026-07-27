@@ -87,7 +87,7 @@ Set in Netlify under **Site configuration → Environment variables**. See
 | `PUBLIC_SUPABASE_PUBLISHABLE_KEY` | Publishable key. Public by design |
 | `NETLIFY_BUILD_HOOK_URL` | Build hook the Publish button calls |
 | `OPENROUTER_API_KEY` | Secret. Powers the AI visibility checker |
-| `OPENROUTER_MODEL` | Optional. Defaults to `anthropic/claude-3.5-haiku` |
+| `OPENROUTER_MODEL` | Optional. Defaults to `anthropic/claude-haiku-4.5` |
 | `PUBLIC_PLAUSIBLE_DOMAIN` | Optional. Enables Plausible analytics |
 | `PUBLIC_UMAMI_SRC` / `PUBLIC_UMAMI_ID` | Optional. Enables Umami instead |
 
@@ -168,6 +168,12 @@ validate → rate-limit → call the model → store → respond:
 - IPs are stored **salted-hashed**, never raw.
 - Without `OPENROUTER_API_KEY` it returns a helpful "not switched on" message
   and makes no API call at all.
+- The whole run shares an **8.5s budget**, because Netlify kills a synchronous
+  function at 10s. Prompts run in order and whatever finished is returned — a
+  slow model yields fewer answers rather than an error. Free models typically
+  manage one of three; `anthropic/claude-haiku-4.5` fits all three.
+- Header values are ASCII-filtered. An em dash in `X-Title` once made `fetch`
+  throw before sending, so every call failed with no status and no body.
 
 `npm run test:visibility` covers all of that, asserting **zero model calls**
 whenever a request is rate-limited or unconfigured.
