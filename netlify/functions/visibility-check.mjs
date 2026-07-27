@@ -17,11 +17,14 @@ import { createHash } from 'node:crypto';
 const MODEL = process.env.OPENROUTER_MODEL || 'anthropic/claude-3.5-haiku';
 const PER_IP_PER_DAY = 3;
 const GLOBAL_PER_DAY = 150;      // hard ceiling on the API bill
-// Free OpenRouter models are slow and tightly concurrency-limited, so prompts
-// run one at a time with a gap between them rather than all at once.
-const TIMEOUT_MS = 45000;
-const MAX_TOKENS = 400;
-const GAP_MS = 600;
+// Netlify kills a synchronous function at 10 seconds, so the whole run has to
+// fit inside that — there is no waiting for a slow model. Prompts run in order
+// against a shared deadline and we return whatever finished in time; the first
+// prompt is the most important one, so it gets the best shot.
+const TOTAL_BUDGET_MS = 8500;
+const MIN_CALL_MS = 1800;   // not worth starting a call with less left than this
+const MAX_TOKENS = 260;     // shorter answers come back faster
+const GAP_MS = 250;
 
 /** Real shopper phrasing, not marketing questions. */
 const PROMPTS = [
@@ -36,14 +39,14 @@ const hashIp = (ip) =>
 /** Header values must be Latin-1; anything above 255 makes fetch throw. */
 const ascii = (s) => String(s ?? '').replace(/[^\x20-\x7E]/g, '');
 
-async function askModel(prompt) {
+async function askModel(prompt, timeoutMs) {
   // Trimmed: a key pasted into a dashboard often carries a trailing newline or
   // stray whitespace, which makes the Authorization header invalid and causes
   // fetch to throw before any request is made — no status, no response body.
   const apiKey = (process.env.OPENROUTER_API_KEY || '').trim();
 
   const abort = new AbortController();
-  const timer = setTimeout(() => abort.abort(), TIMEOUT_MS);
+  const timer = setTimeout(() => abort.abort(), timeoutMs);
   try {
     const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
       method: 'POST',
@@ -151,12 +154,18 @@ export default async (req) => {
   // useful rather than an error page.
   const results = [];
   let lastError = null;
+  const deadline = Date.now() + TOTAL_BUDGET_MS;
 
   for (const [i, build] of PROMPTS.entries()) {
+    const remaining = deadline - Date.now();
+    if (remaining < MIN_CALL_MS) {
+      console.warn(`visibility-check: out of time budget, ran ${results.length} of ${PROMPTS.length} prompts`);
+      break;
+    }
     const prompt = build(dealership, city);
     try {
       if (i > 0) await new Promise((r) => setTimeout(r, GAP_MS));
-      const answer = await askModel(prompt);
+      const answer = await askModel(prompt, deadline - Date.now());
       results.push({
         prompt,
         answer,
@@ -182,7 +191,7 @@ export default async (req) => {
       429: 'OpenRouter rate-limited the request. Free models have tight limits — try again shortly or switch model.',
     }[err.status] ||
       (err.name === 'AbortError'
-        ? `The model did not respond within ${TIMEOUT_MS / 1000}s. Free models are often slow — try again, or set OPENROUTER_MODEL to a faster one.`
+        ? 'The model did not answer inside the time the page can wait. Free models are often too slow for this — set OPENROUTER_MODEL to a faster one.'
         : null);
 
     return fail(
