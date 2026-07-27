@@ -258,9 +258,10 @@ export async function getNav() {
   const fallback = {
     header: [
       { label: 'Home', href: '/' }, { label: 'Services', href: '/services' },
-      { label: 'AI', href: '/ai' }, { label: 'Guides', href: '/guides' },
-      { label: 'Markets', href: '/markets' }, { label: 'FAQ', href: '/faq' },
+      { label: 'Process', href: '/process' }, { label: 'AI', href: '/ai' },
+      { label: 'Guides', href: '/guides' }, { label: 'FAQ', href: '/faq' },
       { label: 'About', href: '/about' }, { label: 'Contact', href: '/contact' },
+      // Markets is deliberately not here — it lives in the footer only.
     ],
     footer: [],
   };

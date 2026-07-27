@@ -71,22 +71,59 @@ async function count(table) {
   return Number((res.headers.get('content-range') || '*/0').split('/')[1] || 0);
 }
 
+/**
+ * Inserts rows that are missing and leaves existing ones alone.
+ *
+ * The old behaviour was all-or-nothing: skip the whole table if it had any
+ * rows. That made adding content impossible without --force, which overwrites
+ * everything including admin edits. Topping up by key is both safer and what
+ * you actually want when new markets or guides are added to the JSON.
+ */
 async function seed(table, rows, conflict) {
-  const existing = await count(table);
-  if (existing > 0 && !force) {
-    console.log(`  ${table.padEnd(16)} skipped — ${existing} row(s) already present (use --force)`);
-    return;
-  }
   if (!rows.length) {
     console.log(`  ${table.padEnd(16)} nothing to insert`);
     return;
   }
-  await rest(`${table}?on_conflict=${conflict}`, {
-    method: 'POST',
-    body: rows,
-    prefer: 'resolution=merge-duplicates,return=minimal',
-  });
-  console.log(`  ${table.padEnd(16)} ${rows.length} row(s)`);
+
+  // Tables keyed by a generated id cannot be topped up by natural key, so they
+  // keep the original all-or-nothing behaviour.
+  if (conflict === 'id') {
+    const existing = await count(table);
+    if (existing > 0 && !force) {
+      console.log(`  ${table.padEnd(16)} skipped — ${existing} row(s) present (use --force)`);
+      return;
+    }
+    await rest(table, { method: 'POST', body: rows, prefer: 'return=minimal' });
+    console.log(`  ${table.padEnd(16)} ${rows.length} row(s)`);
+    return;
+  }
+
+  const present = new Set(
+    ((await rest(`${table}?select=${conflict}`)) ?? []).map((r) => r[conflict])
+  );
+  const missing = rows.filter((r) => !present.has(r[conflict]));
+
+  if (force) {
+    await rest(`${table}?on_conflict=${conflict}`, {
+      method: 'POST',
+      body: rows,
+      prefer: 'resolution=merge-duplicates,return=minimal',
+    });
+    console.log(`  ${table.padEnd(16)} ${rows.length} row(s) overwritten (--force)`);
+    return;
+  }
+
+  if (!missing.length) {
+    console.log(`  ${table.padEnd(16)} up to date — ${present.size} row(s), nothing missing`);
+    return;
+  }
+
+  await rest(table, { method: 'POST', body: missing, prefer: 'return=minimal' });
+  console.log(
+    `  ${table.padEnd(16)} +${missing.length} added (${present.size} already there): ` +
+      missing.map((r) => r[conflict]).slice(0, 6).join(', ') +
+      (missing.length > 6 ? ` …+${missing.length - 6}` : '')
+  );
 }
 
 /** The prototype stored article bodies as block arrays; the admin edits Markdown. */

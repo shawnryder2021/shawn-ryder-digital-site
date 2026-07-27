@@ -6,9 +6,9 @@ Claude Design prototype (`Shawn Ryder Digital v2.dc.html`), which rendered every
 page client-side from a single file — no good for a site whose whole point is
 being read by search engines and AI assistants.
 
-**59 pages build to real HTML**: home, services, process, scorecard, AI, AI
+**69 pages build to real HTML**: home, services, process, scorecard, AI, AI
 search visibility, AI visibility checker, guides index + 15 guide URLs, markets
-index + 31 market pages, FAQ, about, contact. Plus `/sitemap.xml`, `/rss.xml`
+index + 51 market pages, FAQ, about, contact. Plus `/sitemap.xml`, `/rss.xml`
 and `/llms.txt`, all generated from the same content.
 
 ## Running it
@@ -110,9 +110,10 @@ gitignored), then:
 npm run seed
 ```
 
-It upserts on natural keys and skips any table that already has rows, so a
-stray run can never clobber content edited in the admin. Pass `--force` to
-overwrite deliberately.
+It **tops up**: rows missing from the database get inserted, rows already there
+are left exactly as they are. So adding a market or guide to `src/data/` and
+re-running is the normal way to publish new content, and a stray run can never
+clobber something edited in the admin. Pass `--force` to overwrite deliberately.
 
 ### How publishing works
 
@@ -122,7 +123,7 @@ rebuilds. That gives drafts for free: "unpublished changes" is simply the count
 of rows edited since `site_settings.last_published_at`, shown in the admin
 header. Changes go live a minute or two after publishing.
 
-Editable from the admin: guides (Markdown), all 31 market pages, page copy
+Editable from the admin: guides (Markdown), all 51 market pages, page copy
 (including the scorecard and process steps), FAQ, reviews, images,
 header/footer menus, and site settings. The editors are generated
 from field schemas in `src/lib/admin-schema.js` — adding a new editable section
