@@ -34,13 +34,18 @@ const hashIp = (ip) =>
   ip ? createHash('sha256').update(`srd:${ip}`).digest('hex').slice(0, 40) : null;
 
 async function askModel(prompt) {
+  // Trimmed: a key pasted into a dashboard often carries a trailing newline or
+  // stray whitespace, which makes the Authorization header invalid and causes
+  // fetch to throw before any request is made — no status, no response body.
+  const apiKey = (process.env.OPENROUTER_API_KEY || '').trim();
+
   const abort = new AbortController();
   const timer = setTimeout(() => abort.abort(), TIMEOUT_MS);
   try {
     const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
       method: 'POST',
       headers: {
-        authorization: `Bearer ${process.env.OPENROUTER_API_KEY}`,
+        authorization: `Bearer ${apiKey}`,
         'content-type': 'application/json',
         'HTTP-Referer': 'https://shawnryder.com',
         'X-Title': 'Shawn Ryder Digital — AI visibility check',
@@ -178,9 +183,14 @@ export default async (req) => {
       req,
       502,
       reason || 'The assistant did not answer. Please try again in a minute.',
-      // Surfaced so the upstream text is visible without digging through
-      // Netlify logs. Contains no key material — only OpenRouter's own message.
-      err.upstream ? { upstream: String(err.upstream).slice(0, 300), model: MODEL } : undefined
+      // Surfaced so the cause is visible without digging through Netlify logs.
+      // Contains no key material — only OpenRouter's message, or the local
+      // error when the request never left the building.
+      {
+        model: MODEL,
+        ...(err.upstream ? { upstream: String(err.upstream).slice(0, 300) } : {}),
+        ...(err.upstream ? {} : { cause: `${err.name}: ${err.message}`.slice(0, 200) }),
+      }
     );
   }
 
