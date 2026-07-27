@@ -184,6 +184,46 @@ export async function getBlocks() {
     audiences: [],
     audit_includes: [],
     home_faqs: [],
+
+    // /scorecard and /process are driven entirely by these, so unlike the
+    // sections above they must have real defaults — an empty fallback would
+    // render a scorecard with no questions if the database were unreachable
+    // during a build.
+    scorecard_checks: [
+      { v: 'Leads sometimes sit for hours before anyone calls' },
+      { v: 'Nobody owns our Google Business Profile posts' },
+      { v: 'Our review score doesn’t match how we treat people' },
+      { v: 'Social is whatever someone remembers to post' },
+      { v: 'We never market to our own customer database' },
+      { v: 'We pay several vendors and can’t tell what works' },
+    ],
+    scorecard_verdicts: [
+      { v: 'Nothing ticked yet — start ticking, or just ask for the audit and I’ll find the gaps myself.' },
+      { v: 'One gap. Usually the cheapest kind to fix, and often the fastest payback.' },
+      { v: 'Two gaps. That’s typically a process problem, not a spend problem.' },
+      { v: 'Three gaps. There are deals in your market you’re currently handing to the store down the road.' },
+      { v: 'Four gaps. Your traffic is probably fine — the handling of it isn’t.' },
+      { v: 'Five gaps. Worth a call this week, honestly.' },
+      { v: 'Six of six. Nothing here is unfixable, but it needs one person owning all of it.' },
+    ],
+    process_steps: [
+      { n: '01', title: 'The audit',
+        body: 'I go through your website, Google Business Profile, reviews and lead response the way a shopper would — then tell you the honest version of what I find. I also submit a lead to your own store and time the response.',
+        yours: 'Your store name and permission to poke around. Nothing else.',
+        mine: 'A one-page write-up of what is costing you deals, ranked by what I would fix first.' },
+      { n: '02', title: 'The plan',
+        body: 'One page. What we fix first, what it should produce, what it costs, and how long before you can judge it. No 40-slide deck, no jargon, no retainer you cannot leave.',
+        yours: 'Half an hour on the phone to tell me what you actually care about this quarter.',
+        mine: 'A written plan with a start, a finish and a number attached.' },
+      { n: '03', title: 'The work',
+        body: 'I execute. Search, profile, reviews, email, social, follow-up process — whichever pieces we agreed on. You sell cars. I do not need managing.',
+        yours: 'A single point of contact at the store and access to the accounts.',
+        mine: 'The work, done, on the schedule we set.' },
+      { n: '04', title: 'The check-in',
+        body: 'Monthly, in plain language: what moved, what did not, what I am changing next. Measured on appointments and deliveries, not impressions.',
+        yours: 'Twenty minutes a month and your sales numbers so we can tie the two together.',
+        mine: 'A report you can read in five minutes and repeat to your GM.' },
+    ],
   };
 
   if (!rows) return fallback;

@@ -30,3 +30,6 @@ Allow: /
 Disallow: /admin
 
 Sitemap: https://shawnryder.com/sitemap.xml
+
+# Plain-text summary for assistants — see llmstxt.org
+# https://shawnryder.com/llms.txt

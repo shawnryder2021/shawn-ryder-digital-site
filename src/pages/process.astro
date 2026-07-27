@@ -1,0 +1,150 @@
+---
+import Base from '../layouts/Base.astro';
+import { getBlocks } from '../lib/content.js';
+import { site } from '../lib/site.js';
+
+const blocks = await getBlocks();
+const steps = blocks.process_steps ?? [];
+
+const title = 'How Working With Me Actually Goes | Shawn Ryder Digital';
+const description =
+  'Audit, plan, work, check-in. What I need from your store at each stage, what you get back, and how long it takes — before you commit to anything.';
+
+// HowTo describes the engagement to search engines and assistants in the same
+// terms the page does.
+const schema = steps.length
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'HowTo',
+      name: 'Working with Shawn Ryder Digital',
+      description,
+      step: steps.map((s, i) => ({
+        '@type': 'HowToStep',
+        position: i + 1,
+        name: s.title,
+        text: s.body,
+      })),
+    }
+  : null;
+---
+
+<Base title={title} description={description} path="/process" schema={schema}>
+  <section class="hero">
+    <div class="wrap">
+      <div class="kicker">Process</div>
+      <h1>Four steps. Nothing hidden.</h1>
+      <p class="lede">
+        Most dealers have been burned by a vendor who disappeared after the contract was signed.
+        So here is exactly how this goes, what I need from you at each stage, and what you get
+        back — before you commit to anything.
+      </p>
+    </div>
+  </section>
+
+  <div class="wrap">
+    {steps.map((step) => (
+      <section class="step">
+        <div class="n">{step.n}</div>
+        <div class="what">
+          <h2>{step.title}</h2>
+          <p>{step.body}</p>
+        </div>
+        <dl class="swap">
+          {step.yours && (
+            <div>
+              <dt>What I need from you</dt>
+              <dd>{step.yours}</dd>
+            </div>
+          )}
+          {step.mine && (
+            <div>
+              <dt>What you get back</dt>
+              <dd>{step.mine}</dd>
+            </div>
+          )}
+        </dl>
+      </section>
+    ))}
+  </div>
+
+  <section class="wrap section">
+    <div class="grid grid-2 promises">
+      <div class="card">
+        <h3>No long-term contract</h3>
+        <p>Projects have a start and a finish. Retainers are month to month, once we both know the work is producing.</p>
+      </div>
+      <div class="card">
+        <h3>You deal with me</h3>
+        <p>No account coordinator, no offshore content team, nobody you have to re-explain your store to every month.</p>
+      </div>
+      <div class="card">
+        <h3>Plain-language reporting</h3>
+        <p>Measured on appointments, shows and deliveries. Impressions don't hit a forecast.</p>
+      </div>
+      <div class="card">
+        <h3>I'll tell you to skip things</h3>
+        <p>If a piece of this won't put a buyer in front of your salespeople this month, I'll say so rather than bill for it.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-band">
+    <div class="wrap">
+      <div>
+        <h2>Step one is free.</h2>
+        <p>The audit costs nothing and you keep the write-up whether or not we work together.</p>
+      </div>
+      <a href="/contact" class="btn btn-dark">Request the audit</a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .hero {
+    background:
+      radial-gradient(900px 460px at 78% 10%, var(--brand-tint) 0%, rgba(238, 241, 255, 0) 70%),
+      var(--bg);
+    border-bottom: 1px solid var(--line-2);
+    padding: 62px 0 66px;
+  }
+  .hero .lede { max-width: 62ch; margin: 22px 0 0; }
+
+  .step {
+    display: grid;
+    grid-template-columns: 76px minmax(0, 1.2fr) minmax(0, 1fr);
+    gap: 44px;
+    padding: 52px 0;
+    border-bottom: 1px solid var(--line);
+    align-items: start;
+  }
+  .n {
+    font-family: var(--display); font-weight: 800; font-size: 40px;
+    color: var(--brand); letter-spacing: -0.04em; line-height: 0.9;
+  }
+  .what h2 { font-size: 30px; margin-bottom: 14px; }
+  .what p { font-size: 17px; line-height: 1.65; color: var(--ink-2); margin: 0; text-wrap: pretty; }
+
+  .swap { margin: 0; display: grid; gap: 20px; }
+  dt {
+    font-size: 12.5px; font-weight: 600; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--brand); margin-bottom: 6px;
+  }
+  dd { margin: 0; font-size: 15.5px; line-height: 1.6; color: var(--ink-3); }
+
+  .promises h3 { margin-bottom: 10px; }
+  .promises p { font-size: 15.5px; line-height: 1.6; color: var(--ink-3); margin: 0; text-wrap: pretty; }
+
+  .cta-band { background: var(--brand-tint); border-top: 1px solid var(--brand-line); }
+  .cta-band .wrap {
+    padding-top: 56px; padding-bottom: 56px;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 40px; flex-wrap: wrap;
+  }
+  .cta-band h2 { font-size: 32px; margin-bottom: 10px; }
+  .cta-band p { font-size: 16.5px; color: var(--ink-2); margin: 0; max-width: 56ch; }
+
+  @media (max-width: 900px) {
+    .step { grid-template-columns: minmax(0, 1fr); gap: 20px; padding: 36px 0; }
+    .n { font-size: 30px; }
+  }
+</style>

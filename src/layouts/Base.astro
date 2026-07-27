@@ -13,6 +13,14 @@ const {
 } = Astro.props;
 
 const canonical = new URL(path === '/' ? '/' : path, site.url).href;
+
+// Analytics is opt-in via env so no vendor is baked into the code and local
+// builds never phone home. Set one of these in Netlify:
+//   PUBLIC_PLAUSIBLE_DOMAIN=shawnryder.com
+//   PUBLIC_UMAMI_SRC=https://…/script.js  +  PUBLIC_UMAMI_ID=…
+const plausibleDomain = import.meta.env.PUBLIC_PLAUSIBLE_DOMAIN;
+const umamiSrc = import.meta.env.PUBLIC_UMAMI_SRC;
+const umamiId = import.meta.env.PUBLIC_UMAMI_ID;
 ---
 
 <!doctype html>
@@ -24,6 +32,7 @@ const canonical = new URL(path === '/' ? '/' : path, site.url).href;
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
+    <link rel="alternate" type="application/rss+xml" title="Shawn Ryder Digital — Guides" href="/rss.xml" />
 
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
@@ -44,6 +53,13 @@ const canonical = new URL(path === '/' ? '/' : path, site.url).href;
       set:html={JSON.stringify(organizationSchema)}
     />
     {schema && <script type="application/ld+json" set:html={JSON.stringify(schema)} />}
+
+    {plausibleDomain && (
+      <script defer data-domain={plausibleDomain} src="https://plausible.io/js/script.js"></script>
+    )}
+    {umamiSrc && umamiId && (
+      <script defer src={umamiSrc} data-website-id={umamiId}></script>
+    )}
   </head>
 
   <body>

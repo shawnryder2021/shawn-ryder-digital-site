@@ -100,12 +100,16 @@ for (const file of walk(DIST).filter((f) => /\.(html|js)$/.test(f))) {
   if (hit) problems.push(`${file}: possible secret in client bundle (matched ${hit})`);
 }
 
-// Internal links must resolve to a built page.
+// Internal links must resolve to something actually built. Derived from every
+// emitted file, not just HTML — /rss.xml, /llms.txt and /sitemap.xml are real
+// routes too, and hardcoding exceptions here just hides future breakage.
 const routes = new Set(
-  allPages.map((f) => '/' + f.slice(DIST.length + 1).replace(/\.html$/, '').replace(/^index$/, ''))
+  walk(DIST).map((f) => {
+    const rel = '/' + f.slice(DIST.length + 1);
+    return rel.endsWith('.html') ? rel.replace(/\.html$/, '').replace(/^\/index$/, '/') : rel;
+  })
 );
-routes.add('/sitemap.xml');
-routes.add('/robots.txt');
+routes.add('/');
 
 const broken = new Set();
 for (const file of pages) {

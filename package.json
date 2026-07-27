@@ -14,7 +14,8 @@
     "test": "node tests/functions.test.mjs",
     "audit": "npm run build && node tests/build-audit.mjs",
     "seed": "node scripts/seed.mjs",
-    "test:images": "node tests/images-render.test.mjs"
+    "test:images": "node tests/images-render.test.mjs",
+    "test:visibility": "node tests/visibility-check.test.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.110.8",

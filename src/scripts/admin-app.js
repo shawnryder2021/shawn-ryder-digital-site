@@ -56,6 +56,7 @@ const guard = () => {
 /* ------------------------------------------------------------- sections --- */
 
 const SECTIONS = [
+  { id: 'insights', label: 'Insights', render: renderInsights },
   { id: 'leads', label: 'Leads', render: renderLeads },
   { id: 'subscribers', label: 'Subscribers', render: renderSubscribers },
   { id: 'guides', label: 'Guides', render: renderGuides },
@@ -155,6 +156,110 @@ const table = (headers, rows) =>
     el('table', {},
       el('thead', {}, el('tr', {}, ...headers.map((h) => el('th', {}, h)))),
       el('tbody', {}, ...rows)));
+
+/* ------------------------------------------------------------- insights --- */
+
+/** Which pages actually produce leads — from data already captured per lead. */
+async function renderInsights() {
+  const [leads, subs, checks] = await Promise.all([
+    supabase.from('leads').select('created_at, source_page, market_slug, status'),
+    supabase.from('newsletter_subscribers').select('created_at, source_page'),
+    supabase.from('visibility_checks').select('created_at, dealership, city, mentioned').order('created_at', { ascending: false }).limit(50),
+  ]);
+
+  if (leads.error) return main().replaceChildren(el('div', { class: 'empty' }, leads.error.message));
+
+  const rows = leads.data ?? [];
+  if (!rows.length && !(subs.data ?? []).length) {
+    return main().replaceChildren(el('div', { class: 'empty' },
+      'Nothing to report yet. Once leads start arriving this shows which pages produced them.'));
+  }
+
+  const tally = (list, key) => {
+    const counts = new Map();
+    for (const r of list) {
+      const k = r[key] || '(not recorded)';
+      counts.set(k, (counts.get(k) ?? 0) + 1);
+    }
+    return [...counts.entries()].sort((a, b) => b[1] - a[1]);
+  };
+
+  // Last 12 weeks, oldest first.
+  const weeks = new Map();
+  const weekStart = (d) => {
+    const x = new Date(d);
+    x.setHours(0, 0, 0, 0);
+    x.setDate(x.getDate() - x.getDay());
+    return x.toISOString().slice(0, 10);
+  };
+  for (const r of rows) {
+    const w = weekStart(r.created_at);
+    weeks.set(w, (weeks.get(w) ?? 0) + 1);
+  }
+  const series = [...weeks.entries()].sort().slice(-12);
+  const peak = Math.max(1, ...series.map(([, n]) => n));
+
+  const bars = el('div', { class: 'spark' },
+    ...series.map(([w, n]) =>
+      el('div', { class: 'sparkcol', title: `${n} lead(s) week of ${w}` },
+        el('div', { class: 'sparkbar', style: `height:${Math.round((n / peak) * 100)}%` }),
+        el('small', {}, w.slice(5)))));
+
+  const list = (title, entries, note) =>
+    el('section', { class: 'insight' },
+      el('h2', {}, title),
+      note ? el('p', { class: 'muted' }, note) : null,
+      entries.length
+        ? el('div', { class: 'bars' }, ...entries.slice(0, 12).map(([label, n]) =>
+            el('div', { class: 'barrow' },
+              el('span', { class: 'barlabel' }, label),
+              el('span', { class: 'bartrack' },
+                el('span', { class: 'barfill', style: `width:${(n / entries[0][1]) * 100}%` })),
+              el('strong', {}, String(n)))))
+        : el('p', { class: 'muted' }, 'Nothing recorded yet.'));
+
+  const statuses = tally(rows, 'status');
+  const won = rows.filter((r) => r.status === 'qualified' || r.status === 'closed').length;
+
+  main().replaceChildren(
+    el('div', { class: 'statrow' },
+      stat('Leads', rows.length),
+      stat('Subscribers', (subs.data ?? []).length),
+      stat('Visibility checks', (checks.data ?? []).length),
+      stat('Qualified or closed', won)),
+
+    el('section', { class: 'insight' },
+      el('h2', {}, 'Leads per week'),
+      el('p', { class: 'muted' }, 'Last 12 weeks.'),
+      series.length ? bars : el('p', { class: 'muted' }, 'Not enough history yet.')),
+
+    list('Which pages produce leads', tally(rows, 'source_page'),
+      'The page the form was submitted from. Tells you which content is actually working.'),
+
+    list('Which markets produce leads', tally(rows.filter((r) => r.market_slug), 'market_slug'),
+      'Only set when the lead came from a market page.'),
+
+    list('Lead status', statuses, 'Keep these current and this becomes a real pipeline view.'),
+
+    (checks.data ?? []).length
+      ? el('section', { class: 'insight' },
+          el('h2', {}, 'Recent AI visibility checks'),
+          el('p', { class: 'muted' }, 'Dealers who ran the free checker. A "not named" result is a warm lead.'),
+          table(['When', 'Dealership', 'City', 'Result'],
+            checks.data.map((c) => el('tr', {},
+              el('td', { class: 'nowrap' }, fmtDate(c.created_at)),
+              el('td', {}, c.dealership),
+              el('td', {}, c.city),
+              el('td', {}, el('span', { class: `pill ${c.mentioned ? 'ok' : 'warn'}` },
+                c.mentioned ? 'named' : 'not named'))))))
+      : null,
+  );
+}
+
+const stat = (label, value) =>
+  el('div', { class: 'statcard' },
+    el('strong', {}, String(value)),
+    el('span', {}, label));
 
 /* --------------------------------------------------------------- guides --- */
 

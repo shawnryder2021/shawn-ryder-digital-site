@@ -8,6 +8,8 @@ import { site } from '../lib/site.js';
 const STATIC_PAGES = [
   { path: '/', changefreq: 'monthly', priority: '1.0' },
   { path: '/services', changefreq: 'monthly', priority: '0.9' },
+  { path: '/process', changefreq: 'yearly', priority: '0.8' },
+  { path: '/scorecard', changefreq: 'yearly', priority: '0.8' },
   { path: '/contact', changefreq: 'yearly', priority: '0.9' },
   { path: '/ai-search-visibility', changefreq: 'monthly', priority: '0.9' },
   { path: '/guides', changefreq: 'weekly', priority: '0.9' },

@@ -6,9 +6,10 @@ Claude Design prototype (`Shawn Ryder Digital v2.dc.html`), which rendered every
 page client-side from a single file — no good for a site whose whole point is
 being read by search engines and AI assistants.
 
-**55 pages build to real HTML**: home, services, AI, AI search visibility,
-guides index + 15 guide URLs, markets index + 31 market pages, FAQ, about,
-contact.
+**59 pages build to real HTML**: home, services, process, scorecard, AI, AI
+search visibility, AI visibility checker, guides index + 15 guide URLs, markets
+index + 31 market pages, FAQ, about, contact. Plus `/sitemap.xml`, `/rss.xml`
+and `/llms.txt`, all generated from the same content.
 
 ## Running it
 
@@ -30,6 +31,7 @@ npx netlify dev      # serves the site and /api/* together
 | `npm run audit` | Builds, then checks titles, descriptions, h1s, schema and internal links |
 | `npm run seed` | Seeds the CMS tables from `src/data/*.json` (idempotent) |
 | `npm run test:images` | Builds against a stub API and asserts images reach the HTML |
+| `npm run test:visibility` | Tests the AI checker, including its rate limits |
 
 ## Architecture
 
@@ -84,6 +86,10 @@ Set in Netlify under **Site configuration → Environment variables**. See
 | `PUBLIC_SUPABASE_URL` | Same URL, exposed to the browser for `/admin` |
 | `PUBLIC_SUPABASE_PUBLISHABLE_KEY` | Publishable key. Public by design |
 | `NETLIFY_BUILD_HOOK_URL` | Build hook the Publish button calls |
+| `OPENROUTER_API_KEY` | Secret. Powers the AI visibility checker |
+| `OPENROUTER_MODEL` | Optional. Defaults to `anthropic/claude-3.5-haiku` |
+| `PUBLIC_PLAUSIBLE_DOMAIN` | Optional. Enables Plausible analytics |
+| `PUBLIC_UMAMI_SRC` / `PUBLIC_UMAMI_ID` | Optional. Enables Umami instead |
 
 The two `PUBLIC_` values are embedded in the client bundle at build time. That
 is intended — they grant nothing on their own, and RLS decides what a signed-in
@@ -116,8 +122,9 @@ rebuilds. That gives drafts for free: "unpublished changes" is simply the count
 of rows edited since `site_settings.last_published_at`, shown in the admin
 header. Changes go live a minute or two after publishing.
 
-Editable from the admin: guides (Markdown), all 31 market pages, page copy,
-FAQ, reviews, images, header/footer menus, and site settings. The editors are generated
+Editable from the admin: guides (Markdown), all 31 market pages, page copy
+(including the scorecard and process steps), FAQ, reviews, images,
+header/footer menus, and site settings. The editors are generated
 from field schemas in `src/lib/admin-schema.js` — adding a new editable section
 is a schema entry, not a new UI.
 
@@ -143,6 +150,27 @@ Every `<img>` is rendered with `width`/`height` so pages do not shift while
 images load, and an unassigned slot renders no markup at all rather than an
 empty box — the homepage hero, for instance, drops back to a single-column
 layout when no image is set.
+
+### AI visibility checker
+
+`/ai-visibility-check` asks a model what it knows about a visitor's dealership
+and shows them the answer. It is the site's own pitch demonstrated on their
+store — and the most common result, the assistant not knowing the store exists,
+*is* the sales argument.
+
+It is a public endpoint that spends money per call, so the order is strictly
+validate → rate-limit → call the model → store → respond:
+
+- **3 checks per IP per day**, and a **150/day global cap** as a hard ceiling on
+  the bill. Both are enforced from `visibility_checks`, which doubles as the
+  ledger. If the limiter itself errors the endpoint refuses rather than falling
+  open.
+- IPs are stored **salted-hashed**, never raw.
+- Without `OPENROUTER_API_KEY` it returns a helpful "not switched on" message
+  and makes no API call at all.
+
+`npm run test:visibility` covers all of that, asserting **zero model calls**
+whenever a request is rate-limited or unconfigured.
 
 ## Admin area
 

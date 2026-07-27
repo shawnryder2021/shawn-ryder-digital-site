@@ -1,0 +1,148 @@
+---
+import Base from '../layouts/Base.astro';
+import AuditForm from '../components/AuditForm.astro';
+import { getBlocks } from '../lib/content.js';
+import { site } from '../lib/site.js';
+
+const blocks = await getBlocks();
+const checks = (blocks.scorecard_checks ?? []).map((c) => c.v ?? c);
+const verdicts = (blocks.scorecard_verdicts ?? []).map((v) => v.v ?? v);
+
+const title = 'Dealership Marketing Scorecard — Where Is Your Store Losing Deals?';
+const description =
+  'Six questions, an honest read. Tick what sounds like your store and get a straight answer about where the deals are leaking — no email required to see the result.';
+---
+
+<Base title={title} description={description} path="/scorecard">
+  <section class="hero">
+    <div class="wrap">
+      <div class="kicker">Scorecard</div>
+      <h1>Where is your store losing deals?</h1>
+      <p class="lede">
+        Six statements. Tick the ones that sound like your store. You'll get the honest read
+        straight away — no email, no gate, no PDF.
+      </p>
+    </div>
+  </section>
+
+  <section class="wrap section">
+    <div class="grid-split">
+      <div>
+        <form id="scorecard" class="checks">
+          {checks.map((label, i) => (
+            <label class="check">
+              <input type="checkbox" name="check" value={label} data-i={i} />
+              <span>{label}</span>
+            </label>
+          ))}
+        </form>
+      </div>
+
+      <aside class="verdict" aria-live="polite">
+        <div class="meter"><span id="bar"></span></div>
+        <div class="score"><strong id="count">0</strong> of {checks.length}</div>
+        <p id="verdict-text">{verdicts[0]}</p>
+        <a href="#audit" class="btn btn-primary" id="cta">Get the free audit</a>
+        <p class="small">
+          The audit checks all six properly rather than taking your word for it, and it's free
+          either way.
+        </p>
+      </aside>
+    </div>
+  </section>
+
+  <section class="wrap section" id="audit">
+    <AuditForm checklist={checks} sourcePage="/scorecard" />
+  </section>
+</Base>
+
+<script define:vars={{ verdicts, max: checks.length }}>
+  const form = document.getElementById('scorecard');
+  const bar = document.getElementById('bar');
+  const count = document.getElementById('count');
+  const text = document.getElementById('verdict-text');
+
+  // Ticking here pre-fills the audit form below, so nobody answers twice.
+  const syncToAuditForm = (checked) => {
+    document.querySelectorAll('#audit input[name="checklist"]').forEach((box) => {
+      box.checked = checked.includes(box.value);
+    });
+  };
+
+  form.addEventListener('change', () => {
+    const checked = [...form.querySelectorAll('input:checked')].map((i) => i.value);
+    const n = checked.length;
+    count.textContent = String(n);
+    bar.style.width = max ? `${(n / max) * 100}%` : '0%';
+    text.textContent = verdicts[Math.min(n, verdicts.length - 1)];
+    syncToAuditForm(checked);
+  });
+</script>
+
+<style>
+  .hero {
+    background:
+      radial-gradient(900px 460px at 78% 10%, var(--brand-tint) 0%, rgba(238, 241, 255, 0) 70%),
+      var(--bg);
+    border-bottom: 1px solid var(--line-2);
+    padding: 62px 0 60px;
+  }
+  .hero .lede { max-width: 56ch; margin: 22px 0 0; }
+
+  .grid-split {
+    display: grid;
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+    gap: 44px;
+    align-items: start;
+  }
+
+  .checks { display: grid; gap: 10px; }
+  .check {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 14px;
+    align-items: start;
+    padding: 18px 20px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    cursor: pointer;
+    font-size: 16.5px;
+    color: var(--ink-2);
+  }
+  .check:hover { border-color: var(--brand-line); }
+  .check:has(input:checked) {
+    border-color: var(--brand);
+    background: var(--brand-tint);
+    color: var(--ink);
+  }
+  .check input { margin-top: 3px; width: 18px; height: 18px; accent-color: var(--brand); }
+
+  .verdict {
+    position: sticky;
+    top: 96px;
+    background: var(--ink);
+    color: #fff;
+    border-radius: 20px;
+    padding: 30px 28px;
+  }
+  .meter {
+    height: 8px; border-radius: 999px;
+    background: rgba(255, 255, 255, 0.14); overflow: hidden; margin-bottom: 18px;
+  }
+  .meter span {
+    display: block; height: 100%; width: 0;
+    background: var(--brand); border-radius: 999px;
+    transition: width 0.35s ease;
+  }
+  .score { font-family: var(--display); font-weight: 800; font-size: 15px; color: #9fb0ff; margin-bottom: 12px; }
+  .score strong { font-size: 30px; color: #fff; letter-spacing: -0.03em; }
+  .verdict p { font-size: 16.5px; line-height: 1.6; color: #c3c7d4; margin: 0 0 22px; text-wrap: pretty; }
+  .verdict .btn { width: 100%; }
+  .verdict .small { font-size: 13.5px; color: #8b90a0; margin: 16px 0 0; }
+
+  @media (max-width: 900px) {
+    .grid-split { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+    .verdict { position: static; }
+  }
+</style>
