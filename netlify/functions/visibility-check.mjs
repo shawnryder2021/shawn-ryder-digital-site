@@ -61,9 +61,21 @@ async function askModel(prompt) {
 
     if (!res.ok) {
       const text = await res.text().catch(() => '');
-      throw new Error(`OpenRouter ${res.status}: ${text.slice(0, 200)}`);
+      const err = new Error(`OpenRouter ${res.status}: ${text.slice(0, 300)}`);
+      err.status = res.status;
+      err.upstream = text.slice(0, 300);
+      throw err;
     }
     const body = await res.json();
+
+    // OpenRouter can return 200 with an error payload, particularly on free
+    // models that are rate-limited or temporarily unavailable.
+    if (body.error) {
+      const err = new Error(`OpenRouter payload error: ${JSON.stringify(body.error).slice(0, 300)}`);
+      err.status = body.error.code || 200;
+      err.upstream = body.error.message || JSON.stringify(body.error);
+      throw err;
+    }
     return body.choices?.[0]?.message?.content?.trim() || '';
   } finally {
     clearTimeout(timer);
@@ -135,7 +147,26 @@ export default async (req) => {
     );
   } catch (err) {
     console.error('visibility-check: model call failed', err);
-    return fail(req, 502, 'The assistant did not answer. Please try again in a minute.');
+
+    // Say what actually went wrong. "The assistant did not answer" is useless
+    // when the real cause is a wrong model id or an empty OpenRouter balance,
+    // and this endpoint is configured by one person who needs to fix it.
+    const reason = {
+      401: 'OpenRouter rejected the API key. Check OPENROUTER_API_KEY in Netlify.',
+      403: 'OpenRouter refused the request for this key or model.',
+      402: 'The OpenRouter account is out of credit.',
+      404: `OpenRouter does not recognise the model "${MODEL}". Check OPENROUTER_MODEL.`,
+      429: 'OpenRouter rate-limited the request. Free models have tight limits — try again shortly or switch model.',
+    }[err.status];
+
+    return fail(
+      req,
+      502,
+      reason || 'The assistant did not answer. Please try again in a minute.',
+      // Surfaced so the upstream text is visible without digging through
+      // Netlify logs. Contains no key material — only OpenRouter's own message.
+      err.upstream ? { upstream: String(err.upstream).slice(0, 300), model: MODEL } : undefined
+    );
   }
 
   const mentioned = results.some((r) => r.mentioned);
