@@ -17,8 +17,11 @@ import { createHash } from 'node:crypto';
 const MODEL = process.env.OPENROUTER_MODEL || 'anthropic/claude-3.5-haiku';
 const PER_IP_PER_DAY = 3;
 const GLOBAL_PER_DAY = 150;      // hard ceiling on the API bill
-const TIMEOUT_MS = 30000;
+// Free OpenRouter models are slow and tightly concurrency-limited, so prompts
+// run one at a time with a gap between them rather than all at once.
+const TIMEOUT_MS = 45000;
 const MAX_TOKENS = 400;
+const GAP_MS = 600;
 
 /** Real shopper phrasing, not marketing questions. */
 const PROMPTS = [
@@ -132,21 +135,30 @@ export default async (req) => {
   }
 
   // ---- ask the model -------------------------------------------------------
-  let results;
-  try {
-    results = await Promise.all(
-      PROMPTS.map(async (build) => {
-        const prompt = build(dealership, city);
-        const answer = await askModel(prompt);
-        return {
-          prompt,
-          answer,
-          mentioned: answer.toLowerCase().includes(dealership.toLowerCase()),
-        };
-      })
-    );
-  } catch (err) {
-    console.error('visibility-check: model call failed', err);
+  // Sequential, and tolerant of individual failures: a flaky free model that
+  // answers two prompts out of three should still show the visitor something
+  // useful rather than an error page.
+  const results = [];
+  let lastError = null;
+
+  for (const [i, build] of PROMPTS.entries()) {
+    const prompt = build(dealership, city);
+    try {
+      if (i > 0) await new Promise((r) => setTimeout(r, GAP_MS));
+      const answer = await askModel(prompt);
+      results.push({
+        prompt,
+        answer,
+        mentioned: answer.toLowerCase().includes(dealership.toLowerCase()),
+      });
+    } catch (err) {
+      console.error(`visibility-check: prompt ${i + 1} failed`, err);
+      lastError = err;
+    }
+  }
+
+  if (!results.length) {
+    const err = lastError ?? new Error('no answers');
 
     // Say what actually went wrong. "The assistant did not answer" is useless
     // when the real cause is a wrong model id or an empty OpenRouter balance,
@@ -157,7 +169,10 @@ export default async (req) => {
       402: 'The OpenRouter account is out of credit.',
       404: `OpenRouter does not recognise the model "${MODEL}". Check OPENROUTER_MODEL.`,
       429: 'OpenRouter rate-limited the request. Free models have tight limits — try again shortly or switch model.',
-    }[err.status];
+    }[err.status] ||
+      (err.name === 'AbortError'
+        ? `The model did not respond within ${TIMEOUT_MS / 1000}s. Free models are often slow — try again, or set OPENROUTER_MODEL to a faster one.`
+        : null);
 
     return fail(
       req,

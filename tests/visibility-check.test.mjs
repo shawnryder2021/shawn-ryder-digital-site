@@ -12,6 +12,7 @@ process.env.ALLOWED_ORIGINS = 'https://shawnryder.com';
 let modelCalls = 0;
 let existingToday = [];   // rows the stubbed rate-limit query returns
 let modelShouldFail = false;
+let failFirstN = 0;
 let inserted = null;
 
 globalThis.fetch = async (url, opts = {}) => {
@@ -20,6 +21,7 @@ globalThis.fetch = async (url, opts = {}) => {
   if (u.includes('openrouter.ai')) {
     modelCalls++;
     if (modelShouldFail) return new Response('upstream boom', { status: 500 });
+    if (failFirstN > 0) { failFirstN--; return new Response('{"error":{"message":"rate limited"}}', { status: 429 }); }
     const body = JSON.parse(opts.body);
     const prompt = body.messages[1].content;
     // Mention the dealership only in the first prompt, to exercise both branches.
@@ -115,6 +117,26 @@ process.env.OPENROUTER_API_KEY = 'stub-openrouter-key';
 
 await check('wrong origin rejected', await handler(post(VALID, { origin: 'https://evil.test' })), 403,
   (b) => !b.ok);
+
+
+// ---- partial failure ------------------------------------------------------
+// A flaky free model that answers some prompts should still produce a result
+// rather than an error page.
+existingToday = [];
+failFirstN = 1;
+modelCalls = 0;
+const partial = await check('one prompt fails, the rest still return', await handler(post(VALID)), 200,
+  (b) => b.ok && b.results.length === 2);
+console.log(`      answers returned: ${partial.results.length} of 3`);
+failFirstN = 0;
+
+// All three failing gives an actionable message, not a generic one.
+failFirstN = 3;
+const allFailed = await check('all prompts fail → specific reason', await handler(post(VALID)), 502,
+  (b) => !b.ok && /rate-limited/i.test(b.error));
+console.log(`      error: ${allFailed.error.slice(0, 70)}`);
+console.log(`      upstream surfaced: ${JSON.stringify(allFailed.details)?.slice(0, 90)}`);
+failFirstN = 0;
 
 console.log(failures ? `\n${failures} FAILING` : '\nall visibility-check tests passed');
 process.exit(failures ? 1 : 0);
