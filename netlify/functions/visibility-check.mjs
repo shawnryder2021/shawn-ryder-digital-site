@@ -33,6 +33,9 @@ const PROMPTS = [
 const hashIp = (ip) =>
   ip ? createHash('sha256').update(`srd:${ip}`).digest('hex').slice(0, 40) : null;
 
+/** Header values must be Latin-1; anything above 255 makes fetch throw. */
+const ascii = (s) => String(s ?? '').replace(/[^\x20-\x7E]/g, '');
+
 async function askModel(prompt) {
   // Trimmed: a key pasted into a dashboard often carries a trailing newline or
   // stray whitespace, which makes the Authorization header invalid and causes
@@ -48,7 +51,10 @@ async function askModel(prompt) {
         authorization: `Bearer ${apiKey}`,
         'content-type': 'application/json',
         'HTTP-Referer': 'https://shawnryder.com',
-        'X-Title': 'Shawn Ryder Digital — AI visibility check',
+        // ASCII only. HTTP header values are ByteStrings, so a non-Latin-1
+        // character (this said "Digital — AI" with an em dash) makes fetch
+        // throw before the request is sent.
+        'X-Title': ascii('Shawn Ryder Digital - AI visibility check'),
       },
       body: JSON.stringify({
         model: MODEL,

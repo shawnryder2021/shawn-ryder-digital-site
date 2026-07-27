@@ -20,6 +20,14 @@ globalThis.fetch = async (url, opts = {}) => {
 
   if (u.includes('openrouter.ai')) {
     modelCalls++;
+    // HTTP header values are ByteStrings. A non-Latin-1 character here makes
+    // the real fetch throw before sending, which is exactly what happened with
+    // an em dash in X-Title — so fail loudly rather than silently accepting it.
+    for (const [k, v] of Object.entries(opts.headers || {})) {
+      if ([...String(v)].some((c) => c.charCodeAt(0) > 255)) {
+        throw new Error(`non-Latin-1 character in request header "${k}": ${v}`);
+      }
+    }
     if (modelShouldFail) return new Response('upstream boom', { status: 500 });
     if (failFirstN > 0) { failFirstN--; return new Response('{"error":{"message":"rate limited"}}', { status: 429 }); }
     const body = JSON.parse(opts.body);
