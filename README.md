@@ -34,6 +34,7 @@ npx netlify dev      # serves the site and /api/* together
 | `npm run test:images` | Builds against a stub API and asserts images reach the HTML |
 | `npm run test:visibility` | Tests the AI visibility checker, including its rate limits |
 | `npm run test:crawler` | Tests the crawler checker: robots.txt matching and SSRF guards |
+| `npm run test:code` | Tests the custom-code validator against real vendor snippets |
 | `npm run test:all` | All four suites, then the build audit |
 
 ## Architecture
@@ -140,9 +141,9 @@ header. Changes go live a minute or two after publishing.
 
 Editable from the admin: guides (Markdown), all 51 market pages, page copy
 (including the scorecard and process steps), FAQ, reviews, images,
-header/footer menus, and site settings. The editors are generated
-from field schemas in `src/lib/admin-schema.js` — adding a new editable section
-is a schema entry, not a new UI.
+header/footer menus, site settings, and custom head/body code. The editors are
+generated from field schemas in `src/lib/admin-schema.js` — adding a new
+editable section is a schema entry, not a new UI.
 
 The four sections lost when the design prototype was truncated (`tiers`,
 `audiences`, `audit_includes`, `home_faqs`) exist as empty blocks under **Page
@@ -166,6 +167,43 @@ Every `<img>` is rendered with `width`/`height` so pages do not shift while
 images load, and an unassigned slot renders no markup at all rather than an
 empty box — the homepage hero, for instance, drops back to a single-column
 layout when no image is set.
+
+### Custom code (head and body)
+
+**Code** in the admin injects snippets into every page — analytics, tag
+managers, pixels, site verification tags, chat widgets, the occasional bit of
+CSS. Three slots: `<head>`, immediately after `<body>` opens (where Google Tag
+Manager wants its `noscript` iframe), and just before `</body>` closes.
+
+It is stored in `site_settings.code_injection` and written into the static HTML
+at build time, unescaped. No sanitising happens, and that is deliberate: an
+admin pasting a script tag is doing it on purpose, and a "safe" version of this
+feature would be a broken one. Three things make it safe to hand over anyway:
+
+- **`/admin` never receives it.** `admin.astro` does not use `Base.astro`, so a
+  snippet that breaks every page cannot break the one page you would use to
+  remove it. That is currently true by accident of structure, so
+  `npm run audit` fails if `admin.astro` ever starts using the shared layout.
+- **Page-breaking snippets are refused, not shipped.** An unclosed `<script>` in
+  the head swallows the rest of the document — every page renders blank, the
+  build succeeds, and nothing errors anywhere. So `src/lib/code-injection.js`
+  checks each slot for unbalanced `script`/`style`/`noscript`/`iframe`/`template`
+  tags, for a whole HTML document pasted by mistake, and for absurd length. A
+  slot that fails is dropped with a build warning; the other slots still ship.
+- **Nothing is live until Publish.** The site is static, so a bad paste sits in
+  the database until someone rebuilds.
+
+The admin panel runs the same `checkSlot()` the build runs, so the verdict you
+see while typing and the verdict at build time cannot disagree. Advisory
+warnings — `document.write`, a GTM body snippet pasted into the head slot, a
+verification meta tag outside `<head>`, a render-blocking external script — are
+shown but do not block, because those are wrong rather than broken.
+
+`npm run test:code` covers it against real GA4, GTM and verification snippets.
+
+The `PUBLIC_PLAUSIBLE_DOMAIN` / `PUBLIC_UMAMI_*` environment variables still
+work and are the tidier route for those two specific tools; this section is for
+everything else.
 
 ### AI visibility checker
 

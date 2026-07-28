@@ -293,6 +293,8 @@ await seed('site_settings', [
       phone_href: 'tel:+19024884107', phone_e164: '+1-902-488-4107',
     } },
   { key: 'brands', value: copy.brands },
+  // Edited under Code in the admin. Seeded empty so the row exists.
+  { key: 'code_injection', value: { head: '', body_start: '', body_end: '' } },
   { key: 'footer_blurb', value: 'Digital marketing for car dealerships — search, social, email, reputation and the follow-up process that closes the loop. Remote across Canada and the United States.' },
   // last_published_at is deliberately not seeded: the column is NOT NULL, and a
   // missing row is what the admin reads as "never published".

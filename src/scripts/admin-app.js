@@ -8,6 +8,7 @@ import { supabase, configured, currentProfile } from '../lib/supabase-client.js'
 import {
   BLOCK_SCHEMAS, GUIDE_FIELDS, MARKET_FIELDS, REVIEW_FIELDS, NAV_FIELDS, CONTENT_TABLES,
 } from '../lib/admin-schema.js';
+import { SLOTS, checkSlot } from '../lib/code-injection.js';
 import { el, renderForm, renderSimpleList, toStrings } from './admin-forms.js';
 import {
   uploadImage, deleteImage, listMedia, listSlots, formatBytes,
@@ -67,6 +68,7 @@ const SECTIONS = [
   { id: 'reviews', label: 'Reviews', render: renderReviews },
   { id: 'menus', label: 'Menus', render: renderMenus },
   { id: 'settings', label: 'Settings', render: renderSettings },
+  { id: 'code', label: 'Code', render: renderCode },
 ];
 
 function showSection(id) {
@@ -704,6 +706,88 @@ async function renderSettings() {
       ], { onConflict: 'key' }), 'Settings saved');
       if (ok) renderSettings();
     } }, 'Save settings') : null);
+}
+
+/* ------------------------------------------------------------------ code --- */
+
+/**
+ * Custom head/body code — analytics, pixels, verification tags, chat widgets.
+ *
+ * Validated as you type using the same checkSlot() the build uses, so the
+ * verdict here and the verdict at build time can never disagree. A slot with an
+ * error still saves: you may want to park a half-finished snippet. It simply
+ * will not be injected until the error is gone, and the panel says so.
+ */
+async function renderCode() {
+  const { data, error } = await supabase
+    .from('site_settings').select('value').eq('key', 'code_injection').maybeSingle();
+  if (error) return main().replaceChildren(el('div', { class: 'empty' }, error.message));
+
+  const stored = (data?.value && typeof data.value === 'object') ? data.value : {};
+  const editors = [];
+
+  const panels = SLOTS.map((slot) => {
+    const ta = el('textarea', { class: 'code', rows: 10, spellcheck: 'false',
+      autocapitalize: 'off', autocomplete: 'off', autocorrect: 'off' });
+    ta.value = stored[slot.key] ?? '';
+
+    const status = el('div', { class: 'codestat' });
+
+    const paint = () => {
+      const { code, errors, warnings } = checkSlot(ta.value, slot.key);
+      const chars = ta.value.trim().length;
+      status.replaceChildren(
+        el('div', { class: `pill ${errors.length ? 'bad' : chars ? 'ok' : 'off'}` },
+          errors.length ? 'Will not be injected' : chars ? 'Active' : 'Empty'),
+        el('span', { class: 'chars' }, chars ? `${chars.toLocaleString('en-CA')} characters` : ''),
+        ...errors.map((e) => el('p', { class: 'cerr' }, e)),
+        ...warnings.map((w) => el('p', { class: 'cwarn' }, w)),
+        code && !errors.length && !warnings.length
+          ? el('p', { class: 'cok' }, 'Looks fine. Takes effect on the next publish.')
+          : null,
+      );
+    };
+    ta.addEventListener('input', paint);
+    paint();
+
+    editors.push({ key: slot.key, read: () => ta.value.trim() });
+
+    return el('section', { class: 'codeblock' },
+      el('h2', {}, slot.label),
+      el('p', { class: 'muted' }, slot.where),
+      el('p', { class: 'muted small' }, slot.help),
+      ta,
+      status);
+  });
+
+  main().replaceChildren(
+    el('h2', {}, 'Custom code'),
+    el('p', { class: 'muted' },
+      'Paste snippets from Google Analytics, Tag Manager, Meta, LinkedIn, a chat widget, ' +
+      'or a site verification tag. They go into every page on the site.'),
+
+    el('div', { class: 'codenote' },
+      el('p', {},
+        el('strong', {}, 'Three things worth knowing. '),
+        'Nothing here takes effect until you hit Publish and the site rebuilds. ' +
+        'This admin page does not load your custom code, so a bad snippet can never lock you ' +
+        'out of the screen you would need to fix it. And anything that would break the page — ' +
+        'an unclosed tag, a whole HTML document pasted by mistake — is refused rather than ' +
+        'shipped, with the reason shown below the box.'),
+      el('p', { class: 'small' },
+        'This is real code running on every visitor’s browser. Only paste snippets from ' +
+        'vendors you actually use.')),
+
+    ...panels,
+
+    isAdmin ? el('button', { class: 'btn btn-primary sm', onClick: async () => {
+      if (!guard()) return;
+      const value = Object.fromEntries(editors.map((e) => [e.key, e.read()]));
+      const ok = await save(
+        () => supabase.from('site_settings').upsert([{ key: 'code_injection', value }], { onConflict: 'key' }),
+        'Code saved — publish to apply it');
+      if (ok) renderCode();
+    } }, 'Save code') : null);
 }
 
 /* ---------------------------------------------------------------- misc --- */

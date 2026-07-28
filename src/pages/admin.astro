@@ -213,6 +213,39 @@ import '../styles/global.css';
       .f-check span { text-transform: none; letter-spacing: 0; font-size: 15px; color: var(--ink); }
       .help { font-size: 12.5px; color: var(--faint); text-transform: none; letter-spacing: 0; }
 
+      /* ---- Code section ---- */
+      .muted.small { font-size: 13px; color: var(--faint); margin: -12px 0 14px; }
+      .codenote {
+        border: 1px solid var(--line); border-left: 3px solid var(--brand);
+        border-radius: 10px; padding: 16px 18px; margin: 0 0 26px; background: var(--surface);
+      }
+      .codenote p { margin: 0; font-size: 14px; line-height: 1.6; color: var(--ink-2); }
+      .codenote p.small { margin-top: 10px; font-size: 13px; color: var(--muted); }
+      .codeblock { margin-bottom: 30px; }
+      .codeblock h2 { margin-bottom: 4px; }
+      textarea.code {
+        width: 100%; padding: 12px 14px; resize: vertical;
+        font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+        font-size: 13px; line-height: 1.6; color: var(--ink);
+        border: 1px solid var(--line); border-radius: 10px;
+        background: var(--surface-2); outline: none;
+        white-space: pre; overflow-wrap: normal; overflow-x: auto;
+      }
+      textarea.code:focus { border-color: var(--brand); }
+      .codestat { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; margin-top: 10px; }
+      .codestat .pill {
+        padding: 3px 10px; border-radius: 999px;
+        font-size: 11.5px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase;
+      }
+      .codestat .pill.ok { background: #e7f7f1; color: #0a7f5a; }
+      .codestat .pill.bad { background: #fdf0ec; color: #b4482a; }
+      .codestat .pill.off { background: var(--surface-2); color: var(--faint); }
+      .codestat .chars { font-size: 12.5px; color: var(--faint); }
+      .codestat p { flex-basis: 100%; margin: 0; font-size: 13.5px; line-height: 1.55; }
+      .codestat .cerr { color: #b4482a; }
+      .codestat .cwarn { color: #8a6410; }
+      .codestat .cok { color: var(--faint); }
+
       .listbox { display: grid; gap: 8px; }
       .rows { display: grid; gap: 6px; }
       .row { display: flex; gap: 6px; align-items: center; }

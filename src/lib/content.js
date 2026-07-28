@@ -244,6 +244,10 @@ export async function getSettings() {
       phone_e164: '+1-902-488-4107',
     },
     brands: copyJson.brands,
+    // Custom head/body code from the admin. Empty by default — a build that
+    // cannot reach Supabase must not silently drop analytics it does not know
+    // about, but it also cannot invent it, so empty is the only honest default.
+    code_injection: { head: '', body_start: '', body_end: '' },
     footer_blurb:
       'Digital marketing for car dealerships — search, social, email, reputation and the follow-up process that closes the loop. Remote across Canada and the United States.',
   };

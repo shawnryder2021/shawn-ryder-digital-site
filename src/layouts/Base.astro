@@ -3,6 +3,8 @@ import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { site, organizationSchema } from '../lib/site.js';
+import { getSettings } from '../lib/content.js';
+import { prepareInjection } from '../lib/code-injection.js';
 
 const {
   title,
@@ -21,6 +23,11 @@ const canonical = new URL(path === '/' ? '/' : path, site.url).href;
 const plausibleDomain = import.meta.env.PUBLIC_PLAUSIBLE_DOMAIN;
 const umamiSrc = import.meta.env.PUBLIC_UMAMI_SRC;
 const umamiId = import.meta.env.PUBLIC_UMAMI_ID;
+
+// Custom code from the admin's Code section. Validated first: a slot that would
+// break the page is dropped with a build warning rather than shipped to all 81
+// pages. /admin does not use this layout, so nothing here can reach it.
+const injected = prepareInjection((await getSettings()).code_injection);
 ---
 
 <!doctype html>
@@ -60,13 +67,17 @@ const umamiId = import.meta.env.PUBLIC_UMAMI_ID;
     {umamiSrc && umamiId && (
       <script defer src={umamiSrc} data-website-id={umamiId}></script>
     )}
+
+    {injected.head && <Fragment set:html={injected.head} />}
   </head>
 
   <body>
+    {injected.body_start && <Fragment set:html={injected.body_start} />}
     <Header path={path} />
     <main>
       <slot />
     </main>
     <Footer />
+    {injected.body_end && <Fragment set:html={injected.body_end} />}
   </body>
 </html>

@@ -86,6 +86,30 @@ for (const file of NOINDEX) {
     problems.push(`${file}: missing "[hidden] { display: none !important }" — hidden sections can stay visible`);
   }
 }
+
+// Custom code from the admin's Code section must never reach /admin itself.
+// That property is what makes the feature safe to hand over: a snippet that
+// breaks the page can never break the page you would use to remove it. Today it
+// holds because admin.astro does not use Base.astro — which is exactly the kind
+// of incidental fact that a later refactor would quietly undo, so it is pinned
+// here rather than left to a comment.
+{
+  const adminHtml = readFileSync('dist/admin.html', 'utf8');
+  if (/data-code-injection|<!-- *srd-injection/.test(adminHtml)) {
+    problems.push('dist/admin.html: custom injected code reached the admin page');
+  }
+  const base = readFileSync('src/layouts/Base.astro', 'utf8');
+  const adminSrc = readFileSync('src/pages/admin.astro', 'utf8');
+  if (!/prepareInjection/.test(base)) {
+    problems.push('src/layouts/Base.astro: no longer injects custom code — the Code section is dead');
+  }
+  if (/from '\.\.\/layouts\/Base\.astro'/.test(adminSrc)) {
+    problems.push(
+      'src/pages/admin.astro now uses Base.astro, so custom code would run inside the admin. ' +
+      'A broken snippet would lock you out of the only screen that can fix it.'
+    );
+  }
+}
 // The publishable key is safe to ship; the service role key never is. Match on
 // actual key material — supabase-js itself contains the bare string
 // "sb_secret_" for prefix validation, which is not a leak.
