@@ -1,0 +1,328 @@
+---
+import Base from '../layouts/Base.astro';
+
+const title = 'Dealership Review Score Calculator — How Many 5-Stars Do You Need?';
+const description =
+  'Enter your Google rating and review count. See how many 5-star reviews it takes to reach 4.5, and what a single 1-star review really costs you.';
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'How many 5-star reviews do I need to raise my dealership rating?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'The number depends on how many reviews you already have. To go from rating R with N reviews up to target T, you need at least (T×N − R×N) ÷ (5 − T) new five-star reviews. A store at 4.2 with 200 reviews needs about 100 five-star reviews to reach 4.5; the same store with 50 reviews needs about 25.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'How much damage does one 1-star review do?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'The number of 5-star reviews needed to cancel one 1-star review is (R − 1) ÷ (5 − R), where R is your current rating. It does not depend on how many reviews you have. At 4.2 stars it takes 4 five-star reviews to undo one 1-star. At 4.8 stars it takes 19.',
+      },
+    },
+  ],
+};
+---
+
+<Base title={title} description={description} path="/review-calculator" schema={schema}>
+  <section class="hero">
+    <div class="wrap">
+      <div class="kicker">Free tool</div>
+      <h1>How many reviews to move your score?</h1>
+      <p class="lede">
+        Every dealer principal has asked this and almost nobody gets a straight number back. It is
+        arithmetic. Put your store's numbers in and read the answer.
+      </p>
+    </div>
+  </section>
+
+  <section class="wrap section">
+    <div class="grid-split">
+      <form id="calc" class="inputs" novalidate>
+        <label>
+          <span>Current Google rating</span>
+          <input name="rating" type="number" min="1" max="5" step="0.1" value="4.2" inputmode="decimal" />
+        </label>
+        <label>
+          <span>Number of reviews</span>
+          <input name="count" type="number" min="1" max="100000" step="1" value="180" inputmode="numeric" />
+        </label>
+        <label>
+          <span>New reviews per month</span>
+          <input name="pace" type="number" min="0" max="1000" step="1" value="6" inputmode="numeric" />
+          <small class="hint">Roughly what you collect now. Used for the timeline only.</small>
+        </label>
+        <p class="err" id="err" role="status" aria-live="polite"></p>
+      </form>
+
+      <div class="out" aria-live="polite">
+        <div class="headline" id="headline"></div>
+        <div id="targets" class="targets"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap section-tight">
+    <div class="cost" id="cost"></div>
+  </section>
+
+  <section class="wrap section">
+    <h2>What actually moves the number</h2>
+    <div class="grid grid-3">
+      <div class="card">
+        <h3>Ask at delivery, not by email on Tuesday</h3>
+        <p>
+          The single highest-yield change in most stores is moving the ask to the moment the
+          customer takes the keys, while somebody they like is standing in front of them. A request
+          sent three days later competes with their whole life.
+        </p>
+      </div>
+      <div class="card">
+        <h3>Service is where the volume is</h3>
+        <p>
+          You deliver a few dozen cars a month. You touch several hundred service customers. Stores
+          that get their rating up almost always did it through the service drive, not the sales
+          floor.
+        </p>
+      </div>
+      <div class="card">
+        <h3>Answer the bad ones properly</h3>
+        <p>
+          You cannot delete a 1-star, but the reply is read by everyone who comes after. A specific,
+          non-defensive reply that names what went wrong does more for the next shopper than the
+          review costs you.
+        </p>
+      </div>
+    </div>
+
+    <div class="caveat">
+      <h3>One honest caveat about these numbers</h3>
+      <p>
+        Google shows your rating to one decimal place, so a store displaying 4.2 might really be
+        anywhere from 4.15 to 4.249. The figures above use your displayed rating, which makes them
+        accurate to within a review or two at normal volumes — close enough to plan against, not
+        close enough to argue over. They also assume every new review is a 5. Mix in some 4s and the
+        real number goes up.
+      </p>
+    </div>
+  </section>
+
+  <section class="cta-band">
+    <div class="wrap">
+      <div>
+        <h2>Want the reviews to actually show up?</h2>
+        <p>The free audit looks at your review flow alongside your site, profile and lead follow-up — and tells you which one is costing you most.</p>
+      </div>
+      <a href="/contact" class="btn btn-dark">Request the audit</a>
+    </div>
+  </section>
+</Base>
+
+<script>
+  const form = document.getElementById('calc');
+  const headline = document.getElementById('headline');
+  const targetsEl = document.getElementById('targets');
+  const costEl = document.getElementById('cost');
+  const errEl = document.getElementById('err');
+
+  const num = (n, d = 0) =>
+    n.toLocaleString('en-CA', { minimumFractionDigits: d, maximumFractionDigits: d });
+
+  /**
+   * Five-star reviews needed to move from a total of `stars` across `count`
+   * reviews up to `target`:  k ≥ (target·count − stars) / (5 − target)
+   */
+  const needed = (stars, count, target) => {
+    if (target >= 5) return Infinity;
+    const k = (target * count - stars) / (5 - target);
+    return k <= 0 ? 0 : Math.ceil(k - 1e-9);
+  };
+
+  const MILESTONES = [4.3, 4.4, 4.5, 4.6, 4.7, 4.8, 4.9];
+
+  function render() {
+    const rating = parseFloat(form.rating.value);
+    const count = parseInt(form.count.value, 10);
+    const pace = parseFloat(form.pace.value);
+
+    if (!(rating >= 1 && rating <= 5) || !(count >= 1)) {
+      errEl.textContent = 'Enter a rating between 1 and 5, and at least one review.';
+      headline.innerHTML = '';
+      targetsEl.innerHTML = '';
+      costEl.innerHTML = '';
+      return;
+    }
+    errEl.textContent = '';
+
+    const stars = rating * count;
+
+    // ---- targets ------------------------------------------------------------
+    // Next tenth, then the milestones above it. Four rows is enough to see the
+    // curve steepen without turning into a spreadsheet.
+    const nextTenth = Math.round((Math.floor(rating * 10) + 1)) / 10;
+    const list = [...new Set([nextTenth, ...MILESTONES])]
+      .filter((t) => t > rating + 1e-9 && t <= 4.9)
+      .sort((a, b) => a - b)
+      .slice(0, 4);
+
+    headline.innerHTML = list.length
+      ? `<strong>${rating.toFixed(1)}</strong><span>from ${num(count)} reviews</span>`
+      : `<strong>${rating.toFixed(1)}</strong><span>already at the top of this scale</span>`;
+
+    targetsEl.innerHTML = list.length
+      ? list.map((t) => {
+          const k = needed(stars, count, t);
+          const months = pace > 0 ? Math.ceil(k / pace) : null;
+          return `
+            <div class="target">
+              <div class="t-goal">To reach <strong>${t.toFixed(1)}</strong></div>
+              <div class="t-num">${num(k)}</div>
+              <div class="t-unit">more 5-star reviews</div>
+              ${months !== null
+                ? `<div class="t-time">${months === 1 ? 'about a month' : `about ${num(months)} months`} at ${num(pace)} a month</div>`
+                : ''}
+            </div>`;
+        }).join('')
+      : `<p class="maxed">At ${rating.toFixed(1)} there is nothing left to chase on this scale — the job now is holding it. Look at the cost of a single bad review below.</p>`;
+
+    // ---- the price of one bad review ---------------------------------------
+    const afterOne = (stars + 1) / (count + 1);
+    // Five-stars needed to return to the original rating after one 1-star.
+    // The count cancels out entirely: it is (R − 1) / (5 − R), which is why a
+    // high rating is so much more expensive to defend than a middling one.
+    const undo = rating >= 5 ? Infinity : Math.ceil((rating - 1) / (5 - rating) - 1e-9);
+    const drop = rating - afterOne;
+
+    costEl.innerHTML = `
+      <h2>What one 1-star review costs you</h2>
+      <div class="cost-grid">
+        <div class="cost-card">
+          <div class="c-num">${afterOne.toFixed(2)}</div>
+          <div class="c-lab">Your rating after one 1-star</div>
+          <p>A drop of ${drop.toFixed(3)} — small, because you have ${num(count)} reviews absorbing it.</p>
+        </div>
+        <div class="cost-card accent">
+          <div class="c-num">${Number.isFinite(undo) ? num(undo) : '—'}</div>
+          <div class="c-lab">5-star reviews to undo it</div>
+          <p>This number does not depend on how many reviews you have. It depends only on your rating — and it gets worse the better you are.</p>
+        </div>
+        <div class="cost-card">
+          <div class="c-num">${num(count + 1)}</div>
+          <div class="c-lab">Reviews you'd have</div>
+          <p>Volume is the cushion. A store with 40 reviews takes roughly ${num(Math.round((count + 1) / 40))}× the hit from the same review.</p>
+        </div>
+      </div>
+      <p class="cost-note">
+        At <strong>4.2</strong> a bad review costs you 4 good ones. At <strong>4.5</strong> it costs 7.
+        At <strong>4.8</strong> it costs 19. Which is the real argument for fixing the thing that
+        generates them, rather than out-running them.
+      </p>`;
+  }
+
+  form.addEventListener('input', render);
+  render();
+</script>
+
+<style>
+  .hero {
+    background:
+      radial-gradient(900px 460px at 78% 10%, var(--brand-tint) 0%, rgba(238, 241, 255, 0) 70%),
+      var(--bg);
+    border-bottom: 1px solid var(--line-2);
+    padding: 62px 0 60px;
+  }
+  .hero .lede { max-width: 56ch; margin: 22px 0 0; }
+
+  .grid-split {
+    display: grid;
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+    gap: 44px;
+    align-items: start;
+  }
+
+  .inputs { display: grid; gap: 18px; }
+  .inputs label { display: grid; gap: 7px; }
+  .inputs label > span {
+    font-size: 12.5px; font-weight: 600; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--ink-3);
+  }
+  .inputs input {
+    width: 100%; padding: 14px 16px; font-size: 19px;
+    font-family: var(--display); font-weight: 700;
+    border: 1px solid var(--line); border-radius: 12px;
+    background: var(--surface); color: var(--ink); outline: none;
+  }
+  .inputs input:focus { border-color: var(--brand); background: var(--brand-tint); }
+  .hint { font-size: 13px; color: var(--ink-3); }
+  .err { color: #b4482a; font-size: 14px; margin: 0; }
+  .err:empty { display: none; }
+
+  .headline {
+    display: flex; align-items: baseline; gap: 12px;
+    padding-bottom: 18px; margin-bottom: 22px; border-bottom: 1px solid var(--line);
+  }
+  .headline strong { font-family: var(--display); font-size: 46px; letter-spacing: -0.03em; line-height: 1; }
+  .headline span { font-size: 15px; color: var(--ink-3); }
+
+  .targets { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .target {
+    background: var(--surface); border: 1px solid var(--line);
+    border-radius: 14px; padding: 18px 20px;
+  }
+  .t-goal { font-size: 14px; color: var(--ink-3); margin-bottom: 8px; }
+  .t-goal strong { color: var(--ink); font-family: var(--display); }
+  .t-num {
+    font-family: var(--display); font-weight: 800; font-size: 34px;
+    letter-spacing: -0.03em; line-height: 1; color: var(--brand);
+  }
+  .t-unit { font-size: 14px; color: var(--ink-2); margin-top: 5px; }
+  .t-time { font-size: 13px; color: var(--ink-3); margin-top: 9px; padding-top: 9px; border-top: 1px solid var(--line); }
+  .maxed { font-size: 16px; line-height: 1.6; color: var(--ink-2); margin: 0; }
+
+  .cost h2 { font-size: 26px; margin: 0 0 20px; }
+  .cost-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+  .cost-card {
+    background: var(--surface); border: 1px solid var(--line);
+    border-radius: 16px; padding: 24px 22px;
+  }
+  .cost-card.accent { background: var(--ink); border-color: var(--ink); }
+  .cost-card.accent .c-num { color: #fff; }
+  .cost-card.accent .c-lab { color: #9fb0ff; }
+  .cost-card.accent p { color: #c3c7d4; }
+  .c-num {
+    font-family: var(--display); font-weight: 800; font-size: 40px;
+    letter-spacing: -0.03em; line-height: 1; color: var(--ink);
+  }
+  .c-lab {
+    font-size: 12.5px; font-weight: 600; letter-spacing: 0.07em;
+    text-transform: uppercase; color: var(--ink-3); margin: 10px 0 12px;
+  }
+  .cost-card p { font-size: 14.5px; line-height: 1.6; color: var(--ink-3); margin: 0; }
+  .cost-note {
+    font-size: 16.5px; line-height: 1.65; color: var(--ink-2);
+    max-width: 72ch; margin: 24px 0 0;
+  }
+
+  .caveat {
+    margin-top: 34px; padding: 24px 26px;
+    background: var(--surface); border: 1px solid var(--line); border-radius: 16px;
+  }
+  .caveat h3 { font-size: 17px; margin: 0 0 10px; }
+  .caveat p { font-size: 15.5px; line-height: 1.65; color: var(--ink-3); margin: 0; max-width: 76ch; }
+
+  .card h3 { margin-bottom: 10px; font-size: 18px; }
+  .card p { font-size: 15.5px; line-height: 1.6; color: var(--ink-3); margin: 0; }
+
+  @media (max-width: 900px) {
+    .grid-split { grid-template-columns: minmax(0, 1fr); gap: 30px; }
+    .cost-grid { grid-template-columns: minmax(0, 1fr); }
+  }
+  @media (max-width: 560px) {
+    .targets { grid-template-columns: minmax(0, 1fr); }
+  }
+</style>

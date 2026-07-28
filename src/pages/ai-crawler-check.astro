@@ -1,0 +1,361 @@
+---
+import Base from '../layouts/Base.astro';
+
+const title = 'Is Your Dealership Site Blocking AI Crawlers? Free Check';
+const description =
+  "Enter your website address and see which AI crawlers your robots.txt lets in, and what they can actually read when they arrive. Free, instant, no email required.";
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'How do I know if my dealership website is blocking ChatGPT?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Your robots.txt file lists which crawlers may read your site. If it contains a Disallow rule for GPTBot, OAI-SearchBot or ChatGPT-User, ChatGPT cannot read your pages. This tool reads that file and tells you which AI crawlers are allowed and which are blocked.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Does blocking Google-Extended hurt my Google search ranking?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'No. Google-Extended controls whether your content is used for Gemini and AI Overviews grounding. It is a separate token from Googlebot and has no effect on ordinary Google Search ranking.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Why does an AI assistant know nothing about my dealership?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'The two most common reasons are that your robots.txt blocks the crawler, or that your homepage builds its content with JavaScript. Most AI crawlers do not run JavaScript, so a page that looks full in a browser can be nearly empty to them.',
+      },
+    },
+  ],
+};
+---
+
+<Base title={title} description={description} path="/ai-crawler-check" schema={schema}>
+  <section class="hero">
+    <div class="wrap">
+      <div class="kicker light">Free tool</div>
+      <h1>Can AI even read your website?</h1>
+      <p class="lede">
+        Before an assistant can recommend your store, it has to be allowed to read it — and then
+        find something worth reading. This checks both, in about five seconds, from your address
+        alone.
+      </p>
+
+      <form id="crawl-form" novalidate>
+        <label>
+          <span>Your website</span>
+          <input
+            name="url"
+            type="text"
+            inputmode="url"
+            autocomplete="url"
+            placeholder="yourdealership.com"
+            required
+          />
+          <small class="err" data-for="url"></small>
+        </label>
+        <div class="hp" aria-hidden="true">
+          <label>Company website<input name="company_website" type="text" tabindex="-1" autocomplete="off" /></label>
+        </div>
+        <button type="submit" class="btn btn-primary">Check my site</button>
+        <p class="note">
+          Reads two public files — your <code>robots.txt</code> and your homepage. Nothing on your
+          site is changed, and no email is needed to see the result. The address you enter and the
+          result are kept so the tool can be rate-limited; your IP is stored only as a one-way hash.
+        </p>
+        <p class="status" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+
+  <section class="wrap section" id="results" hidden>
+    <div class="verdict" id="verdict"></div>
+
+    <h2 class="sec">Who is allowed to read you</h2>
+    <p class="sec-note" id="robots-note"></p>
+    <div id="agents"></div>
+
+    <h2 class="sec">What they find when they get there</h2>
+    <div id="findings" class="findings"></div>
+
+    <div class="after">
+      <h2>What to do with this</h2>
+      <p>
+        Anything marked in red is worth a conversation with whoever runs your website — most of it
+        is a one-line change that nobody has been asked to make. If your site is on a vendor
+        platform, the robots.txt is often a default that shipped years ago and has never been read
+        by anyone at your store.
+      </p>
+      <a href="/ai-visibility-check" class="btn btn-ghost">Now see what AI says about you →</a>
+      <a href="/contact" class="btn btn-primary">Have me fix it</a>
+    </div>
+  </section>
+
+  <section class="wrap section-tight">
+    <div class="grid grid-3">
+      <div class="card">
+        <h3>Why robots.txt decides this</h3>
+        <p>
+          It is a plain text file at the root of your site listing which crawlers may read it. AI
+          companies each use their own name in it. Blocking one is a single line, and so is
+          unblocking it — but somebody has to know it is there.
+        </p>
+      </div>
+      <div class="card">
+        <h3>Blocking training isn't the same as blocking answers</h3>
+        <p>
+          Some crawlers feed model training; others fetch your page live when a shopper asks about
+          you. Blocking the first slows down what assistants learn. Blocking the second makes you
+          invisible today. The result above separates them.
+        </p>
+      </div>
+      <div class="card">
+        <h3>Access is only half of it</h3>
+        <p>
+          Most AI crawlers do not run JavaScript. A dealer homepage that looks full in your browser
+          can be a near-empty shell to them. That is why this checks how much text exists in the
+          source, not just whether the door is open.
+        </p>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<script>
+  const form = document.getElementById('crawl-form');
+  const status = form.querySelector('.status');
+  const button = form.querySelector('button');
+  const results = document.getElementById('results');
+  const verdict = document.getElementById('verdict');
+  const agentsEl = document.getElementById('agents');
+  const robotsNote = document.getElementById('robots-note');
+  const findingsEl = document.getElementById('findings');
+
+  const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) =>
+    ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+  const GROUPS = [
+    { key: 'answers', title: 'Answer engines',
+      blurb: 'These fetch or index your site to answer a shopper right now. Blocked here means invisible today.' },
+    { key: 'training', title: 'Training and grounding',
+      blurb: 'These shape what models know about you over time. Blocked here means assistants keep learning less about you than about the store down the road.' },
+  ];
+
+  const renderAgents = (agents) => GROUPS.map((group) => {
+    const rows = agents.filter((a) => a.group === group.key);
+    if (!rows.length) return '';
+    return `
+      <section class="agroup">
+        <h3>${group.title}</h3>
+        <p class="blurb">${group.blurb}</p>
+        <ul class="agents">
+          ${rows.map((a) => `
+            <li class="agent ${a.allowed ? (a.restrictedElsewhere ? 'partial' : 'yes') : 'no'}">
+              <div class="a-head">
+                <strong>${esc(a.label)}</strong>
+                <span class="pill">${a.allowed ? (a.restrictedElsewhere ? 'Partly blocked' : 'Allowed') : 'Blocked'}</span>
+              </div>
+              <p class="a-note">${esc(a.note)}</p>
+              ${a.rule ? `<code class="rule">${esc(a.token)} &rarr; ${esc(a.rule)}</code>` : ''}
+              ${a.allowed && a.restrictedElsewhere
+                ? '<p class="a-sub">Your homepage is readable, but parts of the site are disallowed for this crawler.</p>'
+                : ''}
+            </li>`).join('')}
+        </ul>
+      </section>`;
+  }).join('');
+
+  const SEVERITY_ORDER = { bad: 0, warn: 1, good: 2 };
+  const SEVERITY_LABEL = { bad: 'Fix this', warn: 'Worth doing', good: 'Good' };
+
+  const renderFindings = (findings, pageError) => {
+    if (pageError) {
+      return `<p class="page-error">${esc(pageError)} The crawler-access result above is still accurate — that part is read from a different file.</p>`;
+    }
+    if (!findings.length) return '';
+    return [...findings]
+      .sort((a, b) => SEVERITY_ORDER[a.severity] - SEVERITY_ORDER[b.severity])
+      .map((f) => `
+        <article class="finding ${f.severity}">
+          <div class="f-tag">${SEVERITY_LABEL[f.severity]}</div>
+          <h3>${esc(f.title)}</h3>
+          <p>${esc(f.detail)}</p>
+        </article>`).join('');
+  };
+
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    form.querySelectorAll('.err').forEach((e) => { e.textContent = ''; });
+    status.className = 'status';
+    status.textContent = '';
+
+    const data = new FormData(form);
+    button.disabled = true;
+    button.textContent = 'Reading your site…';
+
+    try {
+      const res = await fetch('/api/crawler-check', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({
+          url: data.get('url') || '',
+          company_website: data.get('company_website') || '',
+        }),
+      });
+      const body = await res.json().catch(() => ({}));
+
+      if (!res.ok || !body.ok) {
+        if (body.details) {
+          for (const [field, message] of Object.entries(body.details)) {
+            const el = form.querySelector(`.err[data-for="${field}"]`);
+            if (el) el.textContent = message;
+          }
+        }
+        status.className = 'status bad';
+        status.textContent = body.error || 'That did not go through. Please try again.';
+        return;
+      }
+
+      verdict.className = `verdict ${body.verdict.level}`;
+      verdict.innerHTML = `
+        <div class="v-host">${esc(body.host)}</div>
+        <strong>${esc(body.verdict.headline)}</strong>
+        <p>${esc(body.verdict.detail)}</p>`;
+
+      robotsNote.textContent = body.robots.unreachable
+        ? 'Your robots.txt could not be read, so this list is unconfirmed.'
+        : body.robots.found
+          ? 'Read from your robots.txt.'
+          : 'You have no robots.txt file. Nothing is blocked, which is the right starting point.';
+
+      agentsEl.innerHTML = renderAgents(body.robots.agents || []);
+      findingsEl.innerHTML = renderFindings(body.findings || [], body.pageError);
+
+      results.hidden = false;
+      results.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } catch {
+      status.className = 'status bad';
+      status.textContent = 'Could not reach the checker. Please try again shortly.';
+    } finally {
+      button.disabled = false;
+      button.textContent = 'Check my site';
+    }
+  });
+</script>
+
+<style>
+  [hidden] { display: none !important; }
+
+  .hero { background: var(--ink); color: #fff; padding: 64px 0 68px; }
+  .hero h1 { color: #fff; max-width: 16ch; }
+  .hero .lede { color: #b9bcc2; max-width: 60ch; margin: 22px 0 34px; }
+  .kicker.light { color: #9fb0ff; }
+
+  form { max-width: 560px; }
+  label { display: grid; gap: 7px; }
+  label > span {
+    font-size: 12.5px; font-weight: 600; letter-spacing: 0.08em;
+    text-transform: uppercase; color: #9aa0af;
+  }
+  input[type='text'] {
+    width: 100%; padding: 14px 16px; font-size: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.18); border-radius: 12px;
+    background: rgba(255, 255, 255, 0.06); color: #fff; outline: none;
+  }
+  input::placeholder { color: #7b8090; }
+  input:focus { border-color: var(--brand); background: rgba(255, 255, 255, 0.1); }
+  button { margin-top: 18px; border: 0; }
+  button[disabled] { opacity: 0.65; cursor: progress; }
+  .note { font-size: 13.5px; color: #8b90a0; margin: 12px 0 0; max-width: 52ch; line-height: 1.55; }
+  .note code { background: rgba(255,255,255,0.1); padding: 1px 5px; border-radius: 5px; font-size: 12.5px; }
+  .err { color: #ff9b8a; font-size: 13px; }
+  .status { margin: 12px 0 0; font-size: 15px; }
+  .status:empty { display: none; }
+  .status.bad { color: #ff9b8a; }
+  .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+
+  .verdict {
+    border-radius: 18px; padding: 26px 28px; margin-bottom: 40px;
+    border: 1px solid var(--line); background: var(--surface);
+  }
+  .verdict.good { border-color: #b6e6d4; background: #f2fbf7; }
+  .verdict.warn { border-color: #f0dcae; background: #fdfaf0; }
+  .verdict.bad { border-color: #f6cfc2; background: #fdf6f3; }
+  .v-host {
+    font-size: 12.5px; font-weight: 600; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--ink-3); margin-bottom: 10px;
+  }
+  .verdict strong { display: block; font-family: var(--display); font-size: 22px; line-height: 1.3; margin-bottom: 10px; }
+  .verdict p { margin: 0; font-size: 16px; line-height: 1.6; color: var(--ink-2); max-width: 72ch; }
+
+  h2.sec { font-size: 24px; margin: 0 0 6px; }
+  .sec-note { font-size: 14.5px; color: var(--ink-3); margin: 0 0 20px; }
+
+  .agroup { margin-bottom: 30px; }
+  .agroup h3 { font-size: 17px; margin: 0 0 4px; }
+  .agroup .blurb { font-size: 14.5px; color: var(--ink-3); margin: 0 0 16px; max-width: 70ch; line-height: 1.55; }
+  .agents { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+  .agent {
+    border: 1px solid var(--line); border-left-width: 4px;
+    border-radius: 12px; padding: 16px 18px; background: var(--surface);
+  }
+  .agent.yes { border-left-color: #2f9e78; }
+  .agent.partial { border-left-color: #c99a2e; }
+  .agent.no { border-left-color: #c4502c; }
+  .a-head { display: flex; align-items: center; justify-content: space-between; gap: 14px; }
+  .a-head strong { font-family: var(--display); font-size: 16px; }
+  .pill { flex: none; padding: 4px 11px; border-radius: 999px; font-size: 12px; font-weight: 600; }
+  .agent.yes .pill { background: #e7f7f1; color: #0a7f5a; }
+  .agent.partial .pill { background: #fbf3dd; color: #8a6410; }
+  .agent.no .pill { background: #fdf0ec; color: #b4482a; }
+  .a-note { font-size: 14.5px; color: var(--ink-3); margin: 7px 0 0; line-height: 1.55; }
+  .a-sub { font-size: 13.5px; color: var(--ink-3); margin: 7px 0 0; font-style: italic; }
+  .rule {
+    display: inline-block; margin-top: 9px; padding: 4px 9px; border-radius: 6px;
+    background: var(--bg); border: 1px solid var(--line);
+    font-size: 12.5px; color: var(--ink-2); word-break: break-all;
+  }
+
+  .findings { display: grid; gap: 12px; }
+  .finding {
+    border: 1px solid var(--line); border-left-width: 4px;
+    border-radius: 12px; padding: 18px 20px; background: var(--surface);
+  }
+  .finding.bad { border-left-color: #c4502c; }
+  .finding.warn { border-left-color: #c99a2e; }
+  .finding.good { border-left-color: #2f9e78; }
+  .f-tag {
+    font-size: 11.5px; font-weight: 700; letter-spacing: 0.09em;
+    text-transform: uppercase; margin-bottom: 7px;
+  }
+  .finding.bad .f-tag { color: #b4482a; }
+  .finding.warn .f-tag { color: #8a6410; }
+  .finding.good .f-tag { color: #0a7f5a; }
+  .finding h3 { font-size: 17px; margin: 0 0 7px; }
+  .finding p { font-size: 15.5px; line-height: 1.6; color: var(--ink-2); margin: 0; max-width: 74ch; }
+  .page-error {
+    font-size: 15.5px; line-height: 1.6; color: var(--ink-2);
+    background: var(--surface); border: 1px solid var(--line);
+    border-radius: 12px; padding: 18px 20px; margin: 0;
+  }
+
+  .after { margin-top: 40px; padding-top: 30px; border-top: 1px solid var(--line); }
+  .after h2 { font-size: 26px; margin-bottom: 12px; }
+  .after p { font-size: 16.5px; line-height: 1.65; color: var(--ink-2); max-width: 70ch; margin: 0 0 22px; }
+  .after .btn { margin-right: 10px; }
+
+  .card h3 { margin-bottom: 10px; font-size: 18px; }
+  .card p { font-size: 15.5px; line-height: 1.6; color: var(--ink-3); margin: 0; }
+
+  @media (max-width: 700px) {
+    .after .btn { display: block; margin: 0 0 10px; }
+    .a-head { flex-direction: column; align-items: flex-start; gap: 8px; }
+  }
+</style>

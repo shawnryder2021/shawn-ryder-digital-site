@@ -15,7 +15,9 @@
     "audit": "npm run build && node tests/build-audit.mjs",
     "seed": "node scripts/seed.mjs",
     "test:images": "node tests/images-render.test.mjs",
-    "test:visibility": "node tests/visibility-check.test.mjs"
+    "test:visibility": "node tests/visibility-check.test.mjs",
+    "test:crawler": "node tests/crawler-check.test.mjs",
+    "test:all": "npm test && npm run test:visibility && npm run test:crawler && npm run test:images && npm run audit"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.110.8",

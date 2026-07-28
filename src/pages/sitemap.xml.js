@@ -12,6 +12,11 @@ const STATIC_PAGES = [
   { path: '/scorecard', changefreq: 'yearly', priority: '0.8' },
   { path: '/contact', changefreq: 'yearly', priority: '0.9' },
   { path: '/ai-search-visibility', changefreq: 'monthly', priority: '0.9' },
+  // The free tools. Each answers a question dealers actually search for, so
+  // they earn a higher priority than the about-us pages.
+  { path: '/ai-crawler-check', changefreq: 'monthly', priority: '0.9' },
+  { path: '/ai-visibility-check', changefreq: 'monthly', priority: '0.9' },
+  { path: '/review-calculator', changefreq: 'monthly', priority: '0.9' },
   { path: '/guides', changefreq: 'weekly', priority: '0.9' },
   { path: '/faq', changefreq: 'monthly', priority: '0.8' },
   { path: '/ai', changefreq: 'monthly', priority: '0.8' },

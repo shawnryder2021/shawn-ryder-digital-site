@@ -263,7 +263,26 @@ export async function getNav() {
       { label: 'About', href: '/about' }, { label: 'Contact', href: '/contact' },
       // Markets is deliberately not here — it lives in the footer only.
     ],
-    footer: [],
+    // Mirrors what scripts/seed.mjs writes, so a build that cannot reach
+    // Supabase still ships a usable footer rather than an empty one.
+    footer: [
+      { group_label: 'Site', label: 'Services', href: '/services' },
+      { group_label: 'Site', label: 'Process', href: '/process' },
+      { group_label: 'Site', label: 'AI search visibility', href: '/ai-search-visibility' },
+      { group_label: 'Site', label: 'Guides', href: '/guides' },
+      { group_label: 'Site', label: 'FAQ', href: '/faq' },
+      { group_label: 'Site', label: 'About', href: '/about' },
+      { group_label: 'Site', label: 'Contact', href: '/contact' },
+      { group_label: 'Free tools', label: 'AI crawler check', href: '/ai-crawler-check' },
+      { group_label: 'Free tools', label: 'AI visibility check', href: '/ai-visibility-check' },
+      { group_label: 'Free tools', label: 'Review calculator', href: '/review-calculator' },
+      { group_label: 'Free tools', label: 'Marketing scorecard', href: '/scorecard' },
+      { group_label: 'Markets', label: 'All markets', href: '/markets' },
+      { group_label: 'Markets', label: 'Halifax, NS', href: '/markets/halifax' },
+      { group_label: 'Markets', label: 'Moncton, NB', href: '/markets/moncton' },
+      { group_label: 'Markets', label: 'Toronto, ON', href: '/markets/toronto' },
+      { group_label: 'Markets', label: 'Boston, MA', href: '/markets/boston' },
+    ],
   };
   if (!rows) return fallback;
 

@@ -42,6 +42,14 @@ Contact: ${contact.email ?? site.email} · ${contact.phone ?? site.phone}
 - [Free dealership audit](${site.url}/contact): website, Google Business Profile, reviews and lead-response review at no cost.
 - [Scorecard](${site.url}/scorecard): a six-question self-assessment of where a store is losing deals.
 
+## Free tools
+
+All three run in the browser with no signup, email or payment.
+
+- [AI crawler check](${site.url}/ai-crawler-check): reads a dealership's robots.txt and homepage and reports which AI crawlers are allowed in and what they can read when they arrive.
+- [AI visibility check](${site.url}/ai-visibility-check): asks an assistant what it knows about a named dealership and shows the answer verbatim.
+- [Review score calculator](${site.url}/review-calculator): how many 5-star reviews it takes to reach a target Google rating, and what a single 1-star review costs.
+
 ## Guides
 
 ${published.map((g) => `- [${g.title}](${site.url}/guides/${g.slug}): ${g.excerpt ?? ''}`).join('\n')}
