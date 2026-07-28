@@ -6,8 +6,8 @@ Claude Design prototype (`Shawn Ryder Digital v2.dc.html`), which rendered every
 page client-side from a single file — no good for a site whose whole point is
 being read by search engines and AI assistants.
 
-**69 pages build to real HTML**: home, services, process, scorecard, AI, AI
-search visibility, AI visibility checker, guides index + 15 guide URLs, markets
+**81 pages build to real HTML**: home, services, process, scorecard, AI, AI
+search visibility, three free tools, guides index + 15 written guides, markets
 index + 51 market pages, FAQ, about, contact. Plus `/sitemap.xml`, `/rss.xml`
 and `/llms.txt`, all generated from the same content.
 
@@ -29,9 +29,12 @@ npx netlify dev      # serves the site and /api/* together
 | `npm run build` | Static build into `dist/` |
 | `npm test` | Exercises both functions against a stubbed Supabase + webhook |
 | `npm run audit` | Builds, then checks titles, descriptions, h1s, schema and internal links |
-| `npm run seed` | Seeds the CMS tables from `src/data/*.json` (idempotent) |
+| `npm run seed` | Tops up the CMS tables from `src/data/*.json` (never overwrites) |
+| `npm run sync:guides` | Publishes guide bodies from `articles.json` into the CMS |
 | `npm run test:images` | Builds against a stub API and asserts images reach the HTML |
-| `npm run test:visibility` | Tests the AI checker, including its rate limits |
+| `npm run test:visibility` | Tests the AI visibility checker, including its rate limits |
+| `npm run test:crawler` | Tests the crawler checker: robots.txt matching and SSRF guards |
+| `npm run test:all` | All four suites, then the build audit |
 
 ## Architecture
 
@@ -42,9 +45,10 @@ src/pages/             One file per route; [slug].astro fans out over the data
 src/components/        Header, Footer, Faq, AuditForm, SubscribeForm
 src/lib/admin-schema.js  Field definitions driving every admin editor
 src/scripts/           Admin app + generic form renderer
-netlify/functions/     audit-request.mjs, subscribe.mjs, publish.mjs
-netlify/lib/           Shared http / supabase / validate / webhook helpers
-scripts/seed.mjs       One-time seed of the CMS tables
+netlify/functions/     audit-request, subscribe, publish, visibility-check, crawler-check
+netlify/lib/           http / supabase / validate / webhook / safe-fetch / robots / page-audit
+scripts/seed.mjs       Tops up the CMS tables from src/data/
+scripts/sync-guides.mjs  Publishes written guide bodies into the CMS
 supabase/migrations/   Schema
 ```
 
@@ -115,6 +119,17 @@ are left exactly as they are. So adding a market or guide to `src/data/` and
 re-running is the normal way to publish new content, and a stray run can never
 clobber something edited in the admin. Pass `--force` to overwrite deliberately.
 
+Guide *bodies* are a separate command, because a guide row can exist with an
+empty body — which was true of eleven of them until they were written:
+
+```bash
+npm run sync:guides
+```
+
+That fills in only the guides whose body is empty in the database, so a guide
+rewritten in the admin is never overwritten by a stale copy in the repo. Add
+`--dry` to preview, `--force` to replace bodies deliberately.
+
 ### How publishing works
 
 Saving writes to the database immediately, but the live site is static — it
@@ -179,6 +194,49 @@ validate → rate-limit → call the model → store → respond:
 `npm run test:visibility` covers all of that, asserting **zero model calls**
 whenever a request is rate-limited or unconfigured.
 
+### AI crawler check
+
+`/ai-crawler-check` is the companion to the above. The visibility checker shows
+a dealer *what* an assistant says about them; this one shows *why*. It reads
+their `robots.txt` and homepage and reports which AI crawlers are allowed in and
+what they can read once they arrive. Two HTTP requests and a parse — no model,
+no per-call cost.
+
+The report separates **answer engines** (`OAI-SearchBot`, `ChatGPT-User`,
+`PerplexityBot`, `Claude-User`, `Bingbot`) from **training and grounding**
+crawlers (`GPTBot`, `ClaudeBot`, `Google-Extended`, `Applebot-Extended`,
+`meta-externalagent`, `CCBot`). Blocking the first group makes a store invisible
+today; blocking the second only slows what models learn. Blocking
+`Google-Extended` in particular does nothing to Google Search ranking, and
+saying otherwise would discredit the whole tool.
+
+Three things needed care:
+
+- **SSRF.** The endpoint fetches a URL an anonymous stranger typed.
+  `netlify/lib/safe-fetch.mjs` enforces a scheme allowlist, resolves DNS and
+  rejects every private range, follows redirects by hand so each hop is
+  re-validated, and caps time and response size. The residual DNS-rebinding risk
+  is documented in that file rather than left implied.
+- **robots.txt matching.** Telling a dealer they block ChatGPT when they do not
+  is worse than having no tool, so `netlify/lib/robots.mjs` implements RFC 9309
+  properly: stacked user-agent lines, named groups beating the `*` group,
+  longest-match with Allow winning ties, `$` anchors.
+- **Client-side rendering.** Most AI crawlers do not run JavaScript, so the page
+  audit counts text present *before* any script runs. A homepage that looks full
+  in a browser and is empty in source is the most common reason an assistant
+  knows nothing about a store.
+
+`npm run test:crawler` covers all of it — including every private IP range and a
+public host that redirects into one.
+
+### Review calculator
+
+`/review-calculator` is pure client-side arithmetic, no backend at all: how many
+5-star reviews to reach a target rating, and what one 1-star costs. The second
+number is `(R−1)/(5−R)` and does not depend on review count — 4 five-stars to
+undo a 1-star at 4.2, but 19 at 4.8. The page states plainly that Google's
+one-decimal rounding makes all of it an estimate.
+
 ## Admin area
 
 `/admin` is a static shell; all data is fetched in the browser under the
@@ -234,3 +292,14 @@ surviving copy rather than the original array.
 nothing carried across. The plumbing now exists — upload under **Images** in the
 admin and assign to a slot — but until real photos are added the site renders
 without them (by design, not as a broken state).
+
+**Reviews are placeholders.** All three entries under **Reviews** still read
+"Google review to be added here." They render as written, so these should be
+replaced with real quotes or removed before the domain is pointed.
+
+**Guides are written but unreviewed.** All 15 now have bodies. The eleven added
+in July 2026 are drafted in Shawn's voice from his own material and stated
+positions, but he has not read them — they are opinionated documents published
+under his name, so they warrant a pass before they earn links. Nothing in them
+is a fabricated statistic; where a number appears it is arithmetic (the review
+calculator formulas) or a stated range presented as a range.

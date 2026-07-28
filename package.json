@@ -14,6 +14,7 @@
     "test": "node tests/functions.test.mjs",
     "audit": "npm run build && node tests/build-audit.mjs",
     "seed": "node scripts/seed.mjs",
+    "sync:guides": "node scripts/sync-guides.mjs",
     "test:images": "node tests/images-render.test.mjs",
     "test:visibility": "node tests/visibility-check.test.mjs",
     "test:crawler": "node tests/crawler-check.test.mjs",

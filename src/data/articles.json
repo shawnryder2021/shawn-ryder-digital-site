@@ -1,247 +1,1393 @@
 {
-  "google-business-profile-checklist-for-dealerships": {
-    "takeaways": [
-      "Fix categories and service areas before you touch anything else",
-      "Post weekly — the profile decays without it",
-      "Track local pack position by model line, not just brand"
-    ],
-    "blocks": [
-      {
-        "t": "p",
-        "x": "Your Google Business Profile gets more eyeballs than your homepage. A shopper searches your brand plus your city, and the panel on the right is the whole first impression: hours, photos, reviews, a phone number. Most dealers set it up once when the store opened and have not opened it since."
-      },
-      {
-        "t": "p",
-        "x": "Here is what I check first, in the order I check it."
-      },
-      {
-        "t": "h",
-        "x": "The first hour"
-      },
-      {
-        "t": "ol",
-        "items": [
-          "Primary category. It should be your franchise category if you are a franchise store, and Used Car Dealer if you are independent. This single field decides which searches you are even eligible for.",
-          "Secondary categories. Auto repair shop, oil change service, car finance and leasing service, auto parts store — whichever departments you actually run. Do not add ones you do not.",
-          "Departments as separate profiles. Sales, service and parts can each have their own listing with their own hours and phone number. Most stores have one listing doing three jobs badly.",
-          "Hours, including holidays. Wrong hours on a Sunday is a shopper who drove to your lot and left angry, and a review that says so.",
-          "Phone number. It should ring where a human answers, not a tracking number that dies after hours.",
-          "The description. 750 characters, written for a person, naming your city and the brands you carry."
-        ]
-      },
-      {
-        "t": "pull",
-        "x": "If the basic facts about your store conflict between your site, your profile and the directories, you are not just losing rank — you are teaching every AI assistant to hedge when someone asks about you."
-      },
-      {
-        "t": "h",
-        "x": "The three habits"
-      },
-      {
-        "t": "p",
-        "x": "Setup is the easy half. Profiles decay. The stores that hold local pack position do three small things on a schedule."
-      },
-      {
-        "t": "ul",
-        "items": [
-          "Post weekly. Ten minutes. A new arrival, a service special, a staff introduction, a delivery photo. Google reads activity as a life sign.",
-          "Answer questions before shoppers do. Seed the Q&A yourself with the real questions your BDC gets — financing with bruised credit, whether you take trades you will not retail, what a safety inspection costs.",
-          "Add photos monthly, from a phone, on your lot. Not the manufacturer press kit. Real photos of your building in your weather do more for trust than anything a designer can make."
-        ]
-      },
-      {
-        "t": "h",
-        "x": "The category setting that quietly keeps you out"
-      },
-      {
-        "t": "p",
-        "x": "The one I find most often: a franchise store whose primary category was set to Used Car Dealer years ago, usually by someone trying to rank for used inventory. It works — for used searches. It also drops you out of consideration for every new-vehicle brand search in your market, which is the higher-intent traffic. Pick the category that matches what the store is, then earn used visibility with pages on your own site."
-      },
-      {
-        "t": "h",
-        "x": "How to know if any of it is working"
-      },
-      {
-        "t": "p",
-        "x": "Do not track brand plus city and call it a day — you will always rank for your own name. Track by model line and by intent: the SUV your market actually buys, the service your lane makes money on, and the near-me searches inside a forty-minute drive. Check from a few points around your radius, not from the desk in your office, because proximity moves the result more than anything else on this list."
-      },
-      {
-        "t": "p",
-        "x": "When I audit a store, this profile work is usually the cheapest thing on the list and the first thing to move. Nothing here needs a vendor, a contract or a redesign. It needs somebody to own it for an hour a month."
-      }
+ "google-business-profile-checklist-for-dealerships": {
+  "takeaways": [
+   "Fix categories and service areas before you touch anything else",
+   "Post weekly — the profile decays without it",
+   "Track local pack position by model line, not just brand"
+  ],
+  "blocks": [
+   {
+    "t": "p",
+    "x": "Your Google Business Profile gets more eyeballs than your homepage. A shopper searches your brand plus your city, and the panel on the right is the whole first impression: hours, photos, reviews, a phone number. Most dealers set it up once when the store opened and have not opened it since."
+   },
+   {
+    "t": "p",
+    "x": "Here is what I check first, in the order I check it."
+   },
+   {
+    "t": "h",
+    "x": "The first hour"
+   },
+   {
+    "t": "ol",
+    "items": [
+     "Primary category. It should be your franchise category if you are a franchise store, and Used Car Dealer if you are independent. This single field decides which searches you are even eligible for.",
+     "Secondary categories. Auto repair shop, oil change service, car finance and leasing service, auto parts store — whichever departments you actually run. Do not add ones you do not.",
+     "Departments as separate profiles. Sales, service and parts can each have their own listing with their own hours and phone number. Most stores have one listing doing three jobs badly.",
+     "Hours, including holidays. Wrong hours on a Sunday is a shopper who drove to your lot and left angry, and a review that says so.",
+     "Phone number. It should ring where a human answers, not a tracking number that dies after hours.",
+     "The description. 750 characters, written for a person, naming your city and the brands you carry."
     ]
-  },
-  "ask-chatgpt-about-your-dealership": {
-    "takeaways": [
-      "Run the same six prompts, record the answers, date them",
-      "Assistants quote your reviews and your own pages, not your ads",
-      "Six fixes change the answer, and none of them are a chatbot"
-    ],
-    "blocks": [
-      {
-        "t": "p",
-        "x": "Open ChatGPT and ask it where to buy a used SUV in your city. Then ask whether your store is a good place to buy a car. Read what comes back carefully — that is now a shopper touchpoint, and nobody at your store owns it."
-      },
-      {
-        "t": "p",
-        "x": "I do this for every dealer I talk to before the first call. The answers fall into three buckets: your store is named and described accurately, your store is named and described badly, or your store is not mentioned and a competitor is."
-      },
-      {
-        "t": "h",
-        "x": "Where the answer comes from"
-      },
-      {
-        "t": "p",
-        "x": "Assistants are not reading your ad spend. They pull from what is structured and public: your own site if it is parseable, your Google Business Profile, review text in aggregate, directory listings, local news and forum mentions. Then they summarise sentiment in plain English, which is the part dealers underestimate."
-      },
-      {
-        "t": "pull",
-        "x": "A four-point-three star average is a number. “Customers report good sales staff but repeated frustration with the service department” is a sentence — and that is what the shopper reads now."
-      },
-      {
-        "t": "h",
-        "x": "The six fixes"
-      },
-      {
-        "t": "ol",
-        "items": [
-          "Make your facts machine-readable. Departments, hours, staff, brands, services, inventory structure — marked up properly on your own site so a machine reads it the way a person would.",
-          "Write the answers on your own pages. Short, direct, quotable. Financing questions, trade process, warranty coverage, service intervals, model comparisons in your market. Marketing language never gets quoted.",
-          "Fix contradictions. If your hours differ between your site, your profile and three directories, assistants hedge or skip you entirely.",
-          "Work the review sentiment, not the average. Volume, recency, and responses that read like a person wrote them. If there is a pattern in the complaints, fix the pattern.",
-          "Get mentioned where assistants already look. Local news, community sponsorships, association pages, supplier pages. Real citations, not link schemes.",
-          "Re-run the prompts quarterly and write down what changed. Same prompts, same assistants, dated. That is your only baseline."
-        ]
-      },
-      {
-        "t": "h",
-        "x": "What not to do"
-      },
-      {
-        "t": "p",
-        "x": "Do not buy an AI visibility product that promises to get you into ChatGPT. There is no ad inventory to buy. And do not bolt a chatbot onto the site as your answer to any of this — a bot that invents a payment or ignores a question costs you the lead and the trust in the same conversation."
-      },
-      {
-        "t": "p",
-        "x": "This is the least competitive thing in dealership marketing right now, which is exactly why it is worth an afternoon. Ask the questions, save the answers, and go fix the six things."
-      }
+   },
+   {
+    "t": "pull",
+    "x": "If the basic facts about your store conflict between your site, your profile and the directories, you are not just losing rank — you are teaching every AI assistant to hedge when someone asks about you."
+   },
+   {
+    "t": "h",
+    "x": "The three habits"
+   },
+   {
+    "t": "p",
+    "x": "Setup is the easy half. Profiles decay. The stores that hold local pack position do three small things on a schedule."
+   },
+   {
+    "t": "ul",
+    "items": [
+     "Post weekly. Ten minutes. A new arrival, a service special, a staff introduction, a delivery photo. Google reads activity as a life sign.",
+     "Answer questions before shoppers do. Seed the Q&A yourself with the real questions your BDC gets — financing with bruised credit, whether you take trades you will not retail, what a safety inspection costs.",
+     "Add photos monthly, from a phone, on your lot. Not the manufacturer press kit. Real photos of your building in your weather do more for trust than anything a designer can make."
     ]
-  },
-  "speed-to-lead-friday-afternoon": {
-    "takeaways": [
-      "The 5:40pm Friday lead is a staffing gap, not a CRM gap",
-      "First contact inside ten minutes is the only benchmark that matters",
-      "Cover the four windows where leads actually go cold"
-    ],
-    "blocks": [
-      {
-        "t": "p",
-        "x": "Every store has a version of this lead. It arrives at 5:40 on a Friday. The salesperson who owns the queue is with a customer, then goes home. Saturday is the busiest day on the floor and nobody looks at yesterday. Monday morning, somebody calls. The shopper bought Saturday afternoon somewhere else."
-      },
-      {
-        "t": "p",
-        "x": "Then the meeting happens where everybody agrees the CRM is the problem. It is not the CRM."
-      },
-      {
-        "t": "h",
-        "x": "The four windows"
-      },
-      {
-        "t": "p",
-        "x": "Pull your last ninety days of internet leads and plot first-contact time by hour of arrival. In almost every store the gaps land in the same four places."
-      },
-      {
-        "t": "ul",
-        "items": [
-          "Weekday evening, after the desk clears out but while shoppers are home browsing — the single biggest volume window in most stores.",
-          "Saturday during floor traffic, when the people who own follow-up are busy selling.",
-          "Sunday, when the store is closed and the shopper has time.",
-          "Month-end, when everyone is chasing deliveries and new leads queue up behind them."
-        ]
-      },
-      {
-        "t": "pull",
-        "x": "Nobody needs to answer instantly at 2am. Somebody needs to answer inside ten minutes during the windows where your shoppers are actually shopping."
-      },
-      {
-        "t": "h",
-        "x": "The shift that fixes it"
-      },
-      {
-        "t": "p",
-        "x": "Stop assigning leads to whoever is up and start assigning coverage to a clock. One person owns first response from open until 9pm on weekdays, with a defined handoff at shift change. Saturday needs a person who is not on the floor. Sunday gets a two-hour block — someone from home, paid for it, with a laptop."
-      },
-      {
-        "t": "p",
-        "x": "The response itself does not need to be brilliant. It needs to be a real human, by name, referencing the exact vehicle, offering two specific times. AI can draft it and should. Somebody still has to hit send and answer what comes back."
-      },
-      {
-        "t": "h",
-        "x": "What to measure"
-      },
-      {
-        "t": "p",
-        "x": "One number on the wall: median minutes to first human contact, by day of week. Not average — one 14-hour outlier ruins an average and hides the pattern. Then appointment set rate against that number. When the median drops under ten minutes, set rate moves, and everyone stops arguing about lead quality."
-      },
-      {
-        "t": "p",
-        "x": "Mystery shop your own store once a month to confirm the process survives contact with a busy Saturday. Submit a lead from a personal email, call the number, text the store. Score what happens. It takes fifteen minutes and it settles every debate."
-      }
+   },
+   {
+    "t": "h",
+    "x": "The category setting that quietly keeps you out"
+   },
+   {
+    "t": "p",
+    "x": "The one I find most often: a franchise store whose primary category was set to Used Car Dealer years ago, usually by someone trying to rank for used inventory. It works — for used searches. It also drops you out of consideration for every new-vehicle brand search in your market, which is the higher-intent traffic. Pick the category that matches what the store is, then earn used visibility with pages on your own site."
+   },
+   {
+    "t": "h",
+    "x": "How to know if any of it is working"
+   },
+   {
+    "t": "p",
+    "x": "Do not track brand plus city and call it a day — you will always rank for your own name. Track by model line and by intent: the SUV your market actually buys, the service your lane makes money on, and the near-me searches inside a forty-minute drive. Check from a few points around your radius, not from the desk in your office, because proximity moves the result more than anything else on this list."
+   },
+   {
+    "t": "p",
+    "x": "When I audit a store, this profile work is usually the cheapest thing on the list and the first thing to move. Nothing here needs a vendor, a contract or a redesign. It needs somebody to own it for an hour a month."
+   }
+  ]
+ },
+ "ask-chatgpt-about-your-dealership": {
+  "takeaways": [
+   "Run the same six prompts, record the answers, date them",
+   "Assistants quote your reviews and your own pages, not your ads",
+   "Six fixes change the answer, and none of them are a chatbot"
+  ],
+  "blocks": [
+   {
+    "t": "p",
+    "x": "Open ChatGPT and ask it where to buy a used SUV in your city. Then ask whether your store is a good place to buy a car. Read what comes back carefully — that is now a shopper touchpoint, and nobody at your store owns it."
+   },
+   {
+    "t": "p",
+    "x": "I do this for every dealer I talk to before the first call. The answers fall into three buckets: your store is named and described accurately, your store is named and described badly, or your store is not mentioned and a competitor is."
+   },
+   {
+    "t": "h",
+    "x": "Where the answer comes from"
+   },
+   {
+    "t": "p",
+    "x": "Assistants are not reading your ad spend. They pull from what is structured and public: your own site if it is parseable, your Google Business Profile, review text in aggregate, directory listings, local news and forum mentions. Then they summarise sentiment in plain English, which is the part dealers underestimate."
+   },
+   {
+    "t": "pull",
+    "x": "A four-point-three star average is a number. “Customers report good sales staff but repeated frustration with the service department” is a sentence — and that is what the shopper reads now."
+   },
+   {
+    "t": "h",
+    "x": "The six fixes"
+   },
+   {
+    "t": "ol",
+    "items": [
+     "Make your facts machine-readable. Departments, hours, staff, brands, services, inventory structure — marked up properly on your own site so a machine reads it the way a person would.",
+     "Write the answers on your own pages. Short, direct, quotable. Financing questions, trade process, warranty coverage, service intervals, model comparisons in your market. Marketing language never gets quoted.",
+     "Fix contradictions. If your hours differ between your site, your profile and three directories, assistants hedge or skip you entirely.",
+     "Work the review sentiment, not the average. Volume, recency, and responses that read like a person wrote them. If there is a pattern in the complaints, fix the pattern.",
+     "Get mentioned where assistants already look. Local news, community sponsorships, association pages, supplier pages. Real citations, not link schemes.",
+     "Re-run the prompts quarterly and write down what changed. Same prompts, same assistants, dated. That is your only baseline."
     ]
-  },
-  "dealership-email-marketing-beats-bought-leads": {
-    "takeaways": [
-      "You already own the cheapest buyers in your market",
-      "Five sends cover most of the opportunity",
-      "Report replies, appointments and units — not opens"
-    ],
-    "blocks": [
-      {
-        "t": "p",
-        "x": "Email is the oldest channel in the building and every store treats it like a chore. Meanwhile you pay third-party lead providers for shoppers who have never bought from you, while thousands of people who already have sit in a database nobody markets to."
-      },
-      {
-        "t": "p",
-        "x": "The math is not close. A past customer costs a fraction of a bought lead, closes at a much better rate, and comes in trusting you. The reason dealers do not run it well is that email looks like work with no vendor attached."
-      },
-      {
-        "t": "h",
-        "x": "The five sends"
-      },
-      {
-        "t": "ol",
-        "items": [
-          "Equity and trade offer. Customers in a payment position to upgrade, matched to units you actually have on the ground. Not a generic “we want your trade” blast.",
-          "Service reminder timed to the vehicle. Mileage and interval, not the calendar month, with a booking link that works on a phone in a parking lot.",
-          "Lease and finance end. Ninety, sixty and thirty days out. If you are not there first, the store down the road is.",
-          "Post-purchase series. Three touches in the first month. This is where your reviews and referrals come from, and almost nobody runs it.",
-          "Win-back. Eighteen months since the last visit. They assume you forgot them, and they are right."
-        ]
-      },
-      {
-        "t": "pull",
-        "x": "One blast a month to ten thousand people is not email marketing. It is a newsletter nobody asked for, and it trains your database to ignore you."
-      },
-      {
-        "t": "h",
-        "x": "What makes them work"
-      },
-      {
-        "t": "p",
-        "x": "Segment on three things you already have: equity position, service history, and last contact date. That is enough for all five sends. Send from a person at the store with a real reply-to, because replies are the point. Keep it short enough to read on a phone between appointments, and make the ask one thing."
-      },
-      {
-        "t": "h",
-        "x": "What to report"
-      },
-      {
-        "t": "p",
-        "x": "Opens have been noise since privacy changes broke pixel tracking. Report replies, appointments booked, and units delivered attributed back to the send. Those three numbers make the case for the channel by themselves, and they are the only ones a dealer principal should care about."
-      },
-      {
-        "t": "p",
-        "x": "Start with equity and lease-end. Two sends, one afternoon of list work, and you will know inside a month whether your database is worth more than the leads you are buying. It is."
-      }
+   },
+   {
+    "t": "h",
+    "x": "What not to do"
+   },
+   {
+    "t": "p",
+    "x": "Do not buy an AI visibility product that promises to get you into ChatGPT. There is no ad inventory to buy. And do not bolt a chatbot onto the site as your answer to any of this — a bot that invents a payment or ignores a question costs you the lead and the trust in the same conversation."
+   },
+   {
+    "t": "p",
+    "x": "This is the least competitive thing in dealership marketing right now, which is exactly why it is worth an afternoon. Ask the questions, save the answers, and go fix the six things."
+   }
+  ]
+ },
+ "speed-to-lead-friday-afternoon": {
+  "takeaways": [
+   "The 5:40pm Friday lead is a staffing gap, not a CRM gap",
+   "First contact inside ten minutes is the only benchmark that matters",
+   "Cover the four windows where leads actually go cold"
+  ],
+  "blocks": [
+   {
+    "t": "p",
+    "x": "Every store has a version of this lead. It arrives at 5:40 on a Friday. The salesperson who owns the queue is with a customer, then goes home. Saturday is the busiest day on the floor and nobody looks at yesterday. Monday morning, somebody calls. The shopper bought Saturday afternoon somewhere else."
+   },
+   {
+    "t": "p",
+    "x": "Then the meeting happens where everybody agrees the CRM is the problem. It is not the CRM."
+   },
+   {
+    "t": "h",
+    "x": "The four windows"
+   },
+   {
+    "t": "p",
+    "x": "Pull your last ninety days of internet leads and plot first-contact time by hour of arrival. In almost every store the gaps land in the same four places."
+   },
+   {
+    "t": "ul",
+    "items": [
+     "Weekday evening, after the desk clears out but while shoppers are home browsing — the single biggest volume window in most stores.",
+     "Saturday during floor traffic, when the people who own follow-up are busy selling.",
+     "Sunday, when the store is closed and the shopper has time.",
+     "Month-end, when everyone is chasing deliveries and new leads queue up behind them."
     ]
-  }
+   },
+   {
+    "t": "pull",
+    "x": "Nobody needs to answer instantly at 2am. Somebody needs to answer inside ten minutes during the windows where your shoppers are actually shopping."
+   },
+   {
+    "t": "h",
+    "x": "The shift that fixes it"
+   },
+   {
+    "t": "p",
+    "x": "Stop assigning leads to whoever is up and start assigning coverage to a clock. One person owns first response from open until 9pm on weekdays, with a defined handoff at shift change. Saturday needs a person who is not on the floor. Sunday gets a two-hour block — someone from home, paid for it, with a laptop."
+   },
+   {
+    "t": "p",
+    "x": "The response itself does not need to be brilliant. It needs to be a real human, by name, referencing the exact vehicle, offering two specific times. AI can draft it and should. Somebody still has to hit send and answer what comes back."
+   },
+   {
+    "t": "h",
+    "x": "What to measure"
+   },
+   {
+    "t": "p",
+    "x": "One number on the wall: median minutes to first human contact, by day of week. Not average — one 14-hour outlier ruins an average and hides the pattern. Then appointment set rate against that number. When the median drops under ten minutes, set rate moves, and everyone stops arguing about lead quality."
+   },
+   {
+    "t": "p",
+    "x": "Mystery shop your own store once a month to confirm the process survives contact with a busy Saturday. Submit a lead from a personal email, call the number, text the store. Score what happens. It takes fifteen minutes and it settles every debate."
+   }
+  ]
+ },
+ "dealership-email-marketing-beats-bought-leads": {
+  "takeaways": [
+   "You already own the cheapest buyers in your market",
+   "Five sends cover most of the opportunity",
+   "Report replies, appointments and units — not opens"
+  ],
+  "blocks": [
+   {
+    "t": "p",
+    "x": "Email is the oldest channel in the building and every store treats it like a chore. Meanwhile you pay third-party lead providers for shoppers who have never bought from you, while thousands of people who already have sit in a database nobody markets to."
+   },
+   {
+    "t": "p",
+    "x": "The math is not close. A past customer costs a fraction of a bought lead, closes at a much better rate, and comes in trusting you. The reason dealers do not run it well is that email looks like work with no vendor attached."
+   },
+   {
+    "t": "h",
+    "x": "The five sends"
+   },
+   {
+    "t": "ol",
+    "items": [
+     "Equity and trade offer. Customers in a payment position to upgrade, matched to units you actually have on the ground. Not a generic “we want your trade” blast.",
+     "Service reminder timed to the vehicle. Mileage and interval, not the calendar month, with a booking link that works on a phone in a parking lot.",
+     "Lease and finance end. Ninety, sixty and thirty days out. If you are not there first, the store down the road is.",
+     "Post-purchase series. Three touches in the first month. This is where your reviews and referrals come from, and almost nobody runs it.",
+     "Win-back. Eighteen months since the last visit. They assume you forgot them, and they are right."
+    ]
+   },
+   {
+    "t": "pull",
+    "x": "One blast a month to ten thousand people is not email marketing. It is a newsletter nobody asked for, and it trains your database to ignore you."
+   },
+   {
+    "t": "h",
+    "x": "What makes them work"
+   },
+   {
+    "t": "p",
+    "x": "Segment on three things you already have: equity position, service history, and last contact date. That is enough for all five sends. Send from a person at the store with a real reply-to, because replies are the point. Keep it short enough to read on a phone between appointments, and make the ask one thing."
+   },
+   {
+    "t": "h",
+    "x": "What to report"
+   },
+   {
+    "t": "p",
+    "x": "Opens have been noise since privacy changes broke pixel tracking. Report replies, appointments booked, and units delivered attributed back to the send. Those three numbers make the case for the channel by themselves, and they are the only ones a dealer principal should care about."
+   },
+   {
+    "t": "p",
+    "x": "Start with equity and lease-end. Two sends, one afternoon of list work, and you will know inside a month whether your database is worth more than the leads you are buying. It is."
+   }
+  ]
+ },
+ "raise-dealership-review-score": {
+  "takeaways": [
+   "The ask belongs at delivery and service pickup, not in an email three days later",
+   "Service volume, not sales volume, is what actually moves the number",
+   "A reply to a bad review is written for the next reader, not the reviewer"
+  ],
+  "blocks": [
+   {
+    "t": "p",
+    "x": "Every store has tried the review push. Somebody prints a sign for the desk, the GM mentions it in a Monday meeting, twelve reviews arrive over three weeks, and then it stops. Six months later the score is exactly where it was."
+   },
+   {
+    "t": "p",
+    "x": "The stores that actually move the number treat it as a process with an owner rather than a campaign with a push. Here is what that looks like in practice."
+   },
+   {
+    "t": "h",
+    "x": "Work out what you are actually chasing"
+   },
+   {
+    "t": "p",
+    "x": "Do the arithmetic before you do anything else, because the answer changes the whole plan. A store at 4.2 with 180 reviews needs roughly 100 five-star reviews to reach 4.5. The same store at 4.2 with 60 reviews needs 33. Identical rating, completely different job."
+   },
+   {
+    "t": "p",
+    "x": "That is worth ten seconds with a calculator rather than a guess, because \"we need more reviews\" and \"we need one hundred more reviews by March\" produce very different levels of effort from a team."
+   },
+   {
+    "t": "h",
+    "x": "The ask has to happen inside the building"
+   },
+   {
+    "t": "p",
+    "x": "The highest-yield change in most stores is moving the request to the moment the customer is standing in front of somebody they like. At delivery, keys in hand. At service pickup, when the car is clean and the bill was what you said it would be."
+   },
+   {
+    "t": "p",
+    "x": "An email sent three days later is competing with their entire life. A request made in person, by the person who just helped them, is competing with nothing at all."
+   },
+   {
+    "t": "ul",
+    "items": [
+     "Ask out loud, by name, once. \"Would you mind leaving Sarah a review? It genuinely helps her.\" Naming a person is the difference between a 4-star and a 5-star.",
+     "Hand them a card with a QR code that opens the review form directly — not your homepage, not a landing page with a choice of six platforms.",
+     "Never ask a customer you know is unhappy. Fix the problem first, then ask, or do not ask."
+    ]
+   },
+   {
+    "t": "pull",
+    "x": "The most common failure is not that customers say no. It is that nobody asked."
+   },
+   {
+    "t": "h",
+    "x": "Service is where the volume is"
+   },
+   {
+    "t": "p",
+    "x": "You deliver perhaps thirty to eighty cars a month. You touch several hundred service customers. Stores that get their rating up almost always did it through the drive, not the showroom."
+   },
+   {
+    "t": "p",
+    "x": "The service ask is also easier, because expectations going in are lower and a good experience is more surprising. A customer who was quoted $400, paid $380, and got the car back when promised is in a better mood than most delivery customers."
+   },
+   {
+    "t": "p",
+    "x": "Assign it to advisors, track it by advisor, and pay something for it. Twenty dollars a review is cheap next to what you currently pay to acquire a lead that may never answer the phone."
+   },
+   {
+    "t": "h",
+    "x": "Cadence beats total"
+   },
+   {
+    "t": "p",
+    "x": "The local pack cares about recent reviews more than dealers expect. Four hundred reviews with nothing since March reads as a store that used to be good. A hundred and twenty with eight this month reads as a store that is busy."
+   },
+   {
+    "t": "p",
+    "x": "So set a floor rather than a goal. Six a month, every month, forever. That is one review every five days — one advisor asking two customers a week. A goal gets hit once and abandoned; a floor becomes a habit."
+   },
+   {
+    "t": "h",
+    "x": "The ones that sting"
+   },
+   {
+    "t": "p",
+    "x": "You cannot delete a 1-star, and chasing its removal is usually a wasted week. What you can do is write a reply that the next four hundred people will read. The reply is not for the reviewer. They are gone."
+   },
+   {
+    "t": "p",
+    "x": "A reply is not a defence. It is a demonstration."
+   },
+   {
+    "t": "ol",
+    "items": [
+     "Name what went wrong, specifically, without hedging.",
+     "Do not re-litigate the facts. Nobody reading is going to adjudicate, and the store always looks worse for trying.",
+     "Say what you changed, not just what you regret.",
+     "Sign it with a real name and a direct number."
+    ]
+   },
+   {
+    "t": "p",
+    "x": "Compare two replies. The first: \"We’re sorry you had a negative experience. Please contact us at your convenience.\" The second: \"You waited two hours for a car we told you would take one, and nobody came out to explain the delay. That one is on us — we have changed how the drive updates customers when a job runs long. I would like to make it right. Shawn, Service Manager, 902-555-0100.\""
+   },
+   {
+    "t": "p",
+    "x": "The first tells the next reader you have a policy. The second tells them a human works there. Only one of those sells a car."
+   },
+   {
+    "t": "h",
+    "x": "What to put on the wall"
+   },
+   {
+    "t": "p",
+    "x": "Two numbers, and neither of them is your rating. Reviews collected this month, and days since the last review."
+   },
+   {
+    "t": "p",
+    "x": "Rating is the outcome, and it moves too slowly to motivate anyone — a team that grinds out fifteen reviews in month one and watches 4.2 stay 4.2 will quit in month two. Volume and recency are the inputs, and they are the only parts anybody can affect this week."
+   }
+  ]
+ },
+ "how-many-google-reviews-dealership": {
+  "takeaways": [
+   "There is no threshold number — the target is the three stores in your local pack",
+   "Recency carries more weight than dealers expect, and it is easier to fix",
+   "Past roughly 150 reviews, volume stops raising your score and starts working as a cushion"
+  ],
+  "blocks": [
+   {
+    "t": "p",
+    "x": "The honest answer is that there is no number. There is only \"more than the stores you are competing with for the local pack, and more recently than them.\""
+   },
+   {
+    "t": "p",
+    "x": "That sounds like a dodge, so here is how to work out your own number in about ten minutes."
+   },
+   {
+    "t": "h",
+    "x": "Find your actual benchmark"
+   },
+   {
+    "t": "p",
+    "x": "Search your main term — \"Ford dealer Halifax\", \"used cars Moncton\", whatever a shopper would type — from a phone, on cellular data, not from your office desktop where Google already knows who you are. Write down the three results in the map pack. For each one: rating, review count, and the date of the most recent review."
+   },
+   {
+    "t": "p",
+    "x": "That is your target. Not an industry average, not a number from a vendor webinar. Those three stores, in that pack, this month."
+   },
+   {
+    "t": "p",
+    "x": "In most Canadian and American secondary markets the pack sits somewhere around 4.3 to 4.6 with 150 to 600 reviews. In a small Atlantic market it is often 4.4 with 80, which is genuinely winnable inside a year. In Toronto or Dallas it can be 4.5 with 1,200, which is a different kind of project. The only number that matters is the local one."
+   },
+   {
+    "t": "h",
+    "x": "Why recency does more work than volume"
+   },
+   {
+    "t": "p",
+    "x": "A review from last week is evidence the business is currently operating well. A review from 2021 is history. Ranking behaviour reflects that, and so does shopper behaviour — plenty of people sort by newest, and the ones who do not still glance at the dates."
+   },
+   {
+    "t": "p",
+    "x": "The practical version: a store with 140 reviews and nine in the last thirty days will generally hold its position better than a store with 500 and two."
+   },
+   {
+    "t": "pull",
+    "x": "Four hundred reviews and nothing since March reads as a store that used to be good."
+   },
+   {
+    "t": "p",
+    "x": "This is also the cheaper problem to fix. Going from 140 reviews to 500 is a two-year project. Going from two a month to eight a month is a conversation with your service advisors."
+   },
+   {
+    "t": "h",
+    "x": "The point where volume stops being about your rating"
+   },
+   {
+    "t": "p",
+    "x": "Early on, every review moves your number. At 40 reviews a single 1-star drops you visibly. At 400 it barely registers."
+   },
+   {
+    "t": "p",
+    "x": "That is the real argument for volume past the first couple of hundred: not a higher score, but a cushion. It stops one bad Saturday from costing you a tenth of a point."
+   },
+   {
+    "t": "p",
+    "x": "The arithmetic runs the other way too, and it is unforgiving. The number of 5-star reviews it takes to cancel one 1-star depends only on your current rating, not on how many reviews you have — about four at 4.2, seven at 4.5, nineteen at 4.8. The better you get, the more expensive each bad experience becomes. Which is an argument for fixing what produces them, not out-running them."
+   },
+   {
+    "t": "h",
+    "x": "A realistic target by stage"
+   },
+   {
+    "t": "ul",
+    "items": [
+     "Under 50 reviews: your job is volume, full stop. Anything you collect helps and the score moves fast enough to keep the team interested.",
+     "Between 50 and 150: keep collecting, and start caring about the mix. This is where a run of 4-stars quietly caps you.",
+     "Over 150: hold a floor of six to ten a month and put the rest of your effort into whatever is generating the bad ones."
+    ]
+   },
+   {
+    "t": "p",
+    "x": "Pay attention to that middle band. Four-star reviews from perfectly happy customers are the most common invisible ceiling in a dealership — a 4-star pulls a 4.5 store down, and nobody thinks of it as a problem because the customer was pleased. If your ask is \"leave us a review,\" you get 4s from people who enjoyed themselves. If your ask names the person who helped them, you get 5s."
+   },
+   {
+    "t": "h",
+    "x": "What does not work"
+   },
+   {
+    "t": "ol",
+    "items": [
+     "Gating — surveying customers first and only routing the happy ones to Google. It is against policy, it is detectable, and the penalty lands on your whole profile.",
+     "Incentivising customers. Same policy problem, plus it corrupts the signal you were trying to build in the first place.",
+     "Buying them. They read as fake, they get removed in batches, and the sweep sometimes takes legitimate reviews with it."
+    ]
+   },
+   {
+    "t": "p",
+    "x": "Paying your own staff for collecting reviews is fine and works well. Paying customers for leaving them is not. The line is who receives the money, and it is a clean line."
+   }
+  ]
+ },
+ "schema-markup-for-dealership-websites": {
+  "takeaways": [
+   "Structured data is the machine-readable copy of facts your page already states",
+   "Four types cover almost everything a dealership needs",
+   "You can verify what your provider actually shipped in about five minutes"
+  ],
+  "blocks": [
+   {
+    "t": "p",
+    "x": "Structured data — schema markup — is one of those topics where every explanation opens with a code sample, which is why most dealer principals decided years ago that it was somebody else’s problem."
+   },
+   {
+    "t": "p",
+    "x": "Here is the version without the code."
+   },
+   {
+    "t": "h",
+    "x": "What it actually is"
+   },
+   {
+    "t": "p",
+    "x": "Your homepage states your name, address, phone number and hours somewhere. A person reads that and understands it immediately. A machine reads it and sees text that might be your address, or might be part of a testimonial, or might belong to a second location, or might be the address of the photographer who shot the building."
+   },
+   {
+    "t": "p",
+    "x": "Schema is a second copy of those same facts, written in a fixed format, in a part of the page nobody looks at. It says: this string is the legal business name. This is the phone number. These are the opening hours. This is the kind of business."
+   },
+   {
+    "t": "p",
+    "x": "You are not adding information. You are removing ambiguity."
+   },
+   {
+    "t": "pull",
+    "x": "Nothing in your schema should be a fact that is not already visible on the page. If it is, that is a different and more serious problem."
+   },
+   {
+    "t": "h",
+    "x": "Why it matters more than it used to"
+   },
+   {
+    "t": "p",
+    "x": "For years the payoff was cosmetic — star ratings in a search result, a nicer-looking listing. The payoff now is that an assistant assembling an answer about your store has to decide what it is confident enough to state."
+   },
+   {
+    "t": "p",
+    "x": "A model summarising three dealerships will name the one whose details it is sure about. Facts sitting in unstructured prose get hedged, softened, or left out. That is the entire mechanism, and it is why this moved from a technical nicety to something worth twenty minutes of a general manager’s attention."
+   },
+   {
+    "t": "h",
+    "x": "The four types a dealership needs"
+   },
+   {
+    "t": "ul",
+    "items": [
+     "**AutoDealer** — the core one. Name, address, phone, hours, price range, the brands you carry, links to your social profiles. One per rooftop.",
+     "**FAQPage** — question and answer pairs in your own words. The cheapest item on this list and almost no dealer site has it, which makes it easy ground to take.",
+     "**BreadcrumbList** — where a page sits in your site. Helps a machine understand that a model page belongs to a category rather than floating on its own.",
+     "**Vehicle** — on inventory detail pages. Year, make, model, trim, VIN, mileage, price, availability."
+    ]
+   },
+   {
+    "t": "p",
+    "x": "That is the list. You do not need forty types, and a provider proposing a long one is usually generating them automatically without checking whether any of it is true."
+   },
+   {
+    "t": "h",
+    "x": "How to check what you actually have"
+   },
+   {
+    "t": "p",
+    "x": "Five minutes, no technical knowledge required:"
+   },
+   {
+    "t": "ol",
+    "items": [
+     "Open Google’s Rich Results Test and paste in your homepage URL.",
+     "Look for AutoDealer or LocalBusiness in what it finds.",
+     "Read the values, do not just check the box. Is the phone number right? Are the hours current? Is that the address of the building you are sitting in?",
+     "Repeat for one model page and one vehicle detail page."
+    ]
+   },
+   {
+    "t": "p",
+    "x": "The crawler check on this site reads the same markup and also tells you whether the AI crawlers are permitted to read the page at all, which is the question underneath this one."
+   },
+   {
+    "t": "h",
+    "x": "The three failures I find most often"
+   },
+   {
+    "t": "ol",
+    "items": [
+     "**Nothing at all.** Common on older custom builds, and common after a redesign quietly dropped it.",
+     "**Malformed markup.** Present, broken, and therefore ignored completely by every crawler that reads it. Usually one unescaped quotation mark in a business name or a street address. It looks perfect to a human and is invisible to a machine, which is the worst possible combination — everyone at the store believes it is handled.",
+     "**Stale facts.** Hours from before you changed Saturday close. A number routing to a disconnected tracking line. The previous address. This is the dangerous one, because a confident wrong answer sends a shopper to a locked door and they do not try again."
+    ]
+   },
+   {
+    "t": "p",
+    "x": "The third deserves an annual check on its own merits. Nobody updates schema when the store changes its hours, because nobody at the store remembers it exists."
+   },
+   {
+    "t": "h",
+    "x": "Who does the work"
+   },
+   {
+    "t": "p",
+    "x": "If you are on a vendor platform — most stores are — this is a support ticket, not a project. Ask them one question: which schema types are on our homepage, our model pages and our vehicle detail pages, and can you send me the Rich Results Test output for one of each."
+   },
+   {
+    "t": "p",
+    "x": "A competent provider answers within a day. A provider who cannot answer at all has told you something useful about the rest of what they do."
+   }
+  ]
+ },
+ "mystery-shop-your-own-store": {
+  "takeaways": [
+   "Submit a lead, call, and text — from a personal device, on a Saturday",
+   "Score against a fixed rubric so the result is a number rather than an opinion",
+   "Monthly, not once: the process only survives if somebody checks"
+  ],
+  "blocks": [
+   {
+    "t": "p",
+    "x": "You cannot fix a follow-up process by asking your team how the follow-up process is going. Everyone will tell you it is fine, and everyone will believe it."
+   },
+   {
+    "t": "p",
+    "x": "Fifteen minutes and a personal phone will tell you the truth instead. Here is exactly what to do and how to score it."
+   },
+   {
+    "t": "h",
+    "x": "Set it up properly"
+   },
+   {
+    "t": "ul",
+    "items": [
+     "Use a personal email address and a personal mobile. Not a store account, and not your own name if your name is on the building.",
+     "Pick a real vehicle from your own inventory, by stock number.",
+     "Do it on a Saturday afternoon or a weekday after six. Not Tuesday at ten. You are testing the store when it is busy, not when it is idle.",
+     "Do not tell anybody. If your general manager knows it is happening, you are measuring something else."
+    ]
+   },
+   {
+    "t": "h",
+    "x": "The three touches"
+   },
+   {
+    "t": "ol",
+    "items": [
+     "Submit a lead through your own website form, from the vehicle detail page. Note the exact time.",
+     "Call the main number from the same phone, ask about the same vehicle, and let it ring past four rings to see where it lands.",
+     "Text the number listed on your website. If there is no textable number, that is already a finding."
+    ]
+   },
+   {
+    "t": "h",
+    "x": "The rubric"
+   },
+   {
+    "t": "p",
+    "x": "Score each touch against the same seven items. It matters that this is a written list rather than an impression, because an impression bends to whatever mood you were in when the phone rang."
+   },
+   {
+    "t": "ol",
+    "items": [
+     "Did anyone respond at all within thirty minutes?",
+     "Was it a human, or an autoresponder written to sound like one?",
+     "Did they use your name?",
+     "Did they reference the specific vehicle — year, model and trim, not \"the vehicle you enquired about\"?",
+     "Did they offer two specific times, rather than \"let me know when works for you\"?",
+     "Was there a second attempt when you did not reply?",
+     "Was there a third, on a different channel?"
+    ]
+   },
+   {
+    "t": "p",
+    "x": "Seven out of seven is rare. Four is a genuinely good store. Most first attempts come back at two, and the two are usually the first two."
+   },
+   {
+    "t": "pull",
+    "x": "The store that answers in eight minutes about the wrong vehicle is not beating the store that answers in twenty about the right one."
+   },
+   {
+    "t": "h",
+    "x": "Reading the result"
+   },
+   {
+    "t": "ul",
+    "items": [
+     "No response for hours — a coverage problem, not a CRM problem. Somebody has to own the clock during the windows your shoppers actually shop.",
+     "Instant autoresponder, then silence — you have bought a tool and not built a process. This is the most common result and the most misleading, because the dashboard says response time is under a minute.",
+     "A human replies, but with generic copy — a template problem, and the quickest fix on this list. An afternoon of rewriting.",
+     "Good response, no second attempt — the most expensive gap you have. Most deals that close from an internet lead close on the third through sixth contact, so a store that stops at one is paying full price for a fraction of the inventory."
+    ]
+   },
+   {
+    "t": "h",
+    "x": "Make it a habit"
+   },
+   {
+    "t": "p",
+    "x": "Once is a diagnostic. Monthly is a control. Put it in the calendar, rotate who runs it so it is not always the same person’s judgement, and keep one sheet with three columns: the date, the score, and the one thing that fell over."
+   },
+   {
+    "t": "p",
+    "x": "The score matters less than the fact that somebody is checking. A team that knows a shop happens every month behaves differently from a team that does not, and that difference shows up in the numbers long before any training does."
+   }
+  ]
+ },
+ "equity-mining-your-database": {
+  "takeaways": [
+   "Your best buyers this quarter bought from you 30 to 42 months ago",
+   "The message is a payment comparison, not an invitation to come in",
+   "Three lists pulled monthly beat one blast sent to everybody"
+  ],
+  "blocks": [
+   {
+    "t": "p",
+    "x": "There is a group of people in your DMS right now who are more likely to buy from you this quarter than anybody you will pay a lead provider for. They have a payment history with you, a vehicle you know everything about, and a relationship with somebody still working on your floor."
+   },
+   {
+    "t": "p",
+    "x": "Most stores send them the same monthly newsletter that goes to everyone else."
+   },
+   {
+    "t": "h",
+    "x": "Who is actually in equity"
+   },
+   {
+    "t": "p",
+    "x": "Equity mining gets described as though it requires software. Software helps at scale. The idea does not."
+   },
+   {
+    "t": "p",
+    "x": "The customers worth contacting are the ones whose vehicle is worth enough more than their remaining balance to cover the down payment on the next one. In practice that clusters in three places:"
+   },
+   {
+    "t": "ul",
+    "items": [
+     "Thirty to forty-two months into a seventy-two or eighty-four month term, on a vehicle that held its value.",
+     "Coming off lease in the next ninety days.",
+     "Anyone who paid cash and is now three or more years in — the group almost every store forgets, because there is no maturity date to prompt anybody."
+    ]
+   },
+   {
+    "t": "p",
+    "x": "The middle group is the one stores handle reasonably well. The other two are usually untouched."
+   },
+   {
+    "t": "h",
+    "x": "The message is a payment, not a price"
+   },
+   {
+    "t": "p",
+    "x": "\"Come in and see what your car is worth\" is a message about your interest. \"You could be in a 2026 for within twenty dollars of what you pay now\" is a message about theirs."
+   },
+   {
+    "t": "p",
+    "x": "You need three numbers in the email and nothing else: what they pay now, what they would pay, and the difference. If the difference is not close to zero or better, they do not belong on this month’s list."
+   },
+   {
+    "t": "pull",
+    "x": "An equity email that does not contain a payment is a newsletter."
+   },
+   {
+    "t": "h",
+    "x": "Three lists, pulled monthly"
+   },
+   {
+    "t": "ol",
+    "items": [
+     "Term position — bought thirty to forty-two months ago, current on payments, ranked by current book value against payoff.",
+     "Lease maturity — sixty to a hundred and twenty days out. This one carries a deadline, which does more work than any copy you could write.",
+     "Service equity — in the drive within ninety days with a repair estimate over your threshold. A $2,400 estimate on a seven-year-old car is the most persuasive trade conversation in the building, and it happens in the service lane rather than the showroom."
+    ]
+   },
+   {
+    "t": "h",
+    "x": "What to actually send"
+   },
+   {
+    "t": "p",
+    "x": "Plain text, from a real person at the store, with a reply-to that reaches them. Not an HTML template with a hero image of a trim level you do not stock. It should look like an email a salesperson wrote, because one should have."
+   },
+   {
+    "t": "ul",
+    "items": [
+     "A subject line naming their vehicle: \"Your 2022 Escape\".",
+     "Two sentences, three numbers, one question.",
+     "A reply address monitored by somebody who will answer inside the hour."
+    ]
+   },
+   {
+    "t": "p",
+    "x": "Response rates on a well-built equity list run several times what any purchased lead produces, and the gross is better, because you already know the trade and you are not bidding against four other stores for the same shopper."
+   },
+   {
+    "t": "h",
+    "x": "The part stores skip"
+   },
+   {
+    "t": "p",
+    "x": "Somebody has to own the replies before the first email sends. A list that generates twelve responses on Friday and gets nine of them answered on Monday is worse than sending nothing at all — you have just taught twelve loyal customers that you do not answer."
+   }
+  ]
+ },
+ "service-to-sales-trade-leads": {
+  "takeaways": [
+   "Every equity customer drives into your service lane about twice a year",
+   "The trigger is an unexpected repair estimate, not a mileage threshold",
+   "The handoff must be a warm introduction, not a name passed to the desk"
+  ],
+  "blocks": [
+   {
+    "t": "p",
+    "x": "A customer with equity in their vehicle drives past your showroom twice a year on the way to your service lane. You have their car on a hoist, a technician’s full assessment of its condition, and their undivided attention in a waiting room for an hour."
+   },
+   {
+    "t": "p",
+    "x": "Almost no store does anything with that."
+   },
+   {
+    "t": "h",
+    "x": "The trigger is the estimate"
+   },
+   {
+    "t": "p",
+    "x": "Mileage-based triggers are the usual approach and they are weak, because 160,000 km means nothing on its own — it is a great number on one vehicle and a terrible one on another."
+   },
+   {
+    "t": "p",
+    "x": "The trigger that works is a repair estimate the customer was not expecting. A $2,400 brake and suspension quote on a seven-year-old car is the most persuasive trade conversation available to a dealership, because the customer is already holding a number. All you are doing is offering a second number to compare it against."
+   },
+   {
+    "t": "pull",
+    "x": "You are not interrupting their day with a pitch. You are answering the question they are already asking themselves in your waiting room."
+   },
+   {
+    "t": "h",
+    "x": "The rule that makes it work"
+   },
+   {
+    "t": "p",
+    "x": "One threshold, written down: any estimate over a set figure — most stores land between $1,500 and $2,500 — triggers a look at that customer’s equity position before the advisor makes the call."
+   },
+   {
+    "t": "p",
+    "x": "That is the entire process. Not a program, not a script, not a new CRM module. One number and one extra step before an existing phone call."
+   },
+   {
+    "t": "h",
+    "x": "The handoff"
+   },
+   {
+    "t": "p",
+    "x": "This is where it falls apart in most stores, and it always fails the same way: the advisor takes a name, passes it to the sales desk, and a stranger phones the customer that evening."
+   },
+   {
+    "t": "p",
+    "x": "The customer’s relationship is with the advisor. Everything depends on that relationship carrying across the gap."
+   },
+   {
+    "t": "ol",
+    "items": [
+     "The advisor makes the repair call honestly. Here is what it needs, here is what it costs.",
+     "The advisor raises the alternative themselves. \"Before you decide — do you want me to have somebody check what your car is worth against something newer? No pressure either way.\"",
+     "If yes, the advisor walks the salesperson over, or makes the introduction on the phone. By name."
+    ]
+   },
+   {
+    "t": "p",
+    "x": "Step three is the whole thing. A warm introduction converts several times better than a transferred lead and costs the advisor ninety seconds."
+   },
+   {
+    "t": "h",
+    "x": "Paying for it"
+   },
+   {
+    "t": "p",
+    "x": "Pay the advisor. Not a large amount, but a real one, on delivery. An advisor who gets nothing for this will do it twice and stop, and they will be right to."
+   },
+   {
+    "t": "p",
+    "x": "And do not let the sales side treat these as easy ups. A service customer who feels handed off does not come back for the repair either, and you will have traded a $2,400 repair order for nothing at all."
+   },
+   {
+    "t": "h",
+    "x": "What to measure"
+   },
+   {
+    "t": "p",
+    "x": "Four numbers: estimates over threshold this month, how many got an equity look, how many got an introduction, how many delivered."
+   },
+   {
+    "t": "p",
+    "x": "The gap between the first two tells you whether the process exists. The gap between the second and third tells you whether your advisors believe in it."
+   }
+  ]
+ },
+ "segmenting-a-dealership-database": {
+  "takeaways": [
+   "One blast to everybody earns the open rate of a store with nothing to say",
+   "Four segments cover most of the value and can be pulled from any DMS",
+   "Suppression lists matter as much as the target lists"
+  ],
+  "blocks": [
+   {
+    "t": "p",
+    "x": "Ten thousand contacts, one email a month, everybody gets the same one. The open rate drifts down every month, nobody can explain why, and eventually the email programme gets cancelled and everyone agrees that email does not work for dealerships."
+   },
+   {
+    "t": "p",
+    "x": "Email works fine. Sending one message to ten thousand unrelated people does not."
+   },
+   {
+    "t": "h",
+    "x": "Why the blast decays"
+   },
+   {
+    "t": "p",
+    "x": "Somebody who bought from you last month, somebody whose lease matures in sixty days, and somebody who stopped servicing with you in 2021 have nothing in common except a row in the same table. The only message that fits all three is a message so general it is worth nobody’s time."
+   },
+   {
+    "t": "p",
+    "x": "And every irrelevant email teaches the recipient to skip the next one. You are not just wasting a send — you are spending down the only asset the list has."
+   },
+   {
+    "t": "pull",
+    "x": "Every irrelevant email is a small withdrawal from the only thing that makes a database valuable."
+   },
+   {
+    "t": "h",
+    "x": "Four segments that cover most of it"
+   },
+   {
+    "t": "ol",
+    "items": [
+     "**Equity and term position** — bought thirty to forty-two months ago, still paying, on a vehicle holding value. The message is a payment comparison.",
+     "**Lease maturity** — sixty to a hundred and twenty days out. The message is a deadline and two options.",
+     "**Service-active, sales-inactive** — in the drive this year, but bought elsewhere or bought a long time ago. The message is that you would like the next one too.",
+     "**Lapsed service** — no visit in fourteen months. The message is a reason to come back, and it needs to be a real one rather than a discount on something they do not need."
+    ]
+   },
+   {
+    "t": "p",
+    "x": "Four lists. Every DMS can produce all four, and if yours genuinely cannot, that is worth finding out now rather than during your next renewal."
+   },
+   {
+    "t": "h",
+    "x": "What to pull"
+   },
+   {
+    "t": "p",
+    "x": "For each contact: last purchase date, vehicle and mileage, financing type and rough term position, last service date, last service amount, last contact date on any channel. That is the whole schema. Everything else is decoration."
+   },
+   {
+    "t": "p",
+    "x": "Pull it monthly rather than once. A segment is a photograph of something moving, and a six-month-old list is worse than useless because it is confidently wrong — you will email a lease-maturity offer to somebody who already bought."
+   },
+   {
+    "t": "h",
+    "x": "Suppression is half the job"
+   },
+   {
+    "t": "p",
+    "x": "Before anything sends, remove:"
+   },
+   {
+    "t": "ul",
+    "items": [
+     "Anybody who bought in the last ninety days, unless the message is about service.",
+     "Anybody with an open complaint or a bad recent repair order.",
+     "Anybody a salesperson is actively working. Nothing undermines a rep faster than the store emailing their customer a better offer than the one on the desk.",
+     "Anybody who has not opened anything in twelve months. They are not reading it, and they are pulling your deliverability down for everyone who is."
+    ]
+   },
+   {
+    "t": "p",
+    "x": "That last one feels like throwing away reach, and it is not. A smaller list that reaches inboxes beats a larger one that reaches spam folders, and the difference compounds every month you leave it alone."
+   },
+   {
+    "t": "h",
+    "x": "Cadence"
+   },
+   {
+    "t": "p",
+    "x": "Each segment gets its own rhythm rather than sharing a calendar. Lease maturity is time-driven and needs three touches inside ninety days. Lapsed service can run quarterly. Equity is monthly, because the list itself changes monthly."
+   },
+   {
+    "t": "p",
+    "x": "The store-wide newsletter, if you keep one at all, should be the smallest thing you send rather than the only thing."
+   }
+  ]
+ },
+ "dealership-social-calendar": {
+  "takeaways": [
+   "Twelve repeatable formats beat a calendar of thirty original ideas",
+   "Shot on a phone, on your lot, by whoever is already standing there",
+   "One named owner, fifteen minutes a day, paid for it"
+  ],
+  "blocks": [
+   {
+    "t": "p",
+    "x": "Most dealership social calendars die in week three. Somebody builds a beautiful spreadsheet with thirty unique post ideas, that person goes on vacation, and the account falls silent until someone posts a stock photograph of a truck in a canyon that is not in your inventory or your province."
+   },
+   {
+    "t": "p",
+    "x": "The fix is not more ideas. It is fewer ideas, repeated."
+   },
+   {
+    "t": "h",
+    "x": "Twelve formats, on rotation"
+   },
+   {
+    "t": "p",
+    "x": "Pick twelve, run them on rotation, and stop trying to be original every day. Nobody follows a car dealership for novelty."
+   },
+   {
+    "t": "ol",
+    "items": [
+     "Delivery photo — customer, car, keys, first names, one line about what they were looking for.",
+     "Technician at work — thirty seconds of an actual repair, explained in plain language.",
+     "New arrival walkaround — vertical, sixty seconds, on the lot, unscripted.",
+     "Staff introduction — who they are, how long they have been here, the first car they owned.",
+     "The honest answer — one question you get every week, answered without a pitch attached.",
+     "Behind the scenes — the detail bay, the lot at seven in the morning, a transport truck unloading.",
+     "Local — the team you sponsor, a community event, road conditions after a storm.",
+     "Then and now — a trade-in beside the vehicle that replaced it.",
+     "A seasonal service tip that saves somebody money.",
+     "Something you got wrong and then fixed.",
+     "A vehicle you would not recommend for a particular use, and why.",
+     "A milestone — an anniversary, a hundredth review, somebody’s twentieth year."
+    ]
+   },
+   {
+    "t": "p",
+    "x": "Two a week from that list is a full year of content, and you never open a blank calendar again."
+   },
+   {
+    "t": "h",
+    "x": "Shot where the cars are"
+   },
+   {
+    "t": "p",
+    "x": "Everything is filmed on a phone by whoever is already standing there. Not a videographer, not a quarterly production day that generates six months of footage nobody uses."
+   },
+   {
+    "t": "ul",
+    "items": [
+     "Vertical, always.",
+     "Natural light, so mornings and late afternoon.",
+     "Captions burned in — most of it is watched with the sound off.",
+     "Real names and real faces."
+    ]
+   },
+   {
+    "t": "pull",
+    "x": "Stock photography is the fastest way to look like every other store, in a business where the only things you have that they do not are where you are and who works there."
+   },
+   {
+    "t": "h",
+    "x": "Who owns it"
+   },
+   {
+    "t": "p",
+    "x": "One person, fifteen minutes a day, named in writing. Usually somebody in service, or a younger salesperson who is on their phone anyway."
+   },
+   {
+    "t": "p",
+    "x": "Pay them for it, or give them the time back. The most common failure is not that nobody at the store can do it — it is that it was added to somebody’s existing job as a favour, and favours end."
+   },
+   {
+    "t": "h",
+    "x": "What to measure"
+   },
+   {
+    "t": "p",
+    "x": "Not followers. Saves, shares and direct messages. A post that generates four DMs from people in your county is worth more than one that generates four hundred views from people who will never drive here."
+   }
+  ]
+ },
+ "inventory-pages-that-rank": {
+  "takeaways": [
+   "Individual vehicle pages will never rank — model line pages are what you build",
+   "Internal linking from model pages to live units is the whole mechanism",
+   "Sold units need a rule, and returning a 404 is not it"
+  ],
+  "blocks": [
+   {
+    "t": "p",
+    "x": "Dealer SEO advice usually arrives as \"optimise your inventory pages.\" It is bad advice, or at least badly incomplete, because the pages people mean by that will never rank and cannot."
+   },
+   {
+    "t": "h",
+    "x": "Why vehicle detail pages do not rank"
+   },
+   {
+    "t": "p",
+    "x": "A VDP exists for perhaps forty days. Its content is near-identical to a thousand other pages for the same trim, most of it supplied by the same data feed. It earns no links. Then it disappears."
+   },
+   {
+    "t": "p",
+    "x": "No search engine is going to invest ranking authority in a URL that will be gone before the quarter ends, and it would be wrong to."
+   },
+   {
+    "t": "p",
+    "x": "So stop trying. Vehicle pages exist to convert traffic, not to attract it. Judge them on that and the whole problem gets simpler."
+   },
+   {
+    "t": "h",
+    "x": "What actually ranks: the model line page"
+   },
+   {
+    "t": "p",
+    "x": "The page that can rank is the one that persists. \"Used Ford F-150 in Halifax\" has a stable URL, a stable subject, and search volume that exists every month rather than for six weeks."
+   },
+   {
+    "t": "p",
+    "x": "This is the page most dealer sites either do not have at all, or auto-generate as an empty filter result with no content on it whatsoever."
+   },
+   {
+    "t": "h",
+    "x": "What goes on one"
+   },
+   {
+    "t": "ol",
+    "items": [
+     "A real heading naming the model and the market.",
+     "Two to four paragraphs of genuine local specificity.",
+     "Live inventory pulled in, linking to the current vehicle pages.",
+     "Three to six questions and answers, marked up as FAQPage.",
+     "Links to the trims and to related model lines."
+    ]
+   },
+   {
+    "t": "p",
+    "x": "The second item is what separates a page that ranks from a filter result. It has to say something a national site cannot. \"The F-150 is a popular pickup\" is not that. \"Most of the volume here is XLT and Lariat in four-wheel drive, because a two-wheel-drive half-ton is a hard trade in a Nova Scotia winter and the used market prices it accordingly\" is."
+   },
+   {
+    "t": "pull",
+    "x": "If a paragraph on your model page would be equally true in Phoenix, it is not doing any work."
+   },
+   {
+    "t": "h",
+    "x": "Internal linking is the mechanism"
+   },
+   {
+    "t": "p",
+    "x": "The model line page ranks. It links to live vehicle pages. Those pages get discovered and indexed faster because a page with real authority points at them."
+   },
+   {
+    "t": "p",
+    "x": "Handled the other way — vehicle pages floating with links only from a paginated search result — units get indexed late or not at all. That is the actual reason stores complain their inventory takes two weeks to appear anywhere."
+   },
+   {
+    "t": "h",
+    "x": "When a unit sells"
+   },
+   {
+    "t": "p",
+    "x": "This is where most dealer sites do real damage. A store turning a hundred units a month generates twelve hundred dead URLs a year."
+   },
+   {
+    "t": "ul",
+    "items": [
+     "Do not return a 404. That discards every link and every bit of history the page accumulated.",
+     "Do not redirect everything to the homepage. A mass redirect to a single page gets treated as a soft 404, and it teaches search engines to trust your redirects less generally.",
+     "Redirect to the model line page for that vehicle. Similar intent, and it always exists.",
+     "Or keep the page live, clearly marked sold, listing three similar units. Better when the page had links or traffic worth keeping."
+    ]
+   },
+   {
+    "t": "p",
+    "x": "The last option is more work and produces a better result. The one above it is a single rule in your platform and is what most stores should do this month."
+   },
+   {
+    "t": "h",
+    "x": "The parts nobody checks"
+   },
+   {
+    "t": "ol",
+    "items": [
+     "Are your vehicle pages in your sitemap, and does the sitemap regenerate when inventory changes?",
+     "Does a sold unit return a 301, or a 200 with an empty page? An empty 200 is the worst of the available outcomes.",
+     "Do your model pages have unique titles, or is every one of them \"Used Inventory | Dealer Name\"?",
+     "Is your inventory in the page source, or does it only appear after JavaScript runs?"
+    ]
+   },
+   {
+    "t": "p",
+    "x": "Check the last one before any of the others. A great deal of dealer inventory is simply invisible in the page source, and if that is true at your store then everything above is irrelevant until it is fixed."
+   },
+   {
+    "t": "h",
+    "x": "A realistic build order"
+   },
+   {
+    "t": "ol",
+    "items": [
+     "Fix rendering, if it is broken.",
+     "Build the six to ten model line pages that match your actual volume — not one for every nameplate you have ever stocked.",
+     "Write the local content on them. This is the slow part, and it is the part that works.",
+     "Fix the sold-unit rule.",
+     "Then, and only then, worry about vehicle page titles."
+    ]
+   },
+   {
+    "t": "p",
+    "x": "Most stores do that list backwards, which is why so many of them have immaculate vehicle page titles and no organic traffic."
+   }
+  ]
+ },
+ "car-dealership-seo-atlantic-canada": {
+  "takeaways": [
+   "Lower search volume means the local pack is winnable in months, not years",
+   "Your real catchment is wider than your city — pull the postal codes and look",
+   "Local links that would be invisible in Toronto genuinely move the needle here"
+  ],
+  "blocks": [
+   {
+    "t": "p",
+    "x": "Most dealership SEO advice is written for markets with a million people and forty franchise stores. Applied in Halifax it is roughly right. Applied in Truro, Charlottetown or Corner Brook it is actively misleading."
+   },
+   {
+    "t": "p",
+    "x": "Here is what is different about a small market, and what to do with the difference."
+   },
+   {
+    "t": "h",
+    "x": "The volume is lower, and that is the opportunity"
+   },
+   {
+    "t": "p",
+    "x": "\"Used cars Toronto\" is a war. \"Used cars Truro\" is a conversation."
+   },
+   {
+    "t": "p",
+    "x": "In a market where the main term does a few hundred searches a month, the local pack is genuinely winnable within two or three quarters by a store that does the fundamentals properly. In Toronto the same effort buys you position eleven and a lesson in patience."
+   },
+   {
+    "t": "p",
+    "x": "The mistake is reading the low number and concluding it is not worth doing. A few hundred high-intent searches a month, in a market where you might deliver sixty cars, is a meaningful share of your floor traffic — and unlike paid, it does not stop when you stop paying."
+   },
+   {
+    "t": "h",
+    "x": "Your drive radius is wider than you think"
+   },
+   {
+    "t": "p",
+    "x": "Somebody in Halifax will not drive ninety minutes for a car. Somebody in Antigonish will, routinely, because the alternative is three stores and none of them have what they want."
+   },
+   {
+    "t": "p",
+    "x": "This changes the geography of the entire plan. Your pages should name the communities your customers actually come from, not the one on your sign, repeated."
+   },
+   {
+    "t": "p",
+    "x": "Pull your last two hundred deliveries and sort by postal code. Most Atlantic stores find a real catchment of six to fifteen communities, and several of them are places nobody at the store would have thought to name."
+   },
+   {
+    "t": "pull",
+    "x": "Your market is defined by where your customers drove from, not by the city on your sign."
+   },
+   {
+    "t": "h",
+    "x": "What to do with that"
+   },
+   {
+    "t": "ol",
+    "items": [
+     "One page per meaningful community — but only where you have something true to say. Deliveries you have actually made, the drive time, why people make it.",
+     "Name those communities in your Google Business Profile service areas.",
+     "Get the local links: minor hockey, the community paper, the chamber, the fire department fundraiser."
+    ]
+   },
+   {
+    "t": "p",
+    "x": "That last point is the one dealers underrate most. A link from a regional weekly is trivially obtainable if you sponsor something and simply ask for it, and in a market with few competing signals it moves the needle in a way the same link would never manage in a city."
+   },
+   {
+    "t": "h",
+    "x": "Seasonality is sharper here"
+   },
+   {
+    "t": "p",
+    "x": "Winter tire season is a real annual event, not a marketing theme. The spring wash-off after the salt is a genuine service surge. A hurricane or a bad ice storm produces a fortnight of real demand around damage, insurance write-offs and all-wheel drive."
+   },
+   {
+    "t": "p",
+    "x": "A calendar that anticipates those rather than reacting a week late is most of the difference between a store that reads as local and one that reads as though it bought a package from away."
+   },
+   {
+    "t": "h",
+    "x": "The bilingual question"
+   },
+   {
+    "t": "p",
+    "x": "In Moncton, and across much of New Brunswick, French matters and it is usually handled badly. A machine-translated duplicate of your English site is worse than not bothering — it reads as though you could not be troubled, which is precisely the message you were trying to avoid sending."
+   },
+   {
+    "t": "p",
+    "x": "If you are going to serve a French-speaking market, one properly written page beats forty translated ones. And get the hreflang right, or your two versions will spend the year competing with each other."
+   },
+   {
+    "t": "h",
+    "x": "What to skip"
+   },
+   {
+    "t": "p",
+    "x": "Most of the national playbook. You do not need thirty blog posts a month, a content team, or an aggressive link-building budget."
+   },
+   {
+    "t": "p",
+    "x": "In a market this size the winning combination is a complete and current Google Business Profile, a real page for each community you genuinely serve, steady review volume, and pages a machine can actually read. That is achievable by one person — which, in a small market, is usually exactly who you have."
+   }
+  ]
+ },
+ "ranking-for-used-cars-near-me": {
+  "takeaways": [
+   "\"Near me\" is not a keyword — it is a location Google substitutes for you",
+   "Proximity you cannot change; prominence is the entire game",
+   "The winner is usually the store with the most complete profile, not the closest one"
+  ],
+  "blocks": [
+   {
+    "t": "p",
+    "x": "\"Used cars near me\" is one of the highest-intent searches in the business, and it is the one dealers most often try to buy their way into."
+   },
+   {
+    "t": "p",
+    "x": "You cannot optimise for the phrase, because it is not really a phrase. Google strips \"near me\" and substitutes the searcher’s location. The query it actually runs is \"used cars in wherever this phone happens to be standing.\""
+   },
+   {
+    "t": "p",
+    "x": "Which is good news, because it means the competition is not for a keyword at all. It is for a position in a local pack, and that is decided by three things."
+   },
+   {
+    "t": "h",
+    "x": "Proximity, relevance, prominence"
+   },
+   {
+    "t": "p",
+    "x": "Proximity is where the searcher is standing. You cannot change it, and neither can your competitors. Stop thinking about it."
+   },
+   {
+    "t": "p",
+    "x": "Relevance is whether your profile and site clearly state that you sell used vehicles. Most dealers pass this without effort, though a surprising number of profiles are still categorised only as \"Car dealer\" and never as \"Used car dealer.\""
+   },
+   {
+    "t": "p",
+    "x": "Prominence is everything else — reviews, links, citations, how complete your profile is, how much the rest of the web says about you. This is the entire game."
+   },
+   {
+    "t": "h",
+    "x": "The profile does more work than the website"
+   },
+   {
+    "t": "p",
+    "x": "For pack results specifically, your Google Business Profile matters more than your site does. And most dealer profiles are half-finished."
+   },
+   {
+    "t": "ol",
+    "items": [
+     "Every applicable category, with the primary one set correctly.",
+     "Hours, including holiday hours. Wrong holiday hours cost you the visit and the trust in a single afternoon.",
+     "Products and services populated rather than empty.",
+     "Photos added this month, not in 2019.",
+     "Questions answered — including the ones you post and answer yourself, which is allowed and almost nobody does.",
+     "Posts, weekly. Free, quick, and largely ignored by your competition."
+    ]
+   },
+   {
+    "t": "p",
+    "x": "A store that does those six things consistently beats a closer store that has not. Regularly, and in markets of every size."
+   },
+   {
+    "t": "h",
+    "x": "What the website contributes"
+   },
+   {
+    "t": "p",
+    "x": "The site’s job is to confirm and expand what the profile claims."
+   },
+   {
+    "t": "ul",
+    "items": [
+     "A page for your city, and for the towns you actually draw customers from.",
+     "Name, address and phone identical to the profile, character for character. \"St.\" and \"Street\" are different strings to a machine, and consistency is the point.",
+     "AutoDealer schema stating the same facts a third time.",
+     "Real inventory in the page source, rather than assembled after JavaScript runs."
+    ]
+   },
+   {
+    "t": "p",
+    "x": "That last item disqualifies more dealer websites than everything else on this page combined."
+   },
+   {
+    "t": "h",
+    "x": "Reviews are the tiebreaker"
+   },
+   {
+    "t": "p",
+    "x": "Between two similar stores at similar distance, the recency and volume of reviews decides it more often than anything else within your control. Eight reviews this month beats four hundred from 2022, and the store with four hundred from 2022 will spend a year insisting that cannot be right."
+   },
+   {
+    "t": "h",
+    "x": "What not to bother with"
+   },
+   {
+    "t": "ol",
+    "items": [
+     "Stuffing \"near me\" into page titles. It reads badly to humans and does nothing for machines.",
+     "Keyword-stuffing your business name in the profile. It is a violation, your competitors will report it, and a suspension costs far more than the ranking was ever worth.",
+     "Buying citations in bulk. A handful of accurate, consistent listings beats three hundred inconsistent ones, and the inconsistency does active damage."
+    ]
+   },
+   {
+    "t": "p",
+    "x": "The uncomfortable summary is that ranking for near-me searches is mostly operational hygiene, done consistently, for longer than feels reasonable. Which is exactly why so few stores manage it."
+   }
+  ]
+ }
 }
