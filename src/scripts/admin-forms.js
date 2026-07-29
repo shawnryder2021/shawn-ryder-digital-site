@@ -97,11 +97,17 @@ export function renderField(field, value) {
         subject: field.generate.subject,
         aspectRatio: field.generate.aspectRatio,
         guard: field.generate.guard,
-        onUse: (media) => {
+        onUse: async (media) => {
+          // Update the form field to select the new media
           field.media = [media, ...(field.media || [])];
           select.replaceChildren(...optionsFor(media.id));
           select.value = media.id;
           paint();
+          select.dispatchEvent(new Event('change', { bubbles: true }));
+          // Then call the caller's onUse callback (e.g. to auto-save the guide)
+          if (field.generate.onUse) {
+            await field.generate.onUse(media);
+          }
         },
       });
     }

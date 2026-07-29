@@ -306,6 +306,20 @@ async function editGuide(guide) {
         subject: () =>
           `Cover image for a marketing guide titled "${record.title || 'Untitled guide'}" ` +
           `in the "${record.category}" category. Excerpt: ${record.excerpt || '(no excerpt written yet)'}`,
+        onUse: async (media) => {
+          // Auto-save the guide when an image is generated and selected.
+          // Otherwise the admin won't realize they need to click Save after generating.
+          if (!guard()) return;
+          const values = form.read();
+          values.takeaways = toStrings(values.takeaways);
+          values.cover_media_id = media.id;
+          if (!values.slug || !values.title) return toast('Title and slug are required.', 'bad');
+          const ok = await save(
+            () => supabase.from('guides').upsert({ ...values, sort_order: record.sort_order ?? 999 }, { onConflict: 'slug' }),
+            'Cover image saved'
+          );
+          if (ok) record.cover_media_id = media.id;
+        },
       } },
     ...GUIDE_FIELDS.filter((f) => f.name === 'body_markdown' || f.name === 'published'),
   ];
