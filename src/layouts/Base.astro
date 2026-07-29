@@ -98,5 +98,12 @@ const injected = prepareInjection((await getSettings()).code_injection);
     </main>
     <Footer />
     {injected.body_end && <Fragment set:html={injected.body_end} />}
+
+    <script>
+      import { initChatWidget } from '../scripts/chat-widget.js';
+      document.addEventListener('DOMContentLoaded', () => {
+        initChatWidget();
+      });
+    </script>
   </body>
 </html>
