@@ -1,34 +1,38 @@
 // Generate professional review responses using OpenRouter
-import { createClient } from '@supabase/supabase-js';
+// Rate limiting via in-memory store (reset on function restart)
 
-const supabase = createClient(process.env.PUBLIC_SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY);
+// In-memory rate limits
+const rateLimits = new Map();
+const GLOBAL_LIMIT = 50; // per 5 minutes
+const IP_LIMIT = 5; // per hour
+const FIVE_MIN_MS = 5 * 60000;
+const ONE_HOUR_MS = 3600000;
 
-// Global rate limit check via Supabase
-const checkGlobalLimit = async () => {
-  const fiveMinutesAgo = new Date(Date.now() - 5 * 60000).toISOString();
-  const { count } = await supabase
-    .from('ai_api_calls')
-    .select('*', { count: 'exact', head: true })
-    .eq('endpoint', 'generate-review-response')
-    .gte('created_at', fiveMinutesAgo);
-  return (count || 0) < 50; // 50 per 5 minutes
+let globalRequests = [];
+let globalResetTime = Date.now() + FIVE_MIN_MS;
+
+const checkGlobalLimit = () => {
+  const now = Date.now();
+  if (now > globalResetTime) {
+    globalRequests = [];
+    globalResetTime = now + FIVE_MIN_MS;
+  }
+  globalRequests.push(now);
+  return globalRequests.length <= GLOBAL_LIMIT;
 };
 
-const checkIPLimit = async (ip) => {
-  const oneHourAgo = new Date(Date.now() - 3600000).toISOString();
-  const { count } = await supabase
-    .from('ai_api_calls')
-    .select('*', { count: 'exact', head: true })
-    .eq('endpoint', 'generate-review-response')
-    .eq('ip_hash', hashIP(ip))
-    .gte('created_at', oneHourAgo);
-  return (count || 0) < 5; // 5 per hour
-};
-
-const hashIP = (ip) => {
-  const encoder = new TextEncoder();
-  const data = encoder.encode(ip);
-  return Array.from(new Uint8Array(data)).map(x => x.toString(16).padStart(2, '0')).join('');
+const checkIPLimit = (ip) => {
+  const now = Date.now();
+  if (!rateLimits.has(ip)) {
+    rateLimits.set(ip, { requests: [], resetAt: now + ONE_HOUR_MS });
+  }
+  const limit = rateLimits.get(ip);
+  if (now > limit.resetAt) {
+    limit.requests = [];
+    limit.resetAt = now + ONE_HOUR_MS;
+  }
+  limit.requests.push(now);
+  return limit.requests.length <= IP_LIMIT;
 };
 
 export default async (req) => {
@@ -37,12 +41,12 @@ export default async (req) => {
   try {
     const ip = req.headers.get('x-forwarded-for') || 'unknown';
 
-    const globalOk = await checkGlobalLimit();
+    const globalOk = checkGlobalLimit();
     if (!globalOk) {
       return new Response(JSON.stringify({ ok: false, error: 'Service temporarily busy. Try again in a few minutes.' }), { status: 429 });
     }
 
-    const ipOk = await checkIPLimit(ip);
+    const ipOk = checkIPLimit(ip);
     if (!ipOk) {
       return new Response(JSON.stringify({ ok: false, error: 'You\'ve used your quota. 5 responses per hour.' }), { status: 429 });
     }
@@ -112,16 +116,6 @@ Provide exactly 3 JSON responses in this format:
     } catch {
       responses = responseText;
     }
-
-    // Log the API call
-    await supabase.from('ai_api_calls').insert({
-      endpoint: 'generate-review-response',
-      model: process.env.OPENROUTER_MODEL || 'anthropic/claude-haiku-4.5',
-      input_tokens: data.usage?.prompt_tokens || 0,
-      output_tokens: data.usage?.completion_tokens || 0,
-      cost: ((data.usage?.prompt_tokens || 0) * 0.00005 + (data.usage?.completion_tokens || 0) * 0.00015) / 1000,
-      ip_hash: hashIP(ip),
-    });
 
     return new Response(JSON.stringify({ ok: true, responses }), {
       headers: { 'Content-Type': 'application/json' },
