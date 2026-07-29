@@ -891,6 +891,19 @@ export async function boot() {
     return;
   }
 
+  // The reset-password email lands here with #type=recovery in the URL.
+  // Checked directly rather than through onAuthStateChange('PASSWORD_RECOVERY')
+  // — that event is async and can race this function's own profile check,
+  // which would otherwise sign a recovering user straight into the app on the
+  // temporary session without ever asking for a new password.
+  if (/[#&]type=recovery\b/.test(location.hash)) {
+    $('boot').hidden = true;
+    $('login').hidden = true;
+    $('app').hidden = true;
+    $('reset').hidden = false;
+    return;
+  }
+
   profile = await currentProfile();
   $('boot').hidden = true;
   if (!profile) {
@@ -928,4 +941,22 @@ export async function signIn(email, password) {
     return 'That account does not have access.';
   }
   return null;
+}
+
+/**
+ * Emails a reset link. Always resolves to the same message whether or not the
+ * address has an account — Supabase's own behaviour, and correct: telling a
+ * stranger "no account with that email" is a account-enumeration leak.
+ */
+export async function sendPasswordReset(email) {
+  const { error } = await supabase.auth.resetPasswordForEmail(email, {
+    redirectTo: `${location.origin}/admin`,
+  });
+  return error ? error.message : null;
+}
+
+/** Sets a new password for the session created by clicking the reset link. */
+export async function setNewPassword(password) {
+  const { error } = await supabase.auth.updateUser({ password });
+  return error ? error.message : null;
 }

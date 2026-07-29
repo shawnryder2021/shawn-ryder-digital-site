@@ -37,6 +37,35 @@ import '../styles/global.css';
           <button type="submit" class="btn btn-primary">Sign in</button>
           <p class="status" role="status" aria-live="polite"></p>
         </form>
+        <button type="button" id="forgot-link" class="linklike">Forgot password?</button>
+        <form id="forgot-form" novalidate hidden>
+          <label>
+            <span>Email</span>
+            <input name="email" type="email" autocomplete="username" required />
+          </label>
+          <button type="submit" class="btn btn-primary">Email me a reset link</button>
+          <button type="button" id="forgot-cancel" class="linklike">Back to sign in</button>
+          <p class="status" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+
+    <section id="reset" hidden>
+      <div class="loginbox">
+        <h1>Set a new password</h1>
+        <p class="sub">You followed a reset link — choose a new password to finish.</p>
+        <form id="reset-form" novalidate>
+          <label>
+            <span>New password</span>
+            <input name="password" type="password" autocomplete="new-password" minlength="8" required />
+          </label>
+          <label>
+            <span>Confirm new password</span>
+            <input name="confirm" type="password" autocomplete="new-password" minlength="8" required />
+          </label>
+          <button type="submit" class="btn btn-primary">Save new password</button>
+          <p class="status" role="status" aria-live="polite"></p>
+        </form>
       </div>
     </section>
 
@@ -72,33 +101,78 @@ import '../styles/global.css';
     <div id="toast" class="toast"></div>
 
     <script>
-      import { boot, signIn } from '../scripts/admin-app.js';
+      import { boot, signIn, sendPasswordReset, setNewPassword } from '../scripts/admin-app.js';
 
       boot();
 
-      const form = document.getElementById('login-form');
-      form.addEventListener('submit', async (event) => {
-        event.preventDefault();
-        const status = form.querySelector('.status');
-        const button = form.querySelector('button');
-        const data = new FormData(form);
+      /** Wires a form to an async (values) => errorMessage|null handler. */
+      function wireForm(form, handler, { onSuccess } = {}) {
+        form.addEventListener('submit', async (event) => {
+          event.preventDefault();
+          const status = form.querySelector('.status');
+          const button = form.querySelector('button[type="submit"]');
+          const data = new FormData(form);
 
-        button.disabled = true;
-        status.className = 'status';
-        status.textContent = 'Signing in…';
+          button.disabled = true;
+          status.className = 'status';
+          status.textContent = 'Working…';
 
-        const error = await signIn(
-          String(data.get('email') || '').trim(),
-          String(data.get('password') || '')
-        );
+          const error = await handler(data);
 
-        if (error) {
-          status.className = 'status bad';
-          status.textContent = error;
-          button.disabled = false;
-          return;
-        }
-        location.reload();
+          if (error) {
+            status.className = 'status bad';
+            status.textContent = error;
+            button.disabled = false;
+            return;
+          }
+          if (onSuccess) onSuccess(status, button);
+          else location.reload();
+        });
+      }
+
+      wireForm(document.getElementById('login-form'), (data) =>
+        signIn(String(data.get('email') || '').trim(), String(data.get('password') || '')));
+
+      // ---- forgot password -------------------------------------------------
+      const loginForm = document.getElementById('login-form');
+      const forgotForm = document.getElementById('forgot-form');
+      const forgotLink = document.getElementById('forgot-link');
+      forgotLink.addEventListener('click', () => {
+        // Carry the email over if they had already started typing it.
+        forgotForm.email.value = loginForm.email.value;
+        loginForm.hidden = true;
+        forgotLink.hidden = true;
+        forgotForm.hidden = false;
+      });
+      document.getElementById('forgot-cancel').addEventListener('click', () => {
+        forgotForm.hidden = true;
+        loginForm.hidden = false;
+        forgotLink.hidden = false;
+      });
+      wireForm(forgotForm, (data) => sendPasswordReset(String(data.get('email') || '').trim()), {
+        onSuccess: (status, button) => {
+          // Deliberately vague about whether the address has an account —
+          // confirming or denying that is an account-enumeration leak.
+          status.className = 'status';
+          status.textContent = 'If that address has an account, a reset link is on its way.';
+          button.disabled = true;
+        },
+      });
+
+      // ---- setting a new password after following the emailed link --------
+      wireForm(document.getElementById('reset-form'), (data) => {
+        const password = String(data.get('password') || '');
+        const confirm = String(data.get('confirm') || '');
+        if (password.length < 8) return Promise.resolve('Use at least 8 characters.');
+        if (password !== confirm) return Promise.resolve('Those two passwords do not match.');
+        return setNewPassword(password);
+      }, {
+        onSuccess: () => {
+          // Clear the #type=recovery hash so a reload boots into the app
+          // instead of showing this form again.
+          history.replaceState(null, '', location.pathname);
+          location.reload();
+        },
       });
     </script>
 
@@ -115,7 +189,7 @@ import '../styles/global.css';
       .state, .loading { padding: 48px 28px; font-size: 16px; color: var(--muted); }
 
       /* ---------------------------------------------------------- login -- */
-      #login { display: grid; place-items: center; min-height: 100vh; padding: 24px; }
+      #login, #reset { display: grid; place-items: center; min-height: 100vh; padding: 24px; }
       .loginbox {
         width: 100%; max-width: 380px;
         background: var(--surface); border: 1px solid var(--line);
@@ -124,6 +198,11 @@ import '../styles/global.css';
       .loginbox h1 { font-size: 28px; }
       .loginbox .sub { font-size: 15px; color: var(--ink-3); margin: 8px 0 24px; }
       .loginbox form { display: grid; gap: 16px; }
+      .linklike {
+        display: block; margin-top: 14px; border: 0; background: none; cursor: pointer;
+        font: inherit; font-size: 13.5px; color: var(--brand); padding: 0; text-align: left;
+      }
+      .linklike:hover { text-decoration: underline; }
 
       /* --------------------------------------------------------- shell -- */
       .topbar {
