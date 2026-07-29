@@ -42,36 +42,6 @@ const schema = {
   </section>
 
   <section class="wrap section">
-    <div class="grid-split">
-      <form id="calc" class="inputs" novalidate>
-        <label>
-          <span>Current Google rating</span>
-          <input name="rating" type="number" min="1" max="5" step="0.1" value="4.2" inputmode="decimal" />
-        </label>
-        <label>
-          <span>Number of reviews</span>
-          <input name="count" type="number" min="1" max="100000" step="1" value="180" inputmode="numeric" />
-        </label>
-        <label>
-          <span>New reviews per month</span>
-          <input name="pace" type="number" min="0" max="1000" step="1" value="6" inputmode="numeric" />
-          <small class="hint">Roughly what you collect now. Used for the timeline only.</small>
-        </label>
-        <p class="err" id="err" role="status" aria-live="polite"></p>
-      </form>
-
-      <div class="out" aria-live="polite">
-        <div class="headline" id="headline"></div>
-        <div id="targets" class="targets"></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="wrap section-tight">
-    <div class="cost" id="cost"></div>
-  </section>
-
-  <section class="wrap section">
     <h2>What actually moves the number</h2>
     <div class="grid grid-3">
       <div class="card">
@@ -99,15 +69,42 @@ const schema = {
         </p>
       </div>
     </div>
+  </section>
+
+  <section class="wrap section">
+    <div class="grid-split">
+      <form id="calc" class="inputs" novalidate>
+        <label>
+          <span>Current Google rating</span>
+          <input name="rating" type="number" min="1" max="5" step="0.1" value="4.2" inputmode="decimal" />
+        </label>
+        <label>
+          <span>Number of reviews</span>
+          <input name="count" type="number" min="1" max="100000" step="1" value="180" inputmode="numeric" />
+        </label>
+        <label>
+          <span>New reviews per month</span>
+          <input name="pace" type="number" min="0" max="1000" step="1" value="6" inputmode="numeric" />
+          <small class="hint">Roughly what you collect now. Used for the timeline only.</small>
+        </label>
+        <p class="err" id="err" role="status" aria-live="polite"></p>
+      </form>
+
+      <div class="out" aria-live="polite">
+        <div class="headline" id="headline"></div>
+        <div id="targets" class="targets"></div>
+      </div>
+    </div>
+
+    <div class="cost" id="cost"></div>
 
     <div class="caveat">
-      <h3>One honest caveat about these numbers</h3>
+      <h3>About the math</h3>
       <p>
         Google shows your rating to one decimal place, so a store displaying 4.2 might really be
-        anywhere from 4.15 to 4.249. The figures above use your displayed rating, which makes them
-        accurate to within a review or two at normal volumes — close enough to plan against, not
-        close enough to argue over. They also assume every new review is a 5. Mix in some 4s and the
-        real number goes up.
+        anywhere from 4.15 to 4.249. These figures use your displayed rating — accurate to within
+        a review or two at normal volumes. They assume every new review is a 5; mix in some 4s and
+        the real number goes up.
       </p>
     </div>
   </section>
