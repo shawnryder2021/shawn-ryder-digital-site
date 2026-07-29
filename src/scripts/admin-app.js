@@ -7,12 +7,14 @@
 import { supabase, configured, currentProfile } from '../lib/supabase-client.js';
 import {
   BLOCK_SCHEMAS, GUIDE_FIELDS, MARKET_FIELDS, REVIEW_FIELDS, NAV_FIELDS, CONTENT_TABLES,
+  IMAGE_SLOT_GENERATION,
 } from '../lib/admin-schema.js';
 import { SLOTS, checkSlot } from '../lib/code-injection.js';
 import { el, renderForm, renderSimpleList, toStrings } from './admin-forms.js';
 import {
   uploadImage, deleteImage, listMedia, listSlots, formatBytes,
 } from './admin-media.js';
+import { renderImageGenerator } from './admin-imagegen.js';
 
 let profile = null;
 let isAdmin = false;
@@ -297,7 +299,14 @@ async function editGuide(guide) {
   const fields = [
     ...GUIDE_FIELDS.filter((f) => f.name !== 'body_markdown' && f.name !== 'published'),
     { name: 'cover_media_id', label: 'Cover image', type: 'image', media: library,
-      help: 'Shown on guide cards and at the top of the article. Upload images under Images first.' },
+      help: 'Shown on guide cards and at the top of the article. Upload under Images, or generate one below.',
+      generate: {
+        aspectRatio: '16:9', // matches .cover { aspect-ratio: 16/9 } in guides/[slug].astro
+        guard,
+        subject: () =>
+          `Cover image for a marketing guide titled "${record.title || 'Untitled guide'}" ` +
+          `in the "${record.category}" category. Excerpt: ${record.excerpt || '(no excerpt written yet)'}`,
+      } },
     ...GUIDE_FIELDS.filter((f) => f.name === 'body_markdown' || f.name === 'published'),
   ];
   const form = renderForm(fields, record);
@@ -527,6 +536,26 @@ function renderSlot(slot, library) {
     if (ok) renderImages();
   });
 
+  // Only slots where a generated image genuinely fits get the button — see
+  // IMAGE_SLOT_GENERATION's comment for why about_portrait and home_dealer
+  // are deliberately left out.
+  const genConfig = IMAGE_SLOT_GENERATION[slot.key];
+  const generator = genConfig && isAdmin
+    ? renderImageGenerator({
+        aspectRatio: genConfig.aspectRatio,
+        guard,
+        subject: () => `Homepage/site image slot: "${slot.label}". ${slot.help || ''}`,
+        onUse: async (media) => {
+          // Assigning immediately, not just adding to the picker, matches
+          // what happens when a manual upload is picked from the dropdown.
+          const ok = await save(
+            () => supabase.from('image_slots').update({ media_id: media.id }).eq('key', slot.key),
+            `${slot.label} updated`);
+          if (ok) renderImages();
+        },
+      })
+    : null;
+
   return el('div', { class: 'slotcard' },
     el('div', { class: 'slotpic' },
       slot.media
@@ -535,7 +564,8 @@ function renderSlot(slot, library) {
     el('div', { class: 'slotmeta' },
       el('strong', {}, slot.label),
       slot.help ? el('small', {}, slot.help) : null,
-      select));
+      select,
+      generator));
 }
 
 function renderMediaCard(m) {

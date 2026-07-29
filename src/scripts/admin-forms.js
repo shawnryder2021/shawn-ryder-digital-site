@@ -1,21 +1,12 @@
 // Generic form rendering. Reads a field schema, produces DOM, reads values back.
-// Deliberately dependency-free: the admin is a single page and a framework would
-// cost more bundle than it saves here.
+// No UI framework: the admin is a single page and one would cost more bundle
+// than it saves here. The 'image' field type optionally wires in the
+// "Generate with AI" panel (admin-imagegen.js) when the caller supplies a
+// field.generate config — see GUIDE_FIELDS' cover_media_id for an example.
 
-export const el = (tag, props = {}, ...children) => {
-  const node = document.createElement(tag);
-  for (const [k, v] of Object.entries(props)) {
-    if (k === 'class') node.className = v;
-    else if (k === 'html') node.innerHTML = v;
-    else if (k.startsWith('on')) node.addEventListener(k.slice(2).toLowerCase(), v);
-    else if (v !== null && v !== undefined && v !== false) node.setAttribute(k, v === true ? '' : v);
-  }
-  for (const c of children.flat()) {
-    if (c === null || c === undefined || c === false) continue;
-    node.append(c instanceof Node ? c : document.createTextNode(String(c)));
-  }
-  return node;
-};
+export { el } from './dom.js';
+import { el } from './dom.js';
+import { renderImageGenerator } from './admin-imagegen.js';
 
 /** A list of plain strings may be stored as ["a"] or [{v:"a"}]. Normalise both. */
 export const toStrings = (arr) =>
@@ -74,11 +65,15 @@ export function renderField(field, value) {
   // Picks an existing library image. `field.media` is the library, supplied by
   // the caller so the picker does not fetch on every field render.
   if (field.type === 'image') {
-    const select = el('select', {},
+    // Rebuildable so the "Generate with AI" flow can prepend its new media
+    // row and redraw the list without a round trip back to the server.
+    const optionsFor = (selectedId) => [
       el('option', { value: '' }, '— none —'),
       ...(field.media || []).map((m) =>
-        el('option', { value: m.id, ...(m.id === value ? { selected: true } : {}) },
-          `${m.path}${m.alt ? ` — ${m.alt}` : ' — (no alt text)'}`)));
+        el('option', { value: m.id, ...(m.id === selectedId ? { selected: true } : {}) },
+          `${m.path}${m.alt ? ` — ${m.alt}` : ' — (no alt text)'}`)),
+    ];
+    const select = el('select', {}, ...optionsFor(value));
 
     const preview = el('div', { class: 'imgpreview' });
     const paint = () => {
@@ -92,11 +87,30 @@ export function renderField(field, value) {
     select.addEventListener('change', paint);
     paint();
 
+    // field.generate, when supplied by the caller, adds a "Generate with AI"
+    // widget below the picker. Kept optional and dependency-injected (subject
+    // text, aspect ratio, the app's admin guard) rather than importing the
+    // app's state directly, so this file stays usable without it.
+    let generator = null;
+    if (field.generate) {
+      generator = renderImageGenerator({
+        subject: field.generate.subject,
+        aspectRatio: field.generate.aspectRatio,
+        guard: field.generate.guard,
+        onUse: (media) => {
+          field.media = [media, ...(field.media || [])];
+          select.replaceChildren(...optionsFor(media.id));
+          select.value = media.id;
+          paint();
+        },
+      });
+    }
+
     return {
       node: el('div', { class: 'f f-full' },
         el('span', { class: 'flabel' }, field.label),
         field.help ? el('small', { class: 'help' }, field.help) : null,
-        preview, select),
+        preview, select, generator),
       read: () => select.value || null,
     };
   }

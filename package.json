@@ -19,7 +19,8 @@
     "test:visibility": "node tests/visibility-check.test.mjs",
     "test:crawler": "node tests/crawler-check.test.mjs",
     "test:code": "node tests/code-injection.test.mjs",
-    "test:all": "npm test && npm run test:visibility && npm run test:crawler && npm run test:code && npm run test:images && npm run audit"
+    "test:imagegen": "node tests/image-gen.test.mjs",
+    "test:all": "npm test && npm run test:visibility && npm run test:crawler && npm run test:code && npm run test:imagegen && npm run test:images && npm run audit"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.110.8",

@@ -72,7 +72,7 @@ const slugify = (name) =>
  * Uploads one file and records it in the media table.
  * @returns {Promise<object>} the created media row
  */
-export async function uploadImage(file, { alt = '' } = {}) {
+export async function uploadImage(file, { alt = '', prompt = null, source = null, model = null } = {}) {
   const { blob, width, height, ext } = await prepareImage(file);
 
   // Content-addressed enough to avoid collisions without needing a lookup.
@@ -91,6 +91,7 @@ export async function uploadImage(file, { alt = '' } = {}) {
     .insert({
       path, url: pub.publicUrl, alt,
       width, height, bytes: blob.size, mime: blob.type,
+      prompt, source, model,
     })
     .select()
     .single();

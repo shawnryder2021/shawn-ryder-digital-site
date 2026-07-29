@@ -35,6 +35,7 @@ npx netlify dev      # serves the site and /api/* together
 | `npm run test:visibility` | Tests the AI visibility checker, including its rate limits |
 | `npm run test:crawler` | Tests the crawler checker: robots.txt matching and SSRF guards |
 | `npm run test:code` | Tests the custom-code validator against real vendor snippets |
+| `npm run test:imagegen` | Tests the AI image generator's admin gate and SSRF allowlist |
 | `npm run test:all` | All four suites, then the build audit |
 
 ## Architecture
@@ -91,8 +92,9 @@ Set in Netlify under **Site configuration → Environment variables**. See
 | `PUBLIC_SUPABASE_URL` | Same URL, exposed to the browser for `/admin` |
 | `PUBLIC_SUPABASE_PUBLISHABLE_KEY` | Publishable key. Public by design |
 | `NETLIFY_BUILD_HOOK_URL` | Build hook the Publish button calls |
-| `OPENROUTER_API_KEY` | Secret. Powers the AI visibility checker |
+| `OPENROUTER_API_KEY` | Secret. Powers the AI visibility checker and image-prompt drafting |
 | `OPENROUTER_MODEL` | Optional. Defaults to `anthropic/claude-haiku-4.5` |
+| `KIE_API_KEY` | Secret. Powers "Generate with AI" in Images |
 | `PUBLIC_PLAUSIBLE_DOMAIN` | Optional. Enables Plausible analytics |
 | `PUBLIC_UMAMI_SRC` / `PUBLIC_UMAMI_ID` | Optional. Enables Umami instead |
 
@@ -167,6 +169,45 @@ Every `<img>` is rendered with `width`/`height` so pages do not shift while
 images load, and an unassigned slot renders no markup at all rather than an
 empty box — the homepage hero, for instance, drops back to a single-column
 layout when no image is set.
+
+**"Generate with AI"** appears next to a guide's cover picker and next to the
+two image slots where a generated photo genuinely fits (homepage hero, AI page
+hero — see `IMAGE_SLOT_GENERATION` in `admin-schema.js` for why the other two
+don't get it). Clicking it drafts an image prompt from that guide's or slot's
+own content — title, excerpt, category, or slot label — using the same
+OpenRouter model as the AI visibility checker, styled to the site's own art
+direction (maritime overcast light, cool-neutral colour, no text/signage/logos
+in frame, no generic showroom-at-golden-hour look). The admin edits the draft,
+generates through Kie.ai (`gpt-image-2-text-to-image` — OpenAI's GPT Image 2),
+and on "Use this image" it goes through the *exact same* upload pipeline a
+manual file pick uses: downscaled, re-encoded, inserted as a normal `media`
+row. The prompt and model are stored on that row (`media.prompt`, `.source`,
+`.model` — null for a manual upload) so a generated image's origin is never
+ambiguous later.
+
+Four functions, each doing one narrow thing:
+
+- `draft-image-prompt` — text only, asks OpenRouter to write a prompt.
+- `generate-image` — starts a Kie.ai task and returns its id immediately.
+- `image-task-status` — the browser polls this every few seconds; GPT Image 2
+  usually takes 30–90 seconds, far past what a Netlify function may block for,
+  so nothing here ever waits.
+- `fetch-generated-image` — proxies the finished picture back through our own
+  domain, so the browser doesn't depend on Kie.ai's CORS headers being
+  permissive. This is also a narrow SSRF surface worth guarding properly even
+  though the URL comes from our own prior Kie.ai call rather than directly from
+  a stranger: an admin session token could be replayed against it with any
+  URL. So the host is allowlisted to Kie.ai's own result CDN
+  (`*.aiquickdraw.com`) and re-checked against every private IP range via the
+  same `assertPublicHost` the crawler checker uses — an allowlisted *hostname*
+  is not the same guarantee as an allowlisted *address*.
+
+All four are admin-only, verified server-side the same way `/api/publish` is
+(`netlify/lib/auth.mjs`, factored out of that function so both use one
+implementation). `npm run test:imagegen` covers the admin gate on each
+endpoint and the SSRF allowlist, including the suffix-matching trick
+(`aiquickdraw.com.evil.com`) and a hostname that resolves to a private address
+despite an allowed name.
 
 ### Custom code (head and body)
 

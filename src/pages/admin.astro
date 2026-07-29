@@ -347,6 +347,26 @@ import '../styles/global.css';
       }
       .imgpreview img { width: 100%; height: 100%; object-fit: cover; }
 
+      /* ---- "Generate with AI" panel (admin-imagegen.js) ---- */
+      .imagegen-wrap { margin-top: 4px; }
+      .imagegen {
+        margin-top: 10px; padding: 14px 16px;
+        border: 1px solid var(--line); border-radius: 10px; background: var(--surface-2);
+        display: grid; gap: 10px; max-width: 460px;
+      }
+      .imagegen-label {
+        display: grid; gap: 6px;
+        font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
+        color: var(--muted);
+      }
+      .imagegen-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+      .imagegen-preview {
+        width: 100%; max-height: 260px; object-fit: contain;
+        border-radius: 8px; background: var(--bg); border: 1px solid var(--line);
+      }
+      .imagegen .cerr, .imagegen p.cerr { margin: 0; font-size: 13.5px; color: #b4482a; }
+      .imagegen .muted.small { margin: 0; font-size: 12.5px; }
+
       .warnbar {
         margin-bottom: 16px; padding: 14px 18px;
         background: #fdf0ec; border: 1px solid #f6cfc2; border-radius: 12px;

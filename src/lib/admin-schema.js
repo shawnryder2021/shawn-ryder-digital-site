@@ -200,6 +200,22 @@ export const NAV_FIELDS = [
     help: 'Footer only — links sharing a column heading group together.' },
 ];
 
+/**
+ * Which named image_slots offer "Generate with AI", and at what aspect ratio.
+ * A slot with no entry here gets no generate button at all — deliberately,
+ * for two of the four:
+ *
+ *   - about_portrait: this is Shawn's own photograph. A site whose entire
+ *     pitch is twenty-five years of real industry experience cannot be
+ *     illustrated with a person who does not exist.
+ *   - home_dealer: no template renders this slot yet (see README's known
+ *     gaps), so generating for it would produce an image nobody sees.
+ */
+export const IMAGE_SLOT_GENERATION = {
+  home_hero: { aspectRatio: '4:5' },   // .heroimg { aspect-ratio: 4/5 } in index.astro
+  ai_hero: { aspectRatio: '21:9' },    // .aihero { aspect-ratio: 21/9 } in ai.astro
+};
+
 /** Tables whose updated_at feeds the "unpublished changes" count. */
 export const CONTENT_TABLES = [
   'site_settings', 'nav_links', 'content_blocks',
