@@ -31,3 +31,4994 @@
   for = "/_astro/*"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
+
+# Keep these pages
+[[redirects]]
+from = "/frequently-asked-questions/"
+to = "/faq/"
+status = 301
+
+# 410 Gone for everything else (content permanently removed)
+# This tells search engines "this content no longer exists" rather than
+# redirecting to a random page. Good for cleaning up your index.
+
+[[redirects]]
+from = "/2024-kia-sorento-review-the-tale-of-two-sorentos/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/best-rc-cars-for-2024/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/vehicle-description-generator/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/how-and-where-would-you-market-a-gambling-game-that-benefits-charities/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/exploring-lead-retrieval-apps-for-trade-shows-any-suggestions/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2015-honda-odyssey-ex/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2012-buick-regal-turbo-premium-sedan/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2015-volkswagen-jetta-gli/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/your-local-dealership-marketing-solution-in-ceiba-puerto-rico/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/your-local-dealership-marketing-solution-in-guaynabo-puerto-rico/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/silverado-zr2-by-hennessey-makes-it-a-goliath-on-wheels-only-100-special-units-see-the-day-light/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/best-marketing-hub-cities-in-2025/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/category/automotive-digital-marketing/page/2807/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/digital-marketing-strategies-for-modern-car-dealerships/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/instagram-only-lets-users-post-from-phones-to-post-a-graphic-created-on-a-laptop-do-i-need-to-send-it-to-my-phone-and-then-post-it-on-instagram/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/your-local-dealership-marketing-solution-in-blencoe-iowa/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/should-i-fix-the-a-c-before-sale/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/your-local-dealership-marketing-solution-in-cidra-puerto-rico/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116847-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/newsletter-sign-up/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/your-local-dealership-marketing-solution-in-new-home-texas/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/how-many-tiktok-or-reel-videos-can-you-upload-per-day/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2018-chevrolet-cruze-lt/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/21-royalty-free-music-sites-to-help-you-make-the-perfect-video-soundtrack/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/what-are-ai-brand-mentions-and-how-are-they-different-from-citations/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2024-chevrolet-trax-ls-in-sterling-gray-metallic/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/your-local-dealership-marketing-solution-in-burrows-indiana/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/your-local-dealership-marketing-solution-in-danville-maine/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/shawn-ryder-digital-blog/page/1603/?ref=tomba_author_finder"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/your-local-dealership-marketing-solution-in-oelwein-iowa/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/why-does-the-dealership-want-a-copy-of-my-insurance-post-sale/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/your-local-dealership-marketing-solution-in-rio-oso-california/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/do-i-need-to-remove-the-deceased-joint-owner-before-trading-in-the-car/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/use-plant-based-leather-for-greener-evs-says-designer-vicki-von-holzhausen/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/2219/?vn/2022-08-12318893_html"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/shawn-ryder-digital-blog/page/1621/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/challenges-and-rewards-of-being-a-car-dealership-general-manager/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/your-local-dealership-marketing-solution-in-corryton-tennessee/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/developing-a-car-dealer-referral-program-tips-for-encouraging-customers-to-refer-their-friends-and-family/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/how-can-ford-dealerships-use-seo-to-help-grow-sales/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/i-sold-cars/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/trends-in-automotive/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/google-to-pay-canadian-publishers-73m-annually-to-keep-news-links-in-search/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/steps-for-becoming-an-automotive-general-manager/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/1409/?vn/2022-08-1286aac_html"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/your-local-dealership-marketing-solution-in-buckingham-pennsylvania/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/are-there-any-tools-ai-or-not-that-can-copy-clone-existing-websites-and-make-them-editable-in-wordpress-or-and-elementor/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/stupid-question-but-do-you-have-to-be-good-at-math-to-get-into-marketing/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/seo-for-ford-dealers/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/marketing-examples/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/googlebot-crawl-rate-tool-in-search-console-is-going-away/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/dealership-price-match-or-walk-away/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/your-local-dealership-marketing-solution-in-pilot-grove-iowa/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/your-local-dealership-marketing-solution-in-barrow-alaska/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/automotive-seo/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/your-local-dealership-marketing-solution-in-blanchard-oklahoma/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/3269/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2016-audi-q3-premium-plus/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/1151/?vn/2022-08-12318893_html"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/how-can-i-get-10000-email-data-daily/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/3037/?vn/2022-08-1385363_html"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/3043/?vn/2022-08-1385363_html"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/ad-account-restricted-any-way-to-recover-the-meta-fund/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/what-are-some-good-courses-or-tutorials-for-drip/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/hyundai-owner-stories-videos/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/3092/?vietnam/2022-08-1314facfae_html"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/the-best-midsize-luxury-cars-for-2023/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/best-free-website-design-sites/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/115759-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/1555/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/your-local-dealership-marketing-solution-in-south-barre-vermont/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/the-impact-of-online-reviews-on-car-dealership-reputation/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2023-bmw-m2-review-simply-excellent/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/the-23-best-cover-letter-examples-what-they-got-right/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/seo-for-audi-dealers/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/your-local-dealership-marketing-solution-in-toa-baja-puerto-rico/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/yoast-seo-vs-rank-math-lets-compare-features/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/honda-marine-bf350-v8-engine/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/vwo-vs-optimizely-vs-dynamic-yield-vs-google-optimize-whos-actually-the-best-for-ai-driven-a-b-testing/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/your-local-dealership-marketing-solution-in-union-new-jersey/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/2352/?vn/2022-08-1385363_html"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116634-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/google-mastery-a-professionals-handbook-for-optimal-business-profile-setup/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/965/?vn/2022-08-12816945_html"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/2126/?vn/2022-08-1319930bbdfec_html"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/your-local-dealership-marketing-solution-in-trujillo-alto-puerto-rico/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/which-ai-tool-is-better-for-seo/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/2411/?vn/2022-08-1319930bbdfec_html"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/1706/?vn/2022-08-13488440_html"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/seo-keyword-search-has-anyone-tried-ahrefs-starter-plan-is-it-worth-it/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/is-inr-80k-pm-normal-after-7-years-in-marketing-am-i-severely-underpaid/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/spy-photos-2027-hyundai-elantra-signals-a-calmer-more-grown-up-direction-ahead/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/ces-2024-a-sneak-peek-into-the-future-of-automotive-technology/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/understanding-acquisition-fees-in-car-leasing/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/your-local-dealership-marketing-solution-in-cope-colorado/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2027-chrysler-pacifica-opens-for-orders-in-the-us-with-a-new-lx-entry-trim-and-lower-starting-price/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/seo-for-nissan-dealers/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/revving-up-sales-automotive-dealership-digital-marketing/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/optimizing-your-dealerships-website-for-mobile-strategies-to-capture-on-the-go-customers/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/1839/?vn/2022-08-12318893_html"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/best-app-for-inbound-outbound-international-calling/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2025-chevrolet-blazer-lt-awd-in-sterling-gray-metallic-with-one-owner-clean-carfax-certified/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/hyundai-amazon-amp-up-pilot-ready-its-launch/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/goldmember-cybercab-climbs-pikes-peak-only-in-a-very-digital-universe/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/this-milwaukee-tire-inflator-is-an-impressive-53-off-at-amazon-4/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/is-wix-a-good-cms-for-seo-indexing-bing-google-and-ppc-platforms-adwords-adroll-bing-ads/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/what-12-technologies-power-these-top-12-killer-blogs/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/contact/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/3265/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/115843-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116216-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2024-ford-maverick-review-little-truck-still-without-peer-and-easy-to-love/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/gary-vee-tiktok-automotive-marketing/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/text-messages/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/what-are-automotive-backlinks/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/retail-tech-company-xcite-automotive-plans-to-raise-venture-capital-after-ai-acquisition/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/which-are-the-top-10-advertising-agencies-in-the-usa-worth-considering/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/i-am-looking-for-a-free-content-curation-platform-very-similar-to-rebelmouse-tint-what-are-my-options/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/your-local-dealership-marketing-solution-in-huntington-utah/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/category/automotive-digital-marketing/page/2864/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116832-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/are-udemy-and-coursera-courses-worth-it/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/alternatives-to-activecampaign/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/laptop-recommendations/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/the-history-of-car-dealerships-and-how-they-have-evolved-over-time/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/youtube-shorts/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/understanding-dealer-prep-fees-for-used-cars/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2025-chevrolet-trailblazer-lt-fwd-in-mosaic-black-with-convenience-package-lt-cold-weather-package-1-3l-turbo-and-driver-confidence-package-with-a-clean-carfax/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2018-ford-f-150-xlt-4x4-in-ingot-silver-with-the-2-7-ecoboost-and-a-clean-carfax-super-clean/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/automotive-email-marketing/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/your-local-dealership-marketing-solution-in-cabo-rojo-puerto-rico/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/best-value-landing-page-builder-for-beginner/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/3046/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/your-local-dealership-marketing-solution-in-aguas-buenas-puerto-rico/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/your-local-dealership-marketing-solution-in-morovis-puerto-rico/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116425-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/ai-chatbots-our-top-18-picks-for-2023/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/social-media-marketing/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/this-dewalt-flextorq-impact-driver-bit-set-is-an-impressive-45-off-at-amazon/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/toyota-ford-dealer-builds-school-in-native-nigeria/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/your-local-dealership-marketing-solution-in-patillas-puerto-rico/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/is-screaming-frog-a-good-tool-for-seo-audit/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/your-local-dealership-marketing-solution-in-coamo-puerto-rico/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/your-local-dealership-marketing-solution-in-maricao-puerto-rico/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/your-local-dealership-marketing-solution-in-gurabo-puerto-rico/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/best-social-media-analysis-tool/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/your-local-dealership-marketing-solution-in-aguadilla-puerto-rico/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116822-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/looking-for-a-marketing-agency-how-can-you-find-the-perfect-match-for-your-business-needs/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116746-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/your-local-dealership-marketing-solution-in-winchester-idaho/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/shawn-ryder-digital-reviews/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/what-are-the-best-ai-marketing-tools-for-technical-solopreneurs/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/page/3240/?order=title&page=793&sort=desc"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/1857/?vn/2022-08-1349603bdfabaf_html"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/how-to-create-detailed-buyer-personas-for-your-business-free-persona-template/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/any-good-schools-for-interior-design/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/best-resource-for-100-free-fonts/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/best-tool-for-building-pretty-pdf-document/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/tesla-model-3-rwd-and-long-range-losing-half-of-their-tax-credits-in-2024/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/automotive-holiday-marketing/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/adding-sound-to-scheduled-instagram-carousel-on-facebook-business-suite/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/metas-health-wellness-category-blocking-standard-pixel-events-any-solutions/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/how-to-do-a-content-gap-analysis-with-template/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/automotive-brands-on-tiktok/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/what-is-the-best-ad-objective-to-specifically-gain-ig-followers/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/977/?vietnam/2022-08-1314facfae_html"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/can-i-see-your-product-marketing-30-60-90-day-plans/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/the-future-of-automotive-marketing-embracing-ai-and-automation-to-enhance-customer-experience/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/the-power-of-google-in-automotive-digital-marketing/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2023s-best-of-the-best-the-top-holiday-gifts-for-your-loved-ones/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/advice-on-closing-sales-in-car-sales/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116579-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/elevate-your-sales-with-the-2009-volkswagen-touareg-2-a-comprehensive-guide/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/how-long-does-it-take-to-get-a-dealer-license-in-texas/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/1717/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/creating-compelling-content-the-ultimate-guide-to-engaging-your-audience-through-automotive-blogging/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/ducati-diavel-for-bentley-is-the-first-collaboration-between-the-brands/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116329-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/elevate-your-sales-with-the-2017-audi-q3-a-comprehensive-guide/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/category/automotive-digital-marketing/page/2739/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/your-local-dealership-marketing-solution-in-albrightsville-pennsylvania/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/page/3262/?order=title&page=793&sort=desc"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/10-best-suv-deals-in-may-2022/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/understanding-google-my-business-a-key-tool-for-automotive-dealership-success/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/your-local-dealership-marketing-solution-in-kenly-north-carolina/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/best-software-seo-help-for-a-small-local-business-with-little-4-5-page-website/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/are-ford-mustang-ecoboost-premium-convertible-rwd-cars-reliable/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/your-local-dealership-marketing-solution-in-maximo-ohio/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/1595/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/shawn-ryder-digital-blog/page/1598/?ref=tomba_author_finder"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/how-to-do-kol-marketing-more-efficiently/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/social-media-trends-every-car-dealership-should-leverage-in-2024/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/what-saas-for-gamification-in-marketing-have-you-used/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/24-best-free-marketing-sales-icons-for-your-website-or-app/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/overheard-mentoring-young-parts-managers/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/fastest-way-to-migrate-domains-in-google-search-console/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/page/2260/?order=title&page=793&sort=desc"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/social-media-management-tools-which-has-the-most-platforms/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/best-hashtags-for-cars-boost-your-reach-instantly/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/adapting-to-change-how-emerging-technologies-are-shaping-the-future-of-automotive-marketing-3/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/who-are-the-top-10-digital-marketing-agencies-in-the-world/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/learning-seo-with-ahrefs/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/porsche-911-s-t-first-drive-review-the-ultimate-911-fan-service/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/which-digital-marketing-agency-package-is-right-for-your-business-needs/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/your-local-dealership-marketing-solution-in-waldorf-minnesota/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/how-can-seo-marketing-services-help-grow-your-business/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/your-local-dealership-marketing-solution-in-fargo-north-dakota/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/your-local-dealership-marketing-solution-in-geneseo-new-york/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/how-to-grow-facebook-page-by-using-jokes-memes/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/haggling-for-2025-4runner/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/new-yoast-releases-performance-optimizations-for-larger-websites/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/when-does-similar-web-update/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/the-importance-of-transparency-in-the-car-business/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116631-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/seo-tips/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/best-of-the-2023-dodge-lineup/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/your-local-dealership-marketing-solution-in-los-angeles-california/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/3090/?vn/2022-08-1349603bdfabaf_html"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/category/automotive-digital-marketing/page/1518/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/scalify-app-has-anyone-used-it-reviews/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/1051/?vn/2022-08-12318893_html"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/how-do-you-organize-online-giveaways/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/instagram-ads-audience-similar-to-your-followers-any-good/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/what-is-dealer-holdback-and-how-does-it-benefit-car-dealers/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/can-you-provide-some-website-with-a-list-of-the-best-marketing-related-podcasts-to-listen-to-this-year/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/advices-to-streamline-the-costs-of-my-seo-kit-semrush-vs-haloscan/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/understanding-car-salesman-salary-and-earnings-everything-you-need-to-know/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/your-local-dealership-marketing-solution-in-canovanas-puerto-rico/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/best-suvs-for-towing-in-2022-everything-you-need-to-know/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/semrush-or-ahrefs-which-one-working-best-nowadays/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/2057/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/best-website-mailing-platform-for-starting-from-scratch/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/best-of-the-2023-mazda-lineup/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/anybody-need-a-fashion-dupe-finder-app/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/the-best-ice-scrapers-of-2023/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/need-a-loan-to-buy-a-vehicle-heres-how-to-secure-financing/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/retro-pop-up-headlights-return-in-wild-2028-mazda-rx-7-cgi-revival/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2021-vw-passat/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/your-local-dealership-marketing-solution-in-guanica-puerto-rico/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/deepseek-cost-effective-ai-for-seos-or-overhyped-chatgpt-competitor/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/how-do-you-know-when-the-transfer-and-release-of-liability-is-complete-in-california/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/atlantic-acura-service-halifax-dartmouth/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/what-departments-are-in-a-car-dealership/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/paid-social-or-programmatic/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/discover-the-2024-mitsubishi-motors-corporation-eclipse-cross-2wd-where-elegance-meets-performance/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/recommendations-for-social-media-marketing-agency/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/your-local-dealership-marketing-solution-in-vieques-puerto-rico/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/elevating-customer-loyalty-in-the-hospitality-sector-through-tailored-experiences-by-comarch/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116580-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/3302/?vn/2022-08-12318893_html"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/smooth-transitions-the-ultimate-guide-to-relocating-your-car-dealership-business/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/which-seo-newsletters-are-worth-subscribing-to/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/what-are-some-of-the-best-examples-of-guerrilla-digital-marketing-youve-seen/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/build-a-blog-that-drives-real-results/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/your-local-dealership-marketing-solution-in-los-indios-texas/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/your-local-dealership-marketing-solution-in-south-el-monte-california/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/harnessing-the-power-of-google-ads-to-drive-sales-for-your-dealership/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/bugatti-w16-mistral-the-return-of-the-young-prince-turns-a-personal-story-into-a-one-off-hypercar/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/how-much-should-i-charge-for-qr-code-generation/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/gm-expects-electric-vehicles-to-be-profitable-by-second-half-of-2024/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/3296/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/3196/?vn/2022"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116877-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116941-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/will-my-dealership-buy-my-car-back-after-1-year/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/top-social-media-trends-every-automotive-dealership-should-embrace-in-2024/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/how-should-i-find-kol-to-promote-my-products/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116676-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/3306/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/1257/?vn/2022"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/abt-and-cupra-expand-partnership-with-new-custom-styling-package-for-leon-and-formentor/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/adding-subwoofer-and-amp-to-lease-vehicle-impact-on-return/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/how-to-get-blog-post-ideas-tips-to-find-inspiration/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/taxes-on-auto-lease-in-connecticut/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/category/automotive-2/page/2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/3241/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/top-automotive-digital-marketing-agency-strategies-trends-2024/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/is-synaptic-inc-an-mlm/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/is-there-a-way-to-see-the-historical-data-of-followers-growth-of-my-accounts/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/your-local-dealership-marketing-solution-in-lares-puerto-rico/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/how-to-become-a-general-manager-of-a-car-dealership/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/is-facebook-ad-still-effective-in-2025/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116801-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116461-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/your-local-dealership-marketing-solution-in-berrien-springs-michigan/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/48-automotive-dealership-job-descriptions/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/shyft-group-cut-employee-count-by-1200-in-2023-amid-weak-demand-3/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116550-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/your-local-dealership-marketing-solution-in-aguada-puerto-rico/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/shawn-ryder-digital-blog/page/1648/?ref=tomba_author_finder"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/can-i-use-google-adsense-in-my-mobile-app/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/what-is-seo-search-engine-optimization/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116727-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/experience-with-directus-io-or-webflow-for-seo/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/shawn-ryder-digital-blog/page/1610/?ref=tomba_author_finder"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2025-chevrolet-tahoe-lt-in-summit-white-with-black-leather-interior-and-2nd-row-bench-seat-one-owner-gm-certified-and-a-clean-carfax/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/page/3241/?order=title&page=793&sort=desc"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/2759/?vn/2022-08-1387bff_html"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2018-gmc-acadia-slt-all-wheel-drive-with-navigation-in-blue-steel-metallic/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/new-track-your-brand-visibility-in-claude-with-yoast-ai-brand-insights/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116719-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/2892/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/976/?vietnam/2022-08-1314facfae_html"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/3281/?vn/2022-08-12704255_html"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116785-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/android-auto-17-1-beta-arrives-early-heres-how-users-can-install-it-before-the-wider-release/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2025-chevrolet-blazer-rs-awd-certified-panoramic-sunroof-fully-loaded-clean-carfax-thousands-less-than-new-with-21-wheels/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/social-media-marketing-certifications-which-is-better/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/3258/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/3078/?vn/2022-08-1385363_html"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/best-affordable-all-in-one-marketing-solution-for-solo-creators/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/simplest-tool-to-track-keyword-ranking-for-my-website/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/shawn-ryder-digital-blog/page/1338/?ref=tomba_author_finder"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2023-chevrolet-silverado-1500-lt-4wd-with-only-22655-miles-gm-certified-clean-carfax-in-black-with-black-interior/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2024-audi-q5-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/a-presumably-stolen-lancia-ypsilon-prototype-is-pulled-from-a-canal-in-france/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/3277/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/115920-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/19-best-email-newsletter-templates-and-12-resources-to-use-right-now/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/3087/?vn/2022-08-13488440_html"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/why-are-alt-tags-important-for-seo-and-website-accessibility/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/harnessing-social-media-advertising-best-practices-for-car-dealerships/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/115590-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116902-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/security-patch-yoast-seo-premium-27-6-1/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/115675-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116869-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/your-local-dealership-marketing-solution-in-francestown-new-hampshire/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/your-local-dealership-marketing-solution-in-harbor-view-ohio/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2021-toyota-corolla-le-in-barcelona-red-metallic-under-15000-full-mechanical-inspection-complete-vehicle-ready-for-the-road-and-your-driveway/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/does-anyone-know-this-design/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116707-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/nissans-ev-comeback-in-the-us-impacted-by-offshoring/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/the-power-of-social-proof-how-customer-testimonials-can-boost-your-dealerships-reputation-and-sales/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/what-is-agentic-commerce-a-peek-into-the-future-of-buying-with-caveats/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2008-honda-accord-lx-p/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/category/automotive-digital-marketing/page/1209/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2024-chevrolet-silverado-lt-4-wheel-drive-1500-with-one-owner-and-20-wheels-in-summit-white/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/3087/?vn/2022-08-12485842_html"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/three-new-tasks-better-navigation-and-a-bug-fix-in-the-yoast-seo-task-list/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/shawn-ryder-digital-blog/page/916/?ref=tomba_author_finder"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/the-may-2026-seo-update-by-yoast-recap/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/ai-citations-explained-how-they-work-and-how-to-get-them/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2024-toyota-land-cruiser-2025-4runner-are-similar-but-different/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/8-brainstorming-tools-marketers-need-to-try-in-2023/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/3270/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116388-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/google-announces-update-to-video-publisher-policy/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/what-factors-determine-the-trade-in-value-of-your-vehicle/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/the-future-of-automotive-marketing-leveraging-ai-and-data-analytics-for-success/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116500-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/shawn-ryder-digital-blog/page/1591/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2023-chevrolet-suburban-z71-in-summit-white-with-the-luxury-package-sunroof-max-trailering-package/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116524-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/looking-to-generate-more-leads-for-your-marketing-agency-how-can-lead-generation-strategies-help/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2013-honda-accord-ex-sedan-3/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2017-chrysler-pacifica-touring-l/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/your-local-dealership-marketing-solution-in-orwell-ohio/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/3271/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/good-down-payment-for-a-15k-used-car/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/effective-communication-strategies-for-dealership-staff/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2024-mercedes-amg-cle-53-4matic-coupe-is-an-angrier-more-powerful-tweener/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/best-ai-for-short-product-videos/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/is-there-any-cheaper-alternative-to-surfer-seo/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/your-local-dealership-marketing-solution-in-yauco-puerto-rico/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2024-chevy-trax-review-game-changer-for-its-segment-and-chevrolet/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/first-cybertruck-owners-include-a-vc-founder-and-serena-williams-husband-spike-lee-is-still-waiting/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/shawn-ryder-digital-blog/page/1597/?ref=tomba_author_finder"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/3276/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/3274/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/your-local-dealership-marketing-solution-in-adjuntas-puerto-rico/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/shawn-ryder-digital-blog/page/1599/?ref=tomba_author_finder"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116689-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116218-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/what-are-highest-paid-jobs-with-lowest-stress-in-marketing/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116664-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116389-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/3091/?vn/2022-08-1349603bdfabaf_html"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/3278/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/shawn-ryder-digital-blog/page/1645/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/1201/?vn/2022-08-13488440_html"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116673-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/harnessing-local-seo-how-automotive-dealerships-can-attract-more-customers-in-their-community/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/your-local-dealership-marketing-solution-in-sturgis-michigan/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116917-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116879-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116943-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/115941-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/the-top-automotive-advertising-agency-for-your-brand/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/8-holiday-gifts-for-the-content-creator-in-your-life/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/category/automotive-digital-marketing/page/2866/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116912-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/3305/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116783-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116820-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2023-chevrolet-tahoe-z71-in-black-with-black-leather-and-only-53234-miles-gm-certified-witha-panoramic-sunroof/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116851-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2021-dodge-challanger-rt-rwd-with-the-hemi-engine-in-granite-crystal-metallic-clearcoat-and-only-30886-miles-none-around/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/6-best-free-website-builders-to-check-out-in-2023-pros-cons/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/your-local-dealership-marketing-solution-in-rolla-kansas/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116001-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/whats-the-best-tv-shows-featuring-marketing-or-advertising-as-a-profession/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/dealer-trade-car-with-180-miles/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2018-toyota-sienna-xle/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/your-local-dealership-marketing-solution-in-moca-puerto-rico/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116510-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/3275/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/shawn-ryder-digital-blog/page/1600/?ref=tomba_author_finder"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/strategies-for-effective-email-marketing-driving-customer-engagement-for-your-dealership"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/ensuring-continuous-discoverability-with-agentic-ai-for-seo/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/can-carfax-be-wrong/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/your-local-dealership-marketing-solution-in-bayamon-puerto-rico/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/escalade-sport-platinum-owner-turned-a-170000-luxury-suv-into-a-mud-covered-disaster/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/which-ai-is-best-for-copywriting-chatgpt-claude-deepseek-or-xai-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116626-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/1591/?vn/2022-08-1286aac_html"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/what-are-the-best-seo-companies-near-me/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/driving-sales-with-data-how-analytics-can-transform-your-dealerships-marketing-strategy-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116792-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2011-toyota-camry-xle/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2025-chevrolet-traverse-z71-in-mosaic-black-with-one-owner-clean-carfax-and-certified-thousands-less-than-new-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/category/automotive-digital-marketing/page/2787/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116784-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2025-chevrvolet-silverado-zr2-2500-in-sterling-gray-with-power-assist-steps-technology-package-power-sunroof-multiflex-tailgate-thousands-less-than-new/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2023-chevrvolet-tahoe-lt-4wd-in-sterling-gray-with-luxury-package-20-wheels-panormaic-sunroof-1-owner-clean-carfax2nd-row-bucket-seats/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/how-openai-will-benefit-the-automotive-industry/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/wordpress-7-0-is-out-the-7-highlights-of-this-release/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116728-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/harnessing-video-marketing-engaging-customers-at-your-dealership-through-visual-storytelling/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/the-best-holiday-gifts-for-car-lovers-in-2023/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/how-can-search-engine-optimization-boost-your-digital-marketing-strategy/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/your-local-dealership-marketing-solution-in-ormond-beach-florida/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/115774-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2025-chevrolet-traverse-z71-in-mosaic-black-with-one-owner-clean-carfax-and-certified-thousands-less-than-new/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/shawn-ryder-digital-blog/page/1616/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116888-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/3299/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2019-chevrolet-camaro-lt-coupe-with-v6-in-orange-crush-with-automatic-transmission-and-technology-package-and-illuminate-black-bowtie-with-rs-package/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116903-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/does-a-toyota-dealer-get-preference-on-a-specific-build-with-a-deposit/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2025-chevrolet-tahoe-4x4-lt-black-with-black-leather-2nd-row-bench-bozarth-backed-7-year-100000-mile-warranty/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/1701/?vn/2022-08-12621904_html"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2027-bmw-7-series-render-tries-to-bring-old-school-presence-back/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/the-role-of-financial-incentives-in-employee-motivation/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116462-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/3249/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/the-safest-new-suvs-and-minivans-of-2022/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116886-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/mercedes-amg-cle-63-mythos-prototype-signals-limited-v8-return-with-30-units-planned/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2009-acura-mdx/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2020-gmc-terrain-sle-awd-with-the-elevation-package-awd-driver-convenience-package-and-driver-alert-package/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116495-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/your-local-dealership-marketing-solution-in-allegan-michigan/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2026-chevrolet-silverado-1500-custom-4wd-with-custom-convenience-and-blackout-package-factory-vehicle-was-only-4-miles-save-thousands-from-new/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2012-honda-accord-exl-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/new-yoast-ai-content-planner-turns-a-blank-post-into-a-structured-draft/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116303-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/category/automotive-digital-marketing/page/2815/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/29-automotive-marketing-tips/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116776-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2023-chevrolet-silverado-lt-4-wheel-drive-in-sterling-gray-one-owner-only-15574-miles-clean-carfax-with-all-star-edition-plus-and-tonneau-cover/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2021-volkswagen-jetta-1-4t-r-line/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/history-of-the-mitsubishi-eclipse/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2014-subaru-forester-premium/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/3304/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/how-can-digital-marketing-help-car-dealerships-boost-their-sales/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/your-local-dealership-marketing-solution-in-ciales-puerto-rico/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116794-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2011-volkswagen-jetta-se/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/your-local-dealership-marketing-solution-in-las-piedras-puerto-rico/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116911-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116657-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/rivians-new-ai-assistant-makes-teslas-grok-look-half-finished/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/3289/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/the-power-of-local-seo-how-car-dealerships-can-dominate-their-market/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/your-local-dealership-marketing-solution-in-downey-california/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/your-local-dealership-marketing-solution-in-hazelhurst-wisconsin/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/3259/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116712-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/1303/?vn/2022"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116875-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116434-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/second-time-visual-identity-any-advice/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/your-local-dealership-marketing-solution-in-whittier-alaska/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/can-anyone-recommend-a-good-and-affordable-stock-video-website/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116775-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/category/automotive-digital-marketing/page/2809/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116793-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116913-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/1684/?vn/2022-08-12816945_html"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/the-future-of-automotive-marketing-how-emerging-technologies-are-shaping-customer-engagement/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/3281/?vietnam/2022-08-1314ecdf_html"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/3301/?vn/2022-08-1385363_html"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/your-local-dealership-marketing-solution-in-naguabo-puerto-rico/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116694-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116703-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2021-chevrolet-blazer-lt-awd-in-summit-white-with-only-34405-miles-convenience-and-confidence-package-one-owner-and-clean-carfax/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/average-new-vehicle-transaction-price-falls-again-year-over-year/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/the-future-of-digital-advertising-in-the-automotive-industry-trends-to-watch/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/top-healthtech-and-edutainment-brands-suggestions/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2022-chevrolet-blazer-all-wheel-drive-rs-one-owner-clean-carfax-21-black-wheels-black-two-tone-roof-enhanced-convenience-package-only-36444-miles/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/your-local-dealership-marketing-solution-in-colony-kansas/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/favorite-marketing-newsletter-podcasts-for-2025/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/roole-map-steps-into-navigation-arena-with-crowd-based-traffic-reporting-push/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/50-of-the-best-affiliate-programs-that-pay-the-highest-commission/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116195-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116919-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2021-chevrolet-blazer-3lt-all-wheel-drive-one-owner-with-only-32417-miles-panoramic-sunroof-redline-edition-v6-engine-clean-carfax/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/32800-out-the-door-for-rav4-hybrid-le/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/3293/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116872-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/your-local-dealership-marketing-solution-in-humacao-puerto-rico/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/rust-free-1950-nash-ambassador-keeps-its-original-cabin-and-rare-factory-character/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/seo-for-toyota-dealers/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/10-essential-ppc-courses-for-every-marketer/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/there-are-so-many-what-your-favorite-content-discovery-tool/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116887-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/3262/?vietnam/2022-08-1314facfae_html"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2014-dodge-challenger-r-t/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116737-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/3290/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116910-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/the-best-full-size-cars-for-2023/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/3243/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/msrp-vs-invoice-price-navigating-car-pricing/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/your-local-dealership-marketing-solution-in-arecibo-puerto-rico/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/8-best-board-games-to-play-with-the-family-this-holiday-season-all-on-sale/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/which-is-the-best-ai-for-digital-marketing/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116582-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/automotive-ppc-boost-your-sales-with-proven-strategies/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/top-10-automotive-marketing-agencies-for-dealerships-in-2024/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116870-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/609/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116905-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/your-local-dealership-marketing-solution-in-isabela-puerto-rico/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/536/?vn/2022-08-12652808_html"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/11-apps-for-marketers-why-you-should-download-them/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/your-local-dealership-marketing-solution-in-loiza-puerto-rico/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116438-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2020-chevrolet-blazer-rs-awd-in-cajun-red-tintcoat-and-21-black-wheels/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/3272/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/maximizing-your-dealerships-reach-effective-strategies-for-google-ads-in-the-automotive-market/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2025-chevrolet-silverdao-1500-ltz-4x4-with-convenience-2-package-sunroof-bozarth-backed-7-year-100000-mile-warranty-super-clean/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116721-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116365-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/3303/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/category/automotive-digital-marketing/page/2860/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116826-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/1254/?vn/2022-08-1387bff_html"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/which-are-the-best-whatsapp-marketing-tools-available-now/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/best-performance-convertibles-for-2023/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/community-managers-what-they-do-how-to-be-a-great-one/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2011-honda-crv-lx/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/your-local-dealership-marketing-solution-in-corozal-puerto-rico/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/3096/?vn/2022-08-13222664_html"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/category/automotive-digital-marketing/page/2884/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116843-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/mastering-the-art-of-internet-leads-a-comprehensive-guide-for-dealers-to-strategically-focus-on-online-prospects/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116394-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/your-local-dealership-marketing-solution-in-las-marias-puerto-rico/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/best-gifts-for-under-100-that-you-can-buy-on-amazon-in-2023/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2026-chevrolet-silverado-1500-lt-w-2fl-and-20-wheels-in-cypress-gray-former-gm-company-car-with-only-7-miles-save-thousands-off-new/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/i-want-to-learn-econometrics-any-books-resources-youd-recommend/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/3109/?vn/2022-08-13544036_html"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116437-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/your-local-dealership-marketing-solution-in-plum-branch-south-carolina/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/the-17-best-ad-networks-for-content-creators-in-2024-via-sejournal-annabellenyst/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116003-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116734-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116892-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2020-volkswagen-jetta-1-4t-sel/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2009-toyota-rav-4-limited/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/505/?vn/2022-08-12564752_html"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2024-chevrolet-silverado-1500-lt-trailboss-5-3lv8-leather-sunroof-running-boards-premium-package-dark-essentials-package-in-summit-white-with-black-leather/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/which-free-social-media-platform-is-the-best-to-post-ads/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/shawn-ryder-digital-blog/page/1177/?ref=tomba_author_finder"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/3302/?vn/2022-08-12816945_html"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/3263/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/how-is-the-work-culture-at-flywheel-digital/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/your-local-dealership-marketing-solution-in-vega-baja-puerto-rico/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/best-snow-tires-of-2024/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/3244/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/is-digitalmarketer-lab-worth-the-money/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/how-can-digital-marketing-boost-your-business-growth/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116778-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/3273/?vn/2022-08-1382835debdbad_html"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/the-april-2026-seo-update-by-yoast-recap/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/your-local-dealership-marketing-solution-in-san-german-puerto-rico/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/3300/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2023-chevrolet-silverado-zr2-1500-with-the-6-2lv8-tonneau-cover-one-owner-kicker-audio-subwoofer-multi-flex-tailgate-dark-essentials-package-technology-package/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2017-jeep-grand-cherokee-75th-anniversary-edition/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/business-books-on-the-connection-of-products-to-consumer-emotion/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/3219/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/your-local-dealership-marketing-solution-in-coupeville-washington/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/looking-for-social-media-management-tools-any-recommendations/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/site-maker-recommendations/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/what-are-the-best-micro-tools-for-enhancing-email-marketing-efficiency/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/best-editing-software-for-reels-sponsored-posts/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/which-is-best-tool-for-website-audit-paid-version-included/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/iim-indore-certification-course-in-digital-marketing-is-it-worth-it/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2006-honda-civic-lx/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/ford-motor-company/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/top-5-emerging-technologies-every-car-dealership-should-embrace-for-digital-marketing-success/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/webflow-vs-wordpress-take-a-leap-of-faith/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/the-6-coolest-things-about-the-2025-genesis-gv80-coupe/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/the-forgotten-funnel-how-brands-can-nurture-post-conversion/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/shawn-ryder-digital-blog/page/1644/?ref=tomba_author_finder"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116302-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2019-nissan-altima-sl-awd/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/426/?vn/2022-08-12564752_html"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/910/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/1970-plymouth-barracuda-convertible-is-a-tribute-to-original-hemi-426-engine-heads-to-auction-in-mecum-glendale/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116725-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2013-volkswagen-golf-hatchback/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2015-honda-accord-lx-sedan-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2014-toyota-camry-se-5/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/3267/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2010-hyundai-santa-fe-gls/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2015-jeep-grand-cherokee-overland-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2016-chevrolet-tahoe-lt-4wd-in-black-with-black-leather-sunroof-dvd-package-and-luxury-package-with-premium-wheels-and-off-road-tires/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/your-local-dealership-marketing-solution-in-catano-puerto-rico/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/photo-gallery-lotus-emeya-turns-hyper-gt-ambition-into-a-fast-luxurious-electric-statement/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2011-volvo-xc60/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/your-local-dealership-marketing-solution-in-waubun-minnesota/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/harnessing-social-media-trends-to-boost-your-automotive-dealerships-online-presence-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2011-toyota-camry-le/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2017-volkswagen-golf-gti-s-hatchback/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2020-gmc-acadia-slt/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/the-seo-salary-survey-reveals-insights-on-seo-professionals-salaries/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/1019/?vn/2022-08-12318893_html"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2024-chevrolet-silverado-lt-4-wheel-drive-1500-with-one-owner-2-7l-engine-and-20-wheels-in-summit-white/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/category/automotive-digital-marketing/page/2804/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/cape-breton-hyundai/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116864-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2023-chevrolet-tahoe-4wd-premier-one-owner-clean-carfax-diesel-engine-super-cruise-rear-media-panoramic-sunroof-fully-loaded/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116863-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2010-toyota-corolla-le-sedan/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2023-chevrolet-silverado-lt-4-wheel-drive-in-red-hot-with-only-14079-miles-and-one-owner-with-20-wheels-and-off-road-tires/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/do-i-have-to-pay-sales-tax-twice-if-im-an-ohio-resident-buying-a-car-in-maryland/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2015-honda-civic-ex-sedan/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2025-chevrolet-blazer-lt-awd-in-black-with-black-interior-one-owner-clean-carfax-gm-certified-thousands-less-than-new/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/3233/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2019-nissan-sentra-sv-sedan-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2011-hyundai-elantra-touring-wagon/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2025-chevrolet-trailblazer-lt-awd-in-sterling-gray-metallic-with-17469-miles-gm-certified-one-owner-clean-carfax/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2025-chevrolet-tahoe-lt-4wd-with-black-leather-and-black-exterior-1-owner-clean-carfax/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2017-hyundai-veloster/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/which-marketing-certifications-carry-the-most-clout-and-credibility/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116317-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2013-toyota-sienna-le-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2023-honda-pilot-ex-l-in-black-with-one-owner-clean-crfax-and-black-leather-seating-all-wheel-drive-with-room-for-up-to-7/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2024-chevrolet-blazer-lt-in-black-with-only-13179-miles-gm-certified/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/maximizing-customer-engagement-effective-email-marketing-strategies-for-car-dealerships/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/why-your-product-is-your-most-important-seo-asset/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/how-to-keyword-research-for-seo-in-2025/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2020-dodge-grand-caravan-se-with-only-38252-miles-with-a-clean-carfax-history-in-octane-red-pearlcoat/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2015-toyota-sienna-xle-premium/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2024-chevrolet-trax-2rs-in-mosaic-black-metallic-one-owner-driver-confidence-package-clean-carfax-with-only-27491-miles/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2014-toyota-corolla-le/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2021-kia-forte/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2025-chevrolet-blazer-rs-awd-in-riptide-blue-fully-loaded-with-a-better-warranty-than-new-and-panoramic-sunroof-former-gm-company-car-at-a-huge-discount/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/lucid-expands-air-pure-recall-after-half-shaft-risk-returns-in-more-cars/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2012-toyota-camry-le-3/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/what-are-the-top-digital-marketing-services-in-the-usa/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/get-discovered-before-its-too-late-top-yoast-seo-for-shopify-features-to-outperform-competitors-this-black-friday/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2024-chevrolet-silverado-1500-rst-in-summit-white-with-the-5-3lv8-4x4-rst-all-star-premium-pacvkage-only-10000-miles-and-the-z-71-off-road-package/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/1221/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2016-chevrolet-cruze-limited/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2021-honda-civic-lx-sedan/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116623-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2021-chevrolet-blazer-lt-awd-with-one-owner-clean-carfax-certified-and-only-34405-miles/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/recommended-courses-on-udemy-linkedin-learning-for-google-ads-and-seo/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2022-chevrolet-silverado-1500-lt-4wd-with-the-2-7-engine-and-a-clean-carfax-in-northsky-blue-metallic/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/south-korea-gets-a-20-unit-jeep-wrangler-rubicon-trail-hunt-built-around-mopar-parts/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2021-gmc-sierra-2500hd-denali-4x4-crew-cab-diesel-in-onyx-black-with-a-clean-carfax/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116124-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2025-chevrolet-trailblazer-awd-lt-with-17469-miles-one-owner-clean-carfax-gm-certified/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/leveraging-customer-reviews-how-testimonials-can-drive-sales-for-your-dealership/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2019-nissan-sentra-sv-sedan-4/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2025-chevrolet-suburban-z71-in-sterling-gray-metallic-with-only-15765-miles-clean-carfax-gm-certified-one-owner/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2025-chevrvolet-silverado-trailboss-lt-with-one-owner-clean-carfax-adaptive-cruise-power-sunroof-off-road-assist-steps-conveince-package-2-leather-interior-duramax-3-0-engine-front-bucket-seats/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2025-chevrolet-traverse-2lt-awd-in-mosaic-black-metallic-one-owner-with-the-sun-and-wheel-package-and-8-passenger-seating-super-clean/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2023-kia-forte-lxs-with-blind-spot-collision-avoidance-one-owner-clean-carfax-in-aurora-black-pearl/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116807-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2018-kia-optima-s/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2013-acura-tl/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2023-chevrolet-colorado-z71-in-sterling-gray-metallic-1-owner-clean-carfax-convenience-2-and-33-package-running-boards/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2014-ford-focus-se-sedan/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116731-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/understanding-the-power-of-social-media-advertising-for-automotive-dealerships-tips-and-best-practices/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/3287/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2011-volkswagen-jetta-se-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2024-chevrolet-1500-custom-trailboss-in-black-with-one-owner-and-clean-carfax-with-the-5-3l-engine-and-black-running-boards/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/your-local-dealership-marketing-solution-in-punta-santiago-puerto-rico/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/your-local-dealership-marketing-solution-in-mayaguez-puerto-rico/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/ahrefs-keyword-explorer-alternatives-that-are-actually-useful/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2024-chevrolet-blazer-ev-first-drive-review-beautifully-normal-for-the-early-majority/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2014-toyota-camry-l-sedan/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/which-startups-have-the-best-design/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2024-chevrolet-blazer-lt-fwd-with-snow-mode-only-14269-miles-and-gm-certified/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116515-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2023-chevrvolet-silverado-1500-high-country-with-6-2l-engine-technology-package-power-sunroof-adaptive-cruise-control-power-retractible-assist-steps/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2018-buick-regal-sportback-preferred-ii-sedan/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116578-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2016-volvo-xc60-t6/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/best-website-for-selling-1-4-products/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/is-down-payment-refundable/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/scopeleads-prospectrr-which-one-is-better-fort-founding-leads/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/your-local-dealership-marketing-solution-in-penuelas-puerto-rico/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/seo-keyword-search-has-anyone-tried-ahrefs-starter-plan-is-it-worth-it-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/3266/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/115957-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/does-anyone-know-any-audi-dealerships-with-allocation-for-an-rs3/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/115963-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116812-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/can-i-back-out-if-the-dealer-damaged-my-new-car-before-delivery/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2008-toyota-corolla-ce/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/695/?vn/2022-08-12704255_html"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116408-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116802-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2011-ram-ram-3500-laramie-longhorn/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2018-ford-f150-xlt/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2013-hyundai-santa-fe-sport-awd/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/bentley-barnato-electric-suv-takes-shape-in-new-cgi-study-based-on-recent-spy-images/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/harnessing-social-media-trends-to-drive-customer-engagement-in-automotive-dealerships-3/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2018-chevrolet-silverado-1500/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2010-lexus-is-250-awd/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2012-toyota-corolla-le/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2016-ram-ram-1500-tradesman/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2013-toyota-corolla-le-sedan/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2018-buick-regal-sportback-preferred-ii-sedan-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116795-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2007-honda-crv-exl/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2015-chevrolet-silverado-1500-double-cab-work-truck/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2019-dodge-durango-gt-plus/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2017-volkswagen-jetta/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2019-chevrolet-equinox-awd-lt-in-cajun-red-tintcoat-with-blind-spot-alert-under-15000power-seats-remote-start-and-great-mpg/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/new-yoast-seo-content-analyses-scores-can-now-chat-with-ai-through-new-api/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2025-chevrolet-tahoe-lt-4x4-in-black-with-jet-black-leather-interior-clean-low-miles-save-thousands-less-than-new/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/your-local-dealership-marketing-solution-in-deweese-nebraska/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/is-this-a-good-otd-price/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2019-acura-mdx/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2008-infiniti-g37-coupe/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/page/3296/?order=title&page=793&sort=desc"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2010-subaru-forester-2-5x-limited/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2023-chevrolet-traverse-awd-v6-lt-with-1-owner-clean-carfax-and-certification-program-details-bozarth-backed-certified-preowned-7-year-100000-mile-powetrain-warranty-whichever-comes-first-fro/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2019-chevrolet-blazer-rs-awd-in-red-hot-with-one-owner-clean-carfax-enhanced-confidence-and-convenience-package/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2022-chevrolet-silverado-1500-4wd-lt-in-shadow-gray-with-2-7-engine-and-20-wheels-with-one-owner-and-clean-carfax/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2010-fordq-explorer-sport-trac-limited/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2013-hyundai-elantra-gls-sedan-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2023-toyota-highlander-hybrid-le-awd-in-celestial-silver-metallic/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2012-honda-accord-exl-3/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2016-nissan-altima-2-5-s/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2021-chevrolet-silverado-1500-4wd-lt-in-satin-steel-metallic-with-only-23882-miles-2-7l-engine-1-owner-with-a-clean-carfac/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/3262/?vn/2022-08-13544036_html"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/ford-research-prototype-reveals-shape-of-shelved-seven-seat-electric-project/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2016-chevrolet-corvette-convertible-3lt-z51-in-shark-gray-metallic-black-19-wheels-with-only-31650-miles/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2014-toyota-camry-se-4/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2025-chevrvolet-silverado-zr2-2500-diesel-in-sterling-gray-with-power-assist-steps-technology-package-power-sunroof-multiflex-tailgate-thousands-less-than-new/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/the-march-2026-seo-update-by-yoast-recap/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116805-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2021-chevrolet-trailblazer-lt-fwd-in-mosaic-black-metallic-with-only-48806-miles/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2008-honda-accord-lx/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/driving-on-a-cracked-rim-can-be-more-dangerous-than-most-drivers-realize/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2022-ram-1500-big-horn-3-0-diesel-with-a-33-gallon-fuel-tank-in-patriot-blue-clearcoat-4x2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2012-toyota-camry-le-sedan/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2014-nissan-sentra-sr-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2023-chevrolet-equinox-awd-lt-in-blue-glow-metallic-with-only-18844-miles-clean-carfax-with-the-convenience-package/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2014-subaru-wrx/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2020-nissan-nv200/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116129-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116627-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116551-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2013-honda-odyssey-ex-l/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2009-volvo-xc70-wagon/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/hyundai-starts-new-china-push-with-ioniq-v-sedan-and-a-five-year-product-offensive/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2009-toyota-corolla-le-sedan/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/see-how-your-brand-appears-in-ai-generated-answers-for-free/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2026-chevrolet-silverado-1500-crew-cab-trail-boss-certified-better-warranty-than-new-with-only-1000-miles-and-the-5-3l-engine/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2024-gmc-yukon-xl-at4-in-titanium-rush-metallic-with-the-technology-package-one-owner-and-clean-carfax/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/do-you-call-x-x-or-still-calling-it-twitter/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/any-good-promo-videos-of-ai-implementations-in-software/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/3260/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2025-chevrolet-silverado-2500-crew-cab-zr2-in-sterling-gray-metallic-with-power-sunroof-multi-flex-tailgate-technology-package-2gc4kyey8s1233169/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/i-have-35k-followers-in-tumblr-now-how-can-i-monetise-this-blog-can-someone-please-give-me-a-right-direction/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2012-honda-civic-lx/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2025-chevrolet-suburban-z71-in-black-with-black-leather-interior-1-owner-clean-carfax-thousands-less-than-new-still-under-factory-warranty/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2025-chevrolet-tahoe-lt-in-black-with-black-leather-interior-and-2nd-row-bench-seat-one-owner-gm-certified-and-a-clean-carfax/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2025-chevrolet-tahoe-lt-in-black-with-black-leather-interior-and-2nd-row-bench-seat-one-owner-gm-certified-and-a-clean-carfax-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/best-trainings-for-beginners/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2012-toyota-prius-four-hatchback/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/best-website-live-chat-software-reviews-what-do-you-swear-by/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2013-kia-soul/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2025-chevrolet-suburban-z71-in-iridescent-pearl-tricoat-with-only-17013-miles-clean-carfax-gm-certified-one-owner/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2018-hyundai-sonata-se/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/rivian-opens-r2-orders-with-57990-performance-model-as-lower-cost-versions-line-up/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2012-volvo-xc60/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/1384/?vn/2022-08-1319930bbdfec_html"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2015-subaru-impreza-2-0i-premium/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2017-toyota-corolla-se-sedan/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2024-chevrolet-silverado-1500-cutom-trailboss-with-the-5-3lv8-engine-and-only-27247-miles-with-one-owner-and-a-clean-carfax-in-black/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2013-toyota-tundra/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/are-there-any-methods-to-export-the-entire-list-of-urls-indexed-by-google/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2026-hyundai-palisade-calligraphy-in-black-with-dual-moonroofs-certified-better-warranty-than-new-thousands-less-than-new-awd-v6/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116335-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/is-this-worth-31k/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/115959-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/115788-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116803-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/115654-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/3256/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116806-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/category/automotive-digital-marketing/page/2824/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/115785-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/3295/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/3094/?vn/2022-08-12621904_html"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/category/automotive-digital-marketing/page/2883/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/3264/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/2420/?vn/2022-08-12322642_html"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/2419/?vn/2022-08-12322642_html"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/shawn-ryder-digital-blog/page/1647/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116797-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/this-milwaukee-tire-inflator-is-an-impressive-53-off-at-amazon-3/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/is-leasing-a-vehicle-the-right-choice-for-you/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/2417/?vn/2022-08-12322642_html"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116800-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/your-local-dealership-marketing-solution-in-utuado-puerto-rico/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/good-deal-for-a-new-rx350h-premium-2025/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/3116/?vietnam/2022-08-1314ecdf_html"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/whats-the-best-smma-course-to-buy/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/shawn-ryder-digital-blog/page/1647/?ref=tomba_author_finder"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/3294/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/1816/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/3273/?vn/2022-08-1387bff_html"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/will-buying-a-car-in-maryland-pass-a-california-emissions-test/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/1686/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116240-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/1176/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116789-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116787-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/which-ai-video-creation-tool-has-benefited-you-most/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/your-local-dealership-marketing-solution-in-guayanilla-puerto-rico/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116555-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116779-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2019-chevrolet-equinox-ls-awd-in-silver-ice-metallic-bozarth-back-certified-with-only-38594-miles/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2021-chevrolet-blazer-rs-all-wheel-drive-in-iridescent-pearl-one-owner-clean-carfax-with-panoramic-sunroof-enhanced-convenience-package-driver-confidence-package-21-gloss-black-wheels-cargo-pack/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2022-chevrolet-silverado-1500-lt-4wd-in-shadow-gray-one-owner-clean-carfax-as-part-of-the-bozarth-backed-certified-pre-owned-program-this-traverse-includes-a-generous-7-year-100000-mile-powertrain-w/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2022-chevrolet-suburban-z71-with-luxury-package-off-road-performance-package-sunroof-6-2l-engine-2nd-row-buckets/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2014-mazda-mazda6-i-touring/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2023-gmc-sierra-1500-elevation-with-one-owner-off-lease-vehicle-with-2-7l-engine/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/your-local-dealership-marketing-solution-in-san-lorenzo-puerto-rico/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2023-chevrolet-silverado-trail-boss-custom-with-5-3l-engine-dark-essentials-package-bozarth-backed-7-year-100000-mile-warranty-and-sand-dune-metallic-a-limited-color/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2013-ford-focus-titanium/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2024-chevrolet-malibu-lt-in-sterling-gray-metallic-1-owner-17-wheels-bozarth-back-certified/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2017-nissan-titan-4x4/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2025-chevrolet-suburban-z71-in-iridescent-pearl-with-one-owner-certified-and-thousands-less-than-new-with-second-row-bench/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2015-nissan-versa-s/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/ram-reveals-2027-1500-america250-range-marks-u-s-250th-anniversary-with-three-special-editions/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/honda-pulls-back-from-giant-canada-ev-investment-as-hybrid-sales-gain-ground/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2016-chevrolet-impala-2lt-in-summit-white/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116528-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2023-chevrolet-bolt-ev-2lt-in-mosaic-black-one-owner-clean-carfax-with-infotainment-package-adaptive-cruise-dual-level-charge-cord/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/3103/?vn/2022-08-12704255_html"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116749-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/your-local-dealership-marketing-solution-in-luquillo-puerto-rico/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116595-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/3292/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/your-local-dealership-marketing-solution-in-dover-delaware/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116564-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/3291/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/best-content-marketing-software-app-for-measuring-engagement-on-non-owned-articles/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/2904/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116535-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116624-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116640-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116744-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116654-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116625-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/integrated-marketing-examples-8-best-campaigns-according-to-hubspot/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/elevate-your-sales-with-the-2006-suzuki-aerio-a-comprehensive-guide/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/whats-best-sales-navigator-or-apollo-clay-and-all-or-leads-agency/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/ams-osram-refocusing-on-automotive-lighting-as-part-of-turnaround-plan/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116539-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2011-toyota-camry-le-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2021-honda-cr-v-touring-awd-in-black-with-a-clean-carfax-and-only-44805-miles/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/marketing-analytics-bootcamp-recs/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116467-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/what-are-your-recommended-seo-apps-for-shopify/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/your-local-dealership-marketing-solution-in-rincon-puerto-rico/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/what-is-the-best-marketing-book/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/any-seo-chrome-extension-recommeded/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/the-best-electric-vehicles-for-2023/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2024-honda-cr-v-ex-l-awd/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2021-jeep-grand-cherokee-limited/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/3275/?vn/2022-08-13544036_html"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/the-yoast-perspective-2026-7-things-we-learned-from-the-seo-industry/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/optimizing-your-dealerships-website-for-maximum-visibility-and-conversion-rates/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/3279/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/page/2554/?order=title&page=793&sort=desc"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116723-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/3189/?vn/2022-08-13561063_html"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116584-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116639-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/which-laptop-is-the-best-option-for-ui-ux/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/bugatti-luminary-render-suggests-smaller-hypercar-slot-beneath-tourbillon/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/3273/?vn/2022-08-13488440_html"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/what-are-the-best-practices-for-email-marketing-in-the-automotive-industry/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/best-camera-for-facebook-reels/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116548-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/strategies-for-building-a-resilient-digital-marketing-agency-in-2024/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/elevate-your-sales-with-the-2017-toyota-prius-prime-a-comprehensive-guide/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116636-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/what-are-some-of-the-best-affordable-seo-tools/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/understanding-gap-insurance-your-safety-net-in-vehicle-financing/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/elevate-your-sales-with-the-2017-honda-ridgeline-a-comprehensive-guide/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/elevate-your-sales-with-the-2010-chevrolet-aveo-a-comprehensive-guide-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/honda-pilot-2025-new-but-now-with-miles/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2024-toyota-sienna-review-still-the-high-mpg-monster-of-minivans/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/your-local-dealership-marketing-solution-in-manati-puerto-rico/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/3273/?vn/2022-08-1370881_html"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/3275/?vn/2022-08-1286aac_html"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2011-hyundai-elantra-touring-wagon-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/your-local-dealership-marketing-solution-in-lajas-puerto-rico/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/elevate-your-sales-with-the-2012-volkswagen-gti-a-comprehensive-guide-7/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/3275/?vn/2022-08-12816945_html"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/how-does-search-engine-marketing-work-to-boost-your-online-presence/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116552-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116534-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/8-holiday-gifts-for-the-content-creator-in-your-life-3/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116618-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/how-do-you-make-money-from-websites-without-ads/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116466-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116463-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116553-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/3286/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/what-are-the-top-digital-marketing-services-in-the-us/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116641-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/qualities-of-a-successful-car-dealership-general-manager/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/3285/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/top-picks-from-the-2023-honda-lineup/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/3274/?vn/2022-08-1387bff_html"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/category/automotive-digital-marketing/page/2873/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/1950/?vn/2022-08-12816945_html"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/optimizing-your-dealerships-website-for-higher-conversion-rates-best-practices/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/1798/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2024-alfa-romeo-tonale-a-review-of-alfa-romeos-first-plug-in-hybrid-electric-vehicle/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2020-chevrolet-spark/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116653-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/2995/?vn/2022-08-1385363_html"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/3281/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/best-platform-to-find-affiliates/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/3284/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2024-kia-sportage-review-hybrids-are-a-class-leader-the-base-engine-um-no/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/category/automotive-digital-marketing/page/1519/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/your-local-dealership-marketing-solution-in-masonville-colorado/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/category/automotive-digital-marketing/page/1520/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/category/automotive-digital-marketing/page/2788/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/3283/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/driving-sales-with-data-how-analytics-can-transform-your-automotive-marketing-strategy-3/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/your-local-dealership-marketing-solution-in-bajadero-puerto-rico/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/has-anyone-tried-acadium/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/your-local-dealership-marketing-solution-in-culebra-puerto-rico/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/category/automotive-digital-marketing/page/2869/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/what-are-the-best-newsletters-to-follow/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/category/automotive-digital-marketing/page/2870/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/3282/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/what-are-the-best-marketing-sales-automation-tools/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116450-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/your-local-dealership-marketing-solution-in-ponce-puerto-rico/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/what-are-the-benefits-of-seo-and-ppc-services-for-your-business/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/auto-technology-supplier-aptiv-slashes-headcount-4/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/which-ai-is-best-for-copywriting-chatgpt-claude-deepseek-or-xai/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/14-link-building-tools-to-drive-traffic-and-boost-seo-rankings/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/apps-brands-smilar-to-headspace-duo-lingo/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2018-ford-fusion-titanium-awd/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/making-night-driving-safer-raytrons-automotive-thermal-camera-integrated-into-over-20-vehicle-models/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/google-search-console-bug-impacts-experience-and-enhancement-reporting/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/best-wordpress-plugin-for-managing-internal-linking/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116436-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/best-social-media-management-tool-with-hubspot-integration/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/warrior-forum-what-do-you-think/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/3274/?vn/2022-08-13488440_html"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/your-local-dealership-marketing-solution-in-boqueron-puerto-rico/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/opinion-on-nissan-titans/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/toyota-prepares-531-7-million-investment-into-texas-truck-plant/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/8-holiday-gifts-for-the-content-creator-in-your-life-4/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/2023-subaru-wrx-a-compact-powerhouse-for-enthusiastic-driving/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/blog/page/3275/?vn/2022-08-12322642_html"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/revolutionizing-urban-mobility-the-vw-id-buzz-cargo-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/which-are-the-top-10-digital-marketing-agencies-in-the-usa/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/the-ultimate-guide-to-customer-engagement-strategies-for-automotive-dealerships-in-a-digital-age/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116320-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/does-city-locale-matter-for-starting-out-and-building-your-marketing-career/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/116345-2/"
+to = "/"
+status = 410
+
+[[redirects]]
+from = "/should-i-remove-exogloss-protection-and-installed-options-from-purchase/"
+to = "/"
+status = 410
+
