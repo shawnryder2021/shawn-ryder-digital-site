@@ -446,6 +446,70 @@ import '../styles/global.css';
       .imagegen .cerr, .imagegen p.cerr { margin: 0; font-size: 13.5px; color: #b4482a; }
       .imagegen .muted.small { margin: 0; font-size: 12.5px; }
 
+      /* ---- AI helpers section (outlines, emails) ---- */
+      .ai-helpers-section {
+        margin-top: 40px; padding-top: 28px; border-top: 1px solid var(--line);
+      }
+      .ai-helpers-section h3 { font-size: 18px; margin-bottom: 16px; color: var(--brand); }
+      .ai-helpers-grid {
+        display: grid; gap: 20px; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+      }
+      .ai-helper-box {
+        border: 1px solid var(--line); border-radius: 12px; padding: 18px;
+        background: var(--surface-2);
+      }
+      .ai-helper-box h4 { margin: 0 0 14px; font-size: 15px; }
+
+      /* Outline generator */
+      .outline-generator { display: grid; gap: 12px; }
+      .outline-controls { display: flex; gap: 10px; flex-wrap: wrap; align-items: start; }
+      .outline-status { font-size: 13px; color: var(--muted); }
+      .outline-display { display: grid; gap: 10px; }
+      .outline-item {
+        border: 1px solid var(--line); border-radius: 8px; padding: 12px;
+        background: var(--surface);
+      }
+      .outline-item h3 { margin: 0 0 8px; font-size: 14px; }
+      .outline-item ul { margin: 0; padding-left: 18px; display: grid; gap: 4px; font-size: 13.5px; }
+      .outline-insert-btn {
+        margin-top: 10px; padding: 6px 12px; font-size: 12px;
+        background: var(--brand-tint); color: var(--brand); border: 1px solid var(--brand-line);
+        border-radius: 6px; cursor: pointer;
+      }
+      .outline-insert-btn:hover { background: var(--brand); color: white; }
+      .outline-raw { font-size: 12px; overflow-x: auto; }
+
+      /* Email generator */
+      .email-generator { display: grid; gap: 12px; }
+      .email-controls { display: flex; gap: 10px; flex-wrap: wrap; align-items: start; }
+      .scenario-select { padding: 8px 10px; font-size: 14px; border: 1px solid var(--line); border-radius: 8px; }
+      .email-status { font-size: 13px; color: var(--muted); }
+      .email-display { display: grid; gap: 12px; max-height: 600px; overflow-y: auto; }
+      .email-sequence-header { margin-bottom: 4px; }
+      .email-sequence-header h4 { margin: 0; font-size: 14px; }
+      .email-card {
+        border: 1px solid var(--line); border-radius: 8px; padding: 12px;
+        background: var(--surface); display: grid; gap: 8px;
+      }
+      .email-timing { font-size: 12px; font-weight: 600; color: var(--brand); text-transform: uppercase; }
+      .email-subject { font-size: 13px; font-weight: 600; color: var(--ink); }
+      .email-body { font-size: 13.5px; line-height: 1.5; color: var(--ink-2); white-space: pre-wrap; word-wrap: break-word; }
+      .email-copy-btn {
+        align-self: start; padding: 6px 12px; font-size: 12px;
+        background: var(--brand-tint); color: var(--brand); border: 1px solid var(--brand-line);
+        border-radius: 6px; cursor: pointer;
+      }
+      .email-copy-btn:hover { background: var(--brand); color: white; }
+      .email-raw { font-size: 12px; overflow-x: auto; }
+
+      .btn-small {
+        padding: 8px 14px; font-size: 13px; font-weight: 600;
+        background: var(--brand); color: white; border: none; border-radius: 6px;
+        cursor: pointer;
+      }
+      .btn-small:hover { opacity: 0.9; }
+      .btn-small:disabled { opacity: 0.6; cursor: not-allowed; }
+
       .warnbar {
         margin-bottom: 16px; padding: 14px 18px;
         background: #fdf0ec; border: 1px solid #f6cfc2; border-radius: 12px;

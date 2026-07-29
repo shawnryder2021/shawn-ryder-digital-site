@@ -15,6 +15,8 @@ import {
   uploadImage, deleteImage, listMedia, listSlots, formatBytes,
 } from './admin-media.js';
 import { renderImageGenerator } from './admin-imagegen.js';
+import { renderOutlineGenerator } from './admin-outline-generator.js';
+import { renderEmailGenerator } from './admin-email-generator.js';
 
 let profile = null;
 let isAdmin = false;
@@ -325,6 +327,38 @@ async function editGuide(guide) {
   ];
   const form = renderForm(fields, record);
 
+  const outlineGen = renderOutlineGenerator({
+    title: () => record.title,
+    category: () => record.category,
+    excerpt: () => record.excerpt,
+    guard,
+    onUse: (section) => {
+      // Insert the outline section into the body
+      if (section.heading) {
+        const bodyField = form.node.querySelector('textarea[name="body_markdown"]');
+        if (bodyField) {
+          const heading = `## ${section.heading}`;
+          const bullets = section.bullets ? '\n' + section.bullets.map(b => `- ${b}`).join('\n') : '';
+          const text = `${heading}${bullets}\n\n`;
+          bodyField.value = (bodyField.value + text).trim();
+          bodyField.dispatchEvent(new Event('input', { bubbles: true }));
+        }
+      }
+    },
+  });
+
+  const emailGen = renderEmailGenerator({ guard });
+
+  const aiSection = el(
+    'div',
+    { class: 'ai-helpers-section' },
+    el('h3', {}, 'AI Helpers'),
+    el('div', { class: 'ai-helpers-grid' },
+      el('div', { class: 'ai-helper-box' }, el('h4', {}, 'Generate outline'), outlineGen),
+      el('div', { class: 'ai-helper-box' }, el('h4', {}, 'Email templates'), emailGen)
+    )
+  );
+
   main().replaceChildren(
     el('div', { class: 'editorhead' },
       el('button', { class: 'back', onClick: renderGuides }, '← All guides'),
@@ -335,7 +369,8 @@ async function editGuide(guide) {
         : null,
       isAdmin ? el('button', { class: 'btn btn-primary sm', onClick: submit }, isNew ? 'Create' : 'Save') : null),
     el('h2', {}, isNew ? 'New guide' : record.title),
-    form.node
+    form.node,
+    aiSection
   );
 
   async function submit() {

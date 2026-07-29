@@ -1,0 +1,405 @@
+---
+import Base from '../layouts/Base.astro';
+
+const title = 'AI Review Response Generator — Respond to Negative Reviews Professionally';
+const description =
+  'Paste a negative review, get 3 different professional responses. See how to turn criticism into proof of your expertise.';
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'How do I respond to negative reviews?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'A good response is specific (addresses the actual complaint, not generic), professional (never defensive or sarcastic), and brief (2-3 sentences). It should show other shoppers that you take feedback seriously. Avoid excuses; focus on how you fixed or would fix the problem.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Do responses to bad reviews actually help?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Yes. Research shows that potential customers read both the review and the response. A thoughtful, non-defensive response convinces more shoppers than the complaint costs you. The response reaches everyone who comes after; the review only reaches people who specifically look for it.',
+      },
+    },
+  ],
+};
+---
+
+<Base title={title} description={description} path="/review-responder" schema={schema}>
+  <section class="hero">
+    <div class="wrap">
+      <div class="kicker">Free tool</div>
+      <h1>How to respond to a bad review</h1>
+      <p class="lede">
+        The response gets read by more people than the review. Paste a negative review below — you'll see 3 different
+        approaches to addressing it professionally, without defensiveness or excuses.
+      </p>
+    </div>
+  </section>
+
+  <section class="wrap section">
+    <div class="form-section">
+      <label for="review-input">Paste a negative review</label>
+      <textarea
+        id="review-input"
+        placeholder="Paste the review text here..."
+        rows="4"></textarea>
+      <label for="dealership-name">Your dealership name (optional)</label>
+      <input id="dealership-name" type="text" placeholder="E.g., Acme Motors" />
+      <button id="generate-btn">Generate Responses</button>
+      <div id="error" class="error"></div>
+    </div>
+
+    <div id="results-container" class="results-hidden">
+      <div class="results-header">
+        <h2>Suggested Responses</h2>
+        <p class="results-note">Copy any response below and paste it into Google. Edit if needed.</p>
+      </div>
+      <div id="responses" class="responses"></div>
+    </div>
+  </section>
+
+  <section class="wrap section">
+    <h2>Why this matters</h2>
+    <div class="grid grid-3">
+      <div class="card">
+        <h3>The response reaches more people</h3>
+        <p>
+          Shoppers click through to read reviews before deciding whether to visit. Everyone who reads the complaint also
+          reads your response. You get to tell your side.
+        </p>
+      </div>
+      <div class="card">
+        <h3>It shows you care enough to respond</h3>
+        <p>
+          A blank review signals "this dealership doesn't monitor what people say." A response signals "we pay attention
+          and we take customer concerns seriously."
+        </p>
+      </div>
+      <div class="card">
+        <h3>It's remarkably persuasive</h3>
+        <p>
+          If you respond to a complaint with specificity and without defensiveness, you win. The complaint proves you're
+          willing to serve difficult customers. The response proves you handle it professionally.
+        </p>
+      </div>
+    </div>
+
+    <div class="caveat">
+      <h3>The one rule that matters</h3>
+      <p>
+        Never be defensive. If someone had a bad experience, they did. Address what went wrong, acknowledge their
+        frustration, and show how you'd prevent it next time. Arguing with a reviewer looks worse than the review
+        itself.
+      </p>
+    </div>
+  </section>
+
+  <section class="cta-band">
+    <div class="wrap">
+      <div>
+        <h2>Ready to fix your reputation?</h2>
+        <p>The free audit looks at your review flow, website, Google Business Profile, and lead follow-up — and tells you which one is costing you most.</p>
+      </div>
+      <a href="/contact" class="btn btn-dark">Request the audit</a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .hero {
+    background:
+      radial-gradient(900px 460px at 78% 10%, var(--brand-tint) 0%, rgba(238, 241, 255, 0) 70%),
+      var(--bg);
+    border-bottom: 1px solid var(--line-2);
+    padding: 62px 0 60px;
+  }
+  .hero .lede { max-width: 62ch; margin: 22px 0 0; }
+
+  .form-section {
+    max-width: 72ch;
+    display: grid;
+    gap: 16px;
+    margin-bottom: 40px;
+  }
+
+  .form-section label {
+    font-size: 12.5px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+  }
+
+  .form-section textarea {
+    width: 100%;
+    padding: 14px 16px;
+    font-size: 15px;
+    font-family: inherit;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: var(--surface);
+    color: var(--ink);
+    outline: none;
+    resize: vertical;
+  }
+
+  .form-section textarea:focus {
+    border-color: var(--brand);
+    background: var(--brand-tint);
+  }
+
+  .form-section input {
+    width: 100%;
+    padding: 12px 16px;
+    font-size: 15px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: var(--surface);
+    color: var(--ink);
+    outline: none;
+  }
+
+  .form-section input:focus {
+    border-color: var(--brand);
+    background: var(--brand-tint);
+  }
+
+  .form-section button {
+    align-self: start;
+    padding: 12px 28px;
+    font-size: 15px;
+    font-weight: 600;
+    background: var(--brand);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  .form-section button:hover {
+    background: var(--brand-dark);
+  }
+
+  .form-section button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  .error {
+    color: #b4482a;
+    font-size: 14px;
+    margin-top: 8px;
+  }
+
+  .results-hidden {
+    display: none;
+  }
+
+  .results-header {
+    margin-bottom: 24px;
+  }
+
+  .results-header h2 {
+    font-size: 28px;
+    margin-bottom: 8px;
+  }
+
+  .results-note {
+    font-size: 14px;
+    color: var(--ink-3);
+    margin: 0;
+  }
+
+  .responses {
+    display: grid;
+    gap: 20px;
+  }
+
+  .response-card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 24px;
+  }
+
+  .response-approach {
+    font-size: 12.5px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--brand);
+    margin-bottom: 12px;
+  }
+
+  .response-text {
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--ink-2);
+    margin: 0 0 16px;
+  }
+
+  .response-actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .response-actions button {
+    padding: 9px 16px;
+    font-size: 13px;
+    font-weight: 600;
+    background: var(--brand-tint);
+    color: var(--brand);
+    border: 1px solid var(--brand-line);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .response-actions button:hover {
+    background: var(--brand);
+    color: white;
+  }
+
+  .caveat {
+    margin-top: 34px;
+    padding: 24px 26px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+  }
+
+  .caveat h3 {
+    font-size: 17px;
+    margin: 0 0 10px;
+  }
+
+  .caveat p {
+    font-size: 15.5px;
+    line-height: 1.65;
+    color: var(--ink-3);
+    margin: 0;
+    max-width: 76ch;
+  }
+
+  .card h3 { margin-bottom: 10px; font-size: 18px; }
+  .card p { font-size: 15.5px; line-height: 1.6; color: var(--ink-3); margin: 0; }
+
+  .cta-band {
+    background: var(--brand-tint);
+    border-top: 1px solid var(--brand-line);
+  }
+
+  .cta-band .wrap {
+    padding-top: 56px;
+    padding-bottom: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    flex-wrap: wrap;
+  }
+
+  .cta-band h2 {
+    font-size: 32px;
+    margin-bottom: 10px;
+  }
+
+  .cta-band p {
+    font-size: 16.5px;
+    color: var(--ink-2);
+    margin: 0;
+    max-width: 56ch;
+  }
+
+  @media (max-width: 900px) {
+    .cta-band {
+      text-align: center;
+    }
+
+    .cta-band .wrap {
+      justify-content: center;
+      flex-direction: column;
+    }
+  }
+</style>
+
+<script>
+  const reviewInput = document.getElementById('review-input');
+  const dealershipInput = document.getElementById('dealership-name');
+  const generateBtn = document.getElementById('generate-btn');
+  const errorEl = document.getElementById('error');
+  const resultsContainer = document.getElementById('results-container');
+  const responsesEl = document.getElementById('responses');
+
+  generateBtn.addEventListener('click', async () => {
+    const review = reviewInput.value.trim();
+    if (!review) {
+      errorEl.textContent = 'Paste a review to get started.';
+      return;
+    }
+
+    errorEl.textContent = '';
+    generateBtn.disabled = true;
+    generateBtn.textContent = 'Generating...';
+    resultsContainer.classList.add('results-hidden');
+
+    try {
+      const response = await fetch('/api/generate-review-response', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          review_text: review,
+          dealership_name: dealershipInput.value || undefined,
+        }),
+      });
+
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.error || 'Failed to generate responses');
+      }
+
+      const data = await response.json();
+
+      // Render responses
+      responsesEl.innerHTML = '';
+      const responses = Array.isArray(data.responses) ? data.responses : [data.responses];
+
+      responses.forEach((r, i) => {
+        const card = document.createElement('div');
+        card.className = 'response-card';
+
+        const approach = r.approach || `Response ${i + 1}`;
+        const text = r.response || (typeof r === 'string' ? r : JSON.stringify(r));
+
+        card.innerHTML = `
+          <div class="response-approach">${approach}</div>
+          <p class="response-text">${text}</p>
+          <div class="response-actions">
+            <button onclick="navigator.clipboard.writeText(\`${text.replace(/`/g, '\\`')}\`); this.textContent = 'Copied!'; setTimeout(() => this.textContent = 'Copy', 2000);">Copy to clipboard</button>
+          </div>
+        `;
+        responsesEl.appendChild(card);
+      });
+
+      resultsContainer.classList.remove('results-hidden');
+    } catch (error) {
+      errorEl.textContent = error.message;
+    } finally {
+      generateBtn.disabled = false;
+      generateBtn.textContent = 'Generate Responses';
+    }
+  });
+
+  reviewInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter' && e.ctrlKey) {
+      generateBtn.click();
+    }
+  });
+</script>
