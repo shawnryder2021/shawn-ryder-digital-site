@@ -11,9 +11,14 @@ const [title, description] = seo.faq;
 // The prototype tabbed between groups client-side, which hid four fifths of the
 // answers from crawlers. Here every group renders, and the nav is anchor links.
 const all = groups.flatMap((g) => g.items);
+
+const breadcrumbs = [
+  { label: 'Home', url: '/' },
+  { label: 'FAQ', url: '/faq' },
+];
 ---
 
-<Base title={title} description={description} path="/faq" schema={faqSchema(all)}>
+<Base title={title} description={description} path="/faq" schema={faqSchema(all)} breadcrumbs={breadcrumbs}>
   <section class="hero">
     <div class="wrap">
       <div class="kicker">FAQ</div>

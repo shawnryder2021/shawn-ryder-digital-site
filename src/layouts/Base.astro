@@ -12,9 +12,25 @@ const {
   path = Astro.url.pathname,
   schema = null,
   ogType = 'website',
+  ogImage = null,
+  breadcrumbs = null,
 } = Astro.props;
 
 const canonical = new URL(path === '/' ? '/' : path, site.url).href;
+
+// Build breadcrumb schema for navigation hierarchy
+const breadcrumbSchema = breadcrumbs
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: breadcrumbs.map((crumb, i) => ({
+        '@type': 'ListItem',
+        position: i + 1,
+        name: crumb.label,
+        item: new URL(crumb.url, site.url).href,
+      })),
+    }
+  : null;
 
 // Analytics is opt-in via env so no vendor is baked into the code and local
 // builds never phone home. Set one of these in Netlify:
@@ -46,7 +62,9 @@ const injected = prepareInjection((await getSettings()).code_injection);
     <meta property="og:type" content={ogType} />
     <meta property="og:url" content={canonical} />
     <meta property="og:site_name" content={site.name} />
+    {ogImage && <meta property="og:image" content={ogImage} />}
     <meta name="twitter:card" content="summary_large_image" />
+    {ogImage && <meta name="twitter:image" content={ogImage} />}
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -59,6 +77,7 @@ const injected = prepareInjection((await getSettings()).code_injection);
       type="application/ld+json"
       set:html={JSON.stringify(organizationSchema)}
     />
+    {breadcrumbSchema && <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />}
     {schema && <script type="application/ld+json" set:html={JSON.stringify(schema)} />}
 
     {plausibleDomain && (

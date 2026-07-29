@@ -46,8 +46,23 @@ const schema = bodyHtml
       url: `${site.url}/guides/${guide.slug}`,
       author: { '@id': `${site.url}/#shawn` },
       publisher: { '@id': `${site.url}/#business` },
+      ...(guide.cover && {
+        image: {
+          '@type': 'ImageObject',
+          url: guide.cover.url,
+          width: guide.cover.width,
+          height: guide.cover.height,
+        },
+      }),
     }
   : null;
+
+const breadcrumbs = [
+  { label: 'Home', url: '/' },
+  { label: 'Guides', url: '/guides' },
+  { label: guide.category, url: `/guides?category=${encodeURIComponent(guide.category)}` },
+  { label: guide.title, url: `/guides/${guide.slug}` },
+];
 ---
 
 <Base
@@ -56,6 +71,8 @@ const schema = bodyHtml
   path={`/guides/${guide.slug}`}
   ogType="article"
   schema={schema}
+  breadcrumbs={breadcrumbs}
+  ogImage={guide.cover?.url}
 >
   <article>
     <header class="head">

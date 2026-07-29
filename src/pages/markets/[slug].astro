@@ -14,6 +14,13 @@ const guides = await getGuides();
 
 const others = markets.filter((m) => m.slug !== market.slug && m.country === market.country).slice(0, 8);
 const localSeoGuides = guides.filter((g) => g.category === 'Local SEO' && g.published).slice(0, 3);
+
+const breadcrumbs = [
+  { label: 'Home', url: '/' },
+  { label: 'Markets', url: '/markets' },
+  { label: market.region, url: `/markets?region=${encodeURIComponent(market.region)}` },
+  { label: market.city, url: `/markets/${market.slug}` },
+];
 ---
 
 <Base
@@ -21,6 +28,7 @@ const localSeoGuides = guides.filter((g) => g.category === 'Local SEO' && g.publ
   description={market.seoDesc}
   path={`/markets/${market.slug}`}
   schema={faqSchema(market.faqs)}
+  breadcrumbs={breadcrumbs}
 >
   <section class="hero">
     <div class="wrap">
