@@ -1,6 +1,8 @@
 // Generate professional review responses using OpenRouter
 // Rate limiting via in-memory store (reset on function restart)
 
+export const config = { path: '/api/generate-review-response' };
+
 // In-memory rate limits
 const rateLimits = new Map();
 const GLOBAL_LIMIT = 50; // per 5 minutes

@@ -1,6 +1,8 @@
 // AI chat endpoint with streaming responses
 // Handles visitor questions about services, suggests guides, captures emails
 
+export const config = { path: '/api/chat' };
+
 const model = process.env.OPENROUTER_MODEL || 'anthropic/claude-haiku-4.5';
 const apiKey = process.env.OPENROUTER_API_KEY;
 

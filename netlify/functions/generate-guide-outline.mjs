@@ -1,6 +1,8 @@
 // Generate a guide outline using OpenRouter
 import { createClient } from '@supabase/supabase-js';
 
+export const config = { path: '/api/generate-guide-outline' };
+
 const supabase = createClient(process.env.PUBLIC_SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY);
 
 // Rate limiting: track per IP

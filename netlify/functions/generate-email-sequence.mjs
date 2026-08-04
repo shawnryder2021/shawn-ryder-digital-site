@@ -1,6 +1,8 @@
 // Generate email sequences for dealers using OpenRouter
 import { createClient } from '@supabase/supabase-js';
 
+export const config = { path: '/api/generate-email-sequence' };
+
 const supabase = createClient(process.env.PUBLIC_SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY);
 
 const rateLimits = new Map();
