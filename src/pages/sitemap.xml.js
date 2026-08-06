@@ -22,6 +22,7 @@ const STATIC_PAGES = [
   { path: '/ai', changefreq: 'monthly', priority: '0.8' },
   { path: '/markets', changefreq: 'monthly', priority: '0.8' },
   { path: '/about', changefreq: 'yearly', priority: '0.7' },
+  { path: '/privacy', changefreq: 'yearly', priority: '0.3' },
 ];
 
 // Atlantic Canada is home ground and converts best — weight it above the rest.

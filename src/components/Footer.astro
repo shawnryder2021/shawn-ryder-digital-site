@@ -41,7 +41,10 @@ for (const link of footerLinks) {
   <div class="bottom">
     <div class="wrap row">
       <span>© {year} {site.name}</span>
-      <a href="/sitemap.xml">Sitemap</a>
+      <div class="legal">
+        <a href="/privacy">Privacy Policy</a>
+        <a href="/sitemap.xml">Sitemap</a>
+      </div>
     </div>
   </div>
 </footer>
@@ -75,6 +78,7 @@ for (const link of footerLinks) {
   }
   .row a { color: var(--faint); }
   .row a:hover { color: var(--ink); }
+  .legal { display: flex; gap: 20px; }
 
   @media (max-width: 900px) {
     .top { grid-template-columns: minmax(0, 1fr); gap: 36px; }

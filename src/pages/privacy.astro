@@ -1,0 +1,111 @@
+---
+import Base from '../layouts/Base.astro';
+import { site } from '../lib/site.js';
+import seo from '../data/seo.json';
+
+const [title, description] = seo.privacy;
+const updated = 'August 2026';
+---
+
+<Base title={title} description={description} path="/privacy">
+  <section class="hero">
+    <div class="wrap">
+      <div class="kicker">Privacy</div>
+      <h1>Privacy Policy</h1>
+      <p class="lede">What gets collected on this site, why, and how to have it deleted. Last updated {updated}.</p>
+    </div>
+  </section>
+
+  <section class="wrap section-tight prose">
+    <p>
+      {site.name} ("I", "me") runs shawnryder.com. This page explains what information the site
+      collects when you use it, what it's used for, and how to reach me about it. It applies to
+      this website only — not to any dealership's own site or systems.
+    </p>
+
+    <h2>What I collect</h2>
+    <p>Depending on how you use the site, this can include:</p>
+    <ul>
+      <li><strong>Contact and audit requests.</strong> Name, email, phone, dealership name and any details you type into the contact or free-audit form.</li>
+      <li><strong>Newsletter signups.</strong> Email address, stored so I can send what you signed up for and nothing else.</li>
+      <li><strong>Free-tool inputs.</strong> The AI visibility check, crawler check, review-math calculator and review-response generator process what you type in — a dealership name, a market, or review text — to return a result. Review text you paste in is sent to an AI model to generate response drafts; it isn't used for anything beyond that request.</li>
+      <li><strong>Chat widget conversations.</strong> If you use the chat bubble, your messages and a session identifier are stored so the conversation has context and so I can review what visitors are asking. No account or login is required to use it.</li>
+      <li><strong>Basic usage analytics.</strong> Pages visited, referring source and general location (city-level, from IP) — collected only if a privacy-respecting analytics tool is active, and never used to build an advertising profile.</li>
+    </ul>
+
+    <h2>What I don't do</h2>
+    <ul>
+      <li>I don't sell or rent your information to anyone.</li>
+      <li>I don't run third-party ad-retargeting pixels on this site.</li>
+      <li>I don't use the free tools' inputs (dealership names, review text, chat messages) for anything beyond producing the result you asked for and improving how the tools work.</li>
+    </ul>
+
+    <h2>Where it's stored</h2>
+    <p>
+      Form submissions, chat conversations and tool usage are stored in a Supabase database
+      (hosted in the cloud, access-controlled) and processed through Netlify's serverless
+      functions. Where a free tool or the chat widget calls an AI model to generate a response,
+      that request goes to OpenRouter, which routes it to the underlying model provider. None of
+      these processors are permitted to use your data for their own purposes.
+    </p>
+
+    <h2>Cookies and tracking</h2>
+    <p>
+      This site does not use advertising or cross-site tracking cookies. A minimal, privacy-respecting
+      analytics tool (Plausible or a self-hosted alternative) may be active to show aggregate traffic
+      patterns — it doesn't use cookies or collect data that identifies you personally.
+    </p>
+
+    <h2>Your choices</h2>
+    <ul>
+      <li><strong>Unsubscribe</strong> from any email using the link in the message, any time.</li>
+      <li><strong>Request a copy or deletion</strong> of anything tied to your name, email or phone number by emailing me — see below.</li>
+      <li><strong>Skip the free tools or chat widget</strong> if you'd rather not have that input processed. Nothing on the site requires using them.</li>
+    </ul>
+
+    <h2>Who can see it</h2>
+    <p>
+      I'm the only person with regular access to what this site collects. It isn't shared with
+      dealerships, advertisers or data brokers. The only outside parties involved are the
+      infrastructure providers named above (Supabase, Netlify, OpenRouter), each processing data
+      only to make the site function.
+    </p>
+
+    <h2>Changes to this policy</h2>
+    <p>
+      If what this site collects or how it's used changes materially, this page will be updated
+      and the date at the top will change. There's no separate notification list for policy
+      updates — check back here if you want to know what changed.
+    </p>
+
+    <h2>Questions or a deletion request</h2>
+    <p>
+      Email <a href={`mailto:${site.email}`}>{site.email}</a> or call <a href={site.phoneHref}>{site.phone}</a>.
+      I reply to these personally, usually the same business day.
+    </p>
+  </section>
+</Base>
+
+<style>
+  .hero {
+    background:
+      radial-gradient(900px 460px at 78% 10%, var(--brand-tint) 0%, rgba(238, 241, 255, 0) 70%),
+      var(--bg);
+    border-bottom: 1px solid var(--line-2);
+    padding: 56px 0 60px;
+  }
+  .hero h1 { font-size: 46px; margin: 10px 0 0; }
+  .hero .lede { max-width: 58ch; margin: 18px 0 0; }
+
+  .prose { max-width: 72ch; }
+  .prose h2 { font-size: 22px; margin: 40px 0 14px; letter-spacing: -0.02em; }
+  .prose h2:first-of-type { margin-top: 8px; }
+  .prose p { font-size: 16.5px; line-height: 1.68; color: var(--ink-2); margin: 0 0 16px; text-wrap: pretty; }
+  .prose ul { margin: 0 0 16px; padding-left: 22px; display: grid; gap: 10px; }
+  .prose li { font-size: 16.5px; line-height: 1.62; color: var(--ink-2); text-wrap: pretty; }
+  .prose a { font-weight: 600; }
+
+  @media (max-width: 900px) {
+    .hero h1 { font-size: 34px; }
+  }
+</style>
