@@ -1,0 +1,224 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getBlocks, getGuides } from '../../lib/content.js';
+import { tools } from '../../lib/tools.js';
+import { site, faqSchema } from '../../lib/site.js';
+import servicePages from '../../data/service-pages.json';
+
+// One page per service. Title, summary and checklist come from the services
+// block in the CMS (matched by number), so editing a service in the admin
+// updates its page too. The deeper copy lives in src/data/service-pages.json.
+export async function getStaticPaths() {
+  return servicePages.map((page) => ({ params: { slug: page.slug }, props: { page } }));
+}
+
+const { page } = Astro.props;
+const blocks = await getBlocks();
+const cms = blocks.services.find((s) => s.num === page.num) ?? {};
+const guides = await getGuides();
+const related = page.guides
+  .map((slug) => guides.find((g) => g.slug === slug && g.published))
+  .filter(Boolean);
+const tool = tools.find((t) => t.href === page.tool);
+const others = servicePages.filter((p) => p.slug !== page.slug);
+const nameOf = (p) => blocks.services.find((s) => s.num === p.num)?.title ?? p.title;
+
+const faqs = page.faqs.map(([q, a]) => ({ q, a }));
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: cms.title ?? page.title,
+    description: page.description,
+    serviceType: cms.title ?? page.title,
+    provider: { '@id': `${site.url}/#business` },
+    url: `${site.url}/services/${page.slug}`,
+    areaServed: [
+      { '@type': 'Country', name: 'Canada' },
+      { '@type': 'Country', name: 'United States' },
+    ],
+  },
+  faqSchema(faqs),
+].filter(Boolean);
+const breadcrumbs = [
+  { label: 'Home', url: '/' },
+  { label: 'Services', url: '/services' },
+  { label: cms.title ?? page.title, url: `/services/${page.slug}` },
+];
+---
+
+<Base title={page.title} description={page.description} path={`/services/${page.slug}`} schema={schema} breadcrumbs={breadcrumbs}>
+  <section class="page-hero">
+    <div class="wrap">
+      <p class="crumb"><a href="/services">Services</a> / {cms.title ?? page.title}</p>
+      <h1>{page.h1}</h1>
+      <p class="lede">{page.intro}</p>
+      <div class="actions">
+        <a href="/contact" class="btn btn-primary">Get a free audit</a>
+        {tool && <a href={tool.href} class="btn btn-light">Free tool: {tool.name}</a>}
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap section two">
+    <div>
+      <div class="kicker">Sound familiar?</div>
+      <h2>Signs this is costing you deals</h2>
+      <ul class="signs">
+        {page.signs.map((s) => <li>{s}</li>)}
+      </ul>
+    </div>
+    {cms.items?.length > 0 && (
+      <aside class="included">
+        <h3>What's included</h3>
+        <ul>{cms.items.map((i) => <li>{i}</li>)}</ul>
+        {cms.long && <p>{cms.long}</p>}
+      </aside>
+    )}
+  </section>
+
+  <section class="dark">
+    <div class="wrap section">
+      <div class="kicker on-dark">How it works</div>
+      <h2>The plan, step by step</h2>
+      <ol class="steps">
+        {page.steps.map(([h, p], i) => (
+          <li>
+            <span class="n">{String(i + 1).padStart(2, '0')}</span>
+            <h3>{h}</h3>
+            <p>{p}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="wrap section two">
+    <div>
+      <div class="kicker">What gets measured</div>
+      <h2>Numbers you'll see every month</h2>
+      <p class="sub">On one page, in plain language. If a number isn't moving, we change the plan.</p>
+    </div>
+    <ul class="measure">
+      {page.measure.map((m) => <li>{m}</li>)}
+    </ul>
+  </section>
+
+  <section class="faq-sec">
+    <div class="wrap section">
+      <div class="kicker">Questions dealers ask</div>
+      <h2>Straight answers</h2>
+      <div class="faqs">
+        {faqs.map((f) => (
+          <details>
+            <summary>{f.q}</summary>
+            <p>{f.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  {related.length > 0 && (
+    <section class="wrap section">
+      <div class="kicker">Read more</div>
+      <h2>Guides on this topic</h2>
+      <div class="guide-list">
+        {related.map((g) => (
+          <a href={`/guides/${g.slug}`}>
+            <span class="meta">{g.category} · {g.read}</span>
+            <strong>{g.title}</strong>
+            <span class="ex">{g.excerpt}</span>
+          </a>
+        ))}
+      </div>
+    </section>
+  )}
+
+  <section class="wrap section-tight others">
+    <h2 class="small">Other services</h2>
+    <ul>
+      {others.map((p) => <li><a href={`/services/${p.slug}`}>{nameOf(p)}</a></li>)}
+      <li><a href="/ai-search-visibility">AI search visibility</a></li>
+    </ul>
+  </section>
+
+  <section class="cta-strip">
+    <div class="wrap">
+      <div>
+        <h2>Start with the free audit.</h2>
+        <p>I'll look at your store like a shopper would and tell you what I'd fix first — whether or not you hire me.</p>
+      </div>
+      <a href="/contact" class="btn btn-primary">Request the audit</a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .crumb { font-size: 14.5px; color: var(--on-dark-3); margin: 0 0 18px; }
+  .page-hero h1 { max-width: 22ch; }
+  .page-hero .lede { max-width: 64ch; }
+  .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+
+  .two { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr); gap: 56px; align-items: start; }
+  .two h2 { font-size: 34px; margin-bottom: 18px; }
+  .signs, .measure { list-style: none; margin: 0; padding: 0; border-top: 2px solid var(--ink); }
+  .signs li, .measure li {
+    display: flex; gap: 14px; align-items: baseline; padding: 15px 0;
+    border-bottom: 1px solid var(--line); font-size: 17.5px; color: var(--ink);
+  }
+  .signs li::before { content: ''; width: 8px; height: 8px; background: var(--brand); flex: 0 0 auto; transform: translateY(-2px); }
+  .measure li::before { content: '✓'; color: var(--green); font-weight: 700; }
+  .sub { font-size: 17.5px; line-height: 1.6; color: var(--ink-2); margin: 0; }
+
+  .included { background: #fff; border: 1px solid var(--line); border-top: 4px solid var(--brand); border-radius: var(--radius); padding: 26px 26px 22px; }
+  .included h3 { margin-bottom: 14px; }
+  .included ul { margin: 0 0 16px; padding-left: 20px; display: grid; gap: 8px; font-size: 16.5px; color: var(--ink-2); }
+  .included p { font-size: 15.5px; line-height: 1.6; color: var(--ink-3); margin: 0; padding-top: 14px; border-top: 1px solid var(--line-2); }
+
+  .dark { background: var(--navy); color: var(--on-dark-2); }
+  .dark h2 { color: #fff; }
+  .kicker.on-dark { color: var(--on-dark-2); }
+  .steps { list-style: none; margin: 40px 0 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 28px; }
+  .steps li { border-top: 1px solid var(--navy-line); padding-top: 22px; }
+  .steps .n { font-family: var(--display); font-weight: 700; font-size: 17px; color: var(--on-dark-accent); letter-spacing: 0.06em; }
+  .steps h3 { color: #fff; margin: 10px 0 10px; }
+  .steps p { font-size: 16px; line-height: 1.6; color: var(--on-dark-2); margin: 0; }
+
+  .faq-sec { background: #fff; border-block: 1px solid var(--line); }
+  .faqs { margin-top: 28px; border-top: 2px solid var(--ink); max-width: 860px; }
+  details { border-bottom: 1px solid var(--line); }
+  summary {
+    cursor: pointer; list-style: none; padding: 20px 36px 20px 0; position: relative;
+    font-family: var(--display); font-weight: 600; font-size: 20px; color: var(--ink);
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary::after { content: '+'; position: absolute; right: 4px; top: 16px; font-size: 26px; color: var(--brand); }
+  details[open] summary::after { content: '–'; }
+  details p { font-size: 17px; line-height: 1.65; color: var(--ink-2); margin: 0 0 22px; max-width: 72ch; }
+
+  .guide-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 40px; margin-top: 28px; border-top: 2px solid var(--ink); }
+  .guide-list a { display: grid; gap: 4px; padding: 20px 0; border-bottom: 1px solid var(--line); color: inherit; }
+  .meta { font-family: var(--display); font-size: 13.5px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+  .guide-list strong { font-family: var(--display); font-weight: 600; font-size: 20px; color: var(--ink); }
+  .guide-list a:hover strong { color: var(--brand); }
+  .ex { font-size: 15.5px; color: var(--ink-3); line-height: 1.5; }
+
+  .others { padding-top: 0; }
+  h2.small { font-size: 22px; margin-bottom: 12px; }
+  .others ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+  .others a {
+    display: inline-block; padding: 10px 16px; border: 1px solid var(--line); border-radius: var(--r-sm);
+    background: #fff; color: var(--ink); font-family: var(--display); font-weight: 600; font-size: 16px;
+  }
+  .others a:hover { border-color: var(--ink); background: var(--ink); color: #fff; }
+
+  @media (max-width: 1000px) {
+    .two { grid-template-columns: minmax(0, 1fr); gap: 36px; }
+    .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (max-width: 640px) {
+    .steps, .guide-list { grid-template-columns: minmax(0, 1fr); }
+    .two h2 { font-size: 28px; }
+  }
+</style>

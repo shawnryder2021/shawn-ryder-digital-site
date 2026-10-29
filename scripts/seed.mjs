@@ -271,7 +271,8 @@ const header = [['Home', '/'], ['Services', '/services'], ['Process', '/process'
 const footer = [
   ['Site', 'Services', '/services'], ['Site', 'Process', '/process'],
   ['Site', 'AI search visibility', '/ai-search-visibility'],
-  ['Site', 'Start here', '/start-here'], ['Site', 'Guides', '/guides'], ['Site', 'FAQ', '/faq'], ['Site', 'About', '/about'],
+  ['Site', 'Start here', '/start-here'], ['Site', 'Guides', '/guides'],
+  ['Site', 'Glossary', '/glossary'], ['Site', 'Dealers I work with', '/dealers'], ['Site', 'FAQ', '/faq'], ['Site', 'About', '/about'],
   ['Site', 'Contact', '/contact'],
   ['Free tools', 'All free tools', '/tools'],
   ['Free tools', 'Lead leak calculator', '/lead-leak-calculator'],

@@ -1,0 +1,157 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getGuides } from '../../lib/content.js';
+import { site } from '../../lib/site.js';
+import dealerPages from '../../data/dealer-pages.json';
+import servicePages from '../../data/service-pages.json';
+
+export async function getStaticPaths() {
+  return dealerPages.map((page) => ({ params: { slug: page.slug }, props: { page } }));
+}
+
+const { page } = Astro.props;
+const isUsed = page.slug === 'used-car-dealers';
+const guides = await getGuides();
+const pick = (slugs) => slugs.map((s) => guides.find((g) => g.slug === s && g.published)).filter(Boolean);
+const related = pick(
+  isUsed
+    ? ['used-inventory-merchandising', 'ranking-for-used-cars-near-me', 'vehicle-detail-pages-that-convert']
+    : ['speed-to-lead-friday-afternoon', 'google-business-profile-checklist-for-dealerships', 'raise-dealership-review-score']
+);
+const others = dealerPages.filter((p) => p.slug !== page.slug);
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: page.title,
+  description: page.description,
+  provider: { '@id': `${site.url}/#business` },
+  audience: { '@type': 'BusinessAudience', name: isUsed ? 'Independent used car dealers' : `${page.brand} dealerships` },
+  url: `${site.url}/dealers/${page.slug}`,
+};
+const breadcrumbs = [
+  { label: 'Home', url: '/' },
+  { label: 'Dealers', url: '/dealers' },
+  { label: page.brand, url: `/dealers/${page.slug}` },
+];
+---
+
+<Base title={page.title} description={page.description} path={`/dealers/${page.slug}`} schema={schema} breadcrumbs={breadcrumbs}>
+  <section class="page-hero">
+    <div class="wrap">
+      <p class="crumb"><a href="/dealers">Dealers</a> / {page.brand}</p>
+      <h1>{page.h1}</h1>
+      <p class="lede">{page.intro}</p>
+      <a href="/contact" class="btn btn-primary cta">Get a free audit for your store</a>
+    </div>
+  </section>
+
+  <section class="wrap models">
+    <span class="label">{isUsed ? 'What your shoppers are after' : `${page.brand} shoppers are comparing`}</span>
+    <ul>{page.models.map((m) => <li>{m}</li>)}</ul>
+  </section>
+
+  <section class="wrap section">
+    <div class="kicker">Where I focus</div>
+    <h2>{isUsed ? 'What moves the needle for an independent store' : `What moves the needle for a ${page.brand} store`}</h2>
+    <div class="focus">
+      {page.focus.map(([h, p], i) => (
+        <div>
+          <span class="n">{String(i + 1).padStart(2, '0')}</span>
+          <h3>{h}</h3>
+          <p>{p}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="services-sec">
+    <div class="wrap section">
+      <div class="kicker">Services</div>
+      <h2>Pick one problem, or hand me the whole digital side</h2>
+      <ul class="svc">
+        {servicePages.map((s) => (
+          <li><a href={`/services/${s.slug}`}><strong>{s.title.replace(/ for (Car )?Dealerships$/, '')}</strong><span>{s.description}</span></a></li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  {related.length > 0 && (
+    <section class="wrap section">
+      <div class="kicker">Start reading</div>
+      <h2>Three guides worth your time</h2>
+      <div class="grid grid-3">
+        {related.map((g) => (
+          <a class="card" href={`/guides/${g.slug}`}>
+            <div class="meta">{g.category} · {g.read}</div>
+            <h3>{g.title}</h3>
+            <p>{g.excerpt}</p>
+          </a>
+        ))}
+      </div>
+    </section>
+  )}
+
+  <section class="wrap section-tight others">
+    <h2 class="small">Other stores I work with</h2>
+    <ul>{others.map((p) => <li><a href={`/dealers/${p.slug}`}>{p.brand}</a></li>)}</ul>
+    {!isUsed && (
+      <p class="note">
+        Shawn Ryder Digital is an independent consultant and is not affiliated with, or endorsed by,
+        {' '}{page.brand}. Brand and model names are used only to describe the dealerships I work with.
+      </p>
+    )}
+  </section>
+
+  <section class="cta-strip">
+    <div class="wrap">
+      <div>
+        <h2>See where your store stands.</h2>
+        <p>Free audit of your website, Google profile, reviews and lead follow-up — the honest version, in plain language.</p>
+      </div>
+      <a href="/contact" class="btn btn-primary">Request the audit</a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .crumb { font-size: 14.5px; color: var(--on-dark-3); margin: 0 0 18px; }
+  .page-hero .lede { max-width: 64ch; }
+  .cta { margin-top: 30px; }
+
+  .models { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; padding-top: 30px; padding-bottom: 6px; }
+  .label { font-family: var(--display); font-weight: 600; font-size: 14px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+  .models ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+  .models li { font-family: var(--display); font-weight: 600; font-size: 16.5px; padding: 8px 14px; background: #fff; border: 1px solid var(--line); border-radius: var(--r-sm); }
+
+  h2 { margin-bottom: 8px; }
+  .focus { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 48px; margin-top: 28px; border-top: 2px solid var(--ink); }
+  .focus > div { padding: 24px 0; border-bottom: 1px solid var(--line); }
+  .n { font-family: var(--display); font-weight: 700; color: var(--brand); font-size: 17px; }
+  .focus h3 { margin: 6px 0 8px; }
+  .focus p { font-size: 16.5px; line-height: 1.6; color: var(--ink-2); margin: 0; }
+
+  .services-sec { background: #fff; border-block: 1px solid var(--line); }
+  .svc { list-style: none; margin: 28px 0 0; padding: 0; border-top: 2px solid var(--ink); }
+  .svc a { display: grid; grid-template-columns: minmax(0, 0.4fr) minmax(0, 0.6fr); gap: 24px; padding: 18px 0; border-bottom: 1px solid var(--line); color: inherit; }
+  .svc strong { font-family: var(--display); font-weight: 600; font-size: 20px; color: var(--ink); }
+  .svc span { font-size: 15.5px; line-height: 1.55; color: var(--ink-3); }
+  .svc a:hover strong { color: var(--brand); }
+
+  .meta { font-family: var(--display); font-size: 13.5px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
+  .card h3 { margin-bottom: 8px; }
+  .card p { font-size: 15.5px; line-height: 1.55; color: var(--ink-3); margin: 0; }
+
+  .others { padding-top: 0; }
+  h2.small { font-size: 22px; margin-bottom: 12px; }
+  .others ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+  .others a { display: inline-block; padding: 10px 16px; border: 1px solid var(--line); border-radius: var(--r-sm); background: #fff; color: var(--ink); font-family: var(--display); font-weight: 600; font-size: 16px; }
+  .others a:hover { background: var(--ink); color: #fff; border-color: var(--ink); }
+  .note { font-size: 14px; color: var(--muted); margin: 22px 0 0; max-width: 80ch; line-height: 1.5; }
+
+  @media (max-width: 800px) {
+    .focus { grid-template-columns: minmax(0, 1fr); }
+    .svc a { grid-template-columns: minmax(0, 1fr); gap: 4px; }
+  }
+</style>

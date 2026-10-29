@@ -1,0 +1,207 @@
+[
+  {
+    "term": "A/B test",
+    "def": "Running two versions of an ad, email or page at the same time to see which one gets more leads. Change one thing at a time or you won't know what made the difference.",
+    "link": null
+  },
+  {
+    "term": "AI search visibility",
+    "def": "Whether AI assistants like ChatGPT or Google's AI answers mention your store when a shopper asks about buying a car in your area.",
+    "link": "/ai-search-visibility"
+  },
+  {
+    "term": "Appointment set rate",
+    "def": "The share of leads that agree to a specific appointment time. One of the clearest signs of how good your first reply is.",
+    "link": "/sales-goal-calculator"
+  },
+  {
+    "term": "Appointment show rate",
+    "def": "The share of set appointments where the customer actually shows up. Confirmations and a real reason to come in push it up.",
+    "link": "/sales-goal-calculator"
+  },
+  {
+    "term": "Attribution",
+    "def": "Working out which marketing channel gets credit for a lead or a sale. Never perfect — aim for consistent, not exact.",
+    "link": "/guides/dealership-marketing-report-one-page"
+  },
+  {
+    "term": "BDC",
+    "def": "Business development centre — the team or person who answers internet leads and phone calls and books appointments.",
+    "link": "/guides/speed-to-lead-friday-afternoon"
+  },
+  {
+    "term": "Bounce rate",
+    "def": "The share of visitors who land on a page and leave without doing anything else. High bounce on vehicle pages usually means slow load times or missing info.",
+    "link": "/guides/dealership-website-speed"
+  },
+  {
+    "term": "Brand search",
+    "def": "Searches that include your store's name. Cheap to win and important to protect, but most of those shoppers were already heading your way.",
+    "link": "/guides/dealership-google-ads-budget-split"
+  },
+  {
+    "term": "CASL",
+    "def": "Canada's anti-spam legislation. It sets rules for consent and unsubscribing on commercial emails and texts sent to people in Canada.",
+    "link": "/guides/text-messaging-dealership-leads"
+  },
+  {
+    "term": "Close rate",
+    "def": "The share of leads, or of shown appointments, that buy. Always say which one you mean — they are very different numbers.",
+    "link": "/lead-leak-calculator"
+  },
+  {
+    "term": "Conquest",
+    "def": "Marketing aimed at shoppers who haven't picked your store yet, including people looking at a competitor's brand or models.",
+    "link": "/guides/dealership-google-ads-budget-split"
+  },
+  {
+    "term": "Co-op",
+    "def": "Money from the manufacturer that pays back part of a franchise dealer's advertising, as long as the ads follow the brand's rules.",
+    "link": null
+  },
+  {
+    "term": "Core Web Vitals",
+    "def": "Google's measures of how fast and stable a page feels to a real visitor. Part of why a slow dealer site can rank lower.",
+    "link": "/guides/dealership-website-speed"
+  },
+  {
+    "term": "Cost per sold unit",
+    "def": "Total marketing spend divided by the cars sold from it. A better measure than cost per lead, because cheap leads that never buy aren't cheap.",
+    "link": "/guides/dealership-marketing-report-one-page"
+  },
+  {
+    "term": "CRM",
+    "def": "Customer relationship management — the system that stores leads, customers, notes and follow-up tasks. Only as good as what gets entered into it.",
+    "link": null
+  },
+  {
+    "term": "CTR",
+    "def": "Click-through rate — the share of people who see an ad or search result and click it.",
+    "link": null
+  },
+  {
+    "term": "Days on lot",
+    "def": "How long a vehicle has been in stock. For used units, the listing quality has as much to do with it as the price.",
+    "link": "/guides/used-inventory-merchandising"
+  },
+  {
+    "term": "Equity mining",
+    "def": "Finding customers whose vehicle is worth more than what they owe, then offering them an upgrade that keeps their payment close.",
+    "link": "/guides/equity-mining-your-database"
+  },
+  {
+    "term": "First-party data",
+    "def": "Information customers gave you directly — your CRM, service history and email list. Increasingly the most valuable data a store has.",
+    "link": "/guides/segmenting-a-dealership-database"
+  },
+  {
+    "term": "Fixed ops",
+    "def": "The service, parts and body shop side of the dealership. Usually more customer visits than sales sees in a month.",
+    "link": "/guides/service-drive-marketing-dealership"
+  },
+  {
+    "term": "Frequency cap",
+    "def": "A limit on how many times one person sees your ad in a set period, so retargeting doesn't turn into following people around.",
+    "link": "/guides/dealership-retargeting-frequency"
+  },
+  {
+    "term": "Google Business Profile",
+    "def": "Your free listing on Google Search and Maps — hours, photos, reviews, posts and departments. Often the first thing a shopper sees.",
+    "link": "/guides/google-business-profile-checklist-for-dealerships"
+  },
+  {
+    "term": "Lead response time",
+    "def": "How long it takes from a lead arriving to a real person replying. Track the median by day of week, not the average.",
+    "link": "/guides/speed-to-lead-friday-afternoon"
+  },
+  {
+    "term": "Lead ads",
+    "def": "Facebook and Instagram ads with a built-in form. More leads at a lower cost, but often softer ones — plan for fast follow-up.",
+    "link": "/guides/facebook-ads-for-car-dealers"
+  },
+  {
+    "term": "Local pack",
+    "def": "The three businesses Google shows with a map for local searches like \"Hyundai dealer near me\". Most of the calls go to these three.",
+    "link": "/services/local-seo-google-business-profile"
+  },
+  {
+    "term": "Lookalike audience",
+    "def": "A group of people a platform finds who resemble your existing customers. Built from your buyer list, it usually beats broad interest targeting.",
+    "link": "/guides/facebook-ads-for-car-dealers"
+  },
+  {
+    "term": "Map pack",
+    "def": "Another name for the local pack.",
+    "link": "/services/local-seo-google-business-profile"
+  },
+  {
+    "term": "Mystery shop",
+    "def": "Testing your own store as a shopper would: submit a lead, call, text, and score what happens.",
+    "link": "/guides/mystery-shop-your-own-store"
+  },
+  {
+    "term": "Organic traffic",
+    "def": "Visitors who arrive from unpaid search results.",
+    "link": null
+  },
+  {
+    "term": "PPC",
+    "def": "Pay-per-click advertising, like Google Ads, where you pay each time someone clicks.",
+    "link": "/guides/dealership-google-ads-budget-split"
+  },
+  {
+    "term": "Retargeting",
+    "def": "Showing ads to people who already visited your website. Works best with a short window and real, live inventory.",
+    "link": "/guides/dealership-retargeting-frequency"
+  },
+  {
+    "term": "Review velocity",
+    "def": "How many new reviews you get each month. Recent, steady reviews matter as much as your total count.",
+    "link": "/guides/how-many-google-reviews-dealership"
+  },
+  {
+    "term": "Schema markup",
+    "def": "Hidden labels in your website's code that tell search engines and AI tools exactly what each piece of information is — hours, address, vehicles, reviews.",
+    "link": "/guides/schema-markup-for-dealership-websites"
+  },
+  {
+    "term": "SEO",
+    "def": "Search engine optimization — making your website and listings easy for Google (and AI tools) to find, understand and recommend.",
+    "link": "/services/local-seo-google-business-profile"
+  },
+  {
+    "term": "Service-to-sales",
+    "def": "Turning service customers into vehicle buyers, usually by spotting good equity or big repair estimates during a service visit.",
+    "link": "/guides/service-to-sales-trade-leads"
+  },
+  {
+    "term": "Speed to lead",
+    "def": "How fast a new lead gets a real, human reply. Inside ten minutes during business hours is the target.",
+    "link": "/guides/speed-to-lead-friday-afternoon"
+  },
+  {
+    "term": "Third-party leads",
+    "def": "Leads bought from or delivered by listing sites and lead providers, rather than coming to your own website.",
+    "link": "/guides/dealership-email-marketing-beats-bought-leads"
+  },
+  {
+    "term": "UTM tags",
+    "def": "Short labels added to the end of a link so your analytics can tell which campaign or listing a visitor came from.",
+    "link": null
+  },
+  {
+    "term": "VDP",
+    "def": "Vehicle detail page — the page for one specific vehicle on your website. Where most shopping decisions actually happen.",
+    "link": "/guides/vehicle-detail-pages-that-convert"
+  },
+  {
+    "term": "VLA",
+    "def": "Vehicle listing ads — Google ads that show a specific vehicle's photo, price and details right in the search results.",
+    "link": "/guides/dealership-google-ads-budget-split"
+  },
+  {
+    "term": "Zero-click search",
+    "def": "A search where the shopper gets their answer on Google or from an AI assistant without clicking any website.",
+    "link": "/guides/ask-chatgpt-about-your-dealership"
+  }
+]

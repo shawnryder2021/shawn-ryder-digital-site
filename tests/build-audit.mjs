@@ -147,6 +147,23 @@ for (const file of pages) {
 }
 broken.forEach((b) => problems.push(`broken internal link: ${b}`));
 
+// Sitemap must match what was built: every public page listed, nothing listed
+// that doesn't exist. Unwritten guides are deliberately left out of it.
+{
+  const xml = readFileSync(join(DIST, 'sitemap.xml'), 'utf8');
+  const listed = new Set([...xml.matchAll(/<loc>https?:\/\/[^/<]+([^<]*)<\/loc>/g)].map((m) => m[1] || '/'));
+  const built = new Map();
+  for (const file of pages) {
+    if (file === 'dist/404.html') continue;
+    if (readFileSync(file, 'utf8').includes("This one isn't written yet")) continue;
+    const route = file.slice(DIST.length).replace(/\.html$/, '').replace(/\/index$/, '') || '/';
+    built.set(route, file);
+  }
+  for (const route of built.keys()) if (!listed.has(route)) problems.push(`${route}: built but missing from sitemap.xml (add it in src/lib/site-pages.js)`);
+  for (const route of listed) if (!built.has(route)) problems.push(`${route}: in sitemap.xml but no page was built`);
+  console.log(`sitemap urls       ${listed.size}`);
+}
+
 console.log(`pages built        ${pages.length}`);
 console.log(`unique titles      ${titles.size}`);
 console.log(`unique descriptions ${descriptions.size}`);

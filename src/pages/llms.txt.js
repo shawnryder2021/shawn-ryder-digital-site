@@ -7,6 +7,8 @@
 
 import { getGuides, getMarkets, getSettings } from '../lib/content.js';
 import { site } from '../lib/site.js';
+import servicePages from '../data/service-pages.json';
+import dealerPages from '../data/dealer-pages.json';
 
 export async function GET() {
   const [guides, markets, settings] = await Promise.all([
@@ -41,6 +43,19 @@ Contact: ${contact.email ?? site.email} · ${contact.phone ?? site.phone}
 - [How working together goes](${site.url}/process): audit, plan, work, monthly check-in.
 - [Free dealership audit](${site.url}/contact): website, Google Business Profile, reviews and lead-response review at no cost.
 - [Scorecard](${site.url}/scorecard): a six-question self-assessment of where a store is losing deals.
+
+## Service pages
+
+${servicePages.map((p) => `- [${p.title}](${site.url}/services/${p.slug}): ${p.description}`).join('\n')}
+
+## Dealership types
+
+${dealerPages.map((p) => `- [${p.title}](${site.url}/dealers/${p.slug}): ${p.description}`).join('\n')}
+
+## Reference
+
+- [Glossary](${site.url}/glossary): plain-English definitions of 40+ dealership digital marketing terms.
+- [Site map](${site.url}/site-map): every page on the site, grouped.
 
 ## Free tools
 
