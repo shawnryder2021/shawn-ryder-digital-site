@@ -140,7 +140,7 @@ const categories = [...counts].sort((a, b) => b[1] - a[1]).map(([name, n]) => ({
   }
   .chip {
     font: inherit; font-size: 14.5px; font-weight: 600; cursor: pointer;
-    padding: 9px 16px; border-radius: 999px;
+    padding: 9px 16px; border-radius: var(--r-sm);
     background: var(--surface); border: 1px solid var(--line); color: var(--ink-2);
   }
   .chip span { color: var(--faint); font-weight: 500; margin-left: 2px; }
@@ -152,8 +152,7 @@ const categories = [...counts].sort((a, b) => b[1] - a[1]).map(([name, n]) => ({
 
   .hero {
     background:
-      radial-gradient(900px 460px at 78% 10%, var(--brand-tint) 0%, rgba(238, 241, 255, 0) 70%),
-      var(--bg);
+      var(--navy);
     border-bottom: 1px solid var(--line-2);
     padding: 62px 0 68px;
   }
@@ -161,25 +160,31 @@ const categories = [...counts].sort((a, b) => b[1] - a[1]).map(([name, n]) => ({
 
   .featured {
     display: block;
-    background: var(--ink);
-    color: #fff;
-    border-radius: 22px;
+    background: #fff;
+    color: var(--ink);
+    border: 1px solid var(--line);
+    border-left: 6px solid var(--brand);
+    border-radius: var(--radius);
     padding: 44px 40px;
   }
-  .featured:hover { color: #fff; }
-  .featured .tag { font-size: 13.5px; font-weight: 600; color: #9fb0ff; margin-bottom: 18px; }
-  .featured h2 { font-size: 38px; max-width: 22ch; margin-bottom: 16px; color: #fff; }
-  .featured p { font-size: 18px; line-height: 1.6; color: #c3c7d4; margin: 0 0 26px; max-width: 62ch; }
-  .more { font-family: var(--display); font-weight: 700; font-size: 15.5px; color: #9fb0ff; }
+  .featured:hover { color: var(--ink); box-shadow: var(--shadow-md); }
+  .featured:hover h2 { color: var(--brand); }
+  .featured .tag {
+    font-family: var(--display); font-size: 14px; font-weight: 600; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--brand); margin-bottom: 16px;
+  }
+  .featured h2 { font-size: 38px; max-width: 24ch; margin-bottom: 16px; }
+  .featured p { font-size: 18px; line-height: 1.6; color: var(--ink-2); margin: 0 0 24px; max-width: 62ch; }
+  .more { font-family: var(--display); font-weight: 600; font-size: 17px; color: var(--brand); }
 
   .featimg {
     width: 100%; aspect-ratio: 21 / 9; object-fit: cover;
-    border-radius: 14px; margin-bottom: 24px;
+    border-radius: var(--radius); margin-bottom: 24px;
   }
   .thumb {
     width: calc(100% + 52px); margin: -28px -26px 20px;
     aspect-ratio: 16 / 9; object-fit: cover;
-    border-radius: 18px 18px 0 0;
+    border-radius: var(--radius) var(--radius) 0 0;
   }
 
   h2.small { font-size: 26px; margin-bottom: 22px; }

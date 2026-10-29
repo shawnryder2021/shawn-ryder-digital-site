@@ -150,7 +150,7 @@ const { checklist = [], sourcePage = Astro.url.pathname, marketSlug = '' } = Ast
   form {
     background: var(--surface);
     border: 1px solid var(--line);
-    border-radius: 22px;
+    border-radius: var(--radius);
     padding: 36px 32px 32px;
     box-shadow: var(--shadow-sm);
   }
@@ -168,7 +168,7 @@ const { checklist = [], sourcePage = Astro.url.pathname, marketSlug = '' } = Ast
   input[type='text'], input[type='email'], input[type='tel'], textarea {
     width: 100%;
     border: 1px solid var(--line);
-    border-radius: 12px;
+    border-radius: var(--radius);
     background: var(--bg);
     padding: 13px 14px;
     font-size: 16px;

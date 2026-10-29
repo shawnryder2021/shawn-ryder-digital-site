@@ -14,6 +14,8 @@ import reviewsJson from '../data/reviews.json';
 import faqJson from '../data/faq.json';
 import coreJson from '../data/core.json';
 import copyJson from '../data/copy.json';
+import { existsSync } from 'node:fs';
+import { join } from 'node:path';
 
 const url = (process.env.SUPABASE_URL || '').replace(/\/+$/, '');
 const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
@@ -114,10 +116,34 @@ export async function getGuides() {
  */
 export async function getImageSlots() {
   const rows = await table('image_slots?select=key,media:media_id(url,alt,width,height)');
-  if (!rows) return {};
-  return Object.fromEntries(
-    rows.filter((r) => r.media?.url).map((r) => [r.key, r.media])
+  const fromCms = Object.fromEntries(
+    (rows ?? []).filter((r) => r.media?.url).map((r) => [r.key, r.media])
   );
+  return { ...localImages(), ...fromCms };
+}
+
+/**
+ * A photo dropped into public/images/ under a slot's name (home_hero.jpg,
+ * about_portrait.webp …) fills that slot when the admin has not set one. The
+ * admin always wins. Sizes are the shapes the templates crop to; they only
+ * reserve space against layout shift, so a close match is fine.
+ */
+const LOCAL_SLOTS = {
+  home_hero: { width: 1600, height: 1200, alt: 'Dealership showroom at dusk' },
+  home_dealer: { width: 1920, height: 1080, alt: 'A customer taking delivery of a vehicle at a dealership' },
+  about_portrait: { width: 1200, height: 1500, alt: 'Shawn Ryder, automotive digital marketing consultant' },
+  ai_hero: { width: 1600, height: 1200, alt: 'A shopper researching a vehicle on a phone' },
+};
+
+function localImages() {
+  const out = {};
+  for (const [slot, meta] of Object.entries(LOCAL_SLOTS)) {
+    const file = ['webp', 'jpg', 'jpeg', 'png']
+      .map((ext) => `${slot}.${ext}`)
+      .find((name) => existsSync(join(process.cwd(), 'public', 'images', name)));
+    if (file) out[slot] = { url: `/images/${file}`, ...meta };
+  }
+  return out;
 }
 
 /* ------------------------------------------------------------- reviews ---- */

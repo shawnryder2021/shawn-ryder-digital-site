@@ -3,32 +3,46 @@
    a future restyle a single-file change. */
 
 :root {
-  --ink: #0b0d12;
-  --ink-2: #4a4f5c;
-  --ink-3: #5b6070;
-  --muted: #6c7280;
-  --faint: #9a9fad;
+  /* Navy and warm paper with one red accent. Deliberately not the electric
+     blue + lavender glow of a SaaS template — this should read like a firm
+     that has stood on a showroom floor. */
+  --ink: #0f1722;
+  --ink-2: #33404f;
+  --ink-3: #4f5a67;
+  --muted: #66707c;
+  --faint: #8c939c;
 
-  --bg: #fafafb;
+  --bg: #f6f5f1;
   --surface: #ffffff;
-  --surface-2: #f5f6f9;
-  --line: #e7e8ee;
-  --line-2: #ecedf2;
+  --surface-2: #eeece6;
+  --line: #dedbd2;
+  --line-2: #e8e5dd;
 
-  --brand: #2c4bff;
-  --brand-dark: #1b33cc;
-  --brand-tint: #eef1ff;
-  --brand-line: #c7ceff;
-  --green: #0fb981;
+  --brand: #b3121d;
+  --brand-dark: #8c0e17;
+  --brand-tint: #eeebe4;
+  --brand-line: #d3cec3;
+  --green: #2f7a57;
 
-  --display: 'Plus Jakarta Sans', system-ui, sans-serif;
-  --body: 'Instrument Sans', system-ui, sans-serif;
+  /* Dark sections: hero, process, footer. */
+  --navy: #0f1722;
+  --navy-2: #172231;
+  --navy-line: #263346;
+  --on-dark: #ffffff;
+  --on-dark-2: #c3c9d1;
+  --on-dark-3: #8d96a3;
+  --on-dark-accent: #ef9a92;
+
+  --display: 'Barlow Semi Condensed', 'Arial Narrow', system-ui, sans-serif;
+  --body: 'Source Sans 3', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --text: var(--body);
 
   --wrap: 1200px;
   --pad: 28px;
-  --radius: 18px;
-  --shadow-sm: 0 1px 2px rgba(11, 13, 18, 0.04);
-  --shadow-md: 0 18px 40px -22px rgba(11, 13, 18, 0.28);
+  --radius: 6px;
+  --r-sm: 4px;
+  --shadow-sm: 0 1px 2px rgba(15, 23, 34, 0.05);
+  --shadow-md: 0 14px 30px -18px rgba(15, 23, 34, 0.35);
 }
 
 * { box-sizing: border-box; }
@@ -37,6 +51,7 @@ html, body { margin: 0; padding: 0; background: var(--bg); }
 
 body {
   font-family: var(--body);
+  font-size: 17px;
   -webkit-font-smoothing: antialiased;
   color: var(--ink);
   overflow-x: hidden;
@@ -44,36 +59,51 @@ body {
 
 a { color: var(--brand); text-decoration: none; }
 a:hover { color: var(--brand-dark); }
-::selection { background: #d9dfff; color: var(--ink); }
+::selection { background: #f1cfcb; color: var(--ink); }
 img { max-width: 100%; height: auto; display: block; }
-input, textarea, button { font-family: var(--body); }
+input, textarea, button, select { font-family: var(--body); }
+:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
 
 .wrap { max-width: var(--wrap); margin: 0 auto; padding-left: var(--pad); padding-right: var(--pad); }
 
+/* Section label: a short red rule and small caps, used sparingly. */
 .kicker {
-  font-size: 13px;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--display);
+  font-size: 14px;
   font-weight: 600;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--brand);
-  margin-bottom: 14px;
+  color: var(--ink-3);
+  margin-bottom: 16px;
+}
+.kicker::before {
+  content: '';
+  width: 28px;
+  height: 2px;
+  background: var(--brand);
+  flex: 0 0 auto;
 }
 
-h1, h2, h3 { font-family: var(--display); letter-spacing: -0.035em; margin: 0; }
-h1 { font-weight: 800; font-size: 62px; line-height: 1.02; letter-spacing: -0.04em; text-wrap: balance; }
-h2 { font-weight: 800; font-size: 44px; line-height: 1.06; }
-h3 { font-weight: 700; font-size: 21px; line-height: 1.2; letter-spacing: -0.025em; }
+h1, h2, h3 { font-family: var(--display); margin: 0; color: var(--ink); }
+h1 { font-weight: 700; font-size: 58px; line-height: 1.02; letter-spacing: -0.015em; text-wrap: balance; }
+h2 { font-weight: 700; font-size: 40px; line-height: 1.08; letter-spacing: -0.01em; text-wrap: balance; }
+h3 { font-weight: 600; font-size: 22px; line-height: 1.2; letter-spacing: -0.005em; }
 
-.lede { font-size: 19px; line-height: 1.62; color: var(--ink-2); text-wrap: pretty; }
+.lede { font-size: 19px; line-height: 1.6; color: var(--ink-2); text-wrap: pretty; }
 
 .card {
   background: var(--surface);
   border: 1px solid var(--line);
   border-radius: var(--radius);
   padding: 28px 26px 30px;
-  box-shadow: var(--shadow-sm);
 }
-a.card:hover { border-color: var(--brand-line); box-shadow: var(--shadow-md); color: inherit; }
+a.card { color: inherit; transition: border-color 0.15s, box-shadow 0.15s; }
+a.card:hover { border-color: var(--ink-3); box-shadow: var(--shadow-md); color: inherit; }
+a.card h3 { color: var(--ink); }
+a.card:hover h3 { color: var(--brand); }
 
 .grid { display: grid; gap: 18px; }
 .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
@@ -81,21 +111,25 @@ a.card:hover { border-color: var(--brand-line); box-shadow: var(--shadow-md); co
 
 .btn {
   display: inline-block;
-  padding: 16px 28px;
-  border-radius: 999px;
+  padding: 15px 26px;
+  border-radius: var(--r-sm);
   font-family: var(--display);
-  font-weight: 700;
-  font-size: 16px;
+  font-weight: 600;
+  font-size: 17px;
+  letter-spacing: 0.02em;
   cursor: pointer;
   border: 1px solid transparent;
   text-align: center;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
 }
-.btn-primary { background: var(--brand); color: #fff; box-shadow: 0 14px 30px -14px rgba(44, 75, 255, 0.75); }
+.btn-primary { background: var(--brand); color: #fff; }
 .btn-primary:hover { background: var(--brand-dark); color: #fff; }
-.btn-ghost { background: var(--surface); border-color: var(--line); color: var(--ink); }
-.btn-ghost:hover { border-color: var(--ink); color: var(--ink); }
+.btn-ghost { background: transparent; border-color: var(--ink-3); color: var(--ink); }
+.btn-ghost:hover { border-color: var(--ink); background: var(--ink); color: #fff; }
 .btn-dark { background: var(--ink); color: #fff; }
 .btn-dark:hover { background: var(--brand); color: #fff; }
+.btn-light { background: transparent; border-color: rgba(255, 255, 255, 0.4); color: #fff; }
+.btn-light:hover { border-color: #fff; background: #fff; color: var(--ink); }
 
 .section { padding-top: 88px; padding-bottom: 88px; }
 .section-tight { padding-top: 56px; padding-bottom: 56px; }
@@ -269,7 +303,7 @@ a.card:hover { border-color: var(--brand-line); box-shadow: var(--shadow-md); co
 @media (max-width: 900px) {
   :root { --pad: 20px; }
   h1 { font-size: 40px; }
-  h2 { font-size: 30px; }
+  h2 { font-size: 31px; }
   .lede { font-size: 17px; }
   .grid-3, .grid-2 { grid-template-columns: minmax(0, 1fr); }
   .section { padding-top: 56px; padding-bottom: 56px; }
@@ -296,22 +330,28 @@ a.card:hover { border-color: var(--brand-line); box-shadow: var(--shadow-md); co
    markup and maths, not another 120 lines of CSS.
    ------------------------------------------------------------------------ */
 
-.page-hero {
-  background:
-    radial-gradient(900px 460px at 78% 10%, var(--brand-tint) 0%, rgba(238, 241, 255, 0) 70%),
-    var(--bg);
-  border-bottom: 1px solid var(--line-2);
-  padding: 62px 0 60px;
+/* Every page opens on the same navy band as the homepage — one consistent
+   frame, then the light content below. Pages style their own hero spacing;
+   colour is set here so no page can drift back to a light header. */
+.page-hero { padding: 62px 0 60px; }
+main > .hero:first-child, .page-hero {
+  background: var(--navy);
+  color: var(--on-dark-2);
+  border-bottom: 4px solid var(--brand);
 }
+main > .hero:first-child h1, .page-hero h1 { color: #fff; }
+main > .hero:first-child .lede, .page-hero .lede { color: var(--on-dark-2); }
+main > .hero:first-child .kicker, .page-hero .kicker { color: var(--on-dark-accent); }
+main > .hero:first-child a:not(.btn), .page-hero a:not(.btn) { color: #fff; }
 .page-hero .lede { max-width: 58ch; margin: 22px 0 0; }
 
-.cta-strip { background: var(--brand-tint); border-top: 1px solid var(--brand-line); }
+.cta-strip { background: var(--surface-2); border-top: 1px solid var(--line); }
 .cta-strip .wrap {
   padding-top: 56px; padding-bottom: 56px;
   display: flex; align-items: center; justify-content: space-between;
   gap: 40px; flex-wrap: wrap;
 }
-.cta-strip h2 { font-size: 32px; max-width: 24ch; margin-bottom: 10px; }
+.cta-strip h2 { font-size: 34px; max-width: 24ch; margin-bottom: 10px; }
 .cta-strip p { font-size: 16.5px; color: var(--ink-2); margin: 0; max-width: 56ch; }
 
 .calc {
@@ -329,43 +369,44 @@ a.card:hover { border-color: var(--brand-line); box-shadow: var(--shadow-md); co
 .calc-inputs input, .calc-inputs select {
   width: 100%; padding: 14px 16px; font-size: 19px;
   font-family: var(--display); font-weight: 700;
-  border: 1px solid var(--line); border-radius: 12px;
+  border: 1px solid var(--line); border-radius: var(--r-sm);
   background: var(--surface); color: var(--ink); outline: none;
 }
-.calc-inputs input:focus, .calc-inputs select:focus { border-color: var(--brand); background: var(--brand-tint); }
+.calc-inputs input:focus, .calc-inputs select:focus { border-color: var(--ink); box-shadow: 0 0 0 3px rgba(15, 23, 34, 0.08); }
 .calc-inputs small { font-size: 13px; color: var(--ink-3); line-height: 1.45; }
 .calc-err { color: #b4482a; font-size: 14px; margin: 0; }
 .calc-err:empty { display: none; }
 
 .result-big {
-  background: var(--ink); color: #fff; border-radius: 18px; padding: 30px 28px;
+  background: var(--navy); color: #fff; border-radius: var(--radius); padding: 30px 28px;
+  border-left: 6px solid var(--brand);
   margin-bottom: 14px;
 }
 .result-big .lab {
   font-size: 12.5px; font-weight: 600; letter-spacing: 0.08em;
-  text-transform: uppercase; color: #9fb0ff;
+  text-transform: uppercase; color: var(--on-dark-accent);
 }
 .result-big .num {
-  font-family: var(--display); font-weight: 800; font-size: 52px;
-  letter-spacing: -0.035em; line-height: 1; margin: 12px 0 10px;
+  font-family: var(--display); font-weight: 700; font-size: 56px;
+  letter-spacing: -0.01em; line-height: 1; margin: 12px 0 10px;
 }
-.result-big p { font-size: 15.5px; line-height: 1.6; color: #c3c7d4; margin: 0; }
+.result-big p { font-size: 15.5px; line-height: 1.6; color: var(--on-dark-2); margin: 0; }
 
 .result-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
 .result-card {
   background: var(--surface); border: 1px solid var(--line);
-  border-radius: 14px; padding: 18px 20px;
+  border-radius: var(--radius); padding: 18px 20px;
 }
 .result-card .lab { font-size: 13.5px; color: var(--ink-3); margin-bottom: 8px; }
 .result-card .num {
-  font-family: var(--display); font-weight: 800; font-size: 30px;
-  letter-spacing: -0.03em; line-height: 1; color: var(--brand);
+  font-family: var(--display); font-weight: 700; font-size: 32px;
+  line-height: 1; color: var(--ink);
 }
 .result-card p { font-size: 13.5px; color: var(--ink-3); margin: 8px 0 0; line-height: 1.5; }
 
 .calc-note {
   margin-top: 34px; padding: 24px 26px;
-  background: var(--surface); border: 1px solid var(--line); border-radius: 16px;
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
 }
 .calc-note h3 { font-size: 17px; margin: 0 0 10px; }
 .calc-note p { font-size: 15.5px; line-height: 1.65; color: var(--ink-3); margin: 0; max-width: 76ch; }

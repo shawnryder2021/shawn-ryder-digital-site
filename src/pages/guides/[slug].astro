@@ -168,12 +168,12 @@ const breadcrumbs = [
     display: flex; gap: 10px; flex-wrap: wrap;
     margin-top: 24px; font-size: 13.5px; font-weight: 600; color: var(--muted);
   }
-  .meta span { background: var(--surface-2); border-radius: 999px; padding: 7px 14px; }
+  .meta span { background: var(--surface-2); border-radius: var(--r-sm); padding: 7px 14px; }
 
   .cover {
     max-width: 74ch;
     margin: 36px 0 0;
-    border-radius: 18px;
+    border-radius: var(--radius);
     overflow: hidden;
     aspect-ratio: 16 / 9;
   }
@@ -184,7 +184,7 @@ const breadcrumbs = [
     margin: 40px 0 0;
     background: var(--brand-tint);
     border: 1px solid var(--brand-line);
-    border-radius: 16px;
+    border-radius: var(--radius);
     padding: 26px 28px;
   }
   .takeaways ul { margin: 0; padding-left: 20px; display: grid; gap: 9px; }
@@ -201,7 +201,7 @@ const breadcrumbs = [
   .body :global(li) { font-size: 17.5px; line-height: 1.65; color: var(--ink-2); text-wrap: pretty; }
   .body :global(strong) { color: var(--ink); }
   .body :global(a) { text-decoration: underline; text-underline-offset: 3px; }
-  .body :global(img) { border-radius: 14px; margin: 28px 0; }
+  .body :global(img) { border-radius: var(--radius); margin: 28px 0; }
   .body :global(blockquote) {
     margin: 34px 0;
     padding: 4px 0 4px 26px;
@@ -210,7 +210,7 @@ const breadcrumbs = [
     font-weight: 700;
     font-size: 21px;
     line-height: 1.45;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.01em;
     color: var(--ink);
     text-wrap: pretty;
   }
@@ -221,7 +221,7 @@ const breadcrumbs = [
     margin: 56px 0;
     background: var(--surface);
     border: 1px dashed var(--line);
-    border-radius: 18px;
+    border-radius: var(--radius);
     padding: 40px 34px;
   }
   .unwritten h2 { font-size: 28px; margin-bottom: 14px; }

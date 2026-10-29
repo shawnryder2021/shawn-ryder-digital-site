@@ -216,16 +216,16 @@ const breadcrumbs = [
   }
   .headline :global(strong) {
     display: block; font-family: var(--display); font-size: 44px;
-    letter-spacing: -0.03em; line-height: 1.05; color: var(--ink); margin-bottom: 6px;
+    letter-spacing: -0.01em; line-height: 1.05; color: var(--ink); margin-bottom: 6px;
   }
   .bars { display: grid; gap: 12px; }
   .bars :global(.bar) {
     background: var(--surface); border: 1px solid var(--line);
-    border-radius: 14px; padding: 16px 18px;
+    border-radius: var(--radius); padding: 16px 18px;
   }
   .bars :global(.bar-top) { display: flex; justify-content: space-between; gap: 12px; align-items: baseline; }
   .bars :global(.bar-name) { font-family: var(--display); font-weight: 700; font-size: 16px; }
-  .bars :global(.bar-amt) { font-family: var(--display); font-weight: 800; font-size: 19px; color: var(--brand); white-space: nowrap; }
+  .bars :global(.bar-amt) { font-family: var(--display); font-weight: 700; font-size: 19px; color: var(--brand); white-space: nowrap; }
   .bars :global(.bar-amt em) { font-style: normal; font-size: 13px; color: var(--faint); font-weight: 600; margin-left: 4px; }
   .bars :global(.track) { height: 8px; border-radius: 99px; background: var(--surface-2); margin: 10px 0; overflow: hidden; }
   .bars :global(.fill) { height: 100%; border-radius: 99px; background: var(--brand); }

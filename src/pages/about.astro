@@ -110,15 +110,14 @@ const [title, description] = seo.about;
 <style>
   .hero {
     background:
-      radial-gradient(900px 460px at 78% 10%, var(--brand-tint) 0%, rgba(238, 241, 255, 0) 70%),
-      var(--bg);
+      var(--navy);
     border-bottom: 1px solid var(--line-2);
     padding: 62px 0 68px;
   }
   .hero .lede { max-width: 58ch; margin: 22px 0 0; }
 
   .portrait {
-    max-width: 420px; border-radius: 20px; overflow: hidden;
+    max-width: 420px; border-radius: var(--radius); overflow: hidden;
     box-shadow: 0 30px 60px -34px rgba(11, 13, 18, 0.42);
   }
   .portrait img { width: 100%; height: auto; display: block; }
