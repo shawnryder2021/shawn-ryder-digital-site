@@ -6,9 +6,9 @@ Claude Design prototype (`Shawn Ryder Digital v2.dc.html`), which rendered every
 page client-side from a single file — no good for a site whose whole point is
 being read by search engines and AI assistants.
 
-**81 pages build to real HTML**: home, services, process, scorecard, AI, AI
-search visibility, three free tools, guides index + 15 written guides, markets
-index + 51 market pages, FAQ, about, contact. Plus `/sitemap.xml`, `/rss.xml`
+**100+ pages build to real HTML**: home, services, process, AI, AI search
+visibility, a `/tools` hub + seven free tools, guides index + written guides,
+markets index + 51 market pages, FAQ, about, contact. Plus `/sitemap.xml`, `/rss.xml`
 and `/llms.txt`, all generated from the same content.
 
 ## Running it
@@ -316,6 +316,38 @@ number is `(R−1)/(5−R)` and does not depend on review count — 4 five-stars
 undo a 1-star at 4.2, but 19 at 4.8. The page states plainly that Google's
 one-decimal rounding makes all of it an estimate.
 
+### Lead leak calculator and ad budget planner
+
+Both are client-side only, like the review calculator.
+
+- `/lead-leak-calculator` estimates the gross lost to slow follow-up. It assumes
+  a lead answered by a person inside ten minutes closes at 2× a slow one
+  (`FAST_MULTIPLIER` in the page script) and solves for each group's close rate
+  from the store's overall rate. The page says so in plain words.
+- `/ad-budget-planner` splits a monthly budget from a base table per store type
+  (`BASE`), nudged by goal (`GOAL`). Under $1,500 a month it collapses to three
+  channels rather than spreading money too thin.
+
+### Guide bodies after a pull
+
+All 31 guides now have written bodies in `src/data/articles.json`. Sixteen of
+them (the Paid, Website, Measurement and other guides added in August) were
+listed as published with no body, so their pages said "isn't written yet".
+After pulling, run `npm run sync:guides` once, then Publish. It only fills
+guides whose body is still empty, so anything already written in the admin
+is left alone.
+
+### Adding a new tool
+
+1. Add the page in `src/pages/` — the two calculators above are the simplest
+   template. Shared calculator and hero styles (`.calc`, `.calc-inputs`,
+   `.result-big`, `.page-hero`, `.cta-strip`) live in `global.css`.
+2. Add one entry to `src/lib/tools.js`. That puts it on `/tools` (and on the
+   homepage if its href is in `featuredTools` in `src/pages/index.astro`).
+3. Add it to `STATIC_PAGES` in `src/pages/sitemap.xml.js` and the tools list in
+   `src/pages/llms.txt.js`.
+4. Optionally add a footer link under **Free tools** in the admin's menu editor.
+
 ## Admin area
 
 `/admin` is a static shell; all data is fetched in the browser under the
@@ -344,7 +376,9 @@ creates their profile at `user` automatically.
    sets the build command, publish directory and functions directory.
 3. Add the environment variables from the table above.
 4. Apply the migrations in `supabase/migrations/` in order, then run
-   `npm run seed` once to populate the CMS tables.
+   `npm run seed` once to populate the CMS tables. (An existing database only
+   needs the newer migrations — `0009` and `0010` add the Tools, Start here
+   and new tool menu links.)
 5. Create a build hook (Build & deploy → Build hooks) and set
    `NETLIFY_BUILD_HOOK_URL` so the admin's Publish button works.
 6. Point the domain, then submit `https://shawnryder.com/sitemap.xml` in Search

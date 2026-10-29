@@ -267,12 +267,17 @@ await seed(
 // Markets is deliberately absent from the header — 51 market pages belong in
 // the footer, and the header was already full.
 const header = [['Home', '/'], ['Services', '/services'], ['Process', '/process'], ['AI', '/ai'],
-  ['Guides', '/guides'], ['FAQ', '/faq'], ['About', '/about'], ['Contact', '/contact']];
+  ['Guides', '/guides'], ['Tools', '/tools'], ['FAQ', '/faq'], ['About', '/about'], ['Contact', '/contact']];
 const footer = [
   ['Site', 'Services', '/services'], ['Site', 'Process', '/process'],
   ['Site', 'AI search visibility', '/ai-search-visibility'],
-  ['Site', 'Guides', '/guides'], ['Site', 'FAQ', '/faq'], ['Site', 'About', '/about'],
+  ['Site', 'Start here', '/start-here'], ['Site', 'Guides', '/guides'], ['Site', 'FAQ', '/faq'], ['Site', 'About', '/about'],
   ['Site', 'Contact', '/contact'],
+  ['Free tools', 'All free tools', '/tools'],
+  ['Free tools', 'Lead leak calculator', '/lead-leak-calculator'],
+  ['Free tools', 'Ad budget planner', '/ad-budget-planner'],
+  ['Free tools', 'Sales goal calculator', '/sales-goal-calculator'],
+  ['Free tools', 'Google profile checkup', '/google-profile-checkup'],
   ['Free tools', 'AI crawler check', '/ai-crawler-check'],
   ['Free tools', 'AI visibility check', '/ai-visibility-check'],
   ['Free tools', 'Review calculator', '/review-calculator'],

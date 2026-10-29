@@ -256,7 +256,7 @@ const schema = {
   .hero { background: var(--ink); color: #fff; padding: 64px 0 68px; }
   .hero h1 { color: #fff; max-width: 16ch; }
   .hero .lede { color: #b9bcc2; max-width: 60ch; margin: 22px 0 34px; }
-  .kicker.light { color: #9fb0ff; }
+  .kicker.light { color: var(--on-dark-accent); }
 
   form { max-width: 560px; }
   label { display: grid; gap: 7px; }
@@ -266,7 +266,7 @@ const schema = {
   }
   input[type='text'] {
     width: 100%; padding: 14px 16px; font-size: 16px;
-    border: 1px solid rgba(255, 255, 255, 0.18); border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.18); border-radius: var(--radius);
     background: rgba(255, 255, 255, 0.06); color: #fff; outline: none;
   }
   input::placeholder { color: #7b8090; }
@@ -282,7 +282,7 @@ const schema = {
   .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
 
   .verdict {
-    border-radius: 18px; padding: 26px 28px; margin-bottom: 40px;
+    border-radius: var(--radius); padding: 26px 28px; margin-bottom: 40px;
     border: 1px solid var(--line); background: var(--surface);
   }
   .verdict.good { border-color: #b6e6d4; background: #f2fbf7; }
@@ -304,14 +304,14 @@ const schema = {
   .agents { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
   .agent {
     border: 1px solid var(--line); border-left-width: 4px;
-    border-radius: 12px; padding: 16px 18px; background: var(--surface);
+    border-radius: var(--radius); padding: 16px 18px; background: var(--surface);
   }
   .agent.yes { border-left-color: #2f9e78; }
   .agent.partial { border-left-color: #c99a2e; }
   .agent.no { border-left-color: #c4502c; }
   .a-head { display: flex; align-items: center; justify-content: space-between; gap: 14px; }
   .a-head strong { font-family: var(--display); font-size: 16px; }
-  .pill { flex: none; padding: 4px 11px; border-radius: 999px; font-size: 12px; font-weight: 600; }
+  .pill { flex: none; padding: 4px 11px; border-radius: var(--r-sm); font-size: 12px; font-weight: 600; }
   .agent.yes .pill { background: #e7f7f1; color: #0a7f5a; }
   .agent.partial .pill { background: #fbf3dd; color: #8a6410; }
   .agent.no .pill { background: #fdf0ec; color: #b4482a; }
@@ -326,7 +326,7 @@ const schema = {
   .findings { display: grid; gap: 12px; }
   .finding {
     border: 1px solid var(--line); border-left-width: 4px;
-    border-radius: 12px; padding: 18px 20px; background: var(--surface);
+    border-radius: var(--radius); padding: 18px 20px; background: var(--surface);
   }
   .finding.bad { border-left-color: #c4502c; }
   .finding.warn { border-left-color: #c99a2e; }
@@ -343,7 +343,7 @@ const schema = {
   .page-error {
     font-size: 15.5px; line-height: 1.6; color: var(--ink-2);
     background: var(--surface); border: 1px solid var(--line);
-    border-radius: 12px; padding: 18px 20px; margin: 0;
+    border-radius: var(--radius); padding: 18px 20px; margin: 0;
   }
 
   .after { margin-top: 40px; padding-top: 30px; border-top: 1px solid var(--line); }

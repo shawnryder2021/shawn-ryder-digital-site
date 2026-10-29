@@ -130,8 +130,7 @@ const breadcrumbs = [
 <style>
   .hero {
     background:
-      radial-gradient(900px 460px at 78% 10%, var(--brand-tint) 0%, rgba(238, 241, 255, 0) 70%),
-      var(--bg);
+      var(--navy);
     border-bottom: 1px solid var(--line-2);
     padding: 56px 0 64px;
   }
@@ -142,7 +141,7 @@ const breadcrumbs = [
   .grid-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
   .stat { padding: 24px 22px; }
   .stat .k { font-size: 13px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--faint); }
-  .stat .v { font-family: var(--display); font-weight: 800; font-size: 28px; letter-spacing: -0.03em; color: var(--brand); margin: 8px 0 8px; }
+  .stat .v { font-family: var(--display); font-weight: 700; font-size: 28px; letter-spacing: -0.01em; color: var(--brand); margin: 8px 0 8px; }
   .stat p { font-size: 14.5px; line-height: 1.5; color: var(--ink-3); margin: 0; }
 
   .notes { margin-top: 32px; }
@@ -163,7 +162,7 @@ const breadcrumbs = [
 
   .chips { display: flex; flex-wrap: wrap; gap: 10px; }
   .chip {
-    padding: 10px 16px; border-radius: 999px;
+    padding: 10px 16px; border-radius: var(--r-sm);
     background: var(--surface); border: 1px solid var(--line);
     font-size: 14.5px; font-weight: 600; color: var(--ink-2);
   }

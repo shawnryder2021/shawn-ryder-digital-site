@@ -77,7 +77,7 @@ try {
   check('hero carries alt text', home.includes(`alt="${IMG.alt}"`));
   check('hero sets width/height (no layout shift)',
     home.includes(`width="${IMG.width}"`) && home.includes(`height="${IMG.height}"`));
-  check('hero switches to the two-column layout', /class="[^"]*has-image/.test(home));
+  check('hero photo replaces the journey card', home.includes('class="heroimg') && !home.includes('class="journey'));
 
   check('about page renders the portrait', about.includes(IMG.url));
   check('AI page renders its hero', ai.includes(IMG.url));
@@ -92,7 +92,7 @@ try {
     maxBuffer: 1024 * 1024 * 20,
   });
   const bare = readFileSync('dist/index.html', 'utf8');
-  check('builds fine with no images configured', !bare.includes('has-image'));
+  check('no hero photo falls back to the journey card', bare.includes('class="journey') && !bare.includes('class="heroimg'));
   check('bare homepage has no broken img', !/<img[^>]*src=""/.test(bare));
 } finally {
   server.close();

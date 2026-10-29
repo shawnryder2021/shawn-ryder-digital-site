@@ -1,0 +1,217 @@
+---
+import Base from '../layouts/Base.astro';
+import SubscribeForm from '../components/SubscribeForm.astro';
+import { getGuides } from '../lib/content.js';
+import { tools } from '../lib/tools.js';
+
+const title = 'Start Here: Dealership Marketing Reading Paths by Role';
+const description =
+  'Dealer principal, sales manager, BDC, marketing, service or used cars — pick your role and get the five guides and one tool worth your time first.';
+
+const guides = await getGuides();
+const bySlug = new Map(guides.filter((g) => g.published).map((g) => [g.slug, g]));
+const toolByHref = new Map(tools.map((t) => [t.href, t]));
+
+// Each path is one tool to get a number on the table, then guides in the
+// order I'd hand them over. Missing or unpublished guides drop out quietly.
+const paths = [
+  {
+    id: 'dealer-principal',
+    role: 'Dealer principal or GM',
+    why: "You don't need to run the campaigns. You need to know which ones are working, and where the store is leaking.",
+    tool: '/lead-leak-calculator',
+    guides: [
+      'dealership-marketing-report-one-page',
+      'speed-to-lead-friday-afternoon',
+      'dealership-google-ads-budget-split',
+      'ask-chatgpt-about-your-dealership',
+      'dealership-competitor-price-matching',
+    ],
+  },
+  {
+    id: 'sales-manager',
+    role: 'General sales or sales manager',
+    why: 'Most of the gross lost online is lost after the lead arrives. These are about the handoff from screen to showroom.',
+    tool: '/scorecard',
+    guides: [
+      'speed-to-lead-friday-afternoon',
+      'text-messaging-dealership-leads',
+      'mystery-shop-your-own-store',
+      'dealership-lead-form-fields',
+      'dealership-competitor-price-matching',
+    ],
+  },
+  {
+    id: 'bdc',
+    role: 'Internet or BDC manager',
+    why: 'Your job is turning clicks into appointments. Start with the pages shoppers land on and the first reply they get.',
+    tool: '/lead-leak-calculator',
+    guides: [
+      'vehicle-detail-pages-that-convert',
+      'text-messaging-dealership-leads',
+      'dealership-website-speed',
+      'dealership-retargeting-frequency',
+      'facebook-ads-for-car-dealers',
+    ],
+  },
+  {
+    id: 'marketing',
+    role: 'Marketing manager',
+    why: 'Local search, social and your own database do more than most paid campaigns. Build the habits first.',
+    tool: '/ai-visibility-check',
+    guides: [
+      'google-business-profile-checklist-for-dealerships',
+      'google-business-profile-posts-that-get-seen',
+      'dealership-short-form-video',
+      'customer-photos-and-video-dealership',
+      'dealership-email-marketing-beats-bought-leads',
+    ],
+  },
+  {
+    id: 'service',
+    role: 'Service manager',
+    why: 'You see more customers than the sales floor. Your reviews and your lane drive repeat business for the whole store.',
+    tool: '/review-calculator',
+    guides: [
+      'service-drive-marketing-dealership',
+      'service-to-sales-trade-leads',
+      'raise-dealership-review-score',
+      'unfair-dealership-reviews',
+      'google-business-profile-posts-that-get-seen',
+    ],
+  },
+  {
+    id: 'used-cars',
+    role: 'Used car manager',
+    why: 'Every day a unit sits costs you. These are about getting used inventory found, trusted and sold faster.',
+    tool: '/ad-budget-planner',
+    guides: [
+      'used-inventory-merchandising',
+      'vehicle-detail-pages-that-convert',
+      'ranking-for-used-cars-near-me',
+      'inventory-pages-that-rank',
+      'dealership-competitor-price-matching',
+    ],
+  },
+].map((p) => {
+  const items = p.guides.map((s) => bySlug.get(s)).filter(Boolean);
+  const minutes = items.reduce((sum, g) => sum + (parseInt(g.read, 10) || 0), 0);
+  return { ...p, tool: toolByHref.get(p.tool), items, minutes };
+}).filter((p) => p.items.length);
+---
+
+<Base title={title} description={description} path="/start-here">
+  <section class="page-hero">
+    <div class="wrap">
+      <div class="kicker">Start here</div>
+      <h1>Pick your seat in the store.</h1>
+      <p class="lede">
+        Thirty-plus guides is a lot. So here's the short list for your role — one tool to put a
+        real number on the table, then five reads in the order I'd hand them to you.
+      </p>
+    </div>
+  </section>
+
+  <nav class="wrap roles" aria-label="Jump to a role">
+    {paths.map((p) => <a href={`#${p.id}`}>{p.role}</a>)}
+  </nav>
+
+  {paths.map((p, n) => (
+    <section class:list={['path', { alt: n % 2 === 1 }]} id={p.id}>
+      <div class="wrap inner">
+        <div class="side">
+          <div class="kicker">Path {n + 1} of {paths.length}</div>
+          <h2>{p.role}</h2>
+          <p>{p.why}</p>
+          <p class="time">About {p.minutes} minutes of reading, total.</p>
+        </div>
+        <ol class="list">
+          {p.tool && (
+            <li class="first">
+              <a href={p.tool.href}>
+                <span class="step">Start</span>
+                <span class="body">
+                  <span class="meta">Free tool · {p.tool.time}</span>
+                  <strong>{p.tool.name}</strong>
+                  <span class="blurb">{p.tool.blurb}</span>
+                </span>
+              </a>
+            </li>
+          )}
+          {p.items.map((g, i) => (
+            <li>
+              <a href={`/guides/${g.slug}`}>
+                <span class="step">{i + 1}</span>
+                <span class="body">
+                  <span class="meta">{g.category} · {g.read}</span>
+                  <strong>{g.title}</strong>
+                  <span class="blurb">{g.excerpt}</span>
+                </span>
+              </a>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+  ))}
+
+  <section class="wrap section">
+    <SubscribeForm
+      heading="Get the next guide when it goes up."
+      blurb="One short email when something new is ready. Written for people who run dealerships. Unsubscribe in one click."
+    />
+  </section>
+
+  <section class="cta-strip">
+    <div class="wrap">
+      <div>
+        <h2>Rather skip the reading?</h2>
+        <p>Send me your store name. I'll look at it like a shopper would and tell you which of these matters most for you.</p>
+      </div>
+      <a href="/contact" class="btn btn-primary">Request the free audit</a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .roles { display: flex; flex-wrap: wrap; gap: 8px; padding-top: 32px; padding-bottom: 8px; }
+  .roles a {
+    font-family: var(--display); font-weight: 600; font-size: 16px; color: var(--ink);
+    padding: 10px 16px; border: 1px solid var(--line); border-radius: var(--r-sm); background: #fff;
+  }
+  .roles a:hover { border-color: var(--ink); background: var(--ink); color: #fff; }
+
+  .path { scroll-margin-top: 90px; }
+  .path.alt { background: #fff; border-block: 1px solid var(--line); }
+  .inner {
+    padding-top: 72px; padding-bottom: 72px;
+    display: grid; grid-template-columns: minmax(0, 0.75fr) minmax(0, 1.25fr); gap: 56px; align-items: start;
+  }
+  .side { position: sticky; top: 110px; }
+  .side h2 { font-size: 36px; margin-bottom: 14px; }
+  .side p { font-size: 17.5px; line-height: 1.6; color: var(--ink-2); margin: 0 0 12px; }
+  .side .time { font-size: 15px; color: var(--muted); }
+
+  .list { list-style: none; margin: 0; padding: 0; border-top: 2px solid var(--ink); }
+  .list li { border-bottom: 1px solid var(--line); }
+  .list a { display: grid; grid-template-columns: 60px minmax(0, 1fr); gap: 8px; padding: 20px 0; color: inherit; }
+  .step {
+    font-family: var(--display); font-weight: 700; font-size: 18px; color: var(--brand); padding-top: 2px;
+  }
+  .first .step { font-size: 14px; letter-spacing: 0.1em; text-transform: uppercase; padding-top: 4px; }
+  .body { display: grid; gap: 4px; }
+  .meta { font-family: var(--display); font-size: 13.5px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+  .body strong { font-family: var(--display); font-weight: 600; font-size: 21px; line-height: 1.2; color: var(--ink); }
+  .blurb { font-size: 16px; line-height: 1.55; color: var(--ink-3); }
+  .list a:hover strong { color: var(--brand); }
+  .first { background: var(--surface-2); }
+  .path.alt .first { background: var(--bg); }
+  .first a { padding-left: 16px; padding-right: 16px; }
+
+  @media (max-width: 900px) {
+    .inner { grid-template-columns: minmax(0, 1fr); gap: 28px; padding-top: 52px; padding-bottom: 52px; }
+    .side { position: static; }
+    .side h2 { font-size: 30px; }
+    .list a { grid-template-columns: 44px minmax(0, 1fr); }
+  }
+</style>

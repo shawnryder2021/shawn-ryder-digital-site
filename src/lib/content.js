@@ -14,6 +14,8 @@ import reviewsJson from '../data/reviews.json';
 import faqJson from '../data/faq.json';
 import coreJson from '../data/core.json';
 import copyJson from '../data/copy.json';
+import { existsSync } from 'node:fs';
+import { join } from 'node:path';
 
 const url = (process.env.SUPABASE_URL || '').replace(/\/+$/, '');
 const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
@@ -114,20 +116,50 @@ export async function getGuides() {
  */
 export async function getImageSlots() {
   const rows = await table('image_slots?select=key,media:media_id(url,alt,width,height)');
-  if (!rows) return {};
-  return Object.fromEntries(
-    rows.filter((r) => r.media?.url).map((r) => [r.key, r.media])
+  const fromCms = Object.fromEntries(
+    (rows ?? []).filter((r) => r.media?.url).map((r) => [r.key, r.media])
   );
+  return { ...localImages(), ...fromCms };
+}
+
+/**
+ * A photo dropped into public/images/ under a slot's name (home_hero.jpg,
+ * about_portrait.webp …) fills that slot when the admin has not set one. The
+ * admin always wins. Sizes are the shapes the templates crop to; they only
+ * reserve space against layout shift, so a close match is fine.
+ */
+const LOCAL_SLOTS = {
+  home_hero: { width: 1600, height: 1200, alt: 'Dealership showroom at dusk' },
+  home_dealer: { width: 1920, height: 1080, alt: 'A customer taking delivery of a vehicle at a dealership' },
+  about_portrait: { width: 1200, height: 1500, alt: 'Shawn Ryder, automotive digital marketing consultant' },
+  ai_hero: { width: 1600, height: 1200, alt: 'A shopper researching a vehicle on a phone' },
+};
+
+function localImages() {
+  const out = {};
+  for (const [slot, meta] of Object.entries(LOCAL_SLOTS)) {
+    const file = ['webp', 'jpg', 'jpeg', 'png']
+      .map((ext) => `${slot}.${ext}`)
+      .find((name) => existsSync(join(process.cwd(), 'public', 'images', name)));
+    if (file) out[slot] = { url: `/images/${file}`, ...meta };
+  }
+  return out;
 }
 
 /* ------------------------------------------------------------- reviews ---- */
 
+// The seed ships three "review to be added here" stand-ins. Showing those on
+// the live homepage costs more trust than showing nothing, so they are dropped
+// here and the section hides itself until a real review is entered.
+const isPlaceholderReview = (r) =>
+  !r.text?.trim() || /^dealer name$/i.test(r.name?.trim() ?? '') || /review to be added/i.test(r.text);
+
 export async function getReviews() {
   const rows = await table('reviews?order=sort_order.asc&select=*');
-  if (!rows) return reviewsJson;
-  return rows.map((r) => ({
-    text: r.quote, name: r.name, role: r.role, initials: r.initials,
-  }));
+  const reviews = rows
+    ? rows.map((r) => ({ text: r.quote, name: r.name, role: r.role, initials: r.initials }))
+    : reviewsJson;
+  return reviews.filter((r) => !isPlaceholderReview(r));
 }
 
 /* ----------------------------------------------------------------- faq ---- */
@@ -263,7 +295,8 @@ export async function getNav() {
     header: [
       { label: 'Home', href: '/' }, { label: 'Services', href: '/services' },
       { label: 'Process', href: '/process' }, { label: 'AI', href: '/ai' },
-      { label: 'Guides', href: '/guides' }, { label: 'FAQ', href: '/faq' },
+      { label: 'Guides', href: '/guides' }, { label: 'Tools', href: '/tools' },
+      { label: 'FAQ', href: '/faq' },
       { label: 'About', href: '/about' }, { label: 'Contact', href: '/contact' },
       // Markets is deliberately not here — it lives in the footer only.
     ],
@@ -273,10 +306,16 @@ export async function getNav() {
       { group_label: 'Site', label: 'Services', href: '/services' },
       { group_label: 'Site', label: 'Process', href: '/process' },
       { group_label: 'Site', label: 'AI search visibility', href: '/ai-search-visibility' },
+      { group_label: 'Site', label: 'Start here', href: '/start-here' },
       { group_label: 'Site', label: 'Guides', href: '/guides' },
       { group_label: 'Site', label: 'FAQ', href: '/faq' },
       { group_label: 'Site', label: 'About', href: '/about' },
       { group_label: 'Site', label: 'Contact', href: '/contact' },
+      { group_label: 'Free tools', label: 'All free tools', href: '/tools' },
+      { group_label: 'Free tools', label: 'Lead leak calculator', href: '/lead-leak-calculator' },
+      { group_label: 'Free tools', label: 'Ad budget planner', href: '/ad-budget-planner' },
+      { group_label: 'Free tools', label: 'Sales goal calculator', href: '/sales-goal-calculator' },
+      { group_label: 'Free tools', label: 'Google profile checkup', href: '/google-profile-checkup' },
       { group_label: 'Free tools', label: 'AI crawler check', href: '/ai-crawler-check' },
       { group_label: 'Free tools', label: 'AI visibility check', href: '/ai-visibility-check' },
       { group_label: 'Free tools', label: 'Review calculator', href: '/review-calculator' },

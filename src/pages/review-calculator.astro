@@ -228,8 +228,7 @@ const schema = {
 <style>
   .hero {
     background:
-      radial-gradient(900px 460px at 78% 10%, var(--brand-tint) 0%, rgba(238, 241, 255, 0) 70%),
-      var(--bg);
+      var(--navy);
     border-bottom: 1px solid var(--line-2);
     padding: 62px 0 60px;
   }
@@ -251,7 +250,7 @@ const schema = {
   .inputs input {
     width: 100%; padding: 14px 16px; font-size: 19px;
     font-family: var(--display); font-weight: 700;
-    border: 1px solid var(--line); border-radius: 12px;
+    border: 1px solid var(--line); border-radius: var(--radius);
     background: var(--surface); color: var(--ink); outline: none;
   }
   .inputs input:focus { border-color: var(--brand); background: var(--brand-tint); }
@@ -263,19 +262,19 @@ const schema = {
     display: flex; align-items: baseline; gap: 12px;
     padding-bottom: 18px; margin-bottom: 22px; border-bottom: 1px solid var(--line);
   }
-  .headline strong { font-family: var(--display); font-size: 46px; letter-spacing: -0.03em; line-height: 1; }
+  .headline strong { font-family: var(--display); font-size: 46px; letter-spacing: -0.01em; line-height: 1; }
   .headline span { font-size: 15px; color: var(--ink-3); }
 
   .targets { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
   .target {
     background: var(--surface); border: 1px solid var(--line);
-    border-radius: 14px; padding: 18px 20px;
+    border-radius: var(--radius); padding: 18px 20px;
   }
   .t-goal { font-size: 14px; color: var(--ink-3); margin-bottom: 8px; }
   .t-goal strong { color: var(--ink); font-family: var(--display); }
   .t-num {
-    font-family: var(--display); font-weight: 800; font-size: 34px;
-    letter-spacing: -0.03em; line-height: 1; color: var(--brand);
+    font-family: var(--display); font-weight: 700; font-size: 34px;
+    letter-spacing: -0.01em; line-height: 1; color: var(--brand);
   }
   .t-unit { font-size: 14px; color: var(--ink-2); margin-top: 5px; }
   .t-time { font-size: 13px; color: var(--ink-3); margin-top: 9px; padding-top: 9px; border-top: 1px solid var(--line); }
@@ -285,15 +284,15 @@ const schema = {
   .cost-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
   .cost-card {
     background: var(--surface); border: 1px solid var(--line);
-    border-radius: 16px; padding: 24px 22px;
+    border-radius: var(--radius); padding: 24px 22px;
   }
   .cost-card.accent { background: var(--ink); border-color: var(--ink); }
   .cost-card.accent .c-num { color: #fff; }
-  .cost-card.accent .c-lab { color: #9fb0ff; }
-  .cost-card.accent p { color: #c3c7d4; }
+  .cost-card.accent .c-lab { color: var(--on-dark-accent); }
+  .cost-card.accent p { color: var(--on-dark-2); }
   .c-num {
-    font-family: var(--display); font-weight: 800; font-size: 40px;
-    letter-spacing: -0.03em; line-height: 1; color: var(--ink);
+    font-family: var(--display); font-weight: 700; font-size: 40px;
+    letter-spacing: -0.01em; line-height: 1; color: var(--ink);
   }
   .c-lab {
     font-size: 12.5px; font-weight: 600; letter-spacing: 0.07em;
@@ -307,7 +306,7 @@ const schema = {
 
   .caveat {
     margin-top: 34px; padding: 24px 26px;
-    background: var(--surface); border: 1px solid var(--line); border-radius: 16px;
+    background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
   }
   .caveat h3 { font-size: 17px; margin: 0 0 10px; }
   .caveat p { font-size: 15.5px; line-height: 1.65; color: var(--ink-3); margin: 0; max-width: 76ch; }

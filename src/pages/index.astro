@@ -1,26 +1,45 @@
 ---
 import Base from '../layouts/Base.astro';
 import { getBlocks, getGuides, getReviews, getSettings, getImageSlots } from '../lib/content.js';
+import { tools } from '../lib/tools.js';
+import { site } from '../lib/site.js';
 import seo from '../data/seo.json';
 
 const blocks = await getBlocks();
 const images = await getImageSlots();
 const hero = images.home_hero;
+const portrait = images.about_portrait;
+const band = images.home_dealer;
 const settings = await getSettings();
 const guides = await getGuides();
 const reviews = await getReviews();
 const [title, description] = seo.home;
+const contact = settings.contact ?? {};
 
 const featured = guides.filter((g) => g.published).slice(0, 3);
-
 const stats = blocks.home_stats;
+
+// Shown in the hero's second column when no hero photo is set. It's the whole
+// pitch at a glance: the four places a shopper gets lost between a search and
+// a handshake.
+const journey = [
+  { step: 'Search', good: 'Shows up in Google, Maps and AI answers', leak: 'Half-finished Google profile' },
+  { step: 'Click', good: 'Finds the car, price and photos fast', leak: 'Slow site, thin vehicle pages' },
+  { step: 'Lead', good: 'Gets a real reply in minutes', leak: 'Three-hour response time' },
+  { step: 'Showroom', good: 'Shows up for the appointment', leak: 'No confirmation, no reason to come in' },
+];
+
+const featuredTools = ['/lead-leak-calculator', '/google-profile-checkup', '/ai-visibility-check']
+  .map((href) => tools.find((t) => t.href === href))
+  .filter(Boolean);
 ---
 
 <Base title={title} description={description} path="/">
+  <!-- ------------------------------------------------------------ hero -->
   <section class="hero">
-    <div class:list={['wrap', 'inner', { 'has-image': hero }]}>
-      <div>
-        <div class="badge"><span class="dot"></span>25 years in the car business</div>
+    <div class="wrap inner">
+      <div class="copy">
+        <p class="eyebrow">Automotive digital marketing · Halifax, Nova Scotia</p>
         <h1>Digital marketing that shows up on the sales board.</h1>
         <p class="lede">
           I'm Shawn Ryder. I worked the retail side of this business before I ran digital for
@@ -28,261 +47,423 @@ const stats = blocks.home_stats;
           losing deals.
         </p>
         <div class="actions">
-          <a href="/contact" class="btn btn-primary">Get a free dealership audit</a>
-          <a href="tel:+19024884107" class="btn btn-ghost">902-488-4107</a>
+          <a href="/contact" class="btn btn-primary">Book a free dealership audit</a>
+          <a href={contact.phone_href ?? site.phoneHref} class="btn btn-light">Call {contact.phone ?? site.phone}</a>
         </div>
-        <div class="trust">
-          <span>✓ No long-term contract required</span>
-          <span>✓ You deal with me directly</span>
-        </div>
+        <ul class="trust">
+          <li>25 years in the car business</li>
+          <li>No long-term contracts</li>
+          <li>You deal with me directly</li>
+        </ul>
       </div>
 
-      {hero && (
-        <div class="heroimg">
-          <img
-            src={hero.url}
-            alt={hero.alt}
-            width={hero.width}
-            height={hero.height}
-            fetchpriority="high"
-          />
+      {hero ? (
+        <figure class="heroimg">
+          <img src={hero.url} alt={hero.alt} width={hero.width} height={hero.height} fetchpriority="high" />
+        </figure>
+      ) : (
+        <div class="journey" aria-label="Where dealerships lose shoppers between search and showroom">
+          <div class="j-head">
+            <span class="j-title">From search to showroom</span>
+            <span class="j-sub">The four places most stores lose the deal</span>
+          </div>
+          <ol>
+            {journey.map((j, i) => (
+              <li>
+                <span class="j-n">{i + 1}</span>
+                <div>
+                  <strong>{j.step}</strong>
+                  <span class="j-good">{j.good}</span>
+                  <span class="j-leak">Where it leaks: {j.leak}</span>
+                </div>
+              </li>
+            ))}
+          </ol>
+          <a href="/scorecard" class="j-cta">Find your store's leak in 2 minutes</a>
         </div>
       )}
     </div>
   </section>
 
-  <section class="brandband">
+  <!-- ------------------------------------------------------ brand bar -->
+  <section class="brandbar">
     <div class="wrap row">
-      <div class="label">Experience across brands</div>
-      <div class="chips">
-        {settings.brands.map((brand) => <span class="chip">{brand}</span>)}
-      </div>
+      <span class="label">Experience with</span>
+      <ul>
+        {settings.brands.map((brand) => <li>{brand}</li>)}
+      </ul>
     </div>
   </section>
 
-  <section class="wrap section">
-    <div class="grid grid-3">
-      {stats.map((stat) => (
-        <div class="card stat">
-          <div class="k">{stat.k}</div>
-          <p>{stat.v}</p>
-        </div>
-      ))}
-    </div>
+  <!-- ---------------------------------------------------------- stats -->
+  <section class="wrap stats">
+    {stats.map((stat) => (
+      <div class="stat">
+        <div class="k">{stat.k}</div>
+        <p>{stat.v}</p>
+      </div>
+    ))}
   </section>
 
-  <section class="wrap section">
-    <div class="head">
-      <div>
-        <div class="kicker">Services</div>
-        <h2>Five ways I keep your showroom busy.</h2>
-      </div>
-      <a href="/services" class="btn btn-ghost small">See full detail →</a>
+  <!-- ------------------------------------------------------- services -->
+  <section class="wrap section services">
+    <div class="side">
+      <div class="kicker">Services</div>
+      <h2>Five ways I keep your showroom busy.</h2>
+      <p>
+        Pick one problem to fix, or hand me the whole digital side of the store. Either way you
+        get one plan, one person accountable, and a monthly report in plain language.
+      </p>
+      <a href="/services" class="btn btn-ghost">See all services</a>
     </div>
-    <div class="grid grid-3">
+    <ol class="svc-list">
       {blocks.services.map((service) => (
-        <a class="card service" href="/services">
-          <div class="num">{service.num}</div>
-          <h3>{service.title}</h3>
-          <p>{service.blurb}</p>
-        </a>
+        <li>
+          <a href="/services">
+            <span class="svc-num">{service.num}</span>
+            <span class="svc-body">
+              <h3>{service.title}</h3>
+              <p>{service.blurb}</p>
+            </span>
+            <span class="svc-arrow" aria-hidden="true">›</span>
+          </a>
+        </li>
       ))}
-      <a class="card invite" href="/contact">
-        <h3>Not sure which one you need?</h3>
-        <span>Start with the audit →</span>
-      </a>
-    </div>
+    </ol>
   </section>
 
+  {band && (
+    <section class="band">
+      <img src={band.url} alt={band.alt} width={band.width} height={band.height} loading="lazy" />
+    </section>
+  )}
+
+  <!-- ---------------------------------------------------------- tools -->
+  {featuredTools.length > 0 && (
+    <section class="tools-sec">
+      <div class="wrap section">
+        <div class="head">
+          <div>
+            <div class="kicker">Free tools</div>
+            <h2>Check your store in a minute.</h2>
+            <p class="sub">Real numbers from your own store. No email, no sign-up, no sales call.</p>
+          </div>
+          <a href="/tools" class="btn btn-ghost">All free tools</a>
+        </div>
+        <div class="grid grid-3">
+          {featuredTools.map((tool) => (
+            <a class="card tool" href={tool.href}>
+              <div class="meta">{tool.topic} · {tool.time}</div>
+              <h3>{tool.name}</h3>
+              <p>{tool.blurb}</p>
+              <span class="go">Open the tool</span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- -------------------------------------------------------- process -->
   <section class="dark">
     <div class="wrap section">
-      <div class="kicker light">How it goes</div>
-      <h2>Three steps. No mystery.</h2>
-      <div class="grid grid-3 steps">
+      <div class="kicker on-dark">How it works</div>
+      <h2>Three steps. No 40-slide deck.</h2>
+      <ol class="steps">
         {blocks.steps.map((step) => (
-          <div class="step">
+          <li>
             <div class="n">{step.n}</div>
             <h3>{step.title}</h3>
             <p>{step.body}</p>
-          </div>
+          </li>
         ))}
-      </div>
+      </ol>
     </div>
   </section>
 
-  <section class="wrap section">
-    <div class="kicker">Why dealers call me</div>
-    <h2>I've been on your side of the desk.</h2>
-    <div class="diffs">
-      {blocks.diffs.map((diff) => (
-        <div class="diff"><span>/</span>{diff.v ?? diff}</div>
-      ))}
+  <!-- ----------------------------------------------------- meet Shawn -->
+  <section class="wrap section meet">
+    {portrait ? (
+      <figure class="portrait">
+        <img src={portrait.url} alt={portrait.alt} width={portrait.width} height={portrait.height} loading="lazy" />
+      </figure>
+    ) : (
+      <figure class="quote-panel">
+        <blockquote>
+          "Most stores don't have a lead problem. They have a follow-up problem, a Google
+          profile problem, or a reviews problem — and they're paying for more leads to cover it."
+        </blockquote>
+        <figcaption>— Shawn Ryder</figcaption>
+      </figure>
+    )}
+    <div>
+      <div class="kicker">Why dealers call me</div>
+      <h2>I've been on your side of the desk.</h2>
+      <ul class="diffs">
+        {blocks.diffs.map((diff) => <li>{diff.v ?? diff}</li>)}
+      </ul>
+      <a href="/about" class="btn btn-ghost">More about Shawn</a>
     </div>
   </section>
 
+  <!-- --------------------------------------------------------- guides -->
   {featured.length > 0 && (
-    <section class="wrap section">
-      <div class="head">
-        <div>
-          <div class="kicker">Guides</div>
-          <h2>Playbooks you can run this week.</h2>
+    <section class="guides-sec">
+      <div class="wrap section">
+        <div class="head">
+          <div>
+            <div class="kicker">Guides</div>
+            <h2>Playbooks you can run this week.</h2>
+            <p class="sub">Written for dealer principals, GMs and internet managers. No forms in front of any of them.</p>
+          </div>
+          <div class="head-actions">
+            <a href="/start-here" class="btn btn-primary">Start with your role</a>
+            <a href="/guides" class="btn btn-ghost">All guides</a>
+          </div>
         </div>
-        <a href="/guides" class="btn btn-ghost small">All guides →</a>
+        <div class="guide-list">
+          {featured.map((guide) => (
+            <a href={`/guides/${guide.slug}`}>
+              {guide.cover && (
+                <img src={guide.cover.url} alt={guide.cover.alt} width={guide.cover.width}
+                     height={guide.cover.height} loading="lazy" />
+              )}
+              <div class="meta">{guide.category} · {guide.read}</div>
+              <h3>{guide.title}</h3>
+              <p>{guide.excerpt}</p>
+            </a>
+          ))}
+        </div>
       </div>
-      <div class="grid grid-3">
-        {featured.map((guide) => (
-          <a class="card" href={`/guides/${guide.slug}`}>
-            <div class="tag">{guide.category} · {guide.read}</div>
-            <h3>{guide.title}</h3>
-            <p>{guide.excerpt}</p>
-          </a>
+    </section>
+  )}
+
+  <!-- -------------------------------------------------------- reviews -->
+  {reviews.length > 0 && (
+    <section class="wrap section">
+      <div class="kicker">From the dealers</div>
+      <h2>What they say after 90 days.</h2>
+      <div class="grid grid-3 quotes">
+        {reviews.map((review) => (
+          <blockquote class="card">
+            <p>"{review.text}"</p>
+            <footer>
+              <strong>{review.name}</strong>
+              <em>{review.role}</em>
+            </footer>
+          </blockquote>
         ))}
       </div>
     </section>
   )}
 
-  <section class="wrap section">
-    <div class="kicker">From the dealers</div>
-    <h2>What they say after 90 days.</h2>
-    <div class="grid grid-3 quotes">
-      {reviews.map((review) => (
-        <blockquote class="card">
-          <p>{review.text}</p>
-          <footer>
-            <span class="initials">{review.initials}</span>
-            <span>
-              <strong>{review.name}</strong>
-              <em>{review.role}</em>
-            </span>
-          </footer>
-        </blockquote>
-      ))}
-    </div>
-  </section>
-
+  <!-- ------------------------------------------------------------ CTA -->
   <section class="cta-band">
     <div class="wrap">
       <div>
         <h2>Want to know what your store is leaving on the table?</h2>
         <p>
-          I'll audit your site, Google Business Profile, reviews and lead follow-up, and send you
-          the honest version. No charge, no pitch deck.
+          I'll go through your website, Google Business Profile, reviews and lead follow-up like a
+          shopper would, and send you the honest version. No charge, no pitch deck.
         </p>
       </div>
-      <a href="/contact" class="btn btn-dark">Request the audit</a>
+      <div class="cta-actions">
+        <a href="/contact" class="btn btn-primary">Request the free audit</a>
+        <a href={contact.phone_href ?? site.phoneHref} class="phone">or call {contact.phone ?? site.phone}</a>
+      </div>
     </div>
   </section>
 </Base>
 
 <style>
-  .hero {
-    background:
-      radial-gradient(900px 460px at 78% 10%, var(--brand-tint) 0%, rgba(238, 241, 255, 0) 70%),
-      var(--bg);
-    border-bottom: 1px solid var(--line-2);
+  /* ---------- hero ---------- */
+  .hero { background: var(--navy); color: var(--on-dark-2); position: relative; overflow: hidden; }
+  .hero::after {
+    /* A thin red line under the hero — the one bit of colour up top. */
+    content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 4px; background: var(--brand);
   }
-  .hero .inner { padding-top: 78px; padding-bottom: 84px; }
-  /* Two columns only when there is an image to fill the second one, so an
-     empty slot reads as a deliberate single-column hero rather than a gap. */
-  .hero .inner.has-image {
-    display: grid;
-    grid-template-columns: minmax(0, 1.06fr) minmax(0, 0.94fr);
-    gap: 56px;
-    align-items: center;
+  .hero .inner {
+    padding-top: 84px; padding-bottom: 92px;
+    display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+    gap: 64px; align-items: center;
   }
-  .heroimg {
-    border-radius: 22px; overflow: hidden;
-    box-shadow: 0 40px 80px -40px rgba(11, 13, 18, 0.4);
-    aspect-ratio: 4 / 5; max-height: 520px;
+  .eyebrow {
+    font-family: var(--display); font-weight: 600; font-size: 14.5px;
+    letter-spacing: 0.14em; text-transform: uppercase; color: var(--on-dark-accent); margin: 0 0 22px;
   }
+  .hero h1 { color: #fff; font-size: 64px; }
+  .hero .lede { color: var(--on-dark-2); max-width: 52ch; margin: 24px 0 36px; }
+  .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 36px; }
+  .trust {
+    list-style: none; margin: 0; padding: 22px 0 0; border-top: 1px solid var(--navy-line);
+    display: flex; gap: 28px; flex-wrap: wrap; font-size: 15.5px; color: var(--on-dark-2);
+  }
+  .trust li { display: flex; align-items: center; gap: 10px; }
+  .trust li::before { content: ''; width: 6px; height: 6px; background: var(--brand); flex: 0 0 auto; }
+
+  .heroimg { margin: 0; border-radius: var(--radius); overflow: hidden; aspect-ratio: 4 / 3.4; }
   .heroimg img { width: 100%; height: 100%; object-fit: cover; }
-  @media (max-width: 900px) {
-    .hero .inner.has-image { grid-template-columns: minmax(0, 1fr); gap: 32px; }
-    .heroimg { aspect-ratio: 16 / 10; }
-  }
-  .badge {
-    display: inline-flex; align-items: center; gap: 9px;
-    background: var(--surface); border: 1px solid var(--line); border-radius: 999px;
-    padding: 7px 14px 7px 10px;
-    font-size: 13.5px; font-weight: 600; color: var(--ink-2);
-    margin-bottom: 26px; box-shadow: var(--shadow-sm);
-  }
-  .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); }
-  .hero .lede { max-width: 52ch; margin: 22px 0 34px; }
-  .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 34px; }
-  .trust { display: flex; gap: 26px; flex-wrap: wrap; font-size: 14.5px; color: var(--muted); }
 
-  .brandband { background: var(--surface); border-bottom: 1px solid var(--line-2); }
-  .brandband .row {
-    padding-top: 34px; padding-bottom: 34px;
-    display: flex; align-items: center; gap: 40px;
-    flex-wrap: wrap; justify-content: space-between;
+  .journey {
+    background: #fff; color: var(--ink); border-radius: var(--radius); padding: 28px 28px 24px;
+    box-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.6);
   }
-  .label { font-size: 13px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--faint); }
-  .chips { display: flex; gap: 12px; flex-wrap: wrap; }
-  .chip {
-    padding: 10px 18px; border-radius: 999px; background: var(--surface-2);
-    font-family: var(--display); font-weight: 700; font-size: 15px; color: var(--ink-2);
+  .j-head { display: grid; gap: 4px; padding-bottom: 16px; border-bottom: 2px solid var(--ink); }
+  .j-title { font-family: var(--display); font-weight: 700; font-size: 24px; }
+  .j-sub { font-size: 15px; color: var(--muted); }
+  .journey ol { list-style: none; margin: 0; padding: 0; }
+  .journey li { display: flex; gap: 16px; padding: 15px 0; border-bottom: 1px solid var(--line-2); }
+  .j-n {
+    flex: 0 0 auto; width: 30px; height: 30px; border-radius: var(--r-sm);
+    display: grid; place-items: center; background: var(--navy); color: #fff;
+    font-family: var(--display); font-weight: 700; font-size: 15px;
   }
+  .journey li div { display: grid; gap: 3px; }
+  .journey strong { font-family: var(--display); font-size: 18px; font-weight: 600; }
+  .j-good { font-size: 15px; color: var(--ink-2); }
+  .j-leak { font-size: 14px; color: var(--brand); font-weight: 600; }
+  .j-cta {
+    display: block; margin-top: 18px; padding: 14px 16px; border-radius: var(--r-sm);
+    background: var(--brand); color: #fff; text-align: center;
+    font-family: var(--display); font-weight: 600; font-size: 17px; letter-spacing: 0.02em;
+  }
+  .j-cta:hover { background: var(--brand-dark); color: #fff; }
 
-  .stat .k { font-family: var(--display); font-weight: 800; font-size: 38px; letter-spacing: -0.035em; color: var(--brand); line-height: 1; }
-  .stat p { font-size: 15.5px; color: var(--ink-2); margin: 10px 0 0; line-height: 1.5; }
-
-  .head {
-    display: flex; align-items: flex-end; justify-content: space-between;
-    gap: 32px; flex-wrap: wrap; margin-bottom: 36px;
+  /* ---------- brand bar ---------- */
+  .brandbar { background: #fff; border-bottom: 1px solid var(--line); }
+  .brandbar .row { display: flex; align-items: center; gap: 32px; padding-top: 26px; padding-bottom: 26px; flex-wrap: wrap; }
+  .label {
+    font-family: var(--display); font-size: 14px; font-weight: 600;
+    letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted);
   }
-  .btn.small { padding: 13px 22px; font-size: 14.5px; }
-
-  .service { display: flex; flex-direction: column; min-height: 250px; }
-  .num {
-    width: 38px; height: 38px; border-radius: 11px; background: var(--brand-tint);
-    display: grid; place-items: center;
-    font-family: var(--display); font-weight: 800; font-size: 14px;
-    color: var(--brand); margin-bottom: 20px;
+  .brandbar ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; }
+  .brandbar li {
+    font-family: var(--display); font-weight: 700; font-size: 20px; color: var(--ink);
+    padding: 2px 26px; border-left: 1px solid var(--line);
   }
-  .service h3 { margin-bottom: 10px; }
-  .service p, .card p { font-size: 15.5px; line-height: 1.6; color: var(--ink-3); margin: 0; text-wrap: pretty; }
-  .invite {
-    background: var(--ink); color: #fff;
-    display: flex; flex-direction: column; justify-content: space-between; min-height: 250px;
-  }
-  .invite h3 { color: #fff; }
-  .invite span { font-family: var(--display); font-weight: 700; font-size: 15px; color: #9fb0ff; }
+  .brandbar li:first-child { border-left: 0; padding-left: 0; }
 
-  .dark { background: var(--ink); color: #fff; }
+  /* ---------- stats ---------- */
+  .stats {
+    display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+    padding-top: 64px; padding-bottom: 8px;
+  }
+  .stat { padding: 0 32px; border-left: 1px solid var(--line); }
+  .stat:first-child { padding-left: 0; border-left: 0; }
+  .stat .k { font-family: var(--display); font-weight: 700; font-size: 46px; line-height: 1; color: var(--ink); }
+  .stat p { font-size: 16.5px; color: var(--ink-3); margin: 10px 0 0; line-height: 1.5; max-width: 30ch; }
+
+  /* ---------- services ---------- */
+  .services { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: 64px; align-items: start; }
+  .side { position: sticky; top: 110px; }
+  .side h2 { margin-bottom: 18px; }
+  .side p { font-size: 17.5px; line-height: 1.65; color: var(--ink-2); margin: 0 0 28px; }
+  .svc-list { list-style: none; margin: 0; padding: 0; border-top: 2px solid var(--ink); }
+  .svc-list li { border-bottom: 1px solid var(--line); }
+  .svc-list a { display: grid; grid-template-columns: 56px minmax(0, 1fr) 24px; gap: 8px; padding: 26px 0; color: inherit; }
+  .svc-num { font-family: var(--display); font-weight: 700; font-size: 17px; color: var(--brand); padding-top: 3px; }
+  .svc-body h3 { margin-bottom: 6px; }
+  .svc-body p { font-size: 16.5px; line-height: 1.6; color: var(--ink-3); margin: 0; }
+  .svc-arrow { font-size: 30px; line-height: 1; color: var(--faint); align-self: center; transition: transform 0.15s; }
+  .svc-list a:hover h3 { color: var(--brand); }
+  .svc-list a:hover .svc-arrow { color: var(--brand); transform: translateX(4px); }
+
+  .band img { width: 100%; height: clamp(260px, 38vw, 520px); object-fit: cover; }
+
+  /* ---------- shared section head ---------- */
+  .head { display: flex; align-items: flex-end; justify-content: space-between; gap: 32px; flex-wrap: wrap; margin-bottom: 40px; }
+  .head-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+  .sub { font-size: 17.5px; color: var(--ink-3); margin: 14px 0 0; max-width: 56ch; }
+
+  /* ---------- tools ---------- */
+  .tools-sec { background: #fff; border-block: 1px solid var(--line); }
+  .tool { display: flex; flex-direction: column; border-top: 3px solid var(--ink); }
+  .tool:hover { border-top-color: var(--brand); }
+  .meta { font-family: var(--display); font-size: 14px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
+  .tool h3 { margin-bottom: 10px; }
+  .tool p { font-size: 16px; line-height: 1.6; color: var(--ink-3); margin: 0 0 20px; flex: 1; }
+  .go { font-family: var(--display); font-weight: 600; font-size: 16px; color: var(--brand); }
+  .go::after { content: ' ›'; }
+
+  /* ---------- process ---------- */
+  .dark { background: var(--navy); color: var(--on-dark-2); }
   .dark h2 { color: #fff; }
-  .kicker.light { color: #9fb0ff; }
-  .steps { margin-top: 36px; }
-  .step .n { font-family: var(--display); font-weight: 800; font-size: 54px; color: var(--brand); letter-spacing: -0.04em; line-height: 1; margin-bottom: 16px; }
-  .step h3 { color: #fff; margin-bottom: 10px; }
-  .step p { font-size: 16px; line-height: 1.6; color: #a6aab1; margin: 0; text-wrap: pretty; }
+  .kicker.on-dark { color: var(--on-dark-2); }
+  .steps { list-style: none; margin: 44px 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; }
+  .steps li { padding: 28px 32px 0 0; border-top: 1px solid var(--navy-line); margin-right: 32px; }
+  .steps .n { font-family: var(--display); font-weight: 700; font-size: 18px; color: var(--on-dark-accent); margin-bottom: 14px; letter-spacing: 0.06em; }
+  .steps h3 { color: #fff; font-size: 26px; margin-bottom: 10px; }
+  .steps p { font-size: 16.5px; line-height: 1.65; color: var(--on-dark-2); margin: 0; }
 
-  .diffs { display: grid; gap: 1px; background: var(--line); border-block: 1px solid var(--line); margin-top: 30px; }
-  .diff { background: var(--bg); padding: 18px 0; display: flex; gap: 16px; align-items: baseline; font-size: 16.5px; font-weight: 500; }
-  .diff span { font-family: var(--display); font-weight: 800; color: var(--brand); }
-
-  .card .tag { font-size: 13px; font-weight: 600; color: var(--brand); margin-bottom: 12px; }
-  .card h3 { margin-bottom: 10px; }
-
-  .quotes blockquote { margin: 0; display: flex; flex-direction: column; justify-content: space-between; min-height: 240px; }
-  .quotes p { font-size: 16.5px; line-height: 1.6; color: var(--ink-2); margin: 0 0 24px; }
-  .quotes footer { display: flex; align-items: center; gap: 12px; padding-top: 18px; border-top: 1px solid var(--line-2); }
-  .initials {
-    width: 38px; height: 38px; border-radius: 50%; background: var(--brand-tint);
-    display: grid; place-items: center;
-    font-family: var(--display); font-weight: 800; font-size: 13px; color: var(--brand);
-    flex: 0 0 auto;
+  /* ---------- meet ---------- */
+  .meet { display: grid; grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); gap: 64px; align-items: center; }
+  .portrait { margin: 0; border-radius: var(--radius); overflow: hidden; aspect-ratio: 4 / 5; }
+  .portrait img { width: 100%; height: 100%; object-fit: cover; }
+  .quote-panel {
+    margin: 0; background: var(--navy); color: #fff; border-radius: var(--radius);
+    padding: 48px 40px; border-left: 6px solid var(--brand);
   }
-  .quotes strong { display: block; font-family: var(--display); font-size: 15px; }
-  .quotes em { font-style: normal; font-size: 13.5px; color: var(--faint); }
+  .quote-panel blockquote {
+    margin: 0 0 24px; font-family: var(--display); font-weight: 600;
+    font-size: 28px; line-height: 1.3; color: #fff;
+  }
+  .quote-panel figcaption { font-size: 16px; color: var(--on-dark-2); }
+  .meet h2 { margin-bottom: 8px; }
+  .diffs { list-style: none; margin: 24px 0 32px; padding: 0; border-top: 1px solid var(--line); }
+  .diffs li {
+    display: flex; gap: 14px; align-items: baseline;
+    padding: 16px 0; border-bottom: 1px solid var(--line); font-size: 17.5px; color: var(--ink);
+  }
+  .diffs li::before { content: ''; width: 8px; height: 8px; background: var(--brand); flex: 0 0 auto; transform: translateY(-2px); }
 
-  .cta-band { background: var(--brand-tint); border-top: 1px solid var(--brand-line); }
+  /* ---------- guides ---------- */
+  .guides-sec { background: #fff; border-top: 1px solid var(--line); }
+  .guide-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 40px; }
+  .guide-list a { color: inherit; border-top: 3px solid var(--ink); padding-top: 22px; }
+  .guide-list img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: var(--r-sm); margin-bottom: 18px; }
+  .guide-list h3 { margin-bottom: 10px; font-size: 23px; }
+  .guide-list p { font-size: 16px; line-height: 1.6; color: var(--ink-3); margin: 0; }
+  .guide-list a:hover { border-top-color: var(--brand); }
+  .guide-list a:hover h3 { color: var(--brand); }
+
+  /* ---------- reviews ---------- */
+  .quotes { margin-top: 36px; }
+  .quotes blockquote { margin: 0; display: flex; flex-direction: column; justify-content: space-between; border-top: 3px solid var(--brand); }
+  .quotes p { font-size: 17px; line-height: 1.6; color: var(--ink-2); margin: 0 0 24px; }
+  .quotes footer { padding-top: 16px; border-top: 1px solid var(--line-2); }
+  .quotes strong { display: block; font-family: var(--display); font-size: 17px; }
+  .quotes em { font-style: normal; font-size: 14.5px; color: var(--muted); }
+
+  /* ---------- CTA ---------- */
+  .cta-band { background: var(--surface-2); border-top: 1px solid var(--line); }
   .cta-band .wrap {
-    padding-top: 56px; padding-bottom: 56px;
-    display: flex; align-items: center; justify-content: space-between;
-    gap: 40px; flex-wrap: wrap;
+    padding-top: 72px; padding-bottom: 72px;
+    display: flex; align-items: center; justify-content: space-between; gap: 40px; flex-wrap: wrap;
   }
-  .cta-band h2 { font-size: 34px; max-width: 22ch; margin-bottom: 10px; }
-  .cta-band p { font-size: 16.5px; color: var(--ink-2); margin: 0; max-width: 56ch; }
+  .cta-band h2 { font-size: 38px; max-width: 26ch; margin-bottom: 12px; }
+  .cta-band p { font-size: 17.5px; color: var(--ink-2); margin: 0; max-width: 58ch; line-height: 1.6; }
+  .cta-actions { display: grid; gap: 12px; justify-items: center; }
+  .phone { font-weight: 600; color: var(--ink-2); }
+
+  @media (max-width: 1000px) {
+    .hero .inner, .services, .meet { grid-template-columns: minmax(0, 1fr); gap: 44px; }
+    .side { position: static; }
+    .hero h1 { font-size: 44px; }
+    .hero .inner { padding-top: 56px; padding-bottom: 64px; }
+  }
+  @media (max-width: 900px) {
+    .stats { grid-template-columns: minmax(0, 1fr); gap: 24px; padding-top: 48px; }
+    .stat { padding: 0 0 24px; border-left: 0; border-bottom: 1px solid var(--line); }
+    .steps, .guide-list { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+    .steps li { margin-right: 0; padding-right: 0; }
+    .brandbar li { font-size: 17px; padding: 2px 14px; }
+    .quote-panel { padding: 32px 26px; }
+    .quote-panel blockquote { font-size: 23px; }
+    .cta-band h2 { font-size: 30px; }
+  }
+  @media (max-width: 560px) {
+    .hero h1 { font-size: 38px; }
+    .actions .btn { width: 100%; }
+    .trust { gap: 12px; flex-direction: column; }
+  }
 </style>

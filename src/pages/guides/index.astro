@@ -11,6 +11,12 @@ const [title, description] = seo.guides;
 const published = guides.filter((g) => g.published);
 const queued = guides.filter((g) => !g.published);
 const [featured, ...rest] = published;
+
+// Topic chips, most-written first. Breadcrumbs on each guide link here with
+// ?category=…, and the script below honours it.
+const counts = new Map();
+for (const g of published) counts.set(g.category, (counts.get(g.category) ?? 0) + 1);
+const categories = [...counts].sort((a, b) => b[1] - a[1]).map(([name, n]) => ({ name, n }));
 ---
 
 <Base title={title} description={description} path="/guides">
@@ -22,11 +28,21 @@ const [featured, ...rest] = published;
         Written for dealer principals, GSMs and internet managers. Read it and go run it this
         week — there's no form in front of any of them.
       </p>
+      <a href="/start-here" class="btn btn-primary start">Not sure where to begin? Start with your role</a>
     </div>
   </section>
 
+  {categories.length > 1 && (
+    <nav class="wrap filters" aria-label="Filter guides by topic">
+      <button type="button" class="chip on" data-filter="" aria-pressed="true">All <span>{published.length}</span></button>
+      {categories.map((c) => (
+        <button type="button" class="chip" data-filter={c.name} aria-pressed="false">{c.name} <span>{c.n}</span></button>
+      ))}
+    </nav>
+  )}
+
   {featured && (
-    <section class="wrap section-tight">
+    <section class="wrap section-tight" id="featured">
       <a class="featured" href={`/guides/${featured.slug}`}>
         {featured.cover && (
           <img class="featimg" src={featured.cover.url} alt={featured.cover.alt}
@@ -41,11 +57,12 @@ const [featured, ...rest] = published;
   )}
 
   {rest.length > 0 && (
-    <section class="wrap section-tight">
-      <h2 class="small">More guides</h2>
+    <section class="wrap section-tight" id="all">
+      <h2 class="small" id="all-title">More guides</h2>
       <div class="grid grid-3">
-        {rest.map((guide) => (
-          <a class="card" href={`/guides/${guide.slug}`}>
+        {published.map((guide, i) => (
+          <a class="card" href={`/guides/${guide.slug}`} data-category={guide.category}
+             data-featured={i === 0 ? '' : undefined} hidden={i === 0}>
             {guide.cover && (
               <img class="thumb" src={guide.cover.url} alt={guide.cover.alt}
                    width={guide.cover.width} height={guide.cover.height} loading="lazy" />
@@ -60,7 +77,7 @@ const [featured, ...rest] = published;
   )}
 
   {queued.length > 0 && (
-    <section class="wrap section-tight">
+    <section class="wrap section-tight" id="queued">
       <h2 class="small">In the queue</h2>
       <p class="note">Written next. Say the word if one of these is the one you need.</p>
       <div class="grid grid-3">
@@ -80,37 +97,96 @@ const [featured, ...rest] = published;
   </section>
 </Base>
 
+<script>
+  // Progressive enhancement: without JS every guide is listed and the chips
+  // are inert. With it, a chip narrows the grid and the URL stays shareable.
+  const chips = [...document.querySelectorAll('.filters .chip')];
+  const cards = [...document.querySelectorAll('#all .card')];
+  const featured = document.getElementById('featured');
+  const queued = document.getElementById('queued');
+  const title = document.getElementById('all-title');
+
+  function apply(category) {
+    if (!chips.some((c) => c.dataset.filter === category)) category = '';
+    for (const chip of chips) {
+      const on = chip.dataset.filter === category;
+      chip.classList.toggle('on', on);
+      chip.setAttribute('aria-pressed', String(on));
+    }
+    for (const card of cards) {
+      // The featured guide has its own banner when unfiltered; inside a topic
+      // it belongs in the grid with the others.
+      const isFeatured = card.hasAttribute('data-featured');
+      card.hidden = category ? card.dataset.category !== category : isFeatured;
+    }
+    if (featured) featured.hidden = Boolean(category);
+    if (queued) queued.hidden = Boolean(category);
+    if (title) title.textContent = category ? `${category} guides` : 'More guides';
+
+    const url = new URL(location.href);
+    if (category) url.searchParams.set('category', category);
+    else url.searchParams.delete('category');
+    history.replaceState(null, '', url);
+  }
+
+  for (const chip of chips) chip.addEventListener('click', () => apply(chip.dataset.filter));
+  const initial = new URLSearchParams(location.search).get('category');
+  if (initial) apply(initial);
+</script>
+
 <style>
+  .filters {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    padding-top: 32px;
+  }
+  .chip {
+    font: inherit; font-size: 14.5px; font-weight: 600; cursor: pointer;
+    padding: 9px 16px; border-radius: var(--r-sm);
+    background: var(--surface); border: 1px solid var(--line); color: var(--ink-2);
+  }
+  .chip span { color: var(--faint); font-weight: 500; margin-left: 2px; }
+  .chip:hover { border-color: var(--ink); }
+  .chip.on { background: var(--ink); border-color: var(--ink); color: #fff; }
+  .chip.on span { color: #9a9fad; }
+  .filters + .section-tight { padding-top: 28px; }
+  .card[hidden] { display: none; }
+
   .hero {
     background:
-      radial-gradient(900px 460px at 78% 10%, var(--brand-tint) 0%, rgba(238, 241, 255, 0) 70%),
-      var(--bg);
+      var(--navy);
     border-bottom: 1px solid var(--line-2);
     padding: 62px 0 68px;
   }
   .hero .lede { max-width: 60ch; margin: 22px 0 0; }
+  .start { margin-top: 28px; }
 
   .featured {
     display: block;
-    background: var(--ink);
-    color: #fff;
-    border-radius: 22px;
+    background: #fff;
+    color: var(--ink);
+    border: 1px solid var(--line);
+    border-left: 6px solid var(--brand);
+    border-radius: var(--radius);
     padding: 44px 40px;
   }
-  .featured:hover { color: #fff; }
-  .featured .tag { font-size: 13.5px; font-weight: 600; color: #9fb0ff; margin-bottom: 18px; }
-  .featured h2 { font-size: 38px; max-width: 22ch; margin-bottom: 16px; color: #fff; }
-  .featured p { font-size: 18px; line-height: 1.6; color: #c3c7d4; margin: 0 0 26px; max-width: 62ch; }
-  .more { font-family: var(--display); font-weight: 700; font-size: 15.5px; color: #9fb0ff; }
+  .featured:hover { color: var(--ink); box-shadow: var(--shadow-md); }
+  .featured:hover h2 { color: var(--brand); }
+  .featured .tag {
+    font-family: var(--display); font-size: 14px; font-weight: 600; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--brand); margin-bottom: 16px;
+  }
+  .featured h2 { font-size: 38px; max-width: 24ch; margin-bottom: 16px; }
+  .featured p { font-size: 18px; line-height: 1.6; color: var(--ink-2); margin: 0 0 24px; max-width: 62ch; }
+  .more { font-family: var(--display); font-weight: 600; font-size: 17px; color: var(--brand); }
 
   .featimg {
     width: 100%; aspect-ratio: 21 / 9; object-fit: cover;
-    border-radius: 14px; margin-bottom: 24px;
+    border-radius: var(--radius); margin-bottom: 24px;
   }
   .thumb {
     width: calc(100% + 52px); margin: -28px -26px 20px;
     aspect-ratio: 16 / 9; object-fit: cover;
-    border-radius: 18px 18px 0 0;
+    border-radius: var(--radius) var(--radius) 0 0;
   }
 
   h2.small { font-size: 26px; margin-bottom: 22px; }

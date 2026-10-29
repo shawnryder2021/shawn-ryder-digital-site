@@ -1,0 +1,239 @@
+---
+import Base from '../layouts/Base.astro';
+
+const title = 'Dealership Ad Budget Planner — How to Split Your Monthly Spend';
+const description =
+  'Enter your monthly ad budget and store type. Get a starting split across brand search, inventory ads, conquest, retargeting and social — with what each one does.';
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'How should a car dealership split its ad budget?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Cover the shoppers already looking for you first — brand and model search plus inventory ads — then add conquest, retargeting and social. A franchise store might start near 30% brand search, 20% inventory ads, 15% conquest, 10% retargeting, 20% social and 5% held back for testing, then adjust monthly on cost per appointment.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'What if my dealership ad budget is small?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Under about $1,500 a month, do not spread it across every channel. Put it into brand search and inventory ads first, with a small retargeting budget, and add channels as the budget grows.',
+      },
+    },
+  ],
+};
+
+const breadcrumbs = [
+  { label: 'Home', url: '/' },
+  { label: 'Tools', url: '/tools' },
+  { label: 'Ad budget planner', url: '/ad-budget-planner' },
+];
+---
+
+<Base title={title} description={description} path="/ad-budget-planner" schema={schema} breadcrumbs={breadcrumbs}>
+  <section class="page-hero">
+    <div class="wrap">
+      <div class="kicker">Free tool</div>
+      <h1>Where should your ad money go?</h1>
+      <p class="lede">
+        Most stores overspend on the shoppers who were already coming and underspend on the ones
+        who weren't. Put in your monthly budget and get a sensible starting split.
+      </p>
+    </div>
+  </section>
+
+  <section class="wrap section">
+    <div class="calc">
+      <form id="calc" class="calc-inputs" novalidate>
+        <label>
+          <span>Monthly ad budget ($)</span>
+          <input name="budget" type="number" min="0" max="10000000" step="100" value="5000" inputmode="numeric" />
+          <small>Media spend only — leave out agency fees and website costs.</small>
+        </label>
+        <label>
+          <span>Store type</span>
+          <select name="store">
+            <option value="franchise">Franchise (new and used)</option>
+            <option value="used">Independent used</option>
+          </select>
+        </label>
+        <label>
+          <span>Main goal for the next 90 days</span>
+          <select name="goal">
+            <option value="balanced">Balanced — more sales overall</option>
+            <option value="used">Move used inventory faster</option>
+            <option value="service">Grow service traffic</option>
+          </select>
+        </label>
+        <p class="calc-err" id="err" role="status" aria-live="polite"></p>
+      </form>
+
+      <div aria-live="polite">
+        <p class="headline" id="headline"></p>
+        <div class="bars" id="bars"></div>
+      </div>
+    </div>
+
+    <div class="calc-note">
+      <h3>This is a starting point, not a rulebook</h3>
+      <p>
+        Run it for a month, then move money toward whatever books appointments cheapest. Judge each
+        channel on cost per appointment set — not clicks, not impressions. And keep the testing
+        money: it's how you find next quarter's winner.
+      </p>
+      <p>
+        If your follow-up is slow, fix that before adding budget. More leads into a slow process
+        just means paying more for the same number of deals.
+        <a href="/lead-leak-calculator">See what slow follow-up costs →</a>
+      </p>
+    </div>
+  </section>
+
+  <section class="wrap section-tight">
+    <div class="kicker">Go deeper</div>
+    <h2 class="sub">Guides that pair with this.</h2>
+    <div class="grid grid-3">
+      <a class="card" href="/guides/dealership-google-ads-budget-split">
+        <h3>How to split a $5,000 dealership ad budget</h3>
+        <p>Brand, conquest and retargeting each do a different job. Most stores overspend on the one that was going to happen anyway.</p>
+        <span class="more">Read the guide →</span>
+      </a>
+      <a class="card" href="/guides/dealership-retargeting-frequency">
+        <h3>Retargeting without following people for months</h3>
+        <p>The shopper who looked at one Tucson in March shouldn't still be seeing it in July. Three settings fix it.</p>
+        <span class="more">Read the guide →</span>
+      </a>
+      <a class="card" href="/guides/facebook-ads-for-car-dealers">
+        <h3>Facebook and Instagram ads that don't feel like a car ad</h3>
+        <p>A carousel of stock photos gets scrolled past. Native-feeling creative from your own lot doesn't.</p>
+        <span class="more">Read the guide →</span>
+      </a>
+    </div>
+  </section>
+
+  <section class="cta-strip">
+    <div class="wrap">
+      <div>
+        <h2>Want a second set of eyes on your ad accounts?</h2>
+        <p>I'll look at where the money goes now, what it books, and what I'd move first. Plain language, no pitch deck.</p>
+      </div>
+      <a href="/contact" class="btn btn-dark">Request the audit</a>
+    </div>
+  </section>
+</Base>
+
+<script>
+  const form = document.getElementById('calc');
+  const barsEl = document.getElementById('bars');
+  const headline = document.getElementById('headline');
+  const errEl = document.getElementById('err');
+
+  const CHANNELS = {
+    brand: ['Brand & model search', 'Shoppers searching your store name, your brand and models in your city. Protect these first — they are closest to buying.'],
+    inventory: ['Inventory ads', 'Vehicle listing ads and feed-based ads that show the actual car, price and photo right in the results.'],
+    conquest: ['Conquest search', 'Competitor names, "used cars near me" and model comparisons. Wins shoppers who were not looking for you yet.'],
+    retarget: ['Retargeting', 'Brings back people who viewed a vehicle page. Keep the window short — 30 days or less.'],
+    social: ['Facebook & Instagram', 'Real inventory and real people from your store, aimed at your local radius.'],
+    service: ['Service search & social', 'Oil change, tires, brakes and "service near me" searches, plus offers to your own owners.'],
+    test: ['Testing', 'One new idea a month. Kill it or scale it based on cost per appointment.'],
+  };
+
+  // Starting splits in percent. Each row sums to 100.
+  const BASE = {
+    franchise: { brand: 30, inventory: 20, conquest: 15, retarget: 10, social: 20, service: 0, test: 5 },
+    used:      { brand: 20, inventory: 30, conquest: 15, retarget: 10, social: 20, service: 0, test: 5 },
+  };
+  // Goal shifts: points moved between channels, applied to the base split.
+  const GOAL = {
+    balanced: {},
+    used: { inventory: +10, retarget: +5, brand: -10, conquest: -5 },
+    service: { service: +15, brand: -5, conquest: -5, social: -5 },
+  };
+  // Below this, spreading across six channels means none get enough to work.
+  const SMALL_BUDGET = 1500;
+
+  const money = (n) => '$' + Math.round(n).toLocaleString('en-CA');
+
+  function split(store, goal, budget) {
+    const pct = { ...BASE[store] };
+    for (const [k, v] of Object.entries(GOAL[goal])) pct[k] += v;
+
+    if (budget < SMALL_BUDGET) {
+      // Keep the essentials. Service keeps its share if that's the goal.
+      const keep = goal === 'service' ? ['brand', 'inventory', 'service'] : ['brand', 'inventory', 'retarget'];
+      for (const k of Object.keys(pct)) if (!keep.includes(k)) pct[k] = 0;
+      const total = Object.values(pct).reduce((a, b) => a + b, 0);
+      for (const k of keep) pct[k] = (pct[k] / total) * 100;
+    }
+    return Object.entries(pct).filter(([, p]) => p > 0).sort((a, b) => b[1] - a[1]);
+  }
+
+  function render() {
+    const budget = parseFloat(form.budget.value);
+    if (!(budget > 0)) {
+      errEl.textContent = 'Enter a monthly budget above zero.';
+      barsEl.innerHTML = '';
+      headline.textContent = '';
+      return;
+    }
+    errEl.textContent = '';
+
+    const rows = split(form.store.value, form.goal.value, budget);
+    const top = rows[0][1];
+
+    headline.innerHTML = budget < SMALL_BUDGET
+      ? `<strong>${money(budget)}</strong> a month. At this level, don't spread it thin — three channels, done properly.`
+      : `<strong>${money(budget)}</strong> a month, split across ${rows.length} channels.`;
+
+    barsEl.innerHTML = rows.map(([key, pct]) => {
+      const [name, what] = CHANNELS[key];
+      return `
+        <div class="bar">
+          <div class="bar-top">
+            <span class="bar-name">${name}</span>
+            <span class="bar-amt">${money(budget * pct / 100)} <em>${Math.round(pct)}%</em></span>
+          </div>
+          <div class="track"><div class="fill" style="width:${(pct / top) * 100}%"></div></div>
+          <p>${what}</p>
+        </div>`;
+    }).join('');
+  }
+
+  form.addEventListener('input', render);
+  form.addEventListener('change', render);
+  render();
+</script>
+
+<style>
+  .headline {
+    font-size: 16px; color: var(--ink-2); line-height: 1.55;
+    padding-bottom: 18px; margin: 0 0 18px; border-bottom: 1px solid var(--line);
+  }
+  .headline :global(strong) {
+    display: block; font-family: var(--display); font-size: 44px;
+    letter-spacing: -0.01em; line-height: 1.05; color: var(--ink); margin-bottom: 6px;
+  }
+  .bars { display: grid; gap: 12px; }
+  .bars :global(.bar) {
+    background: var(--surface); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 16px 18px;
+  }
+  .bars :global(.bar-top) { display: flex; justify-content: space-between; gap: 12px; align-items: baseline; }
+  .bars :global(.bar-name) { font-family: var(--display); font-weight: 700; font-size: 16px; }
+  .bars :global(.bar-amt) { font-family: var(--display); font-weight: 700; font-size: 19px; color: var(--brand); white-space: nowrap; }
+  .bars :global(.bar-amt em) { font-style: normal; font-size: 13px; color: var(--faint); font-weight: 600; margin-left: 4px; }
+  .bars :global(.track) { height: 8px; border-radius: 99px; background: var(--surface-2); margin: 10px 0; overflow: hidden; }
+  .bars :global(.fill) { height: 100%; border-radius: 99px; background: var(--brand); }
+  .bars :global(p) { font-size: 14px; line-height: 1.5; color: var(--ink-3); margin: 0; }
+
+  h2.sub { font-size: 32px; margin-bottom: 28px; }
+  .card { display: flex; flex-direction: column; }
+  .card h3 { margin-bottom: 10px; font-size: 19px; }
+  .card p { font-size: 15.5px; line-height: 1.6; color: var(--ink-3); margin: 0 0 18px; flex: 1; }
+  .more { font-family: var(--display); font-weight: 700; font-size: 14.5px; }
+</style>

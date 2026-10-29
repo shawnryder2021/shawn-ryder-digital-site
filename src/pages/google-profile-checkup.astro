@@ -1,0 +1,177 @@
+---
+import Base from '../layouts/Base.astro';
+
+const title = 'Google Business Profile Checkup for Car Dealerships';
+const description =
+  'Fourteen quick checks on your dealership Google Business Profile. Get a score out of 100 and the three fixes worth doing first. No email needed.';
+
+const breadcrumbs = [
+  { label: 'Home', url: '/' },
+  { label: 'Tools', url: '/tools' },
+  { label: 'Google profile checkup', url: '/google-profile-checkup' },
+];
+
+// Weights add to 100. Heavier items are the ones that most often decide
+// whether a store shows in the local pack, or whether a shopper calls.
+const groups = [
+  {
+    name: 'The basics',
+    items: [
+      { id: 'name', w: 8, q: 'Business name matches your sign exactly — no keywords added', fix: 'Remove extra words like "Best Used Cars Halifax" from the name. It can get the profile suspended.' },
+      { id: 'primary', w: 10, q: 'Primary category is right ("[Brand] dealer", or "Used car dealer" for independents)', fix: 'Set the primary category to your brand dealer category, or "Used car dealer". This is the single biggest local ranking setting.' },
+      { id: 'secondary', w: 5, q: 'Secondary categories added (car dealer, used car dealer, auto repair shop…)', fix: 'Add the secondary categories that match what you actually do — used, service, parts, tires.' },
+      { id: 'departments', w: 7, q: 'Separate hours and phone numbers for sales, service and parts', fix: 'Set up departments so a service shopper sees service hours and calls the service desk, not reception.' },
+      { id: 'website', w: 5, q: 'Website link goes to the right page, with a tracking tag', fix: 'Point the website link at your homepage or location page and add a UTM tag so you can see profile traffic in analytics.' },
+      { id: 'description', w: 5, q: 'Description written by a person — brands, services and areas you serve', fix: 'Rewrite the description in plain words: what you sell, where you are, who you serve, and why people buy from you.' },
+    ],
+  },
+  {
+    name: 'Fresh content',
+    items: [
+      { id: 'photos', w: 8, q: 'At least five new real photos added in the last month', fix: 'Add five photos a week: lot, showroom, service bay, staff, deliveries. Your own photos, not stock.' },
+      { id: 'posts', w: 8, q: 'A post published in the last seven days', fix: 'Post one real offer, event or vehicle every week. Pick one person and one day.' },
+      { id: 'products', w: 6, q: 'Vehicles or products showing on the profile', fix: 'Ask your website or inventory provider about vehicle listings on your profile, or add your key models as products.' },
+      { id: 'attributes', w: 4, q: 'Attributes filled in (financing, accessibility, payment options…)', fix: 'Fill in every attribute that applies. They are quick and help you show for filtered searches.' },
+    ],
+  },
+  {
+    name: 'Reviews',
+    items: [
+      { id: 'replies', w: 10, q: 'Every review from the last 30 days has a reply', fix: 'Reply to every review — good and bad — within two business days. Short, specific, human.' },
+      { id: 'volume', w: 10, q: 'Ten or more new reviews in the last 30 days', fix: 'Build a review ask into every delivery and every service visit. Volume and recency are what hold your position.' },
+      { id: 'ask', w: 6, q: 'Review link handed out at delivery and after service', fix: 'Put your review link on a QR card at the delivery desk and in the post-service text.' },
+    ],
+  },
+  {
+    name: 'Upkeep',
+    items: [
+      { id: 'monitor', w: 8, q: 'Someone checks the profile weekly for edits suggested by Google or the public', fix: 'Assign one person to check weekly. Public "suggested edits" can change your hours or phone number without you noticing.' },
+    ],
+  },
+];
+
+const total = groups.flatMap((g) => g.items).reduce((s, i) => s + i.w, 0);
+if (total !== 100) throw new Error(`Checkup weights add to ${total}, not 100`);
+---
+
+<Base title={title} description={description} path="/google-profile-checkup" breadcrumbs={breadcrumbs}>
+  <section class="page-hero">
+    <div class="wrap">
+      <div class="kicker">Free tool</div>
+      <h1>How healthy is your Google profile?</h1>
+      <p class="lede">
+        Your Google Business Profile does more selling than most of your website. Open it in
+        another tab, tick what's true today, and get your score and the three fixes worth doing first.
+      </p>
+    </div>
+  </section>
+
+  <section class="wrap section">
+    <div class="calc">
+      <form id="check" class="checks">
+        {groups.map((g) => (
+          <fieldset>
+            <legend>{g.name}</legend>
+            {g.items.map((item) => (
+              <label class="check">
+                <input type="checkbox" name={item.id} data-w={item.w} data-fix={item.fix} data-q={item.q} />
+                <span>{item.q}</span>
+              </label>
+            ))}
+          </fieldset>
+        ))}
+      </form>
+
+      <div class="out" aria-live="polite">
+        <div class="result-big">
+          <div class="lab">Your profile score</div>
+          <div class="num"><span id="score">0</span><small> / 100</small></div>
+          <p id="verdict"></p>
+        </div>
+        <h2 class="fix-h">Fix these first</h2>
+        <ol class="fixes" id="fixes"></ol>
+        <a href="/guides/google-business-profile-checklist-for-dealerships" class="btn btn-ghost">Read the full checklist guide</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-strip">
+    <div class="wrap">
+      <div>
+        <h2>Want it done for you?</h2>
+        <p>Profile build-out, weekly posts and photos, and review replies are part of my local SEO service. Start with the free audit.</p>
+      </div>
+      <a href="/contact" class="btn btn-primary">Request the audit</a>
+    </div>
+  </section>
+</Base>
+
+<script>
+  const form = document.getElementById('check');
+  const boxes = [...form.querySelectorAll('input[type=checkbox]')];
+  const scoreEl = document.getElementById('score');
+  const verdictEl = document.getElementById('verdict');
+  const fixesEl = document.getElementById('fixes');
+
+  function render() {
+    const score = boxes.filter((b) => b.checked).reduce((s, b) => s + Number(b.dataset.w), 0);
+    scoreEl.textContent = String(score);
+
+    verdictEl.textContent =
+      score >= 85 ? 'Strong. Keep the weekly habits going — a profile slips fast when nobody owns it.'
+      : score >= 60 ? 'Decent, with gaps. The fixes below are where your competitors can pass you.'
+      : score >= 30 ? 'Your profile is probably costing you calls. Most of these fixes take under an hour.'
+      : 'Start with the basics below. This is the cheapest marketing fix your store has.';
+
+    const missing = boxes.filter((b) => !b.checked).sort((a, b) => b.dataset.w - a.dataset.w).slice(0, 3);
+    fixesEl.innerHTML = missing.length
+      ? missing.map((b) => `<li><strong></strong><span></span></li>`).join('')
+      : '<li class="done">Nothing left on the list. Nice work.</li>';
+    // textContent, not innerHTML, for the copy itself.
+    missing.forEach((b, i) => {
+      const li = fixesEl.children[i];
+      li.querySelector('strong').textContent = b.dataset.q;
+      li.querySelector('span').textContent = b.dataset.fix;
+    });
+  }
+
+  form.addEventListener('change', render);
+  render();
+</script>
+
+<style>
+  .checks { display: grid; gap: 22px; }
+  fieldset { border: 0; margin: 0; padding: 0; display: grid; gap: 8px; }
+  legend {
+    font-family: var(--display); font-weight: 600; font-size: 14px; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--ink-3); margin-bottom: 8px;
+  }
+  .check {
+    display: flex; gap: 12px; align-items: flex-start; cursor: pointer;
+    background: #fff; border: 1px solid var(--line); border-radius: var(--r-sm); padding: 14px 16px;
+    font-size: 16px; line-height: 1.45; color: var(--ink-2);
+  }
+  .check:hover { border-color: var(--ink-3); }
+  .check input { width: 18px; height: 18px; margin: 2px 0 0; accent-color: var(--brand); flex: 0 0 auto; }
+  .check:has(input:checked) { border-color: var(--ink); color: var(--ink); }
+
+  .out { position: sticky; top: 100px; }
+  .result-big .num small { font-size: 24px; color: var(--on-dark-3); font-weight: 600; }
+  .fix-h { font-size: 22px; margin: 26px 0 12px; }
+  .fixes { list-style: none; margin: 0 0 24px; padding: 0; counter-reset: fix; border-top: 2px solid var(--ink); }
+  .fixes :global(li) {
+    counter-increment: fix; display: grid; gap: 4px; padding: 14px 0 14px 40px; position: relative;
+    border-bottom: 1px solid var(--line);
+  }
+  .fixes :global(li)::before {
+    content: counter(fix); position: absolute; left: 0; top: 14px;
+    font-family: var(--display); font-weight: 700; font-size: 20px; color: var(--brand);
+  }
+  .fixes :global(li.done)::before { content: '✓'; }
+  .fixes :global(strong) { font-family: var(--display); font-weight: 600; font-size: 17px; color: var(--ink); }
+  .fixes :global(span) { font-size: 15px; line-height: 1.5; color: var(--ink-3); }
+
+  @media (max-width: 900px) {
+    .out { position: static; }
+  }
+</style>

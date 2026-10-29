@@ -82,8 +82,7 @@ const description =
 <style>
   .hero {
     background:
-      radial-gradient(900px 460px at 78% 10%, var(--brand-tint) 0%, rgba(238, 241, 255, 0) 70%),
-      var(--bg);
+      var(--navy);
     border-bottom: 1px solid var(--line-2);
     padding: 62px 0 60px;
   }
@@ -105,7 +104,7 @@ const description =
     padding: 18px 20px;
     background: var(--surface);
     border: 1px solid var(--line);
-    border-radius: 14px;
+    border-radius: var(--radius);
     cursor: pointer;
     font-size: 16.5px;
     color: var(--ink-2);
@@ -123,21 +122,21 @@ const description =
     top: 96px;
     background: var(--ink);
     color: #fff;
-    border-radius: 20px;
+    border-radius: var(--radius);
     padding: 30px 28px;
   }
   .meter {
-    height: 8px; border-radius: 999px;
+    height: 8px; border-radius: var(--r-sm);
     background: rgba(255, 255, 255, 0.14); overflow: hidden; margin-bottom: 18px;
   }
   .meter span {
     display: block; height: 100%; width: 0;
-    background: var(--brand); border-radius: 999px;
+    background: var(--brand); border-radius: var(--r-sm);
     transition: width 0.35s ease;
   }
-  .score { font-family: var(--display); font-weight: 800; font-size: 15px; color: #9fb0ff; margin-bottom: 12px; }
-  .score strong { font-size: 30px; color: #fff; letter-spacing: -0.03em; }
-  .verdict p { font-size: 16.5px; line-height: 1.6; color: #c3c7d4; margin: 0 0 22px; text-wrap: pretty; }
+  .score { font-family: var(--display); font-weight: 700; font-size: 15px; color: var(--on-dark-accent); margin-bottom: 12px; }
+  .score strong { font-size: 30px; color: #fff; letter-spacing: -0.01em; }
+  .verdict p { font-size: 16.5px; line-height: 1.6; color: var(--on-dark-2); margin: 0 0 22px; text-wrap: pretty; }
   .verdict .btn { width: 100%; }
   .verdict .small { font-size: 13.5px; color: #8b90a0; margin: 16px 0 0; }
 
