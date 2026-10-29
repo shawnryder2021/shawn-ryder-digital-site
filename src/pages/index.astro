@@ -4,6 +4,8 @@ import { getBlocks, getGuides, getReviews, getSettings, getImageSlots } from '..
 import { tools } from '../lib/tools.js';
 import { site } from '../lib/site.js';
 import seo from '../data/seo.json';
+import servicePages from '../data/service-pages.json';
+import dealerPages from '../data/dealer-pages.json';
 
 const blocks = await getBlocks();
 const images = await getImageSlots();
@@ -15,6 +17,16 @@ const guides = await getGuides();
 const reviews = await getReviews();
 const [title, description] = seo.home;
 const contact = settings.contact ?? {};
+
+// Brand names and services link to their own pages when one exists.
+const dealerHref = (brand) => {
+  const d = dealerPages.find((p) => p.brand.toLowerCase() === String(brand).toLowerCase());
+  return d ? `/dealers/${d.slug}` : null;
+};
+const serviceHref = (num) => {
+  const s = servicePages.find((p) => p.num === num);
+  return s ? `/services/${s.slug}` : '/services';
+};
 
 const featured = guides.filter((g) => g.published).slice(0, 3);
 const stats = blocks.home_stats;
@@ -90,7 +102,7 @@ const featuredTools = ['/lead-leak-calculator', '/google-profile-checkup', '/ai-
     <div class="wrap row">
       <span class="label">Experience with</span>
       <ul>
-        {settings.brands.map((brand) => <li>{brand}</li>)}
+        {settings.brands.map((brand) => <li>{dealerHref(brand) ? <a href={dealerHref(brand)}>{brand}</a> : brand}</li>)}
       </ul>
     </div>
   </section>
@@ -119,7 +131,7 @@ const featuredTools = ['/lead-leak-calculator', '/google-profile-checkup', '/ai-
     <ol class="svc-list">
       {blocks.services.map((service) => (
         <li>
-          <a href="/services">
+          <a href={serviceHref(service.num)}>
             <span class="svc-num">{service.num}</span>
             <span class="svc-body">
               <h3>{service.title}</h3>
@@ -341,6 +353,8 @@ const featuredTools = ['/lead-leak-calculator', '/google-profile-checkup', '/ai-
     font-family: var(--display); font-weight: 700; font-size: 20px; color: var(--ink);
     padding: 2px 26px; border-left: 1px solid var(--line);
   }
+  .brandbar li a { color: inherit; }
+  .brandbar li a:hover { color: var(--brand); }
   .brandbar li:first-child { border-left: 0; padding-left: 0; }
 
   /* ---------- stats ---------- */

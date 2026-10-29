@@ -308,6 +308,8 @@ export async function getNav() {
       { group_label: 'Site', label: 'AI search visibility', href: '/ai-search-visibility' },
       { group_label: 'Site', label: 'Start here', href: '/start-here' },
       { group_label: 'Site', label: 'Guides', href: '/guides' },
+      { group_label: 'Site', label: 'Glossary', href: '/glossary' },
+      { group_label: 'Site', label: 'Dealers I work with', href: '/dealers' },
       { group_label: 'Site', label: 'FAQ', href: '/faq' },
       { group_label: 'Site', label: 'About', href: '/about' },
       { group_label: 'Site', label: 'Contact', href: '/contact' },

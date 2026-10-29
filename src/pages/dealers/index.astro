@@ -1,0 +1,53 @@
+---
+import Base from '../../layouts/Base.astro';
+import dealerPages from '../../data/dealer-pages.json';
+
+const title = 'Dealerships I Work With — Franchise and Independent | Shawn Ryder';
+const description =
+  'Digital marketing for Volkswagen, Hyundai, Audi and Subaru dealers, and independent used car stores, across Atlantic Canada, the rest of Canada and the U.S.';
+---
+
+<Base title={title} description={description} path="/dealers">
+  <section class="page-hero">
+    <div class="wrap">
+      <div class="kicker">Dealers</div>
+      <h1>Every brand sells differently online.</h1>
+      <p class="lede">
+        A Subaru shopper and an Audi shopper want different things from the store — and a used
+        lot plays by different rules again. Pick yours to see what I'd focus on.
+      </p>
+    </div>
+  </section>
+
+  <section class="wrap section">
+    <ul class="list">
+      {dealerPages.map((p) => (
+        <li>
+          <a href={`/dealers/${p.slug}`}>
+            <strong>{p.brand}</strong>
+            <span>{p.intro.split('. ')[0]}.</span>
+            <em>{p.models.slice(0, 4).join(' · ')}</em>
+          </a>
+        </li>
+      ))}
+    </ul>
+    <p class="note">
+      Don't see your brand? Most of what works is the same everywhere — fast follow-up, a strong
+      Google profile and steady reviews. <a href="/contact">Ask me about your store.</a>
+    </p>
+  </section>
+</Base>
+
+<style>
+  .list { list-style: none; margin: 0; padding: 0; border-top: 2px solid var(--ink); }
+  .list a { display: grid; grid-template-columns: minmax(0, 0.3fr) minmax(0, 0.7fr); gap: 6px 32px; padding: 26px 0; border-bottom: 1px solid var(--line); color: inherit; }
+  .list strong { grid-row: span 2; font-family: var(--display); font-weight: 700; font-size: 28px; color: var(--ink); }
+  .list span { font-size: 17px; line-height: 1.55; color: var(--ink-2); }
+  .list em { font-style: normal; font-size: 14.5px; color: var(--muted); }
+  .list a:hover strong { color: var(--brand); }
+  .note { font-size: 16.5px; color: var(--ink-2); margin: 28px 0 0; }
+  @media (max-width: 700px) {
+    .list a { grid-template-columns: minmax(0, 1fr); }
+    .list strong { grid-row: auto; font-size: 24px; }
+  }
+</style>

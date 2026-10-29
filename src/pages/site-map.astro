@@ -1,0 +1,57 @@
+---
+import Base from '../layouts/Base.astro';
+import { getSitePages } from '../lib/site-pages.js';
+
+const title = 'Site Map — Every Page on Shawn Ryder Digital';
+const description =
+  'Every page on the site in one place: services, dealership types, free tools, guides, the glossary and market pages across Canada and the U.S.';
+
+const groups = await getSitePages();
+const total = groups.reduce((n, g) => n + g.pages.length, 0);
+// Long groups get columns so the page stays scannable.
+const wide = new Set(['Guides', 'Markets']);
+---
+
+<Base title={title} description={description} path="/site-map">
+  <section class="page-hero">
+    <div class="wrap">
+      <div class="kicker">Site map</div>
+      <h1>Everything on the site.</h1>
+      <p class="lede">All {total} pages, grouped. For search engines, the same list lives at <a href="/sitemap.xml">/sitemap.xml</a>.</p>
+    </div>
+  </section>
+
+  <section class="wrap section">
+    <div class="groups">
+      {groups.map((g) => (
+        <div class:list={['group', { wide: wide.has(g.name) }]}>
+          <h2>{g.name} <span>{g.pages.length}</span></h2>
+          <ul>
+            {g.pages.map((p) => <li><a href={p.path}>{p.label}</a></li>)}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </section>
+</Base>
+
+<style>
+  .groups { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 40px 48px; }
+  .group { border-top: 2px solid var(--ink); padding-top: 18px; }
+  .group.wide { grid-column: 1 / -1; }
+  h2 { font-size: 24px; margin-bottom: 14px; display: flex; align-items: baseline; gap: 10px; }
+  h2 span { font-family: var(--body); font-size: 14px; font-weight: 600; color: var(--muted); }
+  ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 9px; }
+  .wide ul { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 9px 36px; }
+  a { color: var(--ink-2); font-size: 16px; line-height: 1.4; }
+  a:hover { color: var(--brand); }
+  .page-hero a { color: #fff; text-decoration: underline; }
+
+  @media (max-width: 900px) {
+    .groups { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .wide ul { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (max-width: 600px) {
+    .groups, .wide ul { grid-template-columns: minmax(0, 1fr); }
+  }
+</style>
