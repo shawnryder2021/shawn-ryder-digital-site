@@ -384,9 +384,9 @@ creates their profile at `user` automatically.
 6. Point the domain, then submit `https://shawnryder.com/sitemap.xml` in Search
    Console.
 
-**Before pointing the domain**: the existing WordPress site has ~20,800 URLs in
-its sitemap. Switching DNS without a redirect map turns all of them into 404s.
-Decide deliberately what to 301, what to 410, and what to migrate.
+**Old WordPress URLs** are handled by `redirects/legacy-wordpress.csv` (843
+redirects, every backlinked URL checked by hand). Everything else returns the
+404 page. See `redirects/README.md`.
 
 ## Known gaps
 

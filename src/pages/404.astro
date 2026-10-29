@@ -1,0 +1,61 @@
+---
+import Base from '../layouts/Base.astro';
+import { tools } from '../lib/tools.js';
+
+// Netlify serves dist/404.html, with a 404 status, for any path that isn't a
+// page or a redirect. Most visitors landing here followed a link to a post from
+// the old WordPress blog, so say that plainly and point at the useful pages.
+const title = 'Page Not Found | Shawn Ryder Digital';
+const description = "That page has moved or no longer exists. Here's where to find dealership marketing guides, free tools and the free audit.";
+const picks = ['/lead-leak-calculator', '/google-profile-checkup', '/review-calculator']
+  .map((href) => tools.find((t) => t.href === href))
+  .filter(Boolean);
+---
+
+<Base title={title} description={description} path="/404">
+  <section class="page-hero">
+    <div class="wrap">
+      <div class="kicker">Page not found</div>
+      <h1>That page has moved on.</h1>
+      <p class="lede">
+        If you followed a link to an older article, it was part of a blog that's been retired.
+        The useful parts were rewritten as the guides below — shorter, current, and written for
+        people who run dealerships.
+      </p>
+    </div>
+  </section>
+
+  <section class="wrap section-tight">
+    <div class="grid grid-3">
+      <a class="card" href="/start-here">
+        <h2>Start here</h2>
+        <p>Pick your role and get the five guides worth reading first.</p>
+      </a>
+      <a class="card" href="/guides">
+        <h2>All guides</h2>
+        <p>Local SEO, follow-up, reviews, email, ads and more. No forms in front of any of them.</p>
+      </a>
+      <a class="card" href="/contact">
+        <h2>Ask me directly</h2>
+        <p>Looking for something specific? Send a note and I'll point you to it, or just answer it.</p>
+      </a>
+    </div>
+  </section>
+
+  <section class="wrap section-tight tools">
+    <h2 class="small">Or try a free tool</h2>
+    <ul>
+      {picks.map((t) => <li><a href={t.href}>{t.name}</a> — {t.blurb}</li>)}
+    </ul>
+  </section>
+</Base>
+
+<style>
+  .card h2 { font-size: 24px; margin-bottom: 8px; }
+  .card p { font-size: 16px; line-height: 1.55; color: var(--ink-3); margin: 0; }
+  a.card:hover h2 { color: var(--brand); }
+  .tools { padding-top: 0; }
+  h2.small { font-size: 24px; margin-bottom: 14px; }
+  .tools ul { margin: 0; padding-left: 20px; display: grid; gap: 10px; font-size: 17px; color: var(--ink-2); line-height: 1.55; }
+  .tools a { font-weight: 600; }
+</style>
