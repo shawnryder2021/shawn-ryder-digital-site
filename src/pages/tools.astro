@@ -1,0 +1,105 @@
+---
+import Base from '../layouts/Base.astro';
+import SubscribeForm from '../components/SubscribeForm.astro';
+import { tools, toolTopics } from '../lib/tools.js';
+import { site } from '../lib/site.js';
+
+const title = 'Free Dealership Marketing Tools | Shawn Ryder Digital';
+const description =
+  'Free calculators and checkers for car dealers: lead follow-up cost, review score, AI visibility, ad budget split and more. No email needed to see your result.';
+
+const groups = toolTopics
+  .map((topic) => ({ topic, items: tools.filter((t) => t.topic === topic) }))
+  .filter((g) => g.items.length);
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: 'Free dealership marketing tools',
+  itemListElement: tools.map((t, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    name: t.name,
+    url: new URL(t.href, site.url).href,
+  })),
+};
+---
+
+<Base title={title} description={description} path="/tools" schema={schema}>
+  <section class="page-hero">
+    <div class="wrap">
+      <div class="kicker">Free tools</div>
+      <h1>Real numbers for your store, in a minute.</h1>
+      <p class="lede">
+        Built for dealer principals, GMs and sales managers who want a straight answer. Put your
+        numbers in and read the result — no email, no sign-up, no sales call.
+      </p>
+    </div>
+  </section>
+
+  {groups.map((group) => (
+    <section class="wrap section-tight group">
+      <h2>{group.topic}</h2>
+      <div class="grid grid-3">
+        {group.items.map((tool) => (
+          <a class="card tool" href={tool.href}>
+            <div class="top">
+              <span class="time">{tool.time}</span>
+              {tool.isNew && <span class="new">New</span>}
+            </div>
+            <h3>{tool.name}</h3>
+            <p>{tool.blurb}</p>
+            <span class="go">Open the tool →</span>
+          </a>
+        ))}
+      </div>
+    </section>
+  ))}
+
+  <section class="wrap section-tight">
+    <div class="ask">
+      <div>
+        <h2>Got an idea for a tool?</h2>
+        <p>
+          If there's a number you keep working out on a napkin — cost per sold unit, how many
+          appointments you need to hit target, whatever — tell me. The useful ones get built.
+        </p>
+      </div>
+      <a href="/contact" class="btn btn-primary">Suggest a tool</a>
+    </div>
+  </section>
+
+  <section class="wrap section">
+    <SubscribeForm
+      heading="Get new tools and guides as they go up."
+      blurb="A short email when something new is ready. No drip sequence, no pitch — unsubscribe in one click."
+    />
+  </section>
+</Base>
+
+<style>
+  .group h2 { font-size: 26px; margin-bottom: 22px; }
+  .group + .group { padding-top: 8px; }
+
+  .tool { display: flex; flex-direction: column; min-height: 230px; }
+  .top { display: flex; gap: 8px; margin-bottom: 16px; }
+  .time, .new {
+    font-size: 12.5px; font-weight: 600; border-radius: 999px; padding: 5px 11px;
+  }
+  .time { background: var(--surface-2); color: var(--ink-3); }
+  .new { background: var(--green); color: #fff; }
+  .tool h3 { margin-bottom: 10px; }
+  .tool p { font-size: 15.5px; line-height: 1.6; color: var(--ink-3); margin: 0 0 18px; flex: 1; }
+  .go { font-family: var(--display); font-weight: 700; font-size: 14.5px; }
+
+  .ask {
+    background: var(--ink); color: #fff; border-radius: 22px; padding: 40px;
+    display: flex; align-items: center; justify-content: space-between; gap: 32px; flex-wrap: wrap;
+  }
+  .ask h2 { color: #fff; font-size: 30px; margin-bottom: 10px; }
+  .ask p { color: #c3c7d4; font-size: 16.5px; line-height: 1.6; margin: 0; max-width: 60ch; }
+
+  @media (max-width: 900px) {
+    .ask { padding: 30px 24px; }
+  }
+</style>

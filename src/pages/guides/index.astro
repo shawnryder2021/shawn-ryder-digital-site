@@ -11,6 +11,12 @@ const [title, description] = seo.guides;
 const published = guides.filter((g) => g.published);
 const queued = guides.filter((g) => !g.published);
 const [featured, ...rest] = published;
+
+// Topic chips, most-written first. Breadcrumbs on each guide link here with
+// ?category=…, and the script below honours it.
+const counts = new Map();
+for (const g of published) counts.set(g.category, (counts.get(g.category) ?? 0) + 1);
+const categories = [...counts].sort((a, b) => b[1] - a[1]).map(([name, n]) => ({ name, n }));
 ---
 
 <Base title={title} description={description} path="/guides">
@@ -25,8 +31,17 @@ const [featured, ...rest] = published;
     </div>
   </section>
 
+  {categories.length > 1 && (
+    <nav class="wrap filters" aria-label="Filter guides by topic">
+      <button type="button" class="chip on" data-filter="" aria-pressed="true">All <span>{published.length}</span></button>
+      {categories.map((c) => (
+        <button type="button" class="chip" data-filter={c.name} aria-pressed="false">{c.name} <span>{c.n}</span></button>
+      ))}
+    </nav>
+  )}
+
   {featured && (
-    <section class="wrap section-tight">
+    <section class="wrap section-tight" id="featured">
       <a class="featured" href={`/guides/${featured.slug}`}>
         {featured.cover && (
           <img class="featimg" src={featured.cover.url} alt={featured.cover.alt}
@@ -41,11 +56,12 @@ const [featured, ...rest] = published;
   )}
 
   {rest.length > 0 && (
-    <section class="wrap section-tight">
-      <h2 class="small">More guides</h2>
+    <section class="wrap section-tight" id="all">
+      <h2 class="small" id="all-title">More guides</h2>
       <div class="grid grid-3">
-        {rest.map((guide) => (
-          <a class="card" href={`/guides/${guide.slug}`}>
+        {published.map((guide, i) => (
+          <a class="card" href={`/guides/${guide.slug}`} data-category={guide.category}
+             data-featured={i === 0 ? '' : undefined} hidden={i === 0}>
             {guide.cover && (
               <img class="thumb" src={guide.cover.url} alt={guide.cover.alt}
                    width={guide.cover.width} height={guide.cover.height} loading="lazy" />
@@ -60,7 +76,7 @@ const [featured, ...rest] = published;
   )}
 
   {queued.length > 0 && (
-    <section class="wrap section-tight">
+    <section class="wrap section-tight" id="queued">
       <h2 class="small">In the queue</h2>
       <p class="note">Written next. Say the word if one of these is the one you need.</p>
       <div class="grid grid-3">
@@ -80,7 +96,60 @@ const [featured, ...rest] = published;
   </section>
 </Base>
 
+<script>
+  // Progressive enhancement: without JS every guide is listed and the chips
+  // are inert. With it, a chip narrows the grid and the URL stays shareable.
+  const chips = [...document.querySelectorAll('.filters .chip')];
+  const cards = [...document.querySelectorAll('#all .card')];
+  const featured = document.getElementById('featured');
+  const queued = document.getElementById('queued');
+  const title = document.getElementById('all-title');
+
+  function apply(category) {
+    if (!chips.some((c) => c.dataset.filter === category)) category = '';
+    for (const chip of chips) {
+      const on = chip.dataset.filter === category;
+      chip.classList.toggle('on', on);
+      chip.setAttribute('aria-pressed', String(on));
+    }
+    for (const card of cards) {
+      // The featured guide has its own banner when unfiltered; inside a topic
+      // it belongs in the grid with the others.
+      const isFeatured = card.hasAttribute('data-featured');
+      card.hidden = category ? card.dataset.category !== category : isFeatured;
+    }
+    if (featured) featured.hidden = Boolean(category);
+    if (queued) queued.hidden = Boolean(category);
+    if (title) title.textContent = category ? `${category} guides` : 'More guides';
+
+    const url = new URL(location.href);
+    if (category) url.searchParams.set('category', category);
+    else url.searchParams.delete('category');
+    history.replaceState(null, '', url);
+  }
+
+  for (const chip of chips) chip.addEventListener('click', () => apply(chip.dataset.filter));
+  const initial = new URLSearchParams(location.search).get('category');
+  if (initial) apply(initial);
+</script>
+
 <style>
+  .filters {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    padding-top: 32px;
+  }
+  .chip {
+    font: inherit; font-size: 14.5px; font-weight: 600; cursor: pointer;
+    padding: 9px 16px; border-radius: 999px;
+    background: var(--surface); border: 1px solid var(--line); color: var(--ink-2);
+  }
+  .chip span { color: var(--faint); font-weight: 500; margin-left: 2px; }
+  .chip:hover { border-color: var(--ink); }
+  .chip.on { background: var(--ink); border-color: var(--ink); color: #fff; }
+  .chip.on span { color: #9a9fad; }
+  .filters + .section-tight { padding-top: 28px; }
+  .card[hidden] { display: none; }
+
   .hero {
     background:
       radial-gradient(900px 460px at 78% 10%, var(--brand-tint) 0%, rgba(238, 241, 255, 0) 70%),

@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import { getBlocks, getGuides, getReviews, getSettings, getImageSlots } from '../lib/content.js';
+import { tools } from '../lib/tools.js';
 import seo from '../data/seo.json';
 
 const blocks = await getBlocks();
@@ -14,11 +15,25 @@ const [title, description] = seo.home;
 const featured = guides.filter((g) => g.published).slice(0, 3);
 
 const stats = blocks.home_stats;
+
+// Shown in the hero's second column when no hero photo is set in the admin.
+// It's the whole pitch in one glance: the four places a shopper can be lost
+// between a search and a handshake.
+const journey = [
+  { step: 'Search', good: 'Shows up in Google, Maps and AI answers', leak: 'Half-finished Google profile' },
+  { step: 'Click', good: 'Finds the car, price and photos fast', leak: 'Slow site, thin vehicle pages' },
+  { step: 'Lead', good: 'Gets a real reply in minutes', leak: 'Three-hour response time' },
+  { step: 'Showroom', good: 'Shows up for the appointment', leak: 'No confirmation, no reason to come in' },
+];
+
+const featuredTools = ['/lead-leak-calculator', '/review-calculator', '/ai-visibility-check']
+  .map((href) => tools.find((t) => t.href === href))
+  .filter(Boolean);
 ---
 
 <Base title={title} description={description} path="/">
   <section class="hero">
-    <div class:list={['wrap', 'inner', { 'has-image': hero }]}>
+    <div class="wrap inner two-col">
       <div>
         <div class="badge"><span class="dot"></span>25 years in the car business</div>
         <h1>Digital marketing that shows up on the sales board.</h1>
@@ -37,7 +52,7 @@ const stats = blocks.home_stats;
         </div>
       </div>
 
-      {hero && (
+      {hero ? (
         <div class="heroimg">
           <img
             src={hero.url}
@@ -46,6 +61,26 @@ const stats = blocks.home_stats;
             height={hero.height}
             fetchpriority="high"
           />
+        </div>
+      ) : (
+        <div class="journey" aria-label="Where dealerships lose shoppers between search and showroom">
+          <div class="j-head">
+            <span>From search to showroom</span>
+            <span class="j-sub">Where most stores lose the deal</span>
+          </div>
+          <ol>
+            {journey.map((j, i) => (
+              <li>
+                <span class="j-n">{String(i + 1).padStart(2, '0')}</span>
+                <div>
+                  <strong>{j.step}</strong>
+                  <span class="j-good">{j.good}</span>
+                  <span class="j-leak">Leak: {j.leak}</span>
+                </div>
+              </li>
+            ))}
+          </ol>
+          <a href="/scorecard" class="j-cta">Find your leak in 2 minutes →</a>
         </div>
       )}
     </div>
@@ -94,6 +129,28 @@ const stats = blocks.home_stats;
     </div>
   </section>
 
+  {featuredTools.length > 0 && (
+    <section class="wrap section-tight tools">
+      <div class="head">
+        <div>
+          <div class="kicker">Free tools</div>
+          <h2>Check your store in a minute.</h2>
+        </div>
+        <a href="/tools" class="btn btn-ghost small">All free tools →</a>
+      </div>
+      <div class="grid grid-3">
+        {featuredTools.map((tool) => (
+          <a class="card tool" href={tool.href}>
+            <div class="tag">{tool.topic} · {tool.time}</div>
+            <h3>{tool.name}</h3>
+            <p>{tool.blurb}</p>
+            <span class="go">Try it — no email needed →</span>
+          </a>
+        ))}
+      </div>
+    </section>
+  )}
+
   <section class="dark">
     <div class="wrap section">
       <div class="kicker light">How it goes</div>
@@ -141,24 +198,26 @@ const stats = blocks.home_stats;
     </section>
   )}
 
-  <section class="wrap section">
-    <div class="kicker">From the dealers</div>
-    <h2>What they say after 90 days.</h2>
-    <div class="grid grid-3 quotes">
-      {reviews.map((review) => (
-        <blockquote class="card">
-          <p>{review.text}</p>
-          <footer>
-            <span class="initials">{review.initials}</span>
-            <span>
-              <strong>{review.name}</strong>
-              <em>{review.role}</em>
-            </span>
-          </footer>
-        </blockquote>
-      ))}
-    </div>
-  </section>
+  {reviews.length > 0 && (
+    <section class="wrap section">
+      <div class="kicker">From the dealers</div>
+      <h2>What they say after 90 days.</h2>
+      <div class="grid grid-3 quotes">
+        {reviews.map((review) => (
+          <blockquote class="card">
+            <p>{review.text}</p>
+            <footer>
+              <span class="initials">{review.initials}</span>
+              <span>
+                <strong>{review.name}</strong>
+                <em>{review.role}</em>
+              </span>
+            </footer>
+          </blockquote>
+        ))}
+      </div>
+    </section>
+  )}
 
   <section class="cta-band">
     <div class="wrap">
@@ -182,9 +241,9 @@ const stats = blocks.home_stats;
     border-bottom: 1px solid var(--line-2);
   }
   .hero .inner { padding-top: 78px; padding-bottom: 84px; }
-  /* Two columns only when there is an image to fill the second one, so an
-     empty slot reads as a deliberate single-column hero rather than a gap. */
-  .hero .inner.has-image {
+  /* The second column holds the admin's hero photo, or the search-to-showroom
+     card when no photo is set — so it is never an empty gap. */
+  .hero .inner.two-col {
     display: grid;
     grid-template-columns: minmax(0, 1.06fr) minmax(0, 0.94fr);
     gap: 56px;
@@ -197,9 +256,42 @@ const stats = blocks.home_stats;
   }
   .heroimg img { width: 100%; height: 100%; object-fit: cover; }
   @media (max-width: 900px) {
-    .hero .inner.has-image { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+    .hero .inner.two-col { grid-template-columns: minmax(0, 1fr); gap: 40px; }
     .heroimg { aspect-ratio: 16 / 10; }
   }
+
+  .journey {
+    background: var(--surface); border: 1px solid var(--line); border-radius: 22px;
+    padding: 26px 26px 22px; box-shadow: 0 40px 80px -48px rgba(11, 13, 18, 0.35);
+  }
+  .j-head { display: flex; flex-direction: column; gap: 4px; margin-bottom: 18px; }
+  .j-head span:first-child { font-family: var(--display); font-weight: 800; font-size: 19px; letter-spacing: -0.02em; }
+  .j-sub { font-size: 14px; color: var(--muted); }
+  .journey ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
+  .journey li {
+    display: flex; gap: 14px; align-items: flex-start;
+    padding: 13px 0; border-top: 1px solid var(--line-2);
+  }
+  .j-n {
+    flex: 0 0 auto; width: 34px; height: 34px; border-radius: 10px;
+    display: grid; place-items: center; background: var(--brand-tint); color: var(--brand);
+    font-family: var(--display); font-weight: 800; font-size: 13px;
+  }
+  .journey li div { display: grid; gap: 3px; }
+  .journey strong { font-family: var(--display); font-size: 16px; }
+  .j-good { font-size: 14.5px; color: var(--ink-2); }
+  .j-leak { font-size: 13px; font-weight: 600; color: #b4482a; }
+  .j-cta {
+    display: block; margin-top: 10px; padding: 14px 16px; border-radius: 12px;
+    background: var(--ink); color: #fff; text-align: center;
+    font-family: var(--display); font-weight: 700; font-size: 15px;
+  }
+  .j-cta:hover { background: var(--brand); color: #fff; }
+
+  .tools { padding-top: 0; }
+  .tool { display: flex; flex-direction: column; }
+  .tool p { flex: 1; margin-bottom: 18px; }
+  .go { font-family: var(--display); font-weight: 700; font-size: 14.5px; }
   .badge {
     display: inline-flex; align-items: center; gap: 9px;
     background: var(--surface); border: 1px solid var(--line); border-radius: 999px;

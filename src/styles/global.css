@@ -289,3 +289,93 @@ a.card:hover { border-color: var(--brand-line); box-shadow: var(--shadow-md); co
     height: 48px;
   }
 }
+
+/* ------------------------------------------------------------------------
+   Shared page and calculator pieces. The older tool pages carry their own
+   scoped copies of these; newer pages use the shared ones so a new tool is
+   markup and maths, not another 120 lines of CSS.
+   ------------------------------------------------------------------------ */
+
+.page-hero {
+  background:
+    radial-gradient(900px 460px at 78% 10%, var(--brand-tint) 0%, rgba(238, 241, 255, 0) 70%),
+    var(--bg);
+  border-bottom: 1px solid var(--line-2);
+  padding: 62px 0 60px;
+}
+.page-hero .lede { max-width: 58ch; margin: 22px 0 0; }
+
+.cta-strip { background: var(--brand-tint); border-top: 1px solid var(--brand-line); }
+.cta-strip .wrap {
+  padding-top: 56px; padding-bottom: 56px;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 40px; flex-wrap: wrap;
+}
+.cta-strip h2 { font-size: 32px; max-width: 24ch; margin-bottom: 10px; }
+.cta-strip p { font-size: 16.5px; color: var(--ink-2); margin: 0; max-width: 56ch; }
+
+.calc {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  gap: 44px;
+  align-items: start;
+}
+.calc-inputs { display: grid; gap: 18px; }
+.calc-inputs label { display: grid; gap: 7px; }
+.calc-inputs label > span {
+  font-size: 12.5px; font-weight: 600; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--ink-3);
+}
+.calc-inputs input, .calc-inputs select {
+  width: 100%; padding: 14px 16px; font-size: 19px;
+  font-family: var(--display); font-weight: 700;
+  border: 1px solid var(--line); border-radius: 12px;
+  background: var(--surface); color: var(--ink); outline: none;
+}
+.calc-inputs input:focus, .calc-inputs select:focus { border-color: var(--brand); background: var(--brand-tint); }
+.calc-inputs small { font-size: 13px; color: var(--ink-3); line-height: 1.45; }
+.calc-err { color: #b4482a; font-size: 14px; margin: 0; }
+.calc-err:empty { display: none; }
+
+.result-big {
+  background: var(--ink); color: #fff; border-radius: 18px; padding: 30px 28px;
+  margin-bottom: 14px;
+}
+.result-big .lab {
+  font-size: 12.5px; font-weight: 600; letter-spacing: 0.08em;
+  text-transform: uppercase; color: #9fb0ff;
+}
+.result-big .num {
+  font-family: var(--display); font-weight: 800; font-size: 52px;
+  letter-spacing: -0.035em; line-height: 1; margin: 12px 0 10px;
+}
+.result-big p { font-size: 15.5px; line-height: 1.6; color: #c3c7d4; margin: 0; }
+
+.result-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.result-card {
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: 14px; padding: 18px 20px;
+}
+.result-card .lab { font-size: 13.5px; color: var(--ink-3); margin-bottom: 8px; }
+.result-card .num {
+  font-family: var(--display); font-weight: 800; font-size: 30px;
+  letter-spacing: -0.03em; line-height: 1; color: var(--brand);
+}
+.result-card p { font-size: 13.5px; color: var(--ink-3); margin: 8px 0 0; line-height: 1.5; }
+
+.calc-note {
+  margin-top: 34px; padding: 24px 26px;
+  background: var(--surface); border: 1px solid var(--line); border-radius: 16px;
+}
+.calc-note h3 { font-size: 17px; margin: 0 0 10px; }
+.calc-note p { font-size: 15.5px; line-height: 1.65; color: var(--ink-3); margin: 0; max-width: 76ch; }
+.calc-note p + p { margin-top: 10px; }
+
+@media (max-width: 900px) {
+  .calc { grid-template-columns: minmax(0, 1fr); gap: 30px; }
+  .cta-strip h2 { font-size: 26px; }
+  .result-big .num { font-size: 42px; }
+}
+@media (max-width: 520px) {
+  .result-grid { grid-template-columns: minmax(0, 1fr); }
+}

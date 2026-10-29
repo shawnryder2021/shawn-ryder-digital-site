@@ -122,12 +122,18 @@ export async function getImageSlots() {
 
 /* ------------------------------------------------------------- reviews ---- */
 
+// The seed ships three "review to be added here" stand-ins. Showing those on
+// the live homepage costs more trust than showing nothing, so they are dropped
+// here and the section hides itself until a real review is entered.
+const isPlaceholderReview = (r) =>
+  !r.text?.trim() || /^dealer name$/i.test(r.name?.trim() ?? '') || /review to be added/i.test(r.text);
+
 export async function getReviews() {
   const rows = await table('reviews?order=sort_order.asc&select=*');
-  if (!rows) return reviewsJson;
-  return rows.map((r) => ({
-    text: r.quote, name: r.name, role: r.role, initials: r.initials,
-  }));
+  const reviews = rows
+    ? rows.map((r) => ({ text: r.quote, name: r.name, role: r.role, initials: r.initials }))
+    : reviewsJson;
+  return reviews.filter((r) => !isPlaceholderReview(r));
 }
 
 /* ----------------------------------------------------------------- faq ---- */
@@ -263,7 +269,8 @@ export async function getNav() {
     header: [
       { label: 'Home', href: '/' }, { label: 'Services', href: '/services' },
       { label: 'Process', href: '/process' }, { label: 'AI', href: '/ai' },
-      { label: 'Guides', href: '/guides' }, { label: 'FAQ', href: '/faq' },
+      { label: 'Guides', href: '/guides' }, { label: 'Tools', href: '/tools' },
+      { label: 'FAQ', href: '/faq' },
       { label: 'About', href: '/about' }, { label: 'Contact', href: '/contact' },
       // Markets is deliberately not here — it lives in the footer only.
     ],
@@ -277,6 +284,9 @@ export async function getNav() {
       { group_label: 'Site', label: 'FAQ', href: '/faq' },
       { group_label: 'Site', label: 'About', href: '/about' },
       { group_label: 'Site', label: 'Contact', href: '/contact' },
+      { group_label: 'Free tools', label: 'All free tools', href: '/tools' },
+      { group_label: 'Free tools', label: 'Lead leak calculator', href: '/lead-leak-calculator' },
+      { group_label: 'Free tools', label: 'Ad budget planner', href: '/ad-budget-planner' },
       { group_label: 'Free tools', label: 'AI crawler check', href: '/ai-crawler-check' },
       { group_label: 'Free tools', label: 'AI visibility check', href: '/ai-visibility-check' },
       { group_label: 'Free tools', label: 'Review calculator', href: '/review-calculator' },

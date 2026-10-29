@@ -1,0 +1,209 @@
+---
+import Base from '../layouts/Base.astro';
+
+const title = 'Lead Leak Calculator — What Slow Follow-Up Costs Your Dealership';
+const description =
+  'Enter your monthly leads, response time, close rate and gross. See how many deals and how much gross slow lead follow-up costs your store each month.';
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'How fast should a dealership respond to an internet lead?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Aim for a real person, by name, inside ten minutes during business hours. Track the median minutes to first human contact by day of week, not the average — one overnight outlier hides the pattern.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'How much does slow lead follow-up cost a dealership?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'It depends on lead volume, close rate and gross per unit. If leads answered quickly close at about twice the rate of slow ones, a store with 250 leads a month, an 8% close rate, $2,800 gross and only 40% of leads answered fast is leaving roughly eight or nine deals a month on the table.',
+      },
+    },
+  ],
+};
+
+const breadcrumbs = [
+  { label: 'Home', url: '/' },
+  { label: 'Tools', url: '/tools' },
+  { label: 'Lead leak calculator', url: '/lead-leak-calculator' },
+];
+---
+
+<Base title={title} description={description} path="/lead-leak-calculator" schema={schema} breadcrumbs={breadcrumbs}>
+  <section class="page-hero">
+    <div class="wrap">
+      <div class="kicker">Free tool</div>
+      <h1>What is slow follow-up costing you?</h1>
+      <p class="lede">
+        Most stores don't have a lead problem. They have a "nobody answered for three hours"
+        problem. Put in your numbers and see what it adds up to in deals and gross.
+      </p>
+    </div>
+  </section>
+
+  <section class="wrap section">
+    <div class="calc">
+      <form id="calc" class="calc-inputs" novalidate>
+        <label>
+          <span>Internet leads per month</span>
+          <input name="leads" type="number" min="1" max="100000" step="1" value="250" inputmode="numeric" />
+          <small>Website forms, third-party sites, chat, Facebook — all of it.</small>
+        </label>
+        <label>
+          <span>% answered by a person inside 10 minutes</span>
+          <input name="fast" type="number" min="0" max="100" step="1" value="40" inputmode="numeric" />
+          <small>Not sure? Mystery shop your own store this week. Most dealers guess high.</small>
+        </label>
+        <label>
+          <span>Lead-to-sale close rate (%)</span>
+          <input name="close" type="number" min="0.1" max="100" step="0.1" value="8" inputmode="decimal" />
+        </label>
+        <label>
+          <span>Average gross per unit ($)</span>
+          <input name="gross" type="number" min="0" max="100000" step="50" value="2800" inputmode="numeric" />
+          <small>Front and back combined.</small>
+        </label>
+        <p class="calc-err" id="err" role="status" aria-live="polite"></p>
+      </form>
+
+      <div aria-live="polite">
+        <div class="result-big">
+          <div class="lab">Gross left on the table each month</div>
+          <div class="num" id="monthly">—</div>
+          <p id="summary"></p>
+        </div>
+        <div class="result-grid">
+          <div class="result-card">
+            <div class="lab">Extra deals a month</div>
+            <div class="num" id="deals">—</div>
+            <p>If every lead got a fast, human reply.</p>
+          </div>
+          <div class="result-card">
+            <div class="lab">Over a year</div>
+            <div class="num" id="yearly">—</div>
+            <p>Same leads. Same ad spend. Just faster.</p>
+          </div>
+          <div class="result-card">
+            <div class="lab">Slow leads a month</div>
+            <div class="num" id="slow">—</div>
+            <p>Leads that waited longer than 10 minutes.</p>
+          </div>
+          <div class="result-card">
+            <div class="lab">Close rate if all were fast</div>
+            <div class="num" id="potential">—</div>
+            <p id="potential-note"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="calc-note">
+      <h3>How the math works</h3>
+      <p>
+        We assume a lead answered by a real person inside ten minutes is about twice as likely to
+        buy as one answered later. That's on the conservative side of what most stores see when
+        they check their own CRM. Then we work backwards from your current close rate to find
+        what each group closes at today.
+      </p>
+      <p>
+        Your own data beats any rule of thumb. Pull the last 90 days of leads, split them by
+        first-response time, and compare close rates. That number is worth putting on the wall.
+      </p>
+    </div>
+  </section>
+
+  <section class="wrap section-tight">
+    <div class="kicker">How to close the gap</div>
+    <h2 class="sub">Three fixes that don't need new software.</h2>
+    <div class="grid grid-3">
+      <a class="card" href="/guides/speed-to-lead-friday-afternoon">
+        <h3>Staff the clock, not the queue</h3>
+        <p>One person owns first response from open until 9pm. Saturday gets someone off the floor. Sunday gets a paid two-hour block.</p>
+        <span class="more">Read the guide →</span>
+      </a>
+      <a class="card" href="/guides/text-messaging-dealership-leads">
+        <h3>Text first, then call</h3>
+        <p>A call that goes to voicemail is a dead end. A text sits there until the shopper is ready to answer it.</p>
+        <span class="more">Read the guide →</span>
+      </a>
+      <a class="card" href="/guides/dealership-lead-form-fields">
+        <h3>Ask for less on the form</h3>
+        <p>Name, contact method, the vehicle. Every extra field is the store asking a stranger to do work first.</p>
+        <span class="more">Read the guide →</span>
+      </a>
+    </div>
+  </section>
+
+  <section class="cta-strip">
+    <div class="wrap">
+      <div>
+        <h2>Want to know your real response time?</h2>
+        <p>The free audit includes a mystery shop of your own store — form, phone and text — with the honest results.</p>
+      </div>
+      <a href="/contact" class="btn btn-dark">Request the audit</a>
+    </div>
+  </section>
+</Base>
+
+<script>
+  const form = document.getElementById('calc');
+  const $ = (id) => document.getElementById(id);
+
+  // Leads answered inside ten minutes close at this multiple of slow ones.
+  const FAST_MULTIPLIER = 2;
+
+  const num = (n, d = 0) =>
+    n.toLocaleString('en-CA', { minimumFractionDigits: d, maximumFractionDigits: d });
+  const money = (n) => '$' + num(Math.round(n));
+
+  function render() {
+    const leads = parseFloat(form.leads.value);
+    const fast = parseFloat(form.fast.value) / 100;
+    const close = parseFloat(form.close.value) / 100;
+    const gross = parseFloat(form.gross.value);
+
+    const ok = leads > 0 && fast >= 0 && fast <= 1 && close > 0 && close <= 1 && gross >= 0;
+    if (!ok) {
+      $('err').textContent = 'Check the numbers — percentages go from 0 to 100, and leads and close rate need to be above zero.';
+      for (const id of ['monthly', 'deals', 'yearly', 'slow', 'potential']) $(id).textContent = '—';
+      $('summary').textContent = '';
+      $('potential-note').textContent = '';
+      return;
+    }
+    $('err').textContent = '';
+
+    // close = fast·(M·s) + (1 − fast)·s  →  s = close / (1 + (M − 1)·fast)
+    const slowRate = close / (1 + (FAST_MULTIPLIER - 1) * fast);
+    const fastRate = Math.min(1, slowRate * FAST_MULTIPLIER);
+    const extraDeals = leads * (fastRate - close);
+    const monthly = extraDeals * gross;
+
+    $('monthly').textContent = money(monthly);
+    $('deals').textContent = num(extraDeals, 1);
+    $('yearly').textContent = money(monthly * 12);
+    $('slow').textContent = num(Math.round(leads * (1 - fast)));
+    $('potential').textContent = num(fastRate * 100, 1) + '%';
+    $('potential-note').textContent = `Up from ${num(close * 100, 1)}% today.`;
+    $('summary').textContent =
+      fast >= 1
+        ? 'Every lead already gets a fast reply. The next gain is in what that reply says.'
+        : `That's about ${num(extraDeals, 1)} more deals a month from leads you already paid for — no extra ad spend.`;
+  }
+
+  form.addEventListener('input', render);
+  render();
+</script>
+
+<style>
+  h2.sub { font-size: 32px; margin-bottom: 28px; }
+  .card { display: flex; flex-direction: column; }
+  .card h3 { margin-bottom: 10px; font-size: 19px; }
+  .card p { font-size: 15.5px; line-height: 1.6; color: var(--ink-3); margin: 0 0 18px; flex: 1; }
+  .more { font-family: var(--display); font-weight: 700; font-size: 14.5px; }
+</style>

@@ -1,11 +1,15 @@
 ---
 // Posts to /api/subscribe → Netlify function → Supabase (upsert) → webhook.
+const {
+  heading = 'Get the next one when it goes up.',
+  blurb = 'New guide every few weeks. No drip sequence, no pitch — unsubscribe in one click.',
+} = Astro.props;
 ---
 
 <form id="subscribe-form" class="subscribe" novalidate>
   <div class="copy">
-    <h2>Get the next one when it goes up.</h2>
-    <p>New guide every few weeks. No drip sequence, no pitch — unsubscribe in one click.</p>
+    <h2>{heading}</h2>
+    <p>{blurb}</p>
   </div>
 
   <div class="row">

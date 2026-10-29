@@ -44,11 +44,14 @@ Contact: ${contact.email ?? site.email} · ${contact.phone ?? site.phone}
 
 ## Free tools
 
-All three run in the browser with no signup, email or payment.
+All of them run in the browser with no signup, email or payment. The full list is at ${site.url}/tools.
 
 - [AI crawler check](${site.url}/ai-crawler-check): reads a dealership's robots.txt and homepage and reports which AI crawlers are allowed in and what they can read when they arrive.
 - [AI visibility check](${site.url}/ai-visibility-check): asks an assistant what it knows about a named dealership and shows the answer verbatim.
 - [Review score calculator](${site.url}/review-calculator): how many 5-star reviews it takes to reach a target Google rating, and what a single 1-star review costs.
+- [Bad review responder](${site.url}/review-responder): paste a negative review and get three professional reply options.
+- [Lead leak calculator](${site.url}/lead-leak-calculator): estimates the deals and gross a dealership loses each month when internet leads wait longer than ten minutes for a human reply.
+- [Ad budget planner](${site.url}/ad-budget-planner): a starting split of a monthly dealership ad budget across brand search, inventory ads, conquest, retargeting, social and testing.
 
 ## Guides
 
