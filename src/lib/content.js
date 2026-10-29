@@ -129,10 +129,10 @@ export async function getImageSlots() {
  * reserve space against layout shift, so a close match is fine.
  */
 const LOCAL_SLOTS = {
-  home_hero: { width: 1600, height: 1200, alt: 'Dealership showroom at dusk' },
-  home_dealer: { width: 1920, height: 1080, alt: 'A customer taking delivery of a vehicle at a dealership' },
+  home_hero: { width: 1448, height: 1086, alt: 'A car dealership lot at dusk, wet pavement reflecting the lit showroom windows' },
+  home_dealer: { width: 1672, height: 941, alt: 'A service advisor with a tablet greeting a customer pulling into the service drive on a fall morning' },
   about_portrait: { width: 1200, height: 1500, alt: 'Shawn Ryder, automotive digital marketing consultant' },
-  ai_hero: { width: 1600, height: 1200, alt: 'A shopper researching a vehicle on a phone' },
+  ai_hero: { width: 1448, height: 1086, alt: 'A shopper on the couch browsing SUV listings on a phone in the evening' },
 };
 
 function localImages() {
