@@ -9,7 +9,8 @@
 
 import { createServer } from 'node:http';
 import { execFile } from 'node:child_process';
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
+import { join } from 'node:path';
 import { promisify } from 'node:util';
 
 const run = promisify(execFile);
@@ -92,7 +93,17 @@ try {
     maxBuffer: 1024 * 1024 * 20,
   });
   const bare = readFileSync('dist/index.html', 'utf8');
-  check('no hero photo falls back to the journey card', bare.includes('class="journey') && !bare.includes('class="heroimg'));
+  // A photo committed to public/images/ is the fallback when the CMS is empty;
+  // only with neither does the hero drop back to the journey card.
+  const localHero = ['webp', 'jpg', 'jpeg', 'png']
+    .map((ext) => `home_hero.${ext}`)
+    .find((name) => existsSync(join('public', 'images', name)));
+  if (localHero) {
+    check('no CMS hero falls back to the repo photo',
+      bare.includes(`src="/images/${localHero}"`) && !bare.includes('class="journey'));
+  } else {
+    check('no hero photo falls back to the journey card', bare.includes('class="journey') && !bare.includes('class="heroimg'));
+  }
   check('bare homepage has no broken img', !/<img[^>]*src=""/.test(bare));
 } finally {
   server.close();
