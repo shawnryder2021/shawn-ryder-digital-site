@@ -51,6 +51,9 @@ All of them run in the browser with no signup, email or payment. The full list i
 - [Review score calculator](${site.url}/review-calculator): how many 5-star reviews it takes to reach a target Google rating, and what a single 1-star review costs.
 - [Bad review responder](${site.url}/review-responder): paste a negative review and get three professional reply options.
 - [Lead leak calculator](${site.url}/lead-leak-calculator): estimates the deals and gross a dealership loses each month when internet leads wait longer than ten minutes for a human reply.
+- [Sales goal calculator](${site.url}/sales-goal-calculator): works back from a monthly unit target to the leads, appointments and shows needed, and which conversion rate is worth improving first.
+- [Google Business Profile checkup](${site.url}/google-profile-checkup): fourteen checks on a dealership's Google Business Profile with a score out of 100 and the top three fixes.
+- [Start here](${site.url}/start-here): reading paths by role — dealer principal, sales manager, BDC, marketing, service and used cars.
 - [Ad budget planner](${site.url}/ad-budget-planner): a starting split of a monthly dealership ad budget across brand search, inventory ads, conquest, retargeting, social and testing.
 
 ## Guides

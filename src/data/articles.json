@@ -1389,5 +1389,1310 @@
     "x": "The uncomfortable summary is that ranking for near-me searches is mostly operational hygiene, done consistently, for longer than feels reasonable. Which is exactly why so few stores manage it."
    }
   ]
+ },
+ "dealership-google-ads-budget-split": {
+  "takeaways": [
+   "Brand search mostly claims credit for leads you already had",
+   "Model-line and conquest terms are where new units come from",
+   "Send a model search to that model, never the homepage"
+  ],
+  "blocks": [
+   {
+    "t": "p",
+    "x": "Most stores spending $5,000 a month on Google put the biggest share on their own name. It feels safe. The reports look great. And a big chunk of those leads were coming anyway."
+   },
+   {
+    "t": "p",
+    "x": "This is how I'd split that budget, and why."
+   },
+   {
+    "t": "h",
+    "x": "Three jobs, three budgets"
+   },
+   {
+    "t": "p",
+    "x": "Every dollar in a dealership ad account is doing one of three jobs. The trouble starts when they are lumped into one campaign and judged by one number."
+   },
+   {
+    "t": "ul",
+    "items": [
+     "**Brand** — people searching your store name or \"[brand] dealer [city]\". They have already picked you, or nearly have.",
+     "**Conquest and model line** — people searching a model, a competitor, or \"used trucks near me\". They have not picked anyone yet.",
+     "**Retargeting** — people who already visited a vehicle page and left."
+    ]
+   },
+   {
+    "t": "p",
+    "x": "Brand search converts beautifully because the shopper was already heading your way. That is not the ad working — that is your reputation working, and the ad stepping in front of it to claim the credit."
+   },
+   {
+    "t": "h",
+    "x": "A starting split for $5,000"
+   },
+   {
+    "t": "pull",
+    "x": "Protect your name, but spend your real money where the shopper has not decided yet."
+   },
+   {
+    "t": "ul",
+    "items": [
+     "**Brand: about $1,000.** Enough to own the top of your own results so a competitor or a third-party lead site cannot sit above you. Keep it tight: exact store name, store name plus city, brand plus city.",
+     "**Model line and conquest: about $2,750.** Model names plus your city, \"used [model] near me\", competitor-adjacent terms. This is where new units come from.",
+     "**Retargeting: about $750.** Short window, real inventory, frequency capped.",
+     "**Testing: about $500.** One new idea a month — a new model line, a new radius, a different landing page."
+    ]
+   },
+   {
+    "t": "p",
+    "x": "If you want to play with your own numbers, the [ad budget planner](/ad-budget-planner) does this split for any budget and store type."
+   },
+   {
+    "t": "h",
+    "x": "Where conquest money gets wasted"
+   },
+   {
+    "t": "p",
+    "x": "The most common leak is sending a \"2026 Tucson Halifax\" click to the homepage. The shopper asked about a Tucson. Show them Tucsons — your in-stock list, filtered, with prices. Every extra click between the search and the car is money you paid for and threw out."
+   },
+   {
+    "t": "p",
+    "x": "The second leak is broad match without negatives. Add \"jobs\", \"parts\", \"recall\", \"manual\", \"for sale by owner\" and competitor service terms as negatives on day one, then read the search terms report every week for the first month."
+   },
+   {
+    "t": "h",
+    "x": "How to know it is working"
+   },
+   {
+    "t": "p",
+    "x": "Stop judging the whole account on cost per lead. Judge each job on its own:"
+   },
+   {
+    "t": "ol",
+    "items": [
+     "Brand: are you at the top of your own name, every time? That is the whole job.",
+     "Conquest: cost per appointment set, and how many of those leads were new to your CRM.",
+     "Retargeting: did people come back and submit, or just come back?"
+    ]
+   },
+   {
+    "t": "p",
+    "x": "Ask your agency for those three numbers separately. If they cannot split them, the account is not built to answer the question you are paying it to answer."
+   }
+  ]
+ },
+ "dealership-retargeting-frequency": {
+  "takeaways": [
+   "Keep the window to 14–30 days for vehicle page visitors",
+   "Cap frequency at three to five a week",
+   "Exclude recent buyers and use a live inventory feed"
+  ],
+  "blocks": [
+   {
+    "t": "p",
+    "x": "A shopper looks at one Tucson on your site in March. In July they are still seeing that same Tucson in every app on their phone — which you sold in April. That is not marketing. That is the store following someone around."
+   },
+   {
+    "t": "p",
+    "x": "Retargeting works. It just needs three settings most accounts never touch."
+   },
+   {
+    "t": "h",
+    "x": "Setting 1: a short window"
+   },
+   {
+    "t": "p",
+    "x": "Most platforms default to remembering visitors for 30, 90, even 180 days. Car shoppers move faster than that. The bulk of a purchase decision happens in a few weeks."
+   },
+   {
+    "t": "ul",
+    "items": [
+     "**Vehicle page visitors:** 14 to 30 days.",
+     "**Lead form starters who did not submit:** 7 to 14 days, with a stronger message.",
+     "**Service page visitors:** keep them separate — they want an appointment, not a car."
+    ]
+   },
+   {
+    "t": "p",
+    "x": "After the window, let them go. If they come back to the site, they re-enter the audience on their own."
+   },
+   {
+    "t": "h",
+    "x": "Setting 2: a frequency cap"
+   },
+   {
+    "t": "p",
+    "x": "Without a cap, the people most likely to see your ad twenty times are the ones who already bought somewhere else. Cap it around three to five impressions per person per week. You lose almost nothing and the ad stops being annoying."
+   },
+   {
+    "t": "pull",
+    "x": "Retargeting should feel like a helpful reminder, not a tail."
+   },
+   {
+    "t": "h",
+    "x": "Setting 3: real inventory, not old inventory"
+   },
+   {
+    "t": "p",
+    "x": "If you show vehicle ads, they must come from a live inventory feed. A sold unit should drop out of the ads the same day it drops off the site. Ask your provider how often the feed refreshes. \"Weekly\" is not good enough."
+   },
+   {
+    "t": "p",
+    "x": "Better still, show what the shopper looked at plus similar units in stock. If they looked at a red Tucson that sold, show them the two other Tucsons on the lot."
+   },
+   {
+    "t": "h",
+    "x": "Exclude your buyers"
+   },
+   {
+    "t": "p",
+    "x": "Upload your sold-customer list every month and exclude it. Nothing makes a store look careless like showing a \"come see the new Santa Fe\" ad to someone who took delivery of one last week. Use that list for a separate service and referral message instead."
+   },
+   {
+    "t": "h",
+    "x": "What to measure"
+   },
+   {
+    "t": "p",
+    "x": "Do not judge retargeting on click-through rate. Judge it on return visits that turn into a lead, a call or a chat. If it is not producing those inside a month, shorten the window, tighten the cap, and fix the offer before adding more budget."
+   },
+   {
+    "t": "p",
+    "x": "For a wider look at where retargeting fits in your spend, see [how to split a $5,000 dealership ad budget](/guides/dealership-google-ads-budget-split)."
+   }
+  ]
+ },
+ "vehicle-detail-pages-that-convert": {
+  "takeaways": [
+   "Price, real photos and one clear button above the fold",
+   "25–40 photos in the same order for every used unit",
+   "Two sentences a person wrote beat a list of option codes"
+  ],
+  "blocks": [
+   {
+    "t": "p",
+    "x": "Search sends people to the vehicle detail page, not your homepage. The VDP is where the decision to call, submit or keep scrolling actually happens. In most stores it is a template nobody has really looked at since the site launched."
+   },
+   {
+    "t": "p",
+    "x": "Open three of your own VDPs on your phone right now. Then read this."
+   },
+   {
+    "t": "h",
+    "x": "What a shopper needs above the fold"
+   },
+   {
+    "t": "p",
+    "x": "On a phone, before scrolling, the shopper should see:"
+   },
+   {
+    "t": "ul",
+    "items": [
+     "**Real photos of the actual unit** — the first one is the full car, front three-quarter, in good light.",
+     "**The price.** If the price is hidden behind \"call for price\" or a form, many shoppers just leave.",
+     "**Year, make, model, trim and kilometres.**",
+     "**One clear next step** — usually \"Check availability\" or \"Book a test drive\", plus a tap-to-call button."
+    ]
+   },
+   {
+    "t": "p",
+    "x": "If there are four different buttons, a payment calculator, a trade widget and a chat bubble all fighting for the same space, the shopper picks none of them."
+   },
+   {
+    "t": "h",
+    "x": "Photos are the whole game for used"
+   },
+   {
+    "t": "p",
+    "x": "For new units, stock photos are tolerable. For used, they are not. A used shopper wants to see this car: the seats, the tires, the dash with the kilometres showing, any scratches."
+   },
+   {
+    "t": "pull",
+    "x": "The car is the product. The page is the shelf. Most dealers have a great product on a bad shelf."
+   },
+   {
+    "t": "p",
+    "x": "A good used set is 25 to 40 photos in the same order every time: exterior walkaround, interior front, interior rear, cargo, dash, wheels and tires, then any flaws. Consistency helps the shopper compare and makes your lot look organized."
+   },
+   {
+    "t": "h",
+    "x": "Write two real sentences"
+   },
+   {
+    "t": "p",
+    "x": "The auto-generated description listing every option code is not doing anything. Add two lines a person wrote: who this vehicle suits and why it is a good one. \"One owner, local trade, new tires in October. Great first SUV for a young family.\" That is what gets read."
+   },
+   {
+    "t": "h",
+    "x": "Speed and trust"
+   },
+   {
+    "t": "p",
+    "x": "A VDP that takes four seconds to load on a phone loses people before they see the car. Ask your website provider for the load time on a mid-range phone over cellular, not their office Wi-Fi. See [why a slow site costs you leads](/guides/dealership-website-speed)."
+   },
+   {
+    "t": "p",
+    "x": "Then add trust where the shopper is deciding: your Google rating, a line about your inspection process, and whether a CarFax or history report is included."
+   },
+   {
+    "t": "h",
+    "x": "The fifteen-minute audit"
+   },
+   {
+    "t": "p",
+    "x": "Pick five VDPs: two new, three used. For each one, write down:"
+   },
+   {
+    "t": "ol",
+    "items": [
+     "Can I see the price without scrolling?",
+     "Are the photos of this actual car?",
+     "Is there one obvious button?",
+     "Does it load in under three seconds on my phone?",
+     "Is there anything a person wrote?"
+    ]
+   },
+   {
+    "t": "p",
+    "x": "Most stores score two out of five. Fixing the template fixes every page at once."
+   }
+  ]
+ },
+ "dealership-lead-form-fields": {
+  "takeaways": [
+   "Name, contact method of their choice, and the vehicle",
+   "Qualify in the first reply, not on the form",
+   "Submit every form on your site yourself and check where it goes"
+  ],
+  "blocks": [
+   {
+    "t": "p",
+    "x": "Name, a way to reach you, and the vehicle. That is the whole form. Every field past those three is the store asking a stranger to do work before you have done anything for them."
+   },
+   {
+    "t": "h",
+    "x": "Why long forms hang around"
+   },
+   {
+    "t": "p",
+    "x": "Long forms usually exist because someone wanted cleaner data for the CRM, or a manager wanted to \"qualify\" leads before a salesperson spent time on them. Both make sense on paper. In practice, the shopper sees eight fields, a required phone number and a dropdown asking about their timeline — and closes the tab."
+   },
+   {
+    "t": "p",
+    "x": "The lead you never received is never in your reports, so nobody notices the cost."
+   },
+   {
+    "t": "h",
+    "x": "The short form"
+   },
+   {
+    "t": "ul",
+    "items": [
+     "**First name.** Last name is optional — you will get it on the phone.",
+     "**Email or phone — their choice.** Let them pick how they want to be contacted. Requiring a phone number is the single biggest reason people abandon.",
+     "**The vehicle** — filled in automatically from the page they are on.",
+     "**An optional message box.**"
+    ]
+   },
+   {
+    "t": "p",
+    "x": "That is it. Trade-in details, financing and timing are conversations, not form fields."
+   },
+   {
+    "t": "pull",
+    "x": "A form is a handshake, not an application."
+   },
+   {
+    "t": "h",
+    "x": "What about qualifying leads?"
+   },
+   {
+    "t": "p",
+    "x": "The salesperson qualifies the lead in the first reply, which should go out in minutes. \"Hi Sarah, it's Mike at the store. The grey CR-V is here and available. Are you thinking this week or still looking around?\" That one text does more qualifying than any dropdown."
+   },
+   {
+    "t": "p",
+    "x": "If your team is worried about junk leads, the answer is faster, better first replies — not a harder form. See [why your 5:40pm Friday lead never gets called back](/guides/speed-to-lead-friday-afternoon)."
+   },
+   {
+    "t": "h",
+    "x": "Check every form on the site"
+   },
+   {
+    "t": "p",
+    "x": "Most dealer sites have more forms than anyone realizes: VDP, trade-in, finance, service booking, contact, specials, test drive. Go through each one on your phone and count required fields. Anything over four, cut."
+   },
+   {
+    "t": "p",
+    "x": "Then submit each one yourself. Check that the lead lands in the CRM, goes to the right person, and that the shopper gets an instant confirmation telling them who will be in touch and when."
+   },
+   {
+    "t": "h",
+    "x": "What to measure"
+   },
+   {
+    "t": "p",
+    "x": "Track form submissions per 100 visits to the page, before and after the change. Give it four weeks. If submissions rise and close rate holds, you just got more deals from the same traffic — for free."
+   }
+  ]
+ },
+ "get-dealership-cited-by-ai-assistants": {
+  "takeaways": [
+   "Make your basic facts readable on your own site",
+   "Answer real shopper questions on real pages",
+   "Re-check the same prompts every quarter and date the answers"
+  ],
+  "blocks": [
+   {
+    "t": "p",
+    "x": "Ask ChatGPT or Google's AI \"who's the best used car dealer in [your city]\". Three or four stores get named. If yours is not one of them, that is not random — and it is fixable."
+   },
+   {
+    "t": "h",
+    "x": "Where the answer comes from"
+   },
+   {
+    "t": "p",
+    "x": "AI assistants build their answer from what is public and easy to read about your store:"
+   },
+   {
+    "t": "ul",
+    "items": [
+     "Your own website, if it is readable and specific.",
+     "Your Google Business Profile and review text.",
+     "Directory listings and review sites.",
+     "Local news, community pages and forums that mention you."
+    ]
+   },
+   {
+    "t": "p",
+    "x": "They lean toward stores that are mentioned consistently, described clearly, and talked about positively in plain language. That is the target."
+   },
+   {
+    "t": "h",
+    "x": "Step 1: make your facts easy to read"
+   },
+   {
+    "t": "p",
+    "x": "Your website should state, in plain text, the basics a person would ask about: the brands you sell, your address and hours by department, financing options, whether you take trades, what areas you serve. If this lives only in images or a chat widget, an assistant cannot read it."
+   },
+   {
+    "t": "p",
+    "x": "Use the [AI crawler check](/ai-crawler-check) to confirm AI tools are allowed to read your site at all. Some dealer platforms block them by default."
+   },
+   {
+    "t": "h",
+    "x": "Step 2: answer real questions on real pages"
+   },
+   {
+    "t": "p",
+    "x": "Write short, direct pages that answer what shoppers ask. \"Do you take trade-ins that still have a loan?\" \"Can I buy a car if my credit isn't great?\" \"How long does a tire swap take?\" One clear answer per page or section, in your store's voice."
+   },
+   {
+    "t": "pull",
+    "x": "Assistants quote stores that answer questions. Most dealer sites only list inventory."
+   },
+   {
+    "t": "h",
+    "x": "Step 3: work your reviews"
+   },
+   {
+    "t": "p",
+    "x": "Assistants summarize what reviews say, not just the star average. If a pattern shows up — \"great sales, slow service\" — it can show up in the answer. Reply to reviews in a specific, human way and fix the pattern behind the bad ones. See [how to raise your review score without begging](/guides/raise-dealership-review-score)."
+   },
+   {
+    "t": "h",
+    "x": "Step 4: get mentioned in your community"
+   },
+   {
+    "t": "p",
+    "x": "Sponsorships, local news stories, charity events, chamber of commerce listings and supplier pages all count as real, independent mentions of your store. These are the kinds of sources assistants trust. Link schemes do not count and can hurt you."
+   },
+   {
+    "t": "h",
+    "x": "Step 5: check it every quarter"
+   },
+   {
+    "t": "p",
+    "x": "Use the [AI visibility check](/ai-visibility-check), or ask the same five questions in the same assistants every three months and save the answers with the date. That is your baseline. Change one thing at a time and watch what moves."
+   },
+   {
+    "t": "p",
+    "x": "This is still early, which is the opportunity. Most of your competitors have not started."
+   }
+  ]
+ },
+ "dealership-marketing-report-one-page": {
+  "takeaways": [
+   "Five questions on one page: leads, speed, appointments, sold, cost",
+   "Leave out anything you would not make a decision on",
+   "Cost per sold unit beats cost per lead"
+  ],
+  "blocks": [
+   {
+    "t": "p",
+    "x": "Fourteen pages of impressions, reach and engagement rate. Nobody reads past page two — and they are right not to. If your marketing report does not answer \"did this sell cars?\", it is a document for the agency, not for you."
+   },
+   {
+    "t": "h",
+    "x": "The one-page version"
+   },
+   {
+    "t": "p",
+    "x": "A useful dealership report fits on one page and answers five questions:"
+   },
+   {
+    "t": "ol",
+    "items": [
+     "**How many leads did we get, and from where?** Website forms, calls, chat, third-party sites, walk-ins who said they saw us online.",
+     "**How fast did we respond?** Median minutes to first human contact.",
+     "**How many became appointments, and how many showed?**",
+     "**How many sold?** By source, as best you can.",
+     "**What did it cost?** Total spend divided by units sold from marketing-sourced leads."
+    ]
+   },
+   {
+    "t": "p",
+    "x": "Then one paragraph: what we changed last month, what happened, and what we are changing next month."
+   },
+   {
+    "t": "pull",
+    "x": "Report on units, not clicks. Impressions do not hit a forecast."
+   },
+   {
+    "t": "h",
+    "x": "What to leave out"
+   },
+   {
+    "t": "ul",
+    "items": [
+     "Impressions and reach, unless something is badly wrong.",
+     "Social \"engagement\" with no link to traffic or leads.",
+     "Rank reports with fifty keywords. Pick the five searches that matter and track those.",
+     "Anything you would not change a decision based on."
+    ]
+   },
+   {
+    "t": "h",
+    "x": "Getting the data"
+   },
+   {
+    "t": "p",
+    "x": "Most of this lives in your CRM already. The hard part is source tracking — making sure every lead is tagged with where it came from. Use call tracking numbers per channel, UTM tags on every link you run, and have the team ask \"how did you hear about us?\" on walk-ins."
+   },
+   {
+    "t": "p",
+    "x": "It will never be perfect. A consistent 80% picture is worth far more than a perfect report nobody fills in."
+   },
+   {
+    "t": "h",
+    "x": "Cost per sold unit beats cost per lead"
+   },
+   {
+    "t": "p",
+    "x": "Cost per lead rewards cheap, low-quality leads. A $15 lead that never answers the phone is more expensive than a $60 lead that buys. Look at cost per sold unit by channel each quarter, and move money toward the channels that sell."
+   },
+   {
+    "t": "h",
+    "x": "Make it a habit"
+   },
+   {
+    "t": "p",
+    "x": "Fifteen minutes, first week of every month, with the GM and whoever runs digital. Same page, same five questions. After three months, you will know which channels earn their keep, and nobody will need fourteen pages again."
+   },
+   {
+    "t": "p",
+    "x": "If your follow-up numbers are the weak spot, the [lead leak calculator](/lead-leak-calculator) puts a dollar figure on it."
+   }
+  ]
+ },
+ "dealership-short-form-video": {
+  "takeaways": [
+   "Open on the car or the moment, not an intro",
+   "Five repeatable formats beat one big video a month",
+   "Agree approval rules once, then let the team post"
+  ],
+  "blocks": [
+   {
+    "t": "p",
+    "x": "A ninety-second walkaround, filmed sideways in the wind, with a \"Hey guys!\" intro. It gets four hundred views and no leads. Then the store decides video does not work."
+   },
+   {
+    "t": "p",
+    "x": "Video works. That video did not."
+   },
+   {
+    "t": "h",
+    "x": "The first two seconds decide everything"
+   },
+   {
+    "t": "p",
+    "x": "On Reels, TikTok and Shorts, people decide in a second or two whether to keep watching. Do not spend that time on your logo, your name or a greeting. Open on the most interesting thing: the car, the price, the feature, the customer's face at delivery."
+   },
+   {
+    "t": "ul",
+    "items": [
+     "Start mid-action: door opening, engine starting, keys being handed over.",
+     "Put a short text line on screen in the first frame: \"$24,900 · one owner · 61,000 km\".",
+     "Film vertical. Always.",
+     "Use a cheap clip-on mic. Wind noise kills more dealer videos than anything else."
+    ]
+   },
+   {
+    "t": "h",
+    "x": "Five formats you can repeat every week"
+   },
+   {
+    "t": "p",
+    "x": "One ambitious monthly video is hard to keep up. Five simple formats, filmed in batches, are easy."
+   },
+   {
+    "t": "ol",
+    "items": [
+     "**The 30-second walkaround** — one vehicle, three things worth knowing, price at the end.",
+     "**\"Just traded in\"** — fresh used units before they hit the website.",
+     "**Delivery moments** — with the customer's permission. See [the best content isn't made by the dealership](/guides/customer-photos-and-video-dealership).",
+     "**Ask the tech** — a service technician answering one real question in under a minute.",
+     "**Meet the team** — one staff member, fifteen seconds, who they are and what they do."
+    ]
+   },
+   {
+    "t": "pull",
+    "x": "Consistency beats production value. A phone and a routine beat a videographer once a quarter."
+   },
+   {
+    "t": "h",
+    "x": "The approval chain is the real problem"
+   },
+   {
+    "t": "p",
+    "x": "In most stores, video dies in approvals. The salesperson films it, the manager wants changes, the GM wants to see it, it goes to the agency, and two weeks later the car has sold."
+   },
+   {
+    "t": "p",
+    "x": "Fix it with simple rules everyone agrees to once: what can be posted without approval (walkarounds, team clips, delivery moments with signed consent), and what needs a manager (anything with a price promise or a promotion). Then let the team post."
+   },
+   {
+    "t": "h",
+    "x": "What to measure"
+   },
+   {
+    "t": "p",
+    "x": "Views are nice. What matters is profile visits, messages, and calls that mention a video. Pin a comment on every walkaround with a link to the vehicle page, and ask walk-ins if they saw the store on social. Give it eight weeks before judging it."
+   }
+  ]
+ },
+ "unfair-dealership-reviews": {
+  "takeaways": [
+   "Google removes policy violations, not reviews you disagree with",
+   "The reply is for the next forty shoppers, not the reviewer",
+   "Volume and recency are the only lasting fix"
+  ],
+  "blocks": [
+   {
+    "t": "p",
+    "x": "A customer leaves a one-star review that gets the facts wrong. Your first instinct is to get it removed. Six weeks later, after the appeal was denied, it is still sitting at the top of your profile — with no reply."
+   },
+   {
+    "t": "h",
+    "x": "What Google will and will not remove"
+   },
+   {
+    "t": "p",
+    "x": "Google removes reviews that break its policies: spam, fake reviews, hate speech, conflicts of interest (like a competitor or former employee), or reviews about the wrong business. It does not remove reviews because the business disagrees with them."
+   },
+   {
+    "t": "p",
+    "x": "If a review clearly breaks a policy, flag it once through your Business Profile, and keep a note of the date. Then move on. Do not let the flag replace the reply."
+   },
+   {
+    "t": "h",
+    "x": "The reply is for the next forty shoppers"
+   },
+   {
+    "t": "p",
+    "x": "The reviewer probably will not change their mind. The people reading your reviews next week might. Write for them."
+   },
+   {
+    "t": "p",
+    "x": "A good reply to an unfair review:"
+   },
+   {
+    "t": "ol",
+    "items": [
+     "**Thanks them and acknowledges the frustration** — without admitting things that did not happen.",
+     "**States the facts calmly, in one or two sentences.** No blame, no internal details.",
+     "**Invites them to talk to a named manager directly**, with a phone number or email.",
+     "**Stays short.** Four or five sentences."
+    ]
+   },
+   {
+    "t": "pull",
+    "x": "Calm and specific reads as confident. Long and defensive reads as guilty."
+   },
+   {
+    "t": "p",
+    "x": "Example: \"Hi Mark, I'm sorry the visit left you frustrated. Our records show the trade value was explained before the paperwork was signed, but I'd like to hear what we missed. Please call me directly at 902-555-0123 — Dana, General Manager.\""
+   },
+   {
+    "t": "p",
+    "x": "Never argue in public, never share personal or deal details, and never reply angry. Wait an hour, have someone else read it, then post."
+   },
+   {
+    "t": "p",
+    "x": "If you want a starting point, the [bad review responder](/review-responder) drafts three professional replies you can edit."
+   },
+   {
+    "t": "h",
+    "x": "The durable fix is volume"
+   },
+   {
+    "t": "p",
+    "x": "One unfair review at the top of twenty reviews is a crisis. One unfair review among three hundred recent, positive ones is noise. The only lasting fix is a steady flow of new reviews from happy customers in sales and service."
+   },
+   {
+    "t": "p",
+    "x": "That is a process, not a campaign. See [how to raise a dealership review score without begging](/guides/raise-dealership-review-score), and use the [review calculator](/review-calculator) to see how much each review moves your number."
+   }
+  ]
+ },
+ "google-business-profile-posts-that-get-seen": {
+  "takeaways": [
+   "A profile with nothing recent looks like nobody is home",
+   "Offers, events and single real vehicles beat a daily feed",
+   "Your own photos matter more than the words"
+  ],
+  "blocks": [
+   {
+    "t": "p",
+    "x": "Most dealers either post nothing to their Google Business Profile, or let a tool push the same inventory feed every day. Both look the same to a shopper: nobody is home."
+   },
+   {
+    "t": "p",
+    "x": "Posts are a small piece of local ranking, but they are a big piece of how your profile looks when someone finds you. Here is what to post."
+   },
+   {
+    "t": "h",
+    "x": "Why bother"
+   },
+   {
+    "t": "p",
+    "x": "When someone searches your store or \"car dealer near me\", your profile is often the first thing they see — before your website. Fresh posts, recent photos and recent replies to reviews all tell that shopper the business is active and paying attention. A profile whose latest post is from last spring tells them the opposite."
+   },
+   {
+    "t": "h",
+    "x": "Four post types that work"
+   },
+   {
+    "t": "ol",
+    "items": [
+     "**Offers.** A real, time-limited offer with an end date: a service special, winter tire package, finance rate on a model. Offer posts show the dates clearly and get attention.",
+     "**Events.** A community event, a charity drive, a model launch, a customer appreciation day.",
+     "**Fresh arrivals.** One specific vehicle with a real photo and two lines about it. Not a feed of thirty.",
+     "**Service tips.** \"When should you switch to winter tires in Nova Scotia?\" Short, useful, seasonal."
+    ]
+   },
+   {
+    "t": "h",
+    "x": "The photo matters more than the words"
+   },
+   {
+    "t": "p",
+    "x": "Use your own photos: the actual car on your lot, your actual service bay, your actual staff. Bright, horizontal, no text slapped across the image. Stock photos of a vehicle you do not stock make the whole profile look fake."
+   },
+   {
+    "t": "pull",
+    "x": "Post like a store that is open, busy and local — because you are."
+   },
+   {
+    "t": "h",
+    "x": "A ten-minute weekly habit"
+   },
+   {
+    "t": "p",
+    "x": "Pick one person and one day. Every week they post one thing, add five new photos, and reply to every new review. Ten minutes. That habit outperforms any automated tool."
+   },
+   {
+    "t": "p",
+    "x": "Need the full profile set up first? Start with [the Google Business Profile checklist most dealers skip](/guides/google-business-profile-checklist-for-dealerships)."
+   },
+   {
+    "t": "h",
+    "x": "What to measure"
+   },
+   {
+    "t": "p",
+    "x": "Your profile's performance report shows calls, direction requests and website clicks. Watch those monthly, not post by post. If they climb after three months of steady posting and photos, the habit is working."
+   }
+  ]
+ },
+ "text-messaging-dealership-leads": {
+  "takeaways": [
+   "Text first, call second",
+   "A specific first text gets answered; a canned one gets ignored",
+   "Get consent and opt-out right before you scale it"
+  ],
+  "blocks": [
+   {
+    "t": "p",
+    "x": "A new lead comes in. The salesperson calls. It goes to voicemail. They leave a message nobody listens to, mark the lead \"attempted\", and move on. The shopper never hears from the store in a way that suits them."
+   },
+   {
+    "t": "h",
+    "x": "Text first, call second"
+   },
+   {
+    "t": "p",
+    "x": "Most shoppers would rather get a text than a surprise call from a number they do not know. A text sits in their inbox until they are ready. A missed call is just a missed call."
+   },
+   {
+    "t": "p",
+    "x": "So flip the order: send a text within minutes of the lead coming in, then call — ideally after they have replied, or later the same day."
+   },
+   {
+    "t": "h",
+    "x": "Make the first text specific"
+   },
+   {
+    "t": "p",
+    "x": "Canned texts get ignored because they read like a robot wrote them. A specific one gets answered."
+   },
+   {
+    "t": "ul",
+    "items": [
+     "**Ignored:** \"Thanks for your interest in our dealership! A product specialist will be in touch.\"",
+     "**Answered:** \"Hi Sarah, it's Mike at the store. The grey 2023 Tucson you asked about is here and ready to see. Would after work today or Saturday morning suit you better?\""
+    ]
+   },
+   {
+    "t": "p",
+    "x": "The good one has the shopper's name, a real person's name, the exact vehicle, and an easy question with two choices."
+   },
+   {
+    "t": "pull",
+    "x": "One specific text beats three generic calls."
+   },
+   {
+    "t": "h",
+    "x": "Get consent and compliance right"
+   },
+   {
+    "t": "p",
+    "x": "In Canada, commercial texts fall under Canada's anti-spam law (CASL), and US stores have their own rules. Before you scale texting:"
+   },
+   {
+    "t": "ul",
+    "items": [
+     "Make sure your lead forms include clear consent language for texts.",
+     "Identify the store and the person in every message.",
+     "Honour \"STOP\" immediately and keep a record.",
+     "Keep texts about the shopper's actual inquiry, not blast promotions."
+    ]
+   },
+   {
+    "t": "p",
+    "x": "Check with your compliance person or CRM provider that your setup handles opt-in and opt-out properly. This is not optional."
+   },
+   {
+    "t": "h",
+    "x": "Keep it human"
+   },
+   {
+    "t": "p",
+    "x": "AI can draft the first text and suggest replies, and it should. But a person needs to send it and answer what comes back. A shopper who replies \"is the price negotiable?\" and gets a robotic answer is gone."
+   },
+   {
+    "t": "h",
+    "x": "What to measure"
+   },
+   {
+    "t": "p",
+    "x": "Track reply rate on first texts and time to first reply. If reply rates are low, the message is too generic. Then compare appointment set rate for leads that got a fast text versus those that did not. The [lead leak calculator](/lead-leak-calculator) shows what that gap is worth."
+   }
+  ]
+ },
+ "facebook-ads-for-car-dealers": {
+  "takeaways": [
+   "The first frame has to look like a post, not an ad",
+   "Lead ads bring volume but softer leads — plan the follow-up",
+   "Audiences built from your buyer list beat broad interests"
+  ],
+  "blocks": [
+   {
+    "t": "p",
+    "x": "A carousel of stock photos with a price slapped across each one. It gets scrolled past in half a second, because it looks exactly like an ad."
+   },
+   {
+    "t": "p",
+    "x": "The dealer ads that work on Facebook and Instagram look like something a person would post."
+   },
+   {
+    "t": "h",
+    "x": "The first frame decides it"
+   },
+   {
+    "t": "p",
+    "x": "People scroll fast. Your ad has to look like it belongs in the feed."
+   },
+   {
+    "t": "ul",
+    "items": [
+     "Use real photos or phone video from your lot, not manufacturer images.",
+     "Put a person in it when you can: a salesperson, a tech, a customer at delivery.",
+     "Keep text on the image short and bold, or leave it off entirely.",
+     "Write the caption like a post: \"Just traded in — one-owner RAV4, winter tires included. Here till Saturday, probably.\""
+    ]
+   },
+   {
+    "t": "pull",
+    "x": "If it looks like an ad, it gets treated like one."
+   },
+   {
+    "t": "h",
+    "x": "Lead ads vs. sending people to your site"
+   },
+   {
+    "t": "p",
+    "x": "**Lead ads** (the form opens inside Facebook) bring in more leads at a lower cost, because the form is pre-filled. But many of those people barely remember submitting. Expect softer leads and plan a fast, friendly follow-up."
+   },
+   {
+    "t": "p",
+    "x": "**Website ads** send people to a vehicle page. Fewer leads, but they have seen the car and the price."
+   },
+   {
+    "t": "p",
+    "x": "A good mix: lead ads for offers and events, website ads for specific inventory. Either way, the follow-up has to be quick and personal. See [why texting a lead works better than calling it first](/guides/text-messaging-dealership-leads)."
+   },
+   {
+    "t": "h",
+    "x": "Audiences that work"
+   },
+   {
+    "t": "ul",
+    "items": [
+     "**Your own customer list.** Upload past buyers and service customers for loyalty and trade-in messages.",
+     "**Lookalikes of your buyers.** Built from that same list. These usually beat broad interest targeting like \"interested in cars\".",
+     "**Local radius.** Set it to the area your buyers actually come from — often wider than the city.",
+     "**Website visitors.** Short window, real inventory. See [retargeting without following people around](/guides/dealership-retargeting-frequency)."
+    ]
+   },
+   {
+    "t": "p",
+    "x": "Note: vehicle ads in Canada and the US fall under special ad category rules on Meta in some cases, which limit targeting options. Check the current rules for your account before building audiences."
+   },
+   {
+    "t": "h",
+    "x": "What to measure"
+   },
+   {
+    "t": "p",
+    "x": "Ignore likes. Track cost per lead, then — more importantly — how many of those leads set appointments and showed up. Ask your team to tag Facebook leads in the CRM so you can see what they actually turn into."
+   }
+  ]
+ },
+ "dealership-website-speed": {
+  "takeaways": [
+   "Test on your phone, on cellular, not office Wi-Fi",
+   "Chat widgets, pop-ups and old tracking scripts are the usual culprits",
+   "Ask your provider which scripts can go, in writing"
+  ],
+  "blocks": [
+   {
+    "t": "p",
+    "x": "Open your website on your phone, on cellular, not Wi-Fi. Count how long until you can see a car and tap a button. For most dealer sites, it is longer than a shopper will wait."
+   },
+   {
+    "t": "h",
+    "x": "Why speed is a sales problem"
+   },
+   {
+    "t": "p",
+    "x": "Shoppers browse dealer sites on their phones, in the evening, on the couch. A slow page does not get a second chance — they hit back and tap the next result, which is often a competitor or a third-party listing site."
+   },
+   {
+    "t": "p",
+    "x": "Speed also affects how Google ranks your pages. A faster site is easier to find and easier to buy from."
+   },
+   {
+    "t": "h",
+    "x": "What usually slows dealer sites down"
+   },
+   {
+    "t": "ul",
+    "items": [
+     "**Chat widgets, pop-ups and trade-in tools** loading on every page, often several at once.",
+     "**Tracking scripts** added over the years by different vendors and never removed.",
+     "**Huge, uncompressed photos** on inventory pages.",
+     "**Video headers** on the homepage that autoplay on mobile.",
+     "**Inventory widgets** that load the whole lot before showing anything."
+    ]
+   },
+   {
+    "t": "pull",
+    "x": "Every plugin a vendor added \"just to try\" is still running on every page."
+   },
+   {
+    "t": "h",
+    "x": "How to test it properly"
+   },
+   {
+    "t": "ol",
+    "items": [
+     "Run your homepage and one vehicle page through Google's free PageSpeed Insights tool. Look at the mobile score, not desktop.",
+     "Then do the real test: your own phone, cellular data, a private browser window. Time it.",
+     "Repeat on two competitor sites so you have a comparison."
+    ]
+   },
+   {
+    "t": "h",
+    "x": "What to ask your website provider"
+   },
+   {
+    "t": "ul",
+    "items": [
+     "Which third-party scripts load on every page, and which can we remove?",
+     "Are inventory photos compressed and served in modern formats?",
+     "Can the chat and trade widgets load after the page, not before?",
+     "What is our mobile load time on a vehicle detail page?"
+    ]
+   },
+   {
+    "t": "p",
+    "x": "Get the answers in writing, then cut. Most stores can remove a third of their scripts without losing anything they actually use."
+   },
+   {
+    "t": "h",
+    "x": "What to measure"
+   },
+   {
+    "t": "p",
+    "x": "Track mobile bounce rate on vehicle pages and lead form submissions per 100 visits. When speed improves, both should move. While you are in there, check that the pages themselves are worth loading: [your vehicle detail page is the real homepage](/guides/vehicle-detail-pages-that-convert)."
+   }
+  ]
+ },
+ "customer-photos-and-video-dealership": {
+  "takeaways": [
+   "Ask at delivery, when the customer is happiest",
+   "A simple signed release removes the guesswork",
+   "Repost tagged posts instead of screenshotting them"
+  ],
+  "blocks": [
+   {
+    "t": "p",
+    "x": "A real customer, grinning beside their new SUV with the kids piled in the back. Shared with permission, that one photo does more for your store than most of what a marketing team produces on purpose."
+   },
+   {
+    "t": "h",
+    "x": "Why customer content works"
+   },
+   {
+    "t": "p",
+    "x": "It is believable. A shopper scrolling your page has seen a thousand polished car ads. They have not seen their neighbour picking up a Crosstrek at your store last Tuesday. Real people, real cars, real local faces — that is what builds trust."
+   },
+   {
+    "t": "h",
+    "x": "Ask at the moment of delivery"
+   },
+   {
+    "t": "p",
+    "x": "The best time to ask is when the customer is happiest: keys in hand, standing next to the car. Make it part of every delivery."
+   },
+   {
+    "t": "ul",
+    "items": [
+     "The salesperson takes a few photos with the store's phone or tablet — not their personal phone.",
+     "They ask simply: \"Mind if we share this on our page? We'll tag you if you like.\"",
+     "If yes, the customer signs a short release right there.",
+     "If no, no problem. Never pressure."
+    ]
+   },
+   {
+    "t": "pull",
+    "x": "The delivery photo is the review before the review."
+   },
+   {
+    "t": "h",
+    "x": "Keep the release simple"
+   },
+   {
+    "t": "p",
+    "x": "A one-paragraph consent form, signed on a tablet, covers you. It should say what you will use (photos and video), where (your website and social media), and that they can ask you to remove it any time. Have your lawyer or dealer association review the wording once, then use it every time."
+   },
+   {
+    "t": "p",
+    "x": "Be extra careful with kids in photos. Many stores only share photos with children if a parent explicitly agrees, or crop them out."
+   },
+   {
+    "t": "h",
+    "x": "Repost, do not screenshot"
+   },
+   {
+    "t": "p",
+    "x": "When a customer posts their own photo and tags you, share or repost it through the platform rather than screenshotting it. It credits them, it reaches their friends and family, and it shows you are paying attention."
+   },
+   {
+    "t": "h",
+    "x": "Make it a weekly routine"
+   },
+   {
+    "t": "p",
+    "x": "One person collects the week's delivery photos every Friday and schedules three to five for the next week. Pair each with a short caption: first name (if they agreed), the vehicle, and something human. \"Big day for the MacDonalds — first new car in fifteen years.\""
+   },
+   {
+    "t": "p",
+    "x": "For more formats your team can repeat, see [short video that actually sells cars](/guides/dealership-short-form-video)."
+   }
+  ]
+ },
+ "service-drive-marketing-dealership": {
+  "takeaways": [
+   "Service customers are your warmest audience",
+   "A handoff needs a daily trigger and one owner",
+   "Loyalty offers tied to service history beat conquest ads"
+  ],
+  "blocks": [
+   {
+    "t": "p",
+    "x": "Your service drive sees more of your customers in a month than your sales floor does in a quarter. Most stores spend their marketing budget chasing strangers and ignore the owners already walking through the service door."
+   },
+   {
+    "t": "h",
+    "x": "The customers you already have"
+   },
+   {
+    "t": "p",
+    "x": "Service customers already trust you enough to hand over their keys. Many of them are in a good equity position, driving a vehicle that is getting older, and sitting in your lounge for an hour with nothing to do."
+   },
+   {
+    "t": "p",
+    "x": "That is the warmest audience you will ever have."
+   },
+   {
+    "t": "h",
+    "x": "Build a handoff, not a hope"
+   },
+   {
+    "t": "p",
+    "x": "\"Sales should talk to service customers\" is a hope. A handoff has a trigger and an owner."
+   },
+   {
+    "t": "ol",
+    "items": [
+     "**Set the trigger.** Each morning, pull the day's service appointments and flag customers with good equity, high kilometres, an expiring lease or finance term, or a big repair estimate coming.",
+     "**Assign an owner.** One salesperson or the used car manager gets the list each morning.",
+     "**Make the approach low-pressure.** \"While you're waiting, we've had a lot of interest in your model. Would you like a quick number on it? No obligation.\"",
+     "**Log it.** Every conversation goes in the CRM, even the \"not now\" ones."
+    ]
+   },
+   {
+    "t": "pull",
+    "x": "A big repair estimate is a trade conversation waiting to happen."
+   },
+   {
+    "t": "h",
+    "x": "Loyalty offers beat conquest ads"
+   },
+   {
+    "t": "p",
+    "x": "Offers tied to a customer's own history outperform generic ads. Some examples:"
+   },
+   {
+    "t": "ul",
+    "items": [
+     "Service customers with older vehicles: a trade appraisal plus a loyalty bonus.",
+     "Lease customers within six months of maturity: an early upgrade conversation.",
+     "Customers due for tires: a tire package with a loyalty discount."
+    ]
+   },
+   {
+    "t": "p",
+    "x": "Send these by email and text to your own database. They cost a fraction of conquest advertising. See [service-to-sales: turning the appointment list into trade leads](/guides/service-to-sales-trade-leads)."
+   },
+   {
+    "t": "h",
+    "x": "Market the service drive itself"
+   },
+   {
+    "t": "p",
+    "x": "Service drives revenue and keeps customers coming back. Show it off: post short videos of your techs, explain seasonal maintenance, and run service offers on your Google Business Profile. A customer who trusts your service department is far more likely to buy their next car from you."
+   },
+   {
+    "t": "h",
+    "x": "What to measure"
+   },
+   {
+    "t": "p",
+    "x": "Track how many service customers each month got a sales conversation, how many got an appraisal, and how many bought. Even a handful of extra units a month from customers you already own adds up quickly."
+   }
+  ]
+ },
+ "used-inventory-merchandising": {
+  "takeaways": [
+   "Listing quality moves days-on-lot as much as price does",
+   "A missing history report reads like something to hide",
+   "Review and re-merchandise at day 30, not day 60"
+  ],
+  "blocks": [
+   {
+    "t": "p",
+    "x": "Two identical trades, same year, same kilometres, priced the same. One sells in a week. The other sits for two months. The difference is almost never the car. It is how the car is shown."
+   },
+   {
+    "t": "h",
+    "x": "The listing is the first test drive"
+   },
+   {
+    "t": "p",
+    "x": "Most used shoppers decide whether to visit from the listing alone. If the photos are dark, the description is a list of option codes and the history report is missing, they move on — and that unit starts ageing."
+   },
+   {
+    "t": "h",
+    "x": "The merchandising checklist"
+   },
+   {
+    "t": "p",
+    "x": "Every used unit should have, before it goes live:"
+   },
+   {
+    "t": "ul",
+    "items": [
+     "**25 to 40 real photos** in the same order: exterior walkaround, interior, cargo, dash showing kilometres, tires, and any flaws.",
+     "**A history report link** (like CarFax) right on the page.",
+     "**A photo of the window sticker or inspection sheet.**",
+     "**Two sentences a person wrote** about the vehicle: who it suits and why it is a good one.",
+     "**The price, clearly shown.**"
+    ]
+   },
+   {
+    "t": "pull",
+    "x": "A missing history report reads like something to hide."
+   },
+   {
+    "t": "h",
+    "x": "Speed to the lot matters"
+   },
+   {
+    "t": "p",
+    "x": "Every day a trade sits waiting for recon or photos is a day it is not for sale. Set a target for how fast a trade goes from appraisal to fully merchandised online — and track it. The best stores treat this as a production line with a daily check."
+   },
+   {
+    "t": "h",
+    "x": "Day 30, not day 60"
+   },
+   {
+    "t": "p",
+    "x": "Most stores wait too long to act on ageing units. At day 30, review every unit that has not sold:"
+   },
+   {
+    "t": "ol",
+    "items": [
+     "Are the photos and description as good as the checklist above?",
+     "How many views and leads has it had compared to similar units?",
+     "Is the price in line with the market right now?"
+    ]
+   },
+   {
+    "t": "p",
+    "x": "If it is getting views but no leads, the listing or price is the problem. If it is getting no views, it is not showing up in search — check the photos, the title and where it is syndicated. Re-merchandise or reprice at day 30, and the day-60 problem mostly goes away."
+   },
+   {
+    "t": "h",
+    "x": "Feature it, do not hide it"
+   },
+   {
+    "t": "p",
+    "x": "Put ageing units to work: a short walkaround video, a feature in your weekly email, a Marketplace post, a \"just reduced\" Google Business Profile post. See [your vehicle detail page is the real homepage](/guides/vehicle-detail-pages-that-convert) for how to make the page itself convert."
+   }
+  ]
+ },
+ "dealership-competitor-price-matching": {
+  "takeaways": [
+   "Matching gives up gross on deals that might have happened anyway",
+   "Compare the deals side by side before discounting",
+   "Never publish a price-match policy"
+  ],
+  "blocks": [
+   {
+    "t": "p",
+    "x": "A shopper shows your salesperson a competitor's price that is $800 lower. Matching it feels like the safe move. It is rarely the profitable one — and the math is simple once you run it."
+   },
+   {
+    "t": "h",
+    "x": "What matching actually costs"
+   },
+   {
+    "t": "p",
+    "x": "Say you sell 40 used units a month at an average gross of $2,500. If you start matching competitors on a quarter of those deals and give up $700 each time, that is $7,000 a month in gross — $84,000 a year."
+   },
+   {
+    "t": "p",
+    "x": "The real question is: how many of those 10 shoppers would have walked without the match?"
+   },
+   {
+    "t": "pull",
+    "x": "Price matching only pays when it saves a deal that was actually leaving."
+   },
+   {
+    "t": "h",
+    "x": "Who actually walks"
+   },
+   {
+    "t": "p",
+    "x": "Some shoppers will absolutely buy elsewhere for $800. Many will not, because the comparison was not equal:"
+   },
+   {
+    "t": "ul",
+    "items": [
+     "The other unit has higher kilometres, a different trim or a history issue.",
+     "Your price includes things theirs does not — inspection, winter tires, warranty, fees.",
+     "The other store is an hour away, or has a reputation the shopper does not trust.",
+     "The shopper has already spent two hours with your salesperson and likes the car."
+    ]
+   },
+   {
+    "t": "p",
+    "x": "Before matching, the salesperson's job is to compare the deals properly, out loud, with the shopper."
+   },
+   {
+    "t": "h",
+    "x": "Sell the difference"
+   },
+   {
+    "t": "p",
+    "x": "Train your team to answer a lower price with a side-by-side, not a discount:"
+   },
+   {
+    "t": "ol",
+    "items": [
+     "\"Let's look at that one together.\" Pull up the competitor's listing.",
+     "Compare kilometres, trim, history report, tires, inspection and fees.",
+     "Show what your price includes in plain numbers.",
+     "Then ask: \"Knowing all that, which one would you rather drive home?\""
+    ]
+   },
+   {
+    "t": "p",
+    "x": "Often the gap closes or disappears. When it does not, a manager decides — case by case."
+   },
+   {
+    "t": "h",
+    "x": "Do not publish a price-match policy"
+   },
+   {
+    "t": "p",
+    "x": "Advertising \"we'll match any price\" invites every shopper to go find a lower number. It trains your market to treat you as the store that negotiates against everyone else's listings. Handle matches quietly and selectively."
+   },
+   {
+    "t": "h",
+    "x": "Price right in the first place"
+   },
+   {
+    "t": "p",
+    "x": "The best defence is pricing well from day one, using market data, and merchandising units properly so the value is obvious. See [merchandising used inventory so it doesn't just sit there](/guides/used-inventory-merchandising)."
+   },
+   {
+    "t": "p",
+    "x": "Track how many deals involve a match request, how many you matched, and the gross given up. Review it monthly. If matching is common, the problem is usually pricing or presentation, not the competitor."
+   }
+  ]
  }
 }

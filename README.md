@@ -328,6 +328,15 @@ Both are client-side only, like the review calculator.
   (`BASE`), nudged by goal (`GOAL`). Under $1,500 a month it collapses to three
   channels rather than spreading money too thin.
 
+### Guide bodies after a pull
+
+All 31 guides now have written bodies in `src/data/articles.json`. Sixteen of
+them (the Paid, Website, Measurement and other guides added in August) were
+listed as published with no body, so their pages said "isn't written yet".
+After pulling, run `npm run sync:guides` once, then Publish. It only fills
+guides whose body is still empty, so anything already written in the admin
+is left alone.
+
 ### Adding a new tool
 
 1. Add the page in `src/pages/` — the two calculators above are the simplest
@@ -368,7 +377,8 @@ creates their profile at `user` automatically.
 3. Add the environment variables from the table above.
 4. Apply the migrations in `supabase/migrations/` in order, then run
    `npm run seed` once to populate the CMS tables. (An existing database only
-   needs the newer migrations — `0009` adds the Tools menu links.)
+   needs the newer migrations — `0009` and `0010` add the Tools, Start here
+   and new tool menu links.)
 5. Create a build hook (Build & deploy → Build hooks) and set
    `NETLIFY_BUILD_HOOK_URL` so the admin's Publish button works.
 6. Point the domain, then submit `https://shawnryder.com/sitemap.xml` in Search

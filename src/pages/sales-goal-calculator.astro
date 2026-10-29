@@ -1,0 +1,207 @@
+---
+import Base from '../layouts/Base.astro';
+
+const title = 'Dealership Sales Goal Calculator — Leads Needed to Hit Target';
+const description =
+  'Enter your monthly unit target and conversion rates. See how many leads, appointments and shows it takes — and which rate is worth fixing first.';
+
+const breadcrumbs = [
+  { label: 'Home', url: '/' },
+  { label: 'Tools', url: '/tools' },
+  { label: 'Sales goal calculator', url: '/sales-goal-calculator' },
+];
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'How many leads does a dealership need to hit its sales target?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Work backwards: units from internet leads ÷ close rate on shown appointments = shows needed; shows ÷ show rate = appointments to set; appointments ÷ appointment set rate = leads needed. Use your own CRM rates — they vary a lot from store to store.',
+      },
+    },
+  ],
+};
+---
+
+<Base title={title} description={description} path="/sales-goal-calculator" schema={schema} breadcrumbs={breadcrumbs}>
+  <section class="page-hero">
+    <div class="wrap">
+      <div class="kicker">Free tool</div>
+      <h1>How many leads to hit your number?</h1>
+      <p class="lede">
+        Work backwards from the units you need to the leads, appointments and shows it takes.
+        Then see which rate, if you nudged it, would save you the most leads.
+      </p>
+    </div>
+  </section>
+
+  <section class="wrap section">
+    <div class="calc">
+      <form id="calc" class="calc-inputs" novalidate>
+        <label>
+          <span>Monthly unit target</span>
+          <input name="target" type="number" min="1" max="10000" step="1" value="80" inputmode="numeric" />
+          <small>New and used combined.</small>
+        </label>
+        <label>
+          <span>% of sales from internet leads</span>
+          <input name="share" type="number" min="1" max="100" step="1" value="50" inputmode="numeric" />
+          <small>The rest come from walk-ins, repeat and referral.</small>
+        </label>
+        <label>
+          <span>Lead → appointment set (%)</span>
+          <input name="set" type="number" min="1" max="100" step="1" value="30" inputmode="numeric" />
+        </label>
+        <label>
+          <span>Appointment → shows up (%)</span>
+          <input name="show" type="number" min="1" max="100" step="1" value="65" inputmode="numeric" />
+        </label>
+        <label>
+          <span>Shown → sold (%)</span>
+          <input name="close" type="number" min="1" max="100" step="1" value="45" inputmode="numeric" />
+        </label>
+        <p class="calc-err" id="err" role="status" aria-live="polite"></p>
+      </form>
+
+      <div aria-live="polite">
+        <div class="result-big">
+          <div class="lab">Leads you need each month</div>
+          <div class="num" id="leads">—</div>
+          <p id="summary"></p>
+        </div>
+        <div class="funnel" id="funnel"></div>
+        <h2 class="lever-h">What a 5-point improvement is worth</h2>
+        <div class="levers" id="levers"></div>
+      </div>
+    </div>
+
+    <div class="calc-note">
+      <h3>Use your own numbers</h3>
+      <p>
+        The starting values are placeholders, not benchmarks — rates swing a lot between stores,
+        brands and lead sources. Pull the last 90 days from your CRM. If you can't get set rate
+        and show rate out of it easily, that's the first thing to fix.
+      </p>
+      <p>
+        Most stores find the cheapest win is set rate, and set rate is mostly speed and quality
+        of the first reply. <a href="/lead-leak-calculator">See what slow follow-up costs →</a>
+      </p>
+    </div>
+  </section>
+
+  <section class="cta-strip">
+    <div class="wrap">
+      <div>
+        <h2>Want help finding the weak step?</h2>
+        <p>The free audit includes a mystery shop of your lead handling — form, phone and text — so you see where leads drop out.</p>
+      </div>
+      <a href="/contact" class="btn btn-primary">Request the audit</a>
+    </div>
+  </section>
+</Base>
+
+<script>
+  const form = document.getElementById('calc');
+  const $ = (id) => document.getElementById(id);
+  const num = (n) => Math.round(n).toLocaleString('en-CA');
+
+  const STEPS = [
+    ['set', 'Lead → appointment set'],
+    ['show', 'Appointment → shows up'],
+    ['close', 'Shown → sold'],
+  ];
+
+  function funnel(units, r) {
+    const shows = units / r.close;
+    const appts = shows / r.show;
+    const leads = appts / r.set;
+    return { units, shows, appts, leads };
+  }
+
+  function render() {
+    const target = parseFloat(form.target.value);
+    const share = parseFloat(form.share.value) / 100;
+    const r = {
+      set: parseFloat(form.set.value) / 100,
+      show: parseFloat(form.show.value) / 100,
+      close: parseFloat(form.close.value) / 100,
+    };
+    const valid = target > 0 && share > 0 && share <= 1 && Object.values(r).every((v) => v > 0 && v <= 1);
+    if (!valid) {
+      $('err').textContent = 'Enter a target above zero and percentages between 1 and 100.';
+      $('leads').textContent = '—';
+      $('summary').textContent = '';
+      $('funnel').innerHTML = '';
+      $('levers').innerHTML = '';
+      return;
+    }
+    $('err').textContent = '';
+
+    const f = funnel(target * share, r);
+    $('leads').textContent = num(f.leads);
+    $('summary').textContent = `About ${num(f.leads / 4.33)} a week, to sell ${num(f.units)} units from internet leads.`;
+
+    const rows = [
+      ['Leads', f.leads],
+      ['Appointments set', f.appts],
+      ['Appointments that show', f.shows],
+      ['Units sold', f.units],
+    ];
+    const top = f.leads;
+    $('funnel').innerHTML = rows.map(([label, v]) => `
+      <div class="f-row">
+        <span class="f-lab">${label}</span>
+        <span class="f-bar"><span style="width:${Math.max(4, (v / top) * 100)}%"></span></span>
+        <span class="f-num">${num(v)}</span>
+      </div>`).join('');
+
+    const levers = STEPS.map(([key, label]) => {
+      const better = { ...r, [key]: Math.min(1, r[key] + 0.05) };
+      const saved = f.leads - funnel(f.units, better).leads;
+      return { label, saved, from: r[key], to: better[key] };
+    }).sort((a, b) => b.saved - a.saved);
+
+    $('levers').innerHTML = levers.map((l, i) => `
+      <div class="lever${i === 0 ? ' best' : ''}">
+        <div class="l-top">
+          <span>${l.label}</span>
+          ${i === 0 ? '<em>Biggest win</em>' : ''}
+        </div>
+        <div class="l-num">${num(l.saved)} <small>fewer leads needed</small></div>
+        <p>${Math.round(l.from * 100)}% → ${Math.round(l.to * 100)}%</p>
+      </div>`).join('');
+  }
+
+  form.addEventListener('input', render);
+  render();
+</script>
+
+<style>
+  .funnel { display: grid; gap: 10px; margin: 6px 0 34px; }
+  .funnel :global(.f-row) { display: grid; grid-template-columns: 170px minmax(0, 1fr) 70px; gap: 14px; align-items: center; }
+  .funnel :global(.f-lab) { font-size: 15px; color: var(--ink-2); }
+  .funnel :global(.f-bar) { height: 14px; background: var(--surface-2); border-radius: 2px; overflow: hidden; }
+  .funnel :global(.f-bar span) { display: block; height: 100%; background: var(--navy); }
+  .funnel :global(.f-row:last-child .f-bar span) { background: var(--brand); }
+  .funnel :global(.f-num) { font-family: var(--display); font-weight: 700; font-size: 20px; text-align: right; }
+
+  .lever-h { font-size: 22px; margin: 0 0 14px; }
+  .levers { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+  .levers :global(.lever) { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 16px 18px; }
+  .levers :global(.lever.best) { border-color: var(--ink); border-top: 3px solid var(--brand); }
+  .levers :global(.l-top) { display: flex; justify-content: space-between; gap: 8px; font-size: 14px; color: var(--ink-3); min-height: 38px; }
+  .levers :global(.l-top em) { font-style: normal; font-size: 12px; font-weight: 600; color: var(--brand); white-space: nowrap; }
+  .levers :global(.l-num) { font-family: var(--display); font-weight: 700; font-size: 30px; line-height: 1; margin-top: 6px; }
+  .levers :global(.l-num small) { display: block; font-family: var(--body); font-weight: 400; font-size: 13px; color: var(--ink-3); margin-top: 6px; }
+  .levers :global(p) { font-size: 13.5px; color: var(--muted); margin: 8px 0 0; }
+
+  @media (max-width: 560px) {
+    .levers { grid-template-columns: minmax(0, 1fr); }
+    .funnel :global(.f-row) { grid-template-columns: 120px minmax(0, 1fr) 56px; gap: 10px; }
+    .funnel :global(.f-lab) { font-size: 13.5px; }
+  }
+</style>

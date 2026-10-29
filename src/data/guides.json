@@ -42,7 +42,7 @@
     "title": "How to raise a dealership review score without begging",
     "excerpt": "A simple ask process for sales and service, plus response templates for the reviews that sting.",
     "slug": "raise-dealership-review-score",
-    "published": false
+    "published": true
   },
   {
     "slotId": "guide-4",
@@ -52,7 +52,7 @@
     "title": "Equity mining your own database before you buy another lead",
     "excerpt": "You already own the cheapest buyers in your market. Here is how to segment and message them.",
     "slug": "equity-mining-your-database",
-    "published": false
+    "published": true
   },
   {
     "slotId": "guide-5",
@@ -62,7 +62,7 @@
     "title": "A monthly social calendar your team will actually keep up with",
     "excerpt": "Twelve post types, shot on your lot with a phone. No stock photos of cars you do not stock.",
     "slug": "dealership-social-calendar",
-    "published": false
+    "published": true
   },
   {
     "slotId": "guide-6",
@@ -72,7 +72,7 @@
     "title": "Inventory pages that rank instead of expiring",
     "excerpt": "Model-line landing pages, internal linking and what to do when a unit sells.",
     "slug": "inventory-pages-that-rank",
-    "published": false
+    "published": true
   },
   {
     "slotId": "guide-7",
@@ -82,7 +82,7 @@
     "title": "Mystery shop your own store in fifteen minutes",
     "excerpt": "Submit a lead, call the number, text the store. Score what happens next against this rubric.",
     "slug": "mystery-shop-your-own-store",
-    "published": false
+    "published": true
   },
   {
     "slotId": "guide-8",
@@ -92,7 +92,7 @@
     "title": "Car dealership SEO in Atlantic Canada: what ranks in a small market",
     "excerpt": "Halifax, Moncton and Charlottetown don’t behave like Toronto. Fewer searches, longer drive radius, and a local pack you can actually win.",
     "slug": "car-dealership-seo-atlantic-canada",
-    "published": false
+    "published": true
   },
   {
     "slotId": "guide-9",
@@ -102,7 +102,7 @@
     "title": "Ranking for “used cars near me” without buying the keyword",
     "excerpt": "The organic side of near-me search: proximity, prominence and the pages that make you the obvious answer within a 40-minute drive.",
     "slug": "ranking-for-used-cars-near-me",
-    "published": false
+    "published": true
   },
   {
     "slotId": "guide-10",
@@ -112,7 +112,7 @@
     "title": "How many Google reviews does a dealership actually need?",
     "excerpt": "Recency beats total count more than dealers think. Here is the volume and cadence that holds a local pack position.",
     "slug": "how-many-google-reviews-dealership",
-    "published": false
+    "published": true
   },
   {
     "slotId": "guide-11",
@@ -122,7 +122,7 @@
     "title": "Schema markup for dealership websites, explained without the code talk",
     "excerpt": "What structured data does, which types a dealer needs, and how to check whether your provider actually implemented it.",
     "slug": "schema-markup-for-dealership-websites",
-    "published": false
+    "published": true
   },
   {
     "slotId": "guide-12",
@@ -132,7 +132,7 @@
     "title": "Service-to-sales: turning the appointment list into trade leads",
     "excerpt": "Every equity customer drives into your service lane twice a year. Here is the handoff most stores never build.",
     "slug": "service-to-sales-trade-leads",
-    "published": false
+    "published": true
   },
   {
     "slotId": "guide-13",
@@ -152,7 +152,7 @@
     "title": "Stop sending one blast a month to ten thousand people",
     "excerpt": "Segmenting a dealership database by equity, service history and last contact — with the queries to pull each list.",
     "slug": "segmenting-a-dealership-database",
-    "published": false
+    "published": true
   },
   {
     "slotId": "guide-16",
@@ -162,9 +162,9 @@
     "title": "How to split a $5,000 dealership ad budget",
     "excerpt": "Brand, conquest and retargeting each do a different job. Most stores overspend on the one that was going to happen anyway.",
     "points": [
-      "Brand search is cheap but it mostly claims credit for leads you already had",
-      "Conquest and model-line terms are where incremental units actually live",
-      "A conquest ad landing on your homepage wastes conquest money"
+      "Brand search mostly claims credit for leads you already had",
+      "Model-line and conquest terms are where new units come from",
+      "Send a model search to that model, never the homepage"
     ],
     "slug": "dealership-google-ads-budget-split",
     "published": true
@@ -177,9 +177,9 @@
     "title": "Retargeting without following people around for six months",
     "excerpt": "The shopper who looked at one Tucson in March should not still be seeing it in July. Three settings fix it.",
     "points": [
-      "Shorten the window — 30 days for vehicle pages, 14 for browsing",
-      "Set exit conditions so buyers stop seeing conquest ads",
-      "A stale inventory feed will faithfully advertise a car you already sold"
+      "Keep the window to 14–30 days for vehicle page visitors",
+      "Cap frequency at three to five a week",
+      "Exclude recent buyers and use a live inventory feed"
     ],
     "slug": "dealership-retargeting-frequency",
     "published": true
@@ -192,9 +192,9 @@
     "title": "Your vehicle detail page is the real homepage",
     "excerpt": "Search sends people to the car, not the store. Most VDPs are a template nobody has read since the site was built.",
     "points": [
-      "A shopper decides three things on that page: right car, honest price, still available",
-      "\"Call for price\" reads as a bad price and most shoppers just leave",
-      "Sold vehicle pages that linger are why traffic looks fine while leads don't"
+      "Price, real photos and one clear button above the fold",
+      "25–40 photos in the same order for every used unit",
+      "Two sentences a person wrote beat a list of option codes"
     ],
     "slug": "vehicle-detail-pages-that-convert",
     "published": true
@@ -207,9 +207,9 @@
     "title": "Your lead form is asking for too much",
     "excerpt": "Name, one contact method, the vehicle. Everything past that is the store asking a stranger to do work first.",
     "points": [
-      "Four fields is a lead — the rest belongs in the conversation",
-      "Requiring both phone and email loses the shoppers who prefer text",
-      "Fix the response process before you increase lead volume"
+      "Name, contact method of their choice, and the vehicle",
+      "Qualify in the first reply, not on the form",
+      "Submit every form on your site yourself and check where it goes"
     ],
     "slug": "dealership-lead-form-fields",
     "published": true
@@ -222,9 +222,9 @@
     "title": "Getting your dealership named when someone asks an AI",
     "excerpt": "Three or four businesses get mentioned. If yours is not one of them, nothing about that is random.",
     "points": [
-      "Check whether AI crawlers can reach your site before anything else",
-      "Assistants quote specifics and skip adjectives — write down plain facts",
-      "Reviews carry disproportionate weight because they are not written by you"
+      "Make your basic facts readable on your own site",
+      "Answer real shopper questions on real pages",
+      "Re-check the same prompts every quarter and date the answers"
     ],
     "slug": "get-dealership-cited-by-ai-assistants",
     "published": true
@@ -237,9 +237,9 @@
     "title": "The dealership marketing report that fits on one page",
     "excerpt": "Fourteen pages of impressions and engagement rate. Nobody reads past page two, and they are right not to.",
     "points": [
-      "Four things belong in an owner's report: units, cost per unit, what changed, what's next",
-      "If a metric cannot change a decision, it does not go to the person signing cheques",
-      "Closing the loop to sold records is the only hard part, and the only part that matters"
+      "Five questions on one page: leads, speed, appointments, sold, cost",
+      "Leave out anything you would not make a decision on",
+      "Cost per sold unit beats cost per lead"
     ],
     "slug": "dealership-marketing-report-one-page",
     "published": true
@@ -252,9 +252,9 @@
     "title": "Short video that actually sells cars",
     "excerpt": "A ninety-second walkaround with wind in the mic gets four hundred views and no leads. Then the store decides video doesn't work.",
     "points": [
-      "The first two seconds decide it — show the car, not an intro",
-      "Five repeatable formats beat one ambitious video a month",
-      "The approval chain is what kills dealership video, every time"
+      "Open on the car or the moment, not an intro",
+      "Five repeatable formats beat one big video a month",
+      "Agree approval rules once, then let the team post"
     ],
     "slug": "dealership-short-form-video",
     "published": true
@@ -268,8 +268,8 @@
     "excerpt": "Getting it removed rarely works. The six weeks spent trying are six weeks it sits there unanswered.",
     "points": [
       "Google removes policy violations, not reviews you disagree with",
-      "The response is for the next forty shoppers, not for the reviewer",
-      "Volume and recency are the only durable fix"
+      "The reply is for the next forty shoppers, not the reviewer",
+      "Volume and recency are the only lasting fix"
     ],
     "slug": "unfair-dealership-reviews",
     "published": true
@@ -282,9 +282,9 @@
     "title": "What to actually post to your Google Business Profile",
     "excerpt": "Most dealers either post nothing or post the same inventory feed every day. Both look identical to the algorithm.",
     "points": [
-      "Posts expire in 7 days — a dormant profile signals a dormant business",
-      "Offers and event posts outperform generic inventory posts",
-      "The photo you attach matters more than the words"
+      "A profile with nothing recent looks like nobody is home",
+      "Offers, events and single real vehicles beat a daily feed",
+      "Your own photos matter more than the words"
     ],
     "slug": "google-business-profile-posts-that-get-seen",
     "published": true
@@ -297,9 +297,9 @@
     "title": "Why texting a lead works better than calling it first",
     "excerpt": "A call that goes to voicemail is a dead end. A text sits in an inbox until someone is ready to answer it.",
     "points": [
-      "Text first, call second — not the other way around",
-      "A canned greeting text gets ignored; a specific one gets answered",
-      "Compliance matters — get consent language right before you scale it"
+      "Text first, call second",
+      "A specific first text gets answered; a canned one gets ignored",
+      "Get consent and opt-out right before you scale it"
     ],
     "slug": "text-messaging-dealership-leads",
     "published": true
@@ -313,8 +313,8 @@
     "excerpt": "A carousel of stock photos with a price overlay gets scrolled past in half a second. Native-feeling creative doesn't.",
     "points": [
       "The first frame has to look like a post, not an ad",
-      "Lead ads capture more volume but produce softer leads — plan the follow-up accordingly",
-      "Lookalike audiences built from your buyer list outperform broad interest targeting"
+      "Lead ads bring volume but softer leads — plan the follow-up",
+      "Audiences built from your buyer list beat broad interests"
     ],
     "slug": "facebook-ads-for-car-dealers",
     "published": true
@@ -325,11 +325,11 @@
     "read": "5 min read",
     "date": "August 2026",
     "title": "Your website is probably too slow, and it's costing you leads",
-    "excerpt": "A three-second load time loses a third of visitors before the page even finishes rendering. Most dealer sites are slower than that.",
+    "excerpt": "Shoppers browse on their phones, on cellular, on the couch. Most dealer sites are slower than they will wait for — and every vendor plugin makes it worse.",
     "points": [
-      "Every extra second of load time measurably drops conversion",
-      "Inventory widgets and chat plugins are the usual culprits",
-      "Test on mobile, on real cellular data, not office wifi"
+      "Test on your phone, on cellular, not office Wi-Fi",
+      "Chat widgets, pop-ups and old tracking scripts are the usual culprits",
+      "Ask your provider which scripts can go, in writing"
     ],
     "slug": "dealership-website-speed",
     "published": true
@@ -342,9 +342,9 @@
     "title": "The best dealership content isn't made by the dealership",
     "excerpt": "A real customer's delivery photo, shared with permission, outperforms almost anything a marketing team produces on purpose.",
     "points": [
-      "Ask for permission at the moment of delivery, while excitement is highest",
-      "A simple release process removes the legal ambiguity",
-      "Repost, don't just screenshot — it credits the customer and reaches their network too"
+      "Ask at delivery, when the customer is happiest",
+      "A simple signed release removes the guesswork",
+      "Repost tagged posts instead of screenshotting them"
     ],
     "slug": "customer-photos-and-video-dealership",
     "published": true
@@ -357,9 +357,9 @@
     "title": "Your service drive sees more customers than your sales floor",
     "excerpt": "Most dealers market to conquest prospects and ignore the owners walking through the service door every day.",
     "points": [
-      "Service visits are the highest-frequency touchpoint you have with existing owners",
-      "A service-to-sales handoff needs a trigger, not a hope",
-      "Loyalty offers tied to service history outperform generic conquest ads"
+      "Service customers are your warmest audience",
+      "A handoff needs a daily trigger and one owner",
+      "Loyalty offers tied to service history beat conquest ads"
     ],
     "slug": "service-drive-marketing-dealership",
     "published": true
@@ -372,9 +372,9 @@
     "title": "Merchandising used inventory so it doesn't just sit there",
     "excerpt": "Two identical trades, priced the same. One sells in a week. The other sits for two months. The difference is almost never the car.",
     "points": [
-      "Days on lot correlates more with listing quality than with price in most cases",
-      "A missing Carfax link or window sticker photo reads as something to hide",
-      "Reprice or re-merchandise at day 30, not day 60"
+      "Listing quality moves days-on-lot as much as price does",
+      "A missing history report reads like something to hide",
+      "Review and re-merchandise at day 30, not day 60"
     ],
     "slug": "used-inventory-merchandising",
     "published": true
@@ -387,9 +387,9 @@
     "title": "Should you price match a competitor? The math most dealers skip",
     "excerpt": "Matching a competitor's price feels like the safe move. It's rarely the profitable one, and the math is simple once you run it.",
     "points": [
-      "Price matching trades margin for a sale that might have happened anyway",
-      "The real question is whether the shopper would have walked without the match",
-      "A published price-match policy invites the comparison you're trying to avoid"
+      "Matching gives up gross on deals that might have happened anyway",
+      "Compare the deals side by side before discounting",
+      "Never publish a price-match policy"
     ],
     "slug": "dealership-competitor-price-matching",
     "published": true

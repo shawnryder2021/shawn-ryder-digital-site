@@ -19,14 +19,34 @@ const checklist = [
 ---
 
 <Base title={title} description={description} path="/contact">
-  <section class="wrap page">
-    <div class="left">
+  <section class="page-hero">
+    <div class="wrap">
       <div class="kicker">Contact</div>
       <h1>Free audit. Straight answers.</h1>
       <p class="lede">
         Send me your store's name and I'll come back with what I'd fix first — site, Google
         profile, reviews, follow-up. If we're not a fit, I'll say so.
       </p>
+    </div>
+  </section>
+
+  <section class="wrap page">
+    <div class="left">
+      <h2>What happens next</h2>
+      <ol class="next">
+        <li>
+          <strong>I reply the same business day</strong>
+          <span>A real reply from me, not an auto-responder, to confirm your store and ask anything I need.</span>
+        </li>
+        <li>
+          <strong>I look at your store like a shopper would</strong>
+          <span>Your website, Google Business Profile, reviews and how fast a lead gets answered.</span>
+        </li>
+        <li>
+          <strong>You get the honest version</strong>
+          <span>A plain-language list of what I'd fix first and why. A short call if you want one. No pitch deck.</span>
+        </li>
+      </ol>
 
       <dl class="facts">
         <div>
@@ -38,8 +58,8 @@ const checklist = [
           <dd><a href={site.phoneHref}>{site.phone}</a></dd>
         </div>
         <div>
-          <dt>Response time</dt>
-          <dd>Same business day</dd>
+          <dt>Based in</dt>
+          <dd>Halifax, Nova Scotia</dd>
         </div>
         <div>
           <dt>Contract</dt>
@@ -56,27 +76,39 @@ const checklist = [
 
 <style>
   .page {
-    padding-top: 62px;
+    padding-top: 64px;
     padding-bottom: 88px;
     display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
     gap: 64px;
     align-items: start;
   }
-  h1 { font-size: 50px; }
-  .lede { max-width: 46ch; margin: 20px 0 40px; }
+  h2 { font-size: 30px; margin-bottom: 18px; }
+
+  .next { list-style: none; margin: 0 0 40px; padding: 0; counter-reset: step; border-top: 2px solid var(--ink); }
+  .next li {
+    counter-increment: step; position: relative; padding: 18px 0 18px 48px;
+    border-bottom: 1px solid var(--line); display: grid; gap: 4px;
+  }
+  .next li::before {
+    content: counter(step); position: absolute; left: 0; top: 18px;
+    width: 30px; height: 30px; border-radius: var(--r-sm); background: var(--navy); color: #fff;
+    display: grid; place-items: center; font-family: var(--display); font-weight: 700; font-size: 15px;
+  }
+  .next strong { font-family: var(--display); font-weight: 600; font-size: 19px; }
+  .next span { font-size: 16px; line-height: 1.55; color: var(--ink-3); }
 
   .facts { margin: 0; display: grid; gap: 1px; background: var(--line); border-block: 1px solid var(--line); }
   .facts > div {
     background: var(--bg);
-    padding: 18px 0;
+    padding: 16px 0;
     display: flex; justify-content: space-between; align-items: baseline; gap: 20px;
   }
-  dt { font-size: 12.5px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--faint); }
-  dd { margin: 0; font-family: var(--display); font-weight: 700; font-size: 17px; text-align: right; }
+  dt { font-family: var(--display); font-size: 13.5px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+  dd { margin: 0; font-family: var(--display); font-weight: 600; font-size: 17px; text-align: right; }
 
   @media (max-width: 1000px) {
-    .page { grid-template-columns: minmax(0, 1fr); gap: 40px; padding-top: 40px; }
-    h1 { font-size: 36px; }
+    .page { grid-template-columns: minmax(0, 1fr); gap: 40px; padding-top: 44px; }
+    .right { order: -1; }
   }
 </style>

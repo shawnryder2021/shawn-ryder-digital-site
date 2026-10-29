@@ -5,13 +5,20 @@
 // `topic` groups the hub page. `time` is honest: how long a dealer actually
 // spends to get an answer, not how long the page takes to load.
 
-export const toolTopics = ['Leads & sales', 'Reputation', 'AI search', 'Ad spend'];
+export const toolTopics = ['Leads & sales', 'Local search', 'Reputation', 'AI search', 'Ad spend'];
 
 export const tools = [
   {
     href: '/lead-leak-calculator',
     name: 'Lead leak calculator',
     blurb: 'Put in your monthly leads and response time. See how much gross slow follow-up is costing you every month.',
+    topic: 'Leads & sales',
+    time: '1 min',
+  },
+  {
+    href: '/sales-goal-calculator',
+    name: 'Sales goal calculator',
+    blurb: 'Work back from your unit target to the leads, appointments and shows it takes — and which rate to fix first.',
     topic: 'Leads & sales',
     time: '1 min',
     isNew: true,
@@ -22,6 +29,14 @@ export const tools = [
     blurb: 'Six statements. Tick the ones that sound like your store and get a straight read on where deals are leaking.',
     topic: 'Leads & sales',
     time: '2 min',
+  },
+  {
+    href: '/google-profile-checkup',
+    name: 'Google profile checkup',
+    blurb: 'Fourteen quick checks on your Google Business Profile. Get a score out of 100 and the three fixes to do first.',
+    topic: 'Local search',
+    time: '3 min',
+    isNew: true,
   },
   {
     href: '/review-calculator',
@@ -57,6 +72,5 @@ export const tools = [
     blurb: 'Enter your monthly spend and store type. Get a starting split across search, conquest, retargeting and social.',
     topic: 'Ad spend',
     time: '1 min',
-    isNew: true,
   },
 ];

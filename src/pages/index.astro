@@ -29,7 +29,7 @@ const journey = [
   { step: 'Showroom', good: 'Shows up for the appointment', leak: 'No confirmation, no reason to come in' },
 ];
 
-const featuredTools = ['/lead-leak-calculator', '/review-calculator', '/ai-visibility-check']
+const featuredTools = ['/lead-leak-calculator', '/google-profile-checkup', '/ai-visibility-check']
   .map((href) => tools.find((t) => t.href === href))
   .filter(Boolean);
 ---
@@ -216,7 +216,10 @@ const featuredTools = ['/lead-leak-calculator', '/review-calculator', '/ai-visib
             <h2>Playbooks you can run this week.</h2>
             <p class="sub">Written for dealer principals, GMs and internet managers. No forms in front of any of them.</p>
           </div>
-          <a href="/guides" class="btn btn-ghost">All guides</a>
+          <div class="head-actions">
+            <a href="/start-here" class="btn btn-primary">Start with your role</a>
+            <a href="/guides" class="btn btn-ghost">All guides</a>
+          </div>
         </div>
         <div class="guide-list">
           {featured.map((guide) => (
@@ -369,6 +372,7 @@ const featuredTools = ['/lead-leak-calculator', '/review-calculator', '/ai-visib
 
   /* ---------- shared section head ---------- */
   .head { display: flex; align-items: flex-end; justify-content: space-between; gap: 32px; flex-wrap: wrap; margin-bottom: 40px; }
+  .head-actions { display: flex; gap: 10px; flex-wrap: wrap; }
   .sub { font-size: 17.5px; color: var(--ink-3); margin: 14px 0 0; max-width: 56ch; }
 
   /* ---------- tools ---------- */
