@@ -87,6 +87,10 @@ const injected = prepareInjection((await getSettings()).code_injection);
       <script defer src={umamiSrc} data-website-id={umamiId}></script>
     )}
 
+    <!-- Site analytics (self-hosted at shawnryder.site). Hard-coded rather than
+         added in the admin's custom code so it can't be dropped by a CMS edit. -->
+    <script is:inline data-host="https://shawnryder.site" data-dnt="false" src="https://shawnryder.site/js/script.js" id="ZwSg9rf6GA" async defer></script>
+
     {injected.head && <Fragment set:html={injected.head} />}
   </head>
 
