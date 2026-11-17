@@ -9,6 +9,7 @@ import { getGuides, getMarkets, getSettings } from '../lib/content.js';
 import { site } from '../lib/site.js';
 import servicePages from '../data/service-pages.json';
 import dealerPages from '../data/dealer-pages.json';
+import rolePages from '../data/role-pages.json';
 
 export async function GET() {
   const [guides, markets, settings] = await Promise.all([
@@ -51,6 +52,10 @@ ${servicePages.map((p) => `- [${p.title}](${site.url}/services/${p.slug}): ${p.d
 ## Dealership types
 
 ${dealerPages.map((p) => `- [${p.title}](${site.url}/dealers/${p.slug}): ${p.description}`).join('\n')}
+
+## By role
+
+${rolePages.map((r) => `- [${r.title}](${site.url}/for/${r.slug}): ${r.description}`).join('\n')}
 
 ## Reference
 

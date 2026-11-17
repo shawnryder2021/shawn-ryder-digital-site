@@ -1,0 +1,173 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getGuides } from '../../lib/content.js';
+import { tools } from '../../lib/tools.js';
+import { site, faqSchema } from '../../lib/site.js';
+import rolePages from '../../data/role-pages.json';
+
+// One page per seat in the store. Reading order and tool come from the same
+// data as /start-here, so the two never disagree.
+export async function getStaticPaths() {
+  return rolePages.map((page) => ({ params: { slug: page.slug }, props: { page } }));
+}
+
+const { page } = Astro.props;
+const guides = await getGuides();
+const reading = page.guides.map((s) => guides.find((g) => g.slug === s && g.published)).filter(Boolean);
+const tool = tools.find((t) => t.href === page.tool);
+const others = rolePages.filter((r) => r.slug !== page.slug);
+const faqs = page.faqs.map(([q, a]) => ({ q, a }));
+
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name: page.title,
+    description: page.description,
+    url: `${site.url}/for/${page.slug}`,
+    audience: { '@type': 'BusinessAudience', name: page.short },
+    author: { '@id': `${site.url}/#shawn` },
+  },
+  faqSchema(faqs),
+].filter(Boolean);
+const breadcrumbs = [
+  { label: 'Home', url: '/' },
+  { label: 'Start here', url: '/start-here' },
+  { label: page.short, url: `/for/${page.slug}` },
+];
+---
+
+<Base title={page.title} description={page.description} path={`/for/${page.slug}`} schema={schema} breadcrumbs={breadcrumbs}>
+  <section class="page-hero">
+    <div class="wrap">
+      <p class="crumb"><a href="/start-here">Start here</a> / {page.short}</p>
+      <h1>{page.h1}</h1>
+      <p class="lede">{page.intro}</p>
+      <div class="actions">
+        <a href="/contact" class="btn btn-primary">Get a free audit</a>
+        {tool && <a href={tool.href} class="btn btn-light">Free tool: {tool.name}</a>}
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap section two">
+    <div>
+      <div class="kicker">What's on your plate</div>
+      <h2>The problems I hear most from {page.short.toLowerCase()}</h2>
+      <div class="problems">
+        {page.problems.map(([h, p]) => (
+          <div><h3>{h}</h3><p>{p}</p></div>
+        ))}
+      </div>
+    </div>
+    <aside class="numbers">
+      <h3>Four numbers worth watching</h3>
+      <ol>{page.numbers.map((n) => <li>{n}</li>)}</ol>
+      <p>If you can't get these easily today, that's the first thing to fix.</p>
+    </aside>
+  </section>
+
+  {reading.length > 0 && (
+    <section class="read">
+      <div class="wrap section">
+        <div class="kicker">Your reading list</div>
+        <h2>Five guides, in the order I'd hand them to you</h2>
+        <ol class="list">
+          {tool && (
+            <li class="first">
+              <a href={tool.href}>
+                <span class="step">Start</span>
+                <span class="body"><span class="meta">Free tool · {tool.time}</span><strong>{tool.name}</strong><span class="blurb">{tool.blurb}</span></span>
+              </a>
+            </li>
+          )}
+          {reading.map((g, i) => (
+            <li>
+              <a href={`/guides/${g.slug}`}>
+                <span class="step">{i + 1}</span>
+                <span class="body"><span class="meta">{g.category} · {g.read}</span><strong>{g.title}</strong><span class="blurb">{g.excerpt}</span></span>
+              </a>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+  )}
+
+  <section class="wrap section">
+    <div class="kicker">Questions I get</div>
+    <h2>Straight answers</h2>
+    <div class="faqs">
+      {faqs.map((f) => (
+        <details>
+          <summary>{f.q}</summary>
+          <p>{f.a}</p>
+        </details>
+      ))}
+    </div>
+  </section>
+
+  <section class="wrap section-tight others">
+    <h2 class="small">Other seats in the store</h2>
+    <ul>{others.map((r) => <li><a href={`/for/${r.slug}`}>{r.short}</a></li>)}</ul>
+  </section>
+
+  <section class="cta-strip">
+    <div class="wrap">
+      <div>
+        <h2>Want a second set of eyes on your store?</h2>
+        <p>The free audit covers your website, Google profile, reviews and lead follow-up. <a href="/sample-audit">See a sample first.</a></p>
+      </div>
+      <a href="/contact" class="btn btn-primary">Request the audit</a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .crumb { font-size: 14.5px; color: var(--on-dark-3); margin: 0 0 18px; }
+  .page-hero h1 { max-width: 24ch; }
+  .page-hero .lede { max-width: 66ch; }
+  .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+
+  .two { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr); gap: 56px; align-items: start; }
+  h2 { font-size: 34px; margin-bottom: 20px; }
+  .problems { border-top: 2px solid var(--ink); }
+  .problems > div { padding: 18px 0; border-bottom: 1px solid var(--line); }
+  .problems h3 { font-size: 20px; margin-bottom: 4px; }
+  .problems p { font-size: 16.5px; line-height: 1.55; color: var(--ink-2); margin: 0; }
+  .numbers { background: var(--navy); color: var(--on-dark-2); border-radius: var(--radius); padding: 28px; border-left: 6px solid var(--brand); position: sticky; top: 100px; }
+  .numbers h3 { color: #fff; margin-bottom: 14px; }
+  .numbers ol { margin: 0 0 16px; padding-left: 22px; display: grid; gap: 10px; font-size: 17px; color: #fff; }
+  .numbers p { font-size: 15px; margin: 0; }
+
+  .read { background: #fff; border-block: 1px solid var(--line); }
+  .list { list-style: none; margin: 0; padding: 0; border-top: 2px solid var(--ink); max-width: 860px; }
+  .list li { border-bottom: 1px solid var(--line); }
+  .list a { display: grid; grid-template-columns: 60px minmax(0, 1fr); gap: 8px; padding: 18px 0; color: inherit; }
+  .step { font-family: var(--display); font-weight: 700; font-size: 18px; color: var(--brand); padding-top: 2px; }
+  .first { background: var(--bg); }
+  .first a { padding-left: 16px; padding-right: 16px; }
+  .first .step { font-size: 14px; letter-spacing: 0.1em; text-transform: uppercase; padding-top: 4px; }
+  .body { display: grid; gap: 4px; }
+  .meta { font-family: var(--display); font-size: 13.5px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+  .body strong { font-family: var(--display); font-weight: 600; font-size: 21px; color: var(--ink); }
+  .blurb { font-size: 16px; line-height: 1.5; color: var(--ink-3); }
+  .list a:hover strong { color: var(--brand); }
+
+  .faqs { border-top: 2px solid var(--ink); max-width: 860px; }
+  details { border-bottom: 1px solid var(--line); }
+  summary { cursor: pointer; list-style: none; padding: 20px 36px 20px 0; position: relative; font-family: var(--display); font-weight: 600; font-size: 20px; }
+  summary::-webkit-details-marker { display: none; }
+  summary::after { content: '+'; position: absolute; right: 4px; top: 16px; font-size: 26px; color: var(--brand); }
+  details[open] summary::after { content: '–'; }
+  details p { font-size: 17px; line-height: 1.65; color: var(--ink-2); margin: 0 0 22px; max-width: 72ch; }
+
+  .others { padding-top: 0; }
+  h2.small { font-size: 22px; margin-bottom: 12px; }
+  .others ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+  .others a { display: inline-block; padding: 10px 16px; border: 1px solid var(--line); border-radius: var(--r-sm); background: #fff; color: var(--ink); font-family: var(--display); font-weight: 600; font-size: 16px; }
+  .others a:hover { background: var(--ink); color: #fff; border-color: var(--ink); }
+
+  @media (max-width: 1000px) { .two { grid-template-columns: minmax(0, 1fr); gap: 36px; } .numbers { position: static; } }
+  @media (max-width: 640px) { h2 { font-size: 28px; } .list a { grid-template-columns: 44px minmax(0, 1fr); } }
+</style>

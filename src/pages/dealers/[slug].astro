@@ -94,12 +94,12 @@ const breadcrumbs = [
   )}
 
   <section class="wrap section-tight others">
-    <h2 class="small">Other stores I work with</h2>
+    <h2 class="small">Other brands</h2>
     <ul>{others.map((p) => <li><a href={`/dealers/${p.slug}`}>{p.brand}</a></li>)}</ul>
     {!isUsed && (
       <p class="note">
         Shawn Ryder Digital is an independent consultant and is not affiliated with, or endorsed by,
-        {' '}{page.brand}. Brand and model names are used only to describe the dealerships I work with.
+        {' '}{page.brand} or its manufacturer. Brand and model names are used only to describe the dealerships I work with.
       </p>
     )}
   </section>
