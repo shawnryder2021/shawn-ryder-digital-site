@@ -25,6 +25,7 @@ export async function getSitePages() {
       pages: [
         page('/', 'Home', 'monthly', '1.0'),
         page('/contact', 'Free dealership audit', 'yearly', '0.9'),
+        page('/sample-audit', 'Sample audit — what you get', 'yearly', '0.8'),
         page('/about', 'About Shawn Ryder', 'yearly', '0.7'),
         page('/process', 'How working together goes', 'yearly', '0.8'),
         page('/faq', 'FAQ'),

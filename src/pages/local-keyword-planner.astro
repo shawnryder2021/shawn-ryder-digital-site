@@ -1,0 +1,199 @@
+---
+import Base from '../layouts/Base.astro';
+
+const title = 'Local Keyword Planner for Car Dealerships';
+const description =
+  'Enter your brand, models, city and nearby towns. Get the local search phrases a dealership should target, grouped by the page each one belongs on.';
+
+const breadcrumbs = [
+  { label: 'Home', url: '/' },
+  { label: 'Tools', url: '/tools' },
+  { label: 'Local keyword planner', url: '/local-keyword-planner' },
+];
+---
+
+<Base title={title} description={description} path="/local-keyword-planner" breadcrumbs={breadcrumbs}>
+  <section class="page-hero">
+    <div class="wrap">
+      <div class="kicker">Free tool</div>
+      <h1>What should your store show up for?</h1>
+      <p class="lede">
+        Shoppers search by model, by town and by what they need done. Enter your store's details
+        and get the phrases worth targeting — grouped by the page each one belongs on.
+      </p>
+    </div>
+  </section>
+
+  <section class="wrap section">
+    <div class="calc">
+      <form id="f" class="calc-inputs text" novalidate>
+        <label>
+          <span>Store type</span>
+          <select name="type">
+            <option value="franchise">Franchise (new and used)</option>
+            <option value="used">Independent used</option>
+          </select>
+        </label>
+        <label id="brand-field">
+          <span>Brand</span>
+          <input name="brand" type="text" value="Hyundai" maxlength="40" />
+        </label>
+        <label>
+          <span>Models or vehicle types</span>
+          <input name="models" type="text" value="Tucson, Santa Fe, Kona" maxlength="200" />
+          <small>Separate with commas. Used stores: try "trucks, SUVs, minivans".</small>
+        </label>
+        <label>
+          <span>Your city or town</span>
+          <input name="city" type="text" value="Moncton" maxlength="60" />
+        </label>
+        <label>
+          <span>Nearby towns you draw from</span>
+          <input name="towns" type="text" value="Dieppe, Riverview, Shediac" maxlength="200" />
+          <small>Separate with commas. Up to six.</small>
+        </label>
+        <p class="calc-err" id="err" role="status" aria-live="polite"></p>
+      </form>
+
+      <div aria-live="polite">
+        <div class="bar">
+          <strong id="count"></strong>
+          <span>
+            <button type="button" class="copy-btn" id="copy">Copy all</button>
+            <button type="button" class="copy-btn" id="csv">Download CSV</button>
+          </span>
+        </div>
+        <div id="groups"></div>
+      </div>
+    </div>
+
+    <div class="calc-note">
+      <h3>How to use the list</h3>
+      <p>
+        One phrase, one page. Pick the page that should rank for each phrase and make sure the
+        phrase — or a natural version of it — is in that page's title, heading and first paragraph.
+        Don't stuff several towns into one sentence; write a real line about each area you serve.
+      </p>
+      <p>
+        This tool doesn't show search volume. Check Google Search Console to see which of these
+        you already appear for, then start with the ones closest to page one.
+        <a href="/search-preview-checker">Check your titles with the search preview checker →</a>
+      </p>
+    </div>
+  </section>
+
+  <section class="cta-strip">
+    <div class="wrap">
+      <div>
+        <h2>Want to know where you rank for these?</h2>
+        <p>The free audit checks your map pack and search positions for your most important local searches.</p>
+      </div>
+      <a href="/contact" class="btn btn-primary">Request the audit</a>
+    </div>
+  </section>
+</Base>
+
+<script>
+  const form = document.getElementById('f');
+  const $ = (id) => document.getElementById(id);
+  const list = (v, max) => [...new Set(v.split(',').map((s) => s.trim()).filter(Boolean))].slice(0, max);
+  let rows = [];
+
+  function build() {
+    const used = form.type.value === 'used';
+    const brand = used ? '' : form.brand.value.trim();
+    const models = list(form.models.value, 8);
+    const city = form.city.value.trim();
+    const towns = list(form.towns.value, 6);
+    const places = [city, ...towns];
+    const groups = [];
+    // A phrase belongs on one page, so it is listed once: in the first group that claims it.
+    const seen = new Set();
+    const g = (name, where, phrases) => {
+      const fresh = phrases
+        .map((p) => p.toLowerCase().replace(/\s+/g, ' ').trim())
+        .filter((p) => !seen.has(p) && seen.add(p));
+      if (fresh.length) groups.push({ name, where, phrases: fresh });
+    };
+
+    if (brand) {
+      g('Brand + location', 'Homepage and Google Business Profile', [
+        `${brand} dealer ${city}`, `${brand} dealership ${city}`, `${brand} dealer near me`, `${brand} ${city}`,
+        ...towns.map((t) => `${brand} dealer ${t}`),
+      ]);
+    }
+    if (models.length) {
+      g(used ? 'Vehicle types' : 'Models', used ? 'A page for each vehicle type' : 'A page for each model', models.flatMap((m) => used
+        ? [`used ${m} ${city}`, `used ${m} for sale ${city}`, `used ${m} near me`, ...towns.slice(0, 2).map((t) => `used ${m} ${t}`)]
+        : [`${brand} ${m} ${city}`, `${m} for sale ${city}`, `used ${m} ${city}`, `${m} lease ${city}`]));
+    }
+    g('Used vehicles', 'Used inventory page', [
+      `used cars ${city}`, `used cars near me`, `used car dealer ${city}`, `used trucks ${city}`, `used suvs ${city}`,
+      ...towns.map((t) => `used cars ${t}`),
+    ]);
+    g('Service', 'Service pages — one per service', [
+      brand ? `${brand} service ${city}` : `car service ${city}`, `oil change ${city}`, `tire change ${city}`,
+      `winter tires ${city}`, `brake repair ${city}`, `car inspection ${city}`,
+      ...towns.slice(0, 3).map((t) => `oil change ${t}`),
+    ]);
+    g('Finance and trade-in', 'Finance and trade-in pages', [
+      `car loans ${city}`, `car financing ${city}`, `bad credit car loans ${city}`, `trade in my car ${city}`, `sell my car ${city}`,
+    ]);
+    return { groups, city };
+  }
+
+  function render() {
+    $('brand-field').hidden = form.type.value === 'used';
+    const { groups, city } = build();
+    if (!city) {
+      $('err').textContent = 'Enter your city or town to build the list.';
+      $('groups').innerHTML = ''; $('count').textContent = ''; rows = [];
+      return;
+    }
+    $('err').textContent = '';
+    rows = groups.flatMap((g) => g.phrases.map((p) => [p, g.name, g.where]));
+    $('count').textContent = `${rows.length} phrases in ${groups.length} groups`;
+
+    const wrap = $('groups');
+    wrap.innerHTML = '';
+    for (const g of groups) {
+      const sec = document.createElement('section');
+      const h = document.createElement('h2'); h.textContent = g.name;
+      const w = document.createElement('p'); w.className = 'where'; w.textContent = `Belongs on: ${g.where}`;
+      const ul = document.createElement('ul');
+      for (const p of g.phrases) { const li = document.createElement('li'); li.textContent = p; ul.append(li); }
+      sec.append(h, w, ul);
+      wrap.append(sec);
+    }
+  }
+
+  $('copy').addEventListener('click', async () => {
+    await navigator.clipboard.writeText(rows.map((r) => r[0]).join('\n'));
+    $('copy').textContent = 'Copied';
+    setTimeout(() => ($('copy').textContent = 'Copy all'), 1500);
+  });
+  $('csv').addEventListener('click', () => {
+    const esc = (s) => `"${s.replace(/"/g, '""')}"`;
+    const csv = ['phrase,group,page', ...rows.map((r) => r.map(esc).join(','))].join('\n');
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([csv], { type: 'text/csv' }));
+    a.download = 'local-keywords.csv';
+    a.click();
+    URL.revokeObjectURL(a.href);
+  });
+
+  form.addEventListener('input', render);
+  render();
+</script>
+
+<style>
+  .bar { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 18px; }
+  .bar strong { font-family: var(--display); font-size: 20px; }
+  .bar span { display: flex; gap: 8px; }
+  #groups :global(section) { border-top: 2px solid var(--ink); padding: 16px 0 22px; }
+  #groups :global(h2) { font-size: 22px; }
+  #groups :global(.where) { font-size: 14.5px; color: var(--brand); font-weight: 600; margin: 4px 0 12px; }
+  #groups :global(ul) { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+  #groups :global(li) { font-size: 15px; padding: 6px 10px; background: #fff; border: 1px solid var(--line); border-radius: var(--r-sm); color: var(--ink-2); }
+  [hidden] { display: none !important; }
+</style>

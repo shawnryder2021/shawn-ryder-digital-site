@@ -1,0 +1,162 @@
+---
+import Base from '../layouts/Base.astro';
+
+const title = 'Tracking Link Builder for Dealerships (UTM Links Made Simple)';
+const description =
+  'Build tagged links for your Google Business Profile, Facebook, email and texts, so your analytics shows which channel each visitor and lead came from.';
+
+const breadcrumbs = [
+  { label: 'Home', url: '/' },
+  { label: 'Tools', url: '/tools' },
+  { label: 'Tracking link builder', url: '/tracking-link-builder' },
+];
+
+// Where the link will be used → the source and medium analytics should record.
+const places = [
+  { id: 'gbp', label: 'Google Business Profile — website button', source: 'google', medium: 'organic', campaign: 'gbp-listing' },
+  { id: 'gbp-post', label: 'Google Business Profile — post or offer', source: 'google', medium: 'organic', campaign: 'gbp-post' },
+  { id: 'fb-post', label: 'Facebook post', source: 'facebook', medium: 'social', campaign: '' },
+  { id: 'fb-ad', label: 'Facebook or Instagram ad', source: 'facebook', medium: 'paid-social', campaign: '' },
+  { id: 'ig-bio', label: 'Instagram bio link', source: 'instagram', medium: 'social', campaign: 'bio' },
+  { id: 'email', label: 'Email to customers', source: 'newsletter', medium: 'email', campaign: '' },
+  { id: 'sms', label: 'Text message', source: 'sms', medium: 'sms', campaign: '' },
+  { id: 'qr', label: 'QR code (print, window sticker, mailer)', source: 'qr', medium: 'offline', campaign: '' },
+];
+---
+
+<Base title={title} description={description} path="/tracking-link-builder" breadcrumbs={breadcrumbs}>
+  <section class="page-hero">
+    <div class="wrap">
+      <div class="kicker">Free tool</div>
+      <h1>Know where every lead came from.</h1>
+      <p class="lede">
+        A tracking link is your normal web address with a short label on the end. That label is
+        how your analytics tells a Google profile visitor from a Facebook one. Pick where the
+        link is going and copy the result.
+      </p>
+    </div>
+  </section>
+
+  <section class="wrap section">
+    <div class="calc">
+      <form id="f" class="calc-inputs text" novalidate>
+        <label>
+          <span>Page you're sending people to</span>
+          <input name="url" type="text" value="https://www.examplemotors.ca/used-inventory" maxlength="500" />
+        </label>
+        <label>
+          <span>Where will the link be used?</span>
+          <select name="place">
+            {places.map((p) => (
+              <option value={p.id} data-source={p.source} data-medium={p.medium} data-campaign={p.campaign}>{p.label}</option>
+            ))}
+          </select>
+        </label>
+        <label>
+          <span>Campaign name</span>
+          <input name="campaign" type="text" value="" placeholder="e.g. winter-tire-special" maxlength="60" />
+          <small>What this push is about. Lowercase, dashes for spaces — it's tidied for you.</small>
+        </label>
+        <p class="calc-err" id="err" role="status" aria-live="polite"></p>
+      </form>
+
+      <div aria-live="polite">
+        <div class="result-big">
+          <div class="lab">Your tracking link</div>
+          <p class="link" id="out"></p>
+          <button type="button" class="copy-btn" id="copy">Copy link</button>
+        </div>
+        <ul class="checks-list" id="parts"></ul>
+      </div>
+    </div>
+
+    <div class="calc-note">
+      <h3>Three habits that make this worth doing</h3>
+      <p>
+        <strong>Tag your Google Business Profile link first.</strong> Without it, profile visits
+        are mixed in with ordinary Google search and you can't see what the profile brings in.
+      </p>
+      <p>
+        <strong>Use the same names every time.</strong> "facebook" and "Facebook" show up as two
+        different sources. <strong>Never tag links between pages on your own site</strong> — it
+        overwrites where the visitor really came from.
+        <a href="/guides/dealership-marketing-report-one-page">See the one-page marketing report guide →</a>
+      </p>
+    </div>
+  </section>
+
+  <section class="cta-strip">
+    <div class="wrap">
+      <div>
+        <h2>Can't tell which channel sells cars?</h2>
+        <p>The free audit looks at how your leads are tracked today and what it would take to report on sold units, not clicks.</p>
+      </div>
+      <a href="/contact" class="btn btn-primary">Request the audit</a>
+    </div>
+  </section>
+</Base>
+
+<script>
+  const form = document.getElementById('f');
+  const $ = (id) => document.getElementById(id);
+  const slug = (s) => s.toLowerCase().trim().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+
+  function render() {
+    const opt = form.place.selectedOptions[0];
+    const campaign = slug(form.campaign.value) || opt.dataset.campaign;
+    form.campaign.placeholder = opt.dataset.campaign ? `Default: ${opt.dataset.campaign}` : 'e.g. winter-tire-special';
+
+    let raw = form.url.value.trim();
+    if (raw && !/^https?:\/\//i.test(raw)) raw = 'https://' + raw;
+    let url;
+    try { url = new URL(raw); } catch { url = null; }
+    if (!url || !url.hostname.includes('.')) {
+      $('err').textContent = 'Enter a full web address, like https://www.yourstore.ca/used-inventory';
+      $('out').textContent = '';
+      $('parts').innerHTML = '';
+      return;
+    }
+    $('err').textContent = campaign ? '' : 'Add a campaign name so you can tell this push apart from the next one.';
+
+    url.searchParams.set('utm_source', opt.dataset.source);
+    url.searchParams.set('utm_medium', opt.dataset.medium);
+    if (campaign) url.searchParams.set('utm_campaign', campaign);
+    else url.searchParams.delete('utm_campaign');
+    $('out').textContent = url.href;
+
+    const rows = [
+      ['Source', opt.dataset.source, 'which site or channel sent the visitor'],
+      ['Medium', opt.dataset.medium, 'the type of channel'],
+      ['Campaign', campaign || '—', 'which push or offer'],
+    ];
+    const list = $('parts');
+    list.innerHTML = '';
+    for (const [k, val, why] of rows) {
+      const li = document.createElement('li');
+      li.className = val === '—' ? 'warn' : 'ok';
+      const span = document.createElement('span');
+      const b = document.createElement('strong');
+      b.textContent = `${k}: ${val}`;
+      span.append(b, ` — ${why}`);
+      li.append(span);
+      list.append(li);
+    }
+  }
+
+  $('copy').addEventListener('click', async () => {
+    if (!$('out').textContent) return;
+    await navigator.clipboard.writeText($('out').textContent);
+    $('copy').textContent = 'Copied';
+    setTimeout(() => ($('copy').textContent = 'Copy link'), 1500);
+  });
+  form.addEventListener('input', render);
+  form.addEventListener('change', render);
+  render();
+</script>
+
+<style>
+  .link { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 15px; line-height: 1.6; color: #fff; overflow-wrap: anywhere; margin: 12px 0 16px; min-height: 24px; }
+  .result-big .copy-btn { background: transparent; color: #fff; border-color: rgba(255, 255, 255, 0.45); }
+  .result-big .copy-btn:hover { background: #fff; color: var(--ink); }
+  .calc-note strong { color: var(--ink); }
+</style>

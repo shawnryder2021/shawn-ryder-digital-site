@@ -1,0 +1,218 @@
+---
+import Base from '../layouts/Base.astro';
+import AuditForm from '../components/AuditForm.astro';
+
+const title = 'Sample Dealership Audit — See What You Get Before You Ask';
+const description =
+  "A worked example of the free dealership audit: six areas scored, what's costing deals, and the three fixes to do first. Made-up store, real format.";
+
+// Everything below is an invented store, written to show the format and the
+// level of detail — not a real dealership or real results.
+const areas = [
+  {
+    name: 'Google Business Profile', score: 5, of: 10,
+    found: [
+      'Primary category is "Car dealer" instead of the brand dealer category.',
+      'Service and parts share the sales phone number and hours.',
+      'Last post was four months ago; newest photo is from last winter.',
+    ],
+    fix: 'Fix categories and departments this week. Then one post and five photos every week.',
+  },
+  {
+    name: 'Reviews', score: 6, of: 10,
+    found: [
+      '4.3 stars from 212 reviews — but only 3 new reviews in the last 30 days.',
+      '9 of the last 20 reviews have no reply, including two 1-star reviews.',
+      'Service gets one review for every six that sales gets.',
+    ],
+    fix: 'Add a review ask to every delivery and service pickup. Reply to everything within two days.',
+  },
+  {
+    name: 'Lead response', score: 3, of: 10,
+    found: [
+      'Weekday 2pm test lead: first reply in 3 hours 40 minutes, by auto-email only.',
+      'Saturday 11am test lead: no human reply until Monday.',
+      'The reply didn\'t mention the vehicle asked about.',
+    ],
+    fix: 'One person owns first response each shift. Text first, by name, about the exact vehicle.',
+  },
+  {
+    name: 'Website and vehicle pages', score: 6, of: 10,
+    found: [
+      'Vehicle pages take about 5 seconds to load on a phone over cellular.',
+      'Used units average 11 photos; several have stock images.',
+      'The lead form asks for 9 fields, with phone number required.',
+    ],
+    fix: 'Cut the form to name, contact method and vehicle. Set a 25-photo standard for used.',
+  },
+  {
+    name: 'Local search', score: 4, of: 10,
+    found: [
+      'Not in the map pack for "[brand] dealer [city]" from most of the city.',
+      'Model pages share one title: the store name.',
+      'No pages for the three nearby towns customers drive in from.',
+    ],
+    fix: 'Rewrite titles for the top ten pages. Add one real page per nearby town.',
+  },
+  {
+    name: 'Email and database', score: 4, of: 10,
+    found: [
+      'One monthly newsletter goes to the whole list.',
+      'No lease-maturity or equity campaign in the last year.',
+      'Service customers never hear from sales.',
+    ],
+    fix: 'Start with one equity campaign to customers 36+ months into a loan.',
+  },
+];
+const total = areas.reduce((s, a) => s + a.score, 0);
+const max = areas.reduce((s, a) => s + a.of, 0);
+const first = [
+  ['Fix lead response this week', 'It\'s the lowest score and the fastest win. Every other fix sends more leads into a process that currently loses them.'],
+  ['Clean up the Google profile', 'About two hours of work: categories, departments, hours, photos. Then a ten-minute weekly habit.'],
+  ['Start the review ask', 'A text with a direct link at delivery and after service. Recency is what\'s missing, not rating.'],
+];
+---
+
+<Base title={title} description={description} path="/sample-audit">
+  <section class="page-hero">
+    <div class="wrap">
+      <div class="kicker">Sample audit</div>
+      <h1>Here's what the free audit looks like.</h1>
+      <p class="lede">
+        No mystery about what you're asking for. This is the format you get back: six areas
+        scored, what I found, and the three things I'd fix first — in plain language, on a
+        couple of pages.
+      </p>
+    </div>
+  </section>
+
+  <section class="wrap section-tight">
+    <p class="notice">
+      <strong>This is an example.</strong> "Example Motors" is a made-up store, and these findings
+      are illustrations of what audits typically turn up — not a real dealership or real results.
+    </p>
+
+    <div class="report">
+      <header class="r-head">
+        <div>
+          <div class="r-label">Digital audit</div>
+          <h2>Example Motors</h2>
+          <p>Franchise store · mid-size Atlantic Canada market · prepared by Shawn Ryder</p>
+        </div>
+        <div class="r-score">
+          <strong>{total}</strong><span>/ {max}</span>
+          <em>Overall</em>
+        </div>
+      </header>
+
+      <div class="r-summary">
+        <h3>The short version</h3>
+        <p>
+          Example Motors doesn't have a traffic problem. Shoppers are finding the store — and then
+          waiting hours for a reply. Lead response is costing more deals than everything else on
+          this list combined, and it's the cheapest thing to fix.
+        </p>
+      </div>
+
+      {areas.map((a) => (
+        <section class="area">
+          <div class="a-head">
+            <h3>{a.name}</h3>
+            <div class="meter" role="img" aria-label={`${a.score} out of ${a.of}`}>
+              <span style={`width:${(a.score / a.of) * 100}%`} class:list={{ low: a.score <= 4 }}></span>
+            </div>
+            <strong class="a-score">{a.score}<small>/{a.of}</small></strong>
+          </div>
+          <ul>{a.found.map((f) => <li>{f}</li>)}</ul>
+          <p class="fix"><strong>What I'd do:</strong> {a.fix}</p>
+        </section>
+      ))}
+
+      <section class="first">
+        <h3>Fix these three first</h3>
+        <ol>
+          {first.map(([h, p]) => <li><strong>{h}</strong><span>{p}</span></li>)}
+        </ol>
+      </section>
+    </div>
+  </section>
+
+  <section class="wrap section how">
+    <div>
+      <div class="kicker">How I get there</div>
+      <h2>What I actually do for your audit</h2>
+      <ul class="steps">
+        <li><strong>Shop your store like a customer.</strong> I send a test lead, call and text, and time what comes back.</li>
+        <li><strong>Go through your Google profile and reviews.</strong> Categories, departments, photos, posts, replies and recency.</li>
+        <li><strong>Check your website on a phone.</strong> Speed, vehicle pages, forms and what a shopper sees first.</li>
+        <li><strong>Look at how you show up locally.</strong> Map pack, titles, and what AI assistants say about you.</li>
+        <li><strong>Write it up plainly.</strong> Scores, findings and what I'd fix first. No pitch deck.</li>
+      </ul>
+      <p class="honest">
+        It's free, and there's no obligation. If I don't think I can help, I'll say so — you still
+        keep the audit.
+      </p>
+    </div>
+    <div>
+      <AuditForm sourcePage="/sample-audit" />
+    </div>
+  </section>
+</Base>
+
+<style>
+  .notice {
+    background: #fff; border: 1px solid var(--line); border-left: 6px solid var(--brand); border-radius: var(--radius);
+    padding: 16px 20px; font-size: 16px; line-height: 1.55; color: var(--ink-2); margin: 0 0 28px; max-width: 900px;
+  }
+  .report { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); max-width: 900px; box-shadow: var(--shadow-md); }
+  .r-head {
+    background: var(--navy); color: var(--on-dark-2); border-radius: var(--radius) var(--radius) 0 0;
+    padding: 30px 34px; display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap;
+  }
+  .r-label { font-family: var(--display); font-weight: 600; font-size: 13.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--on-dark-accent); }
+  .r-head h2 { color: #fff; font-size: 34px; margin: 6px 0; }
+  .r-head p { margin: 0; font-size: 15px; }
+  .r-score { text-align: right; font-family: var(--display); color: #fff; }
+  .r-score strong { font-size: 56px; font-weight: 700; line-height: 1; }
+  .r-score span { font-size: 22px; color: var(--on-dark-3); margin-left: 4px; }
+  .r-score em { display: block; font-style: normal; font-size: 13.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--on-dark-3); }
+
+  .r-summary, .area, .first { padding: 26px 34px; border-bottom: 1px solid var(--line); }
+  .r-summary h3, .first h3 { margin-bottom: 10px; }
+  .r-summary p { font-size: 17.5px; line-height: 1.65; color: var(--ink-2); margin: 0; }
+
+  .a-head { display: grid; grid-template-columns: minmax(0, 1fr) 180px 56px; gap: 16px; align-items: center; margin-bottom: 12px; }
+  .meter { height: 10px; background: var(--surface-2); border-radius: 2px; overflow: hidden; }
+  .meter span { display: block; height: 100%; background: var(--navy); }
+  .meter span.low { background: var(--brand); }
+  .a-score { font-family: var(--display); font-size: 24px; text-align: right; }
+  .a-score small { font-size: 14px; color: var(--muted); font-weight: 600; }
+  .area ul { margin: 0 0 12px; padding-left: 20px; display: grid; gap: 6px; font-size: 16.5px; line-height: 1.55; color: var(--ink-2); }
+  .fix { margin: 0; font-size: 16px; line-height: 1.55; color: var(--ink-2); background: var(--bg); border-radius: var(--r-sm); padding: 12px 14px; }
+  .fix strong { color: var(--ink); }
+
+  .first { border-bottom: 0; background: var(--surface-2); border-radius: 0 0 var(--radius) var(--radius); }
+  .first ol { margin: 0; padding: 0; list-style: none; counter-reset: n; display: grid; gap: 14px; }
+  .first li { counter-increment: n; display: grid; gap: 2px; padding-left: 44px; position: relative; }
+  .first li::before {
+    content: counter(n); position: absolute; left: 0; top: 0; width: 30px; height: 30px; border-radius: var(--r-sm);
+    background: var(--brand); color: #fff; display: grid; place-items: center; font-family: var(--display); font-weight: 700;
+  }
+  .first strong { font-family: var(--display); font-weight: 600; font-size: 19px; }
+  .first span { font-size: 16px; line-height: 1.55; color: var(--ink-2); }
+
+  .how { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: 64px; align-items: start; }
+  .how h2 { font-size: 34px; margin-bottom: 18px; }
+  .steps { list-style: none; margin: 0; padding: 0; border-top: 2px solid var(--ink); }
+  .steps li { padding: 15px 0; border-bottom: 1px solid var(--line); font-size: 16.5px; line-height: 1.55; color: var(--ink-2); }
+  .steps strong { color: var(--ink); }
+  .honest { font-size: 16.5px; line-height: 1.6; color: var(--ink-2); margin: 22px 0 0; }
+
+  @media (max-width: 1000px) { .how { grid-template-columns: minmax(0, 1fr); gap: 40px; } }
+  @media (max-width: 640px) {
+    .r-head, .r-summary, .area, .first { padding-left: 20px; padding-right: 20px; }
+    .a-head { grid-template-columns: minmax(0, 1fr) 56px; }
+    .meter { grid-column: 1 / -1; grid-row: 2; }
+    .r-head h2 { font-size: 28px; }
+  }
+</style>

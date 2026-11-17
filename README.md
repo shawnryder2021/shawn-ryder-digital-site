@@ -337,6 +337,17 @@ After pulling, run `npm run sync:guides` once, then Publish. It only fills
 guides whose body is still empty, so anything already written in the admin
 is left alone.
 
+### SEO tools and the sample audit
+
+Four more client-side tools, no backend: `/search-preview-checker` (measures
+title width with canvas the way Google truncates, by pixels not characters),
+`/local-keyword-planner`, `/dealer-schema-generator` (JSON-LD built with
+`JSON.stringify`, `<` escaped) and `/tracking-link-builder`. `/sample-audit`
+shows the audit format with an invented store, labelled as an example.
+
+Every guide ends with a matching tool (`TOOL_FOR_CATEGORY` / `TOOL_FOR_GUIDE`
+in `src/pages/guides/[slug].astro`) and an author box.
+
 ### Adding a new tool
 
 1. Add the page in `src/pages/` — the two calculators above are the simplest
