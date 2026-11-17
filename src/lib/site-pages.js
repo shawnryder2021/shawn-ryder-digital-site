@@ -7,6 +7,7 @@ import { getMarkets, getGuides } from './content.js';
 import { tools } from './tools.js';
 import servicePages from '../data/service-pages.json';
 import dealerPages from '../data/dealer-pages.json';
+import rolePages from '../data/role-pages.json';
 
 // Atlantic Canada is home ground and converts best — weight it above the rest.
 const PRIORITY_MARKETS = new Set([
@@ -40,7 +41,7 @@ export async function getSitePages() {
       ],
     },
     {
-      name: 'Dealers I work with',
+      name: 'Dealership brands',
       pages: [
         page('/dealers', 'All dealership types'),
         ...dealerPages.map((d) => page(`/dealers/${d.slug}`, d.brand === 'Independent used' ? 'Independent used car dealers' : `${d.brand} dealers`)),
@@ -61,6 +62,10 @@ export async function getSitePages() {
         page('/glossary', 'Glossary'),
         page('/ai', 'What AI changes for dealerships'),
       ],
+    },
+    {
+      name: 'By role',
+      pages: rolePages.map((r) => page(`/for/${r.slug}`, `For ${r.short.toLowerCase()}`)),
     },
     {
       name: 'Guides',

@@ -32,7 +32,8 @@
         "Stay on brand",
         "Work that fits your manufacturer's brand standards and co-op rules, so nothing needs to be redone."
       ]
-    ]
+    ],
+    "core": true
   },
   {
     "slug": "hyundai",
@@ -67,7 +68,8 @@
         "Work the warranty story",
         "Hyundai's warranty is a real selling point. Put it on the pages shoppers actually read, not buried in a footer."
       ]
-    ]
+    ],
+    "core": true
   },
   {
     "slug": "audi",
@@ -102,7 +104,8 @@
         "Protect the reputation",
         "In a premium market, one public complaint carries weight. Fast, calm replies and a steady flow of reviews."
       ]
-    ]
+    ],
+    "core": true
   },
   {
     "slug": "subaru",
@@ -137,7 +140,8 @@
         "Reviews that tell the story",
         "Subaru buyers read reviews closely. A steady stream of specific, recent ones is worth more than any banner ad."
       ]
-    ]
+    ],
+    "core": true
   },
   {
     "slug": "used-car-dealers",
@@ -169,6 +173,365 @@
         "Faster follow-up",
         "Text-first replies and a simple process so a small team never lets a lead sit."
       ]
-    ]
+    ],
+    "core": true
+  },
+  {
+    "slug": "toyota",
+    "brand": "Toyota",
+    "title": "Digital Marketing for Toyota Dealers",
+    "description": "Toyota dealership marketing: stand out when every store has the same RAV4 — reviews, fast follow-up, used inventory and service retention.",
+    "h1": "Digital marketing for Toyota dealers.",
+    "intro": "Toyota sells itself, which is the problem. Shoppers have usually picked the vehicle before they pick the store, and when new inventory is tight every dealer has the same waiting list. What decides it is who answers first, who's best reviewed and who makes the wait feel worth it.",
+    "models": [
+      "RAV4",
+      "Corolla",
+      "Camry",
+      "Highlander",
+      "Tacoma",
+      "Tundra",
+      "Hybrids and Prime"
+    ],
+    "focus": [
+      [
+        "Win the store choice",
+        "When the vehicle is decided, speed, reviews and a personal reply decide the dealer."
+      ],
+      [
+        "Manage the wait",
+        "Clear pages on order timelines and incoming units turn impatient shoppers into deposits."
+      ],
+      [
+        "Used and certified",
+        "Strong resale means your used Toyotas are in demand. Merchandise them properly."
+      ],
+      [
+        "Service retention",
+        "Toyota owners keep vehicles for years. Service-to-sales and maintenance reminders keep them yours."
+      ]
+    ],
+    "core": false
+  },
+  {
+    "slug": "honda",
+    "brand": "Honda",
+    "title": "Digital Marketing for Honda Dealers",
+    "description": "Honda dealership marketing: win Civic and CR-V shoppers with fast follow-up, strong reviews, lease-return campaigns and local search.",
+    "h1": "Digital marketing for Honda dealers.",
+    "intro": "Honda buyers are loyal, practical and well researched. They know the Civic and CR-V cold before they contact you. The store that wins gives straight answers quickly, has recent reviews, and stays in touch through service and lease-end.",
+    "models": [
+      "Civic",
+      "CR-V",
+      "HR-V",
+      "Accord",
+      "Pilot",
+      "Ridgeline",
+      "Hybrids"
+    ],
+    "focus": [
+      [
+        "Straight answers, fast",
+        "Researched buyers don't want a script. A specific reply within minutes wins."
+      ],
+      [
+        "Lease-end and loyalty",
+        "A big share of Honda business is repeat. Lease-maturity email is the cheapest sale you have."
+      ],
+      [
+        "First-time buyers",
+        "The Civic is many people's first new car. Clear financing info builds trust."
+      ],
+      [
+        "Local pack",
+        "Own \"Honda dealer near me\" with a complete profile and steady reviews."
+      ]
+    ],
+    "core": false
+  },
+  {
+    "slug": "ford",
+    "brand": "Ford",
+    "title": "Digital Marketing for Ford Dealers",
+    "description": "Ford dealership marketing built around trucks: F-150 buyers, commercial customers, service retention and local search.",
+    "h1": "Digital marketing for Ford dealers.",
+    "intro": "For most Ford stores, trucks are the business. F-150 and Super Duty buyers care about towing, payload, upfits and service uptime — and commercial customers buy more than one. Marketing that talks to truck people like truck people wins.",
+    "models": [
+      "F-150",
+      "Super Duty",
+      "Maverick",
+      "Ranger",
+      "Escape",
+      "Explorer",
+      "Bronco",
+      "Mustang Mach-E"
+    ],
+    "focus": [
+      [
+        "Truck content that knows trucks",
+        "Towing, payload, packages and upfits, written plainly."
+      ],
+      [
+        "Commercial and fleet",
+        "A page and a named contact for business buyers earns repeat orders."
+      ],
+      [
+        "Service uptime",
+        "Work trucks can't sit. Fast service booking is a selling point."
+      ],
+      [
+        "Enthusiast models",
+        "Bronco and Mustang buyers respond to real photos and video from your lot."
+      ]
+    ],
+    "core": false
+  },
+  {
+    "slug": "chevrolet-buick-gmc",
+    "brand": "Chevrolet, Buick & GMC",
+    "title": "Digital Marketing for Chevrolet, Buick & GMC Dealers",
+    "description": "Marketing for Chevrolet, Buick and GMC dealers: Silverado and Sierra truck buyers, SUVs, service retention and local SEO.",
+    "h1": "Digital marketing for Chevrolet, Buick & GMC dealers.",
+    "intro": "A GM store usually sells three brands to very different buyers: a Silverado work truck, a Sierra Denali and a Buick crossover don't share a customer. Good marketing gives each one its own message instead of one generic ad.",
+    "models": [
+      "Silverado",
+      "Sierra",
+      "Equinox",
+      "Traverse",
+      "Tahoe and Yukon",
+      "Buick Encore GX and Envision",
+      "EVs"
+    ],
+    "focus": [
+      [
+        "One store, three audiences",
+        "Separate pages and campaigns for truck, luxury-truck and crossover buyers."
+      ],
+      [
+        "Truck comparisons",
+        "Silverado and Sierra shoppers cross-shop F-150 and Ram. Answer the comparison honestly."
+      ],
+      [
+        "Service and loyalty",
+        "GM owners return for service. Use it for service-to-sales."
+      ],
+      [
+        "Local search",
+        "Rank for each brand in your city, not just one."
+      ]
+    ],
+    "core": false
+  },
+  {
+    "slug": "kia",
+    "brand": "Kia",
+    "title": "Digital Marketing for Kia Dealers",
+    "description": "Kia dealership marketing: turn Sportage, Seltos and Telluride shoppers into appointments with fast replies, reviews and local SEO.",
+    "h1": "Digital marketing for Kia dealers.",
+    "intro": "Kia has moved up-market fast, and its buyers compare hard against Hyundai, Toyota and Honda. Many are new to the brand and want reassurance. Reviews, warranty details and a quick, friendly reply do the convincing.",
+    "models": [
+      "Sportage",
+      "Seltos",
+      "Sorento",
+      "Telluride",
+      "Forte and K4",
+      "EV6 and EV9",
+      "Niro"
+    ],
+    "focus": [
+      [
+        "Reassure new-to-brand buyers",
+        "Warranty, reviews and real customer stories."
+      ],
+      [
+        "Cross-shop pages",
+        "Honest comparisons against the models your shoppers are also considering."
+      ],
+      [
+        "EV questions",
+        "Plain-language pages on charging and range for EV6 and EV9 shoppers."
+      ],
+      [
+        "Speed to lead",
+        "Price is close everywhere. The first real reply wins."
+      ]
+    ],
+    "core": false
+  },
+  {
+    "slug": "mazda",
+    "brand": "Mazda",
+    "title": "Digital Marketing for Mazda Dealers",
+    "description": "Mazda dealership marketing: reach CX-5 and CX-50 shoppers with premium-feel content, strong reviews, local SEO and fast follow-up.",
+    "h1": "Digital marketing for Mazda dealers.",
+    "intro": "Mazda buyers want something that feels more premium than the price suggests, and they care about how it drives. Stock photos and generic copy undersell the cars. Real photography, test-drive invitations and good reviews fit the brand.",
+    "models": [
+      "CX-5",
+      "CX-50",
+      "CX-30",
+      "CX-70 and CX-90",
+      "Mazda3",
+      "MX-5"
+    ],
+    "focus": [
+      [
+        "Show the cars properly",
+        "Real photos and short video. Design is the selling point."
+      ],
+      [
+        "Sell the test drive",
+        "Driving feel wins Mazda buyers. Make booking a drive effortless."
+      ],
+      [
+        "Winter capability",
+        "AWD content for Canadian winters."
+      ],
+      [
+        "Reviews and local pack",
+        "A smaller network means each store can own its local search."
+      ]
+    ],
+    "core": false
+  },
+  {
+    "slug": "nissan",
+    "brand": "Nissan",
+    "title": "Digital Marketing for Nissan Dealers",
+    "description": "Nissan dealership marketing: Rogue, Kicks and Frontier shoppers, value-focused buyers, used inventory and fast lead follow-up.",
+    "h1": "Digital marketing for Nissan dealers.",
+    "intro": "Nissan buyers are often value-focused and payment-conscious. They respond to clear offers, straightforward financing information and a store that follows up quickly without pressure.",
+    "models": [
+      "Rogue",
+      "Kicks",
+      "Sentra",
+      "Pathfinder",
+      "Frontier",
+      "Murano",
+      "Ariya"
+    ],
+    "focus": [
+      [
+        "Clear offers",
+        "Plain-language pages on payments, rates and what's included."
+      ],
+      [
+        "Financing questions",
+        "Honest answers for credit-challenged buyers build trust."
+      ],
+      [
+        "Used inventory",
+        "Value buyers shop used too. Merchandise it well."
+      ],
+      [
+        "Follow-up",
+        "Fast, friendly, specific replies."
+      ]
+    ],
+    "core": false
+  },
+  {
+    "slug": "chrysler-dodge-jeep-ram",
+    "brand": "Chrysler, Dodge, Jeep & Ram",
+    "title": "Digital Marketing for Chrysler, Dodge, Jeep & Ram Dealers",
+    "description": "Marketing for Chrysler, Dodge, Jeep and Ram dealers: Ram truck buyers, Jeep enthusiasts, used inventory and local SEO.",
+    "h1": "Digital marketing for Chrysler, Dodge, Jeep & Ram dealers.",
+    "intro": "A CDJR store has two passionate audiences: Ram truck buyers and Jeep people. Both know their vehicles and both respond to real content — trail photos, towing numbers, accessories — not manufacturer boilerplate.",
+    "models": [
+      "Ram 1500",
+      "Ram Heavy Duty",
+      "Jeep Wrangler",
+      "Grand Cherokee",
+      "Compass",
+      "Dodge Hornet and Durango",
+      "Chrysler minivans"
+    ],
+    "focus": [
+      [
+        "Ram truck content",
+        "Towing, payload, trims and work packages, written for truck buyers."
+      ],
+      [
+        "Jeep community",
+        "Events, accessories and real customer builds. Enthusiasts share it."
+      ],
+      [
+        "Accessories and service",
+        "Lift kits, tires and parts are part of the sale. Show them."
+      ],
+      [
+        "Used trucks",
+        "Strong demand — merchandise them properly."
+      ]
+    ],
+    "core": false
+  },
+  {
+    "slug": "mitsubishi",
+    "brand": "Mitsubishi",
+    "title": "Digital Marketing for Mitsubishi Dealers",
+    "description": "Mitsubishi dealership marketing: Outlander and RVR shoppers, warranty-led messaging, value buyers and local search.",
+    "h1": "Digital marketing for Mitsubishi dealers.",
+    "intro": "Mitsubishi stores are often smaller, with a value-focused buyer and a long warranty as the headline. With fewer stores in each market, a well-run Google profile and steady reviews can own local search for the brand.",
+    "models": [
+      "Outlander",
+      "Outlander PHEV",
+      "RVR",
+      "Eclipse Cross",
+      "Mirage"
+    ],
+    "focus": [
+      [
+        "Lead with the warranty",
+        "It's the clearest reason to choose the brand. Put it where shoppers look."
+      ],
+      [
+        "Plug-in hybrid questions",
+        "Outlander PHEV buyers need simple answers on charging and range."
+      ],
+      [
+        "Own local search",
+        "Fewer competitors means a strong profile goes a long way."
+      ],
+      [
+        "Value buyers",
+        "Clear payments and honest financing info."
+      ]
+    ],
+    "core": false
+  },
+  {
+    "slug": "bmw",
+    "brand": "BMW",
+    "title": "Digital Marketing for BMW Dealers",
+    "description": "Premium marketing for BMW dealers: polished local presence, personal follow-up, certified pre-owned and owner retention.",
+    "h1": "Digital marketing for BMW dealers.",
+    "intro": "BMW buyers expect the online experience to match the product: precise, quick and personal. A slow reply or a stock-photo listing is out of step with the brand. Getting the details right is the marketing.",
+    "models": [
+      "X3",
+      "X5",
+      "X1",
+      "3 Series",
+      "5 Series",
+      "i4 and iX",
+      "M models"
+    ],
+    "focus": [
+      [
+        "Match the brand online",
+        "Real photography, fast pages and well-written copy."
+      ],
+      [
+        "Personal follow-up",
+        "Named advisors, video walkarounds and specific replies."
+      ],
+      [
+        "Certified pre-owned",
+        "A big part of the business. Present it with care."
+      ],
+      [
+        "Lease-end retention",
+        "Keep your owners in the brand and at your store."
+      ]
+    ],
+    "core": false
   }
 ]

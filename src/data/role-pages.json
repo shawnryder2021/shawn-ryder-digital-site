@@ -1,0 +1,344 @@
+[
+  {
+    "id": "dealer-principal",
+    "slug": "dealer-principals",
+    "role": "Dealer principal or GM",
+    "short": "Dealer principals and GMs",
+    "title": "Digital Marketing for Dealer Principals and General Managers",
+    "description": "What a dealer principal or GM needs from digital marketing: one page of numbers, vendors held to account, and the three leaks that cost the most gross.",
+    "h1": "For dealer principals and GMs: know what's working.",
+    "why": "You don't need to run the campaigns. You need to know which ones are working, and where the store is leaking.",
+    "intro": "You're paying for a website, a CRM, ads, listings and probably an agency. Every one of them sends a report that says things are going well. Your job isn't to read those — it's to know, on one page, whether marketing is selling cars and where the store is losing them.",
+    "problems": [
+      [
+        "Too many vendors, no single answer",
+        "Each vendor reports on its own piece. Nobody reports on sold units by source."
+      ],
+      [
+        "Reports you can't act on",
+        "Impressions and clicks don't hit a forecast. Appointments, shows and deliveries do."
+      ],
+      [
+        "Leads paid for, then lost",
+        "Slow follow-up quietly costs more gross than any ad problem."
+      ],
+      [
+        "No one owns digital",
+        "When it's everyone's job, it's nobody's."
+      ]
+    ],
+    "numbers": [
+      "Cost per sold unit, by source",
+      "Median minutes to first human reply",
+      "Appointment set and show rates",
+      "Review count and rating trend"
+    ],
+    "tool": "/lead-leak-calculator",
+    "guides": [
+      "dealership-marketing-report-one-page",
+      "speed-to-lead-friday-afternoon",
+      "dealership-google-ads-budget-split",
+      "ask-chatgpt-about-your-dealership",
+      "dealership-competitor-price-matching"
+    ],
+    "faqs": [
+      [
+        "What should I ask my marketing vendors for?",
+        "One page a month: leads by source, response time, appointments, shows, sold units and cost per sold unit. If they can't produce it, that tells you something."
+      ],
+      [
+        "Where do most stores lose the most money?",
+        "Lead follow-up. It's usually the cheapest thing to fix and the biggest leak."
+      ],
+      [
+        "How involved do I need to be?",
+        "Fifteen minutes a month with the right page in front of you is enough."
+      ]
+    ]
+  },
+  {
+    "id": "sales-manager",
+    "slug": "sales-managers",
+    "role": "General sales or sales manager",
+    "short": "Sales managers",
+    "title": "Digital Marketing for Dealership Sales Managers",
+    "description": "For GSMs and sales managers: turn internet leads into appointments with faster first replies, text-first follow-up and a process that survives a busy Saturday.",
+    "h1": "For sales managers: turn leads into appointments.",
+    "why": "Most of the gross lost online is lost after the lead arrives. These are about the handoff from screen to showroom.",
+    "intro": "Marketing's job is to make the phone ring. Yours is what happens next. Most stores lose more deals between the lead and the appointment than anywhere else — not because the team doesn't care, but because the process breaks on a busy day.",
+    "problems": [
+      [
+        "Leads sit while the floor is busy",
+        "Saturdays and evenings are when leads arrive and when nobody is free."
+      ],
+      [
+        "Generic first replies",
+        "\"Thanks for your interest\" gets ignored. A specific text about the exact vehicle gets answered."
+      ],
+      [
+        "No-shows",
+        "An appointment without a confirmation and a reason to come is a maybe."
+      ],
+      [
+        "Arguments about lead quality",
+        "Usually settled by measuring response time first."
+      ]
+    ],
+    "numbers": [
+      "Median first-response time, by day",
+      "Appointment set rate",
+      "Show rate",
+      "Sold from shown"
+    ],
+    "tool": "/sales-goal-calculator",
+    "guides": [
+      "speed-to-lead-friday-afternoon",
+      "text-messaging-dealership-leads",
+      "mystery-shop-your-own-store",
+      "dealership-lead-form-fields",
+      "dealership-competitor-price-matching"
+    ],
+    "faqs": [
+      [
+        "How fast is fast enough?",
+        "A real person, by name, inside ten minutes during the hours your shoppers are shopping."
+      ],
+      [
+        "Should salespeople or a BDC handle leads?",
+        "Either works if one named person owns first response each shift. What fails is \"whoever's free\"."
+      ],
+      [
+        "How do I prove it to the team?",
+        "Mystery shop your own store monthly and post the results."
+      ]
+    ]
+  },
+  {
+    "id": "bdc",
+    "slug": "bdc-managers",
+    "role": "Internet or BDC manager",
+    "short": "Internet and BDC managers",
+    "title": "Digital Marketing for Internet and BDC Managers",
+    "description": "For internet and BDC managers: better vehicle pages, faster first replies, text-first follow-up and tracking that shows which leads turn into sales.",
+    "h1": "For internet and BDC managers: more appointments from the same leads.",
+    "why": "Your job is turning clicks into appointments. Start with the pages shoppers land on and the first reply they get.",
+    "intro": "You sit between the website and the showroom. When vehicle pages are thin, you get fewer leads; when first replies are slow or generic, you set fewer appointments. Fixing those two ends is where your numbers move.",
+    "problems": [
+      [
+        "Thin vehicle pages",
+        "Few photos, no price, no real description — fewer shoppers submit."
+      ],
+      [
+        "Slow pages on phones",
+        "Shoppers leave before they see the car."
+      ],
+      [
+        "One script for every lead",
+        "A specific reply about the exact vehicle beats any template."
+      ],
+      [
+        "No idea which source sells",
+        "Without tracking links, every channel looks the same."
+      ]
+    ],
+    "numbers": [
+      "Leads per 100 vehicle page visits",
+      "First-response time",
+      "Reply rate on first texts",
+      "Appointments set per 100 leads"
+    ],
+    "tool": "/tracking-link-builder",
+    "guides": [
+      "vehicle-detail-pages-that-convert",
+      "text-messaging-dealership-leads",
+      "dealership-website-speed",
+      "dealership-retargeting-frequency",
+      "facebook-ads-for-car-dealers"
+    ],
+    "faqs": [
+      [
+        "Text or call first?",
+        "Text first, then call. A text waits until the shopper is ready."
+      ],
+      [
+        "How do I show which sources work?",
+        "Tag every link you control and make sure the CRM records source on every lead."
+      ],
+      [
+        "What's the quickest win?",
+        "Cut your lead form to name, contact method and vehicle."
+      ]
+    ]
+  },
+  {
+    "id": "marketing",
+    "slug": "marketing-managers",
+    "role": "Marketing manager",
+    "short": "Marketing managers",
+    "title": "Digital Marketing for Dealership Marketing Managers",
+    "description": "For dealership marketing managers: local SEO, Google Business Profile, social and email habits that outperform most paid campaigns — and how to report on them.",
+    "h1": "For marketing managers: build the habits that compound.",
+    "why": "Local search, social and your own database do more than most paid campaigns. Build the habits first.",
+    "intro": "You're usually a team of one, handling the website, social, email, events and three vendors. You can't do everything, so do the things that compound: a strong Google profile, steady real content and email to the customers you already have.",
+    "problems": [
+      [
+        "Stretched across everything",
+        "The work that compounds — profile, reviews, email — gets squeezed out by urgent requests."
+      ],
+      [
+        "Stock content",
+        "Manufacturer creative looks like every other store's."
+      ],
+      [
+        "Hard to show results",
+        "Without tracking, good work is invisible to the GM."
+      ],
+      [
+        "Vendors who don't coordinate",
+        "Website, ads and social all saying different things."
+      ]
+    ],
+    "numbers": [
+      "Calls and direction requests from Google",
+      "Leads by source",
+      "Email-booked appointments",
+      "New reviews per month"
+    ],
+    "tool": "/local-keyword-planner",
+    "guides": [
+      "google-business-profile-checklist-for-dealerships",
+      "google-business-profile-posts-that-get-seen",
+      "dealership-short-form-video",
+      "customer-photos-and-video-dealership",
+      "dealership-email-marketing-beats-bought-leads"
+    ],
+    "faqs": [
+      [
+        "Where should I spend my first hour each week?",
+        "Google Business Profile: one post, five photos, every review answered."
+      ],
+      [
+        "How do I get real content from the sales floor?",
+        "Agree simple rules once, then make it easy — one shared album, one person collecting on Fridays."
+      ],
+      [
+        "How do I report to the GM?",
+        "One page tied to appointments and sold units, not impressions."
+      ]
+    ]
+  },
+  {
+    "id": "service",
+    "slug": "service-managers",
+    "role": "Service manager",
+    "short": "Service managers",
+    "title": "Digital Marketing for Dealership Service Managers",
+    "description": "For service managers: fill the bays with Google Business Profile, reviews, seasonal offers and a service-to-sales handoff that actually happens.",
+    "h1": "For service managers: fill the bays and keep them coming back.",
+    "why": "You see more customers than the sales floor. Your reviews and your lane drive repeat business for the whole store.",
+    "intro": "Service touches more customers in a month than sales does in a quarter, and it's where loyalty is won or lost. Yet most dealership marketing ignores it. A few simple habits bring in more service work and feed sales at the same time.",
+    "problems": [
+      [
+        "Service is invisible on Google",
+        "Wrong hours, no service phone number, no service photos."
+      ],
+      [
+        "Few service reviews",
+        "Sales gets asked; service doesn't."
+      ],
+      [
+        "Seasonal rushes handled late",
+        "Tire season offers go out after the first snow."
+      ],
+      [
+        "No handoff to sales",
+        "Good-equity customers leave without a conversation."
+      ]
+    ],
+    "numbers": [
+      "Service calls from Google",
+      "Service reviews per month",
+      "Online bookings",
+      "Service customers offered an appraisal"
+    ],
+    "tool": "/google-profile-checkup",
+    "guides": [
+      "service-drive-marketing-dealership",
+      "service-to-sales-trade-leads",
+      "raise-dealership-review-score",
+      "unfair-dealership-reviews",
+      "google-business-profile-posts-that-get-seen"
+    ],
+    "faqs": [
+      [
+        "How do I get more service reviews?",
+        "Ask at pickup, by text with a direct link, every time."
+      ],
+      [
+        "Should service have its own Google listing?",
+        "At minimum, its own department hours and phone number. Sometimes a separate listing makes sense."
+      ],
+      [
+        "What should I post?",
+        "Seasonal offers and short tips, with real photos of your team and bays."
+      ]
+    ]
+  },
+  {
+    "id": "used-cars",
+    "slug": "used-car-managers",
+    "role": "Used car manager",
+    "short": "Used car managers",
+    "title": "Digital Marketing for Used Car Managers",
+    "description": "For used car managers: get units found, trusted and sold faster with better merchandising, local search and a day-30 review habit.",
+    "h1": "For used car managers: turn inventory faster.",
+    "why": "Every day a unit sits costs you. These are about getting used inventory found, trusted and sold faster.",
+    "intro": "Two identical trades, priced the same: one sells in a week, one sits for two months. The difference is almost never the car. It's the photos, the description, the history report and whether the listing shows up when someone searches.",
+    "problems": [
+      [
+        "Slow from trade to online",
+        "Every day in recon or waiting for photos is a day not for sale."
+      ],
+      [
+        "Thin listings",
+        "Few photos and option-code descriptions read as something to hide."
+      ],
+      [
+        "Reacting at day 60",
+        "By then the market has moved."
+      ],
+      [
+        "Matching every competitor",
+        "Giving up gross on deals that weren't leaving."
+      ]
+    ],
+    "numbers": [
+      "Days from trade to live listing",
+      "Photos per used unit",
+      "Views and leads per unit",
+      "Units over 30 days"
+    ],
+    "tool": "/ad-budget-planner",
+    "guides": [
+      "used-inventory-merchandising",
+      "vehicle-detail-pages-that-convert",
+      "ranking-for-used-cars-near-me",
+      "inventory-pages-that-rank",
+      "dealership-competitor-price-matching"
+    ],
+    "faqs": [
+      [
+        "How many photos does a used unit need?",
+        "Twenty-five to forty, in the same order every time, including any flaws."
+      ],
+      [
+        "When should I reprice?",
+        "Review at day 30. If it has views but no leads, the listing or price is the issue."
+      ],
+      [
+        "Should I match a competitor's price?",
+        "Compare the two vehicles side by side first. Often the gap isn't real."
+      ]
+    ]
+  }
+]

@@ -4,7 +4,7 @@ import dealerPages from '../../data/dealer-pages.json';
 
 const title = 'Dealerships I Work With — Franchise and Independent | Shawn Ryder';
 const description =
-  'Digital marketing for Volkswagen, Hyundai, Audi and Subaru dealers, and independent used car stores, across Atlantic Canada, the rest of Canada and the U.S.';
+  'Digital marketing by brand: Volkswagen, Hyundai, Audi, Subaru, Toyota, Honda, Ford, GM and more, plus independent used car dealers in Canada and the U.S.';
 ---
 
 <Base title={title} description={description} path="/dealers">
@@ -20,8 +20,9 @@ const description =
   </section>
 
   <section class="wrap section">
+    <h2 class="grp">Brands I work with most</h2>
     <ul class="list">
-      {dealerPages.map((p) => (
+      {dealerPages.filter((p) => p.core).map((p) => (
         <li>
           <a href={`/dealers/${p.slug}`}>
             <strong>{p.brand}</strong>
@@ -29,6 +30,13 @@ const description =
             <em>{p.models.slice(0, 4).join(' · ')}</em>
           </a>
         </li>
+      ))}
+    </ul>
+
+    <h2 class="grp second">More brands</h2>
+    <ul class="more">
+      {dealerPages.filter((p) => !p.core).map((p) => (
+        <li><a href={`/dealers/${p.slug}`}><strong>{p.brand}</strong><em>{p.models.slice(0, 3).join(' · ')}</em></a></li>
       ))}
     </ul>
     <p class="note">
@@ -45,6 +53,14 @@ const description =
   .list span { font-size: 17px; line-height: 1.55; color: var(--ink-2); }
   .list em { font-style: normal; font-size: 14.5px; color: var(--muted); }
   .list a:hover strong { color: var(--brand); }
+  .grp { font-size: 26px; margin-bottom: 16px; }
+  .grp.second { margin-top: 56px; }
+  .more { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 40px; border-top: 2px solid var(--ink); }
+  .more a { display: grid; gap: 2px; padding: 16px 0; border-bottom: 1px solid var(--line); color: inherit; }
+  .more strong { font-family: var(--display); font-weight: 600; font-size: 20px; color: var(--ink); }
+  .more em { font-style: normal; font-size: 14.5px; color: var(--muted); }
+  .more a:hover strong { color: var(--brand); }
+  @media (max-width: 700px) { .more { grid-template-columns: minmax(0, 1fr); } }
   .note { font-size: 16.5px; color: var(--ink-2); margin: 28px 0 0; }
   @media (max-width: 700px) {
     .list a { grid-template-columns: minmax(0, 1fr); }

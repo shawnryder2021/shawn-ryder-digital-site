@@ -3,6 +3,7 @@ import Base from '../layouts/Base.astro';
 import SubscribeForm from '../components/SubscribeForm.astro';
 import { getGuides } from '../lib/content.js';
 import { tools } from '../lib/tools.js';
+import rolePages from '../data/role-pages.json';
 
 const title = 'Start Here: Dealership Marketing Reading Paths by Role';
 const description =
@@ -13,87 +14,9 @@ const bySlug = new Map(guides.filter((g) => g.published).map((g) => [g.slug, g])
 const toolByHref = new Map(tools.map((t) => [t.href, t]));
 
 // Each path is one tool to get a number on the table, then guides in the
-// order I'd hand them over. Missing or unpublished guides drop out quietly.
-const paths = [
-  {
-    id: 'dealer-principal',
-    role: 'Dealer principal or GM',
-    why: "You don't need to run the campaigns. You need to know which ones are working, and where the store is leaking.",
-    tool: '/lead-leak-calculator',
-    guides: [
-      'dealership-marketing-report-one-page',
-      'speed-to-lead-friday-afternoon',
-      'dealership-google-ads-budget-split',
-      'ask-chatgpt-about-your-dealership',
-      'dealership-competitor-price-matching',
-    ],
-  },
-  {
-    id: 'sales-manager',
-    role: 'General sales or sales manager',
-    why: 'Most of the gross lost online is lost after the lead arrives. These are about the handoff from screen to showroom.',
-    tool: '/scorecard',
-    guides: [
-      'speed-to-lead-friday-afternoon',
-      'text-messaging-dealership-leads',
-      'mystery-shop-your-own-store',
-      'dealership-lead-form-fields',
-      'dealership-competitor-price-matching',
-    ],
-  },
-  {
-    id: 'bdc',
-    role: 'Internet or BDC manager',
-    why: 'Your job is turning clicks into appointments. Start with the pages shoppers land on and the first reply they get.',
-    tool: '/lead-leak-calculator',
-    guides: [
-      'vehicle-detail-pages-that-convert',
-      'text-messaging-dealership-leads',
-      'dealership-website-speed',
-      'dealership-retargeting-frequency',
-      'facebook-ads-for-car-dealers',
-    ],
-  },
-  {
-    id: 'marketing',
-    role: 'Marketing manager',
-    why: 'Local search, social and your own database do more than most paid campaigns. Build the habits first.',
-    tool: '/ai-visibility-check',
-    guides: [
-      'google-business-profile-checklist-for-dealerships',
-      'google-business-profile-posts-that-get-seen',
-      'dealership-short-form-video',
-      'customer-photos-and-video-dealership',
-      'dealership-email-marketing-beats-bought-leads',
-    ],
-  },
-  {
-    id: 'service',
-    role: 'Service manager',
-    why: 'You see more customers than the sales floor. Your reviews and your lane drive repeat business for the whole store.',
-    tool: '/review-calculator',
-    guides: [
-      'service-drive-marketing-dealership',
-      'service-to-sales-trade-leads',
-      'raise-dealership-review-score',
-      'unfair-dealership-reviews',
-      'google-business-profile-posts-that-get-seen',
-    ],
-  },
-  {
-    id: 'used-cars',
-    role: 'Used car manager',
-    why: 'Every day a unit sits costs you. These are about getting used inventory found, trusted and sold faster.',
-    tool: '/ad-budget-planner',
-    guides: [
-      'used-inventory-merchandising',
-      'vehicle-detail-pages-that-convert',
-      'ranking-for-used-cars-near-me',
-      'inventory-pages-that-rank',
-      'dealership-competitor-price-matching',
-    ],
-  },
-].map((p) => {
+// order I'd hand them over. The same data drives the /for/<role> pages.
+const paths = rolePages.map((r) => ({ id: r.id, slug: r.slug, role: r.role, why: r.why, tool: r.tool, guides: r.guides }))
+.map((p) => {
   const items = p.guides.map((s) => bySlug.get(s)).filter(Boolean);
   const minutes = items.reduce((sum, g) => sum + (parseInt(g.read, 10) || 0), 0);
   return { ...p, tool: toolByHref.get(p.tool), items, minutes };
@@ -124,6 +47,7 @@ const paths = [
           <h2>{p.role}</h2>
           <p>{p.why}</p>
           <p class="time">About {p.minutes} minutes of reading, total.</p>
+          <p><a href={`/for/${p.slug}`}>More for this role ›</a></p>
         </div>
         <ol class="list">
           {p.tool && (
