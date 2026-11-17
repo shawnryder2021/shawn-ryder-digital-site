@@ -1,6 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
-import { getGuides } from '../../lib/content.js';
+import { getGuides, getImageSlots } from '../../lib/content.js';
+import { tools } from '../../lib/tools.js';
 import { renderMarkdown, blocksToMarkdown } from '../../lib/markdown.js';
 import { site } from '../../lib/site.js';
 
@@ -21,6 +22,27 @@ const { guide, guides } = Astro.props;
 const markdown = guide.body || blocksToMarkdown(guide.blocks ?? []);
 const bodyHtml = renderMarkdown(markdown);
 const takeaways = guide.takeaways ?? [];
+
+// The free tool that puts a number on what this guide is about.
+const TOOL_FOR_CATEGORY = {
+  'Local SEO': '/google-profile-checkup',
+  'Follow-up': '/lead-leak-calculator',
+  Reputation: '/review-calculator',
+  Email: '/sales-goal-calculator',
+  Paid: '/ad-budget-planner',
+  Website: '/search-preview-checker',
+  Measurement: '/tracking-link-builder',
+  Social: '/scorecard',
+  AI: '/ai-visibility-check',
+};
+const TOOL_FOR_GUIDE = {
+  'schema-markup-for-dealership-websites': '/dealer-schema-generator',
+  'ranking-for-used-cars-near-me': '/local-keyword-planner',
+  'inventory-pages-that-rank': '/local-keyword-planner',
+  'car-dealership-seo-atlantic-canada': '/local-keyword-planner',
+};
+const tool = tools.find((t) => t.href === (TOOL_FOR_GUIDE[guide.slug] ?? TOOL_FOR_CATEGORY[guide.category]));
+const portrait = (await getImageSlots()).about_portrait;
 
 // Several guide headlines are long on their own. Only brand the title when the
 // suffix still fits inside the ~70 characters Google renders.
@@ -114,7 +136,34 @@ const breadcrumbs = [
     )}
 
     {bodyHtml ? (
-      <div class="wrap"><div class="body" set:html={bodyHtml} /></div>
+      <div class="wrap">
+        <div class="body" set:html={bodyHtml} />
+
+        {tool && (
+          <a class="toolbox" href={tool.href}>
+            <span class="tb-label">Free tool · {tool.time}</span>
+            <strong>{tool.name}</strong>
+            <span class="tb-blurb">{tool.blurb}</span>
+            <span class="tb-go">Open the tool ›</span>
+          </a>
+        )}
+
+        <aside class="author">
+          {portrait
+            ? <img src={portrait.url} alt={portrait.alt} width="72" height="72" loading="lazy" />
+            : <span class="mono" aria-hidden="true">SR</span>}
+          <div>
+            <span class="a-label">Written by</span>
+            <strong>Shawn Ryder</strong>
+            <p>
+              Twenty-five years in the car business — retail sales and dealership operations before
+              digital. I work with franchise and independent dealers across Canada and the U.S.,
+              from Halifax, Nova Scotia.
+            </p>
+            <p class="a-links"><a href="/about">More about Shawn</a> · <a href="/sample-audit">See a sample audit</a> · <a href="/contact">Ask a question</a></p>
+          </div>
+        </aside>
+      </div>
     ) : (
       <div class="wrap">
         <div class="unwritten">
@@ -193,7 +242,7 @@ const breadcrumbs = [
   /* The body arrives via set:html, which Astro does not tag with the scoping
      attribute — so everything below .body has to be :global() or it never
      applies. Left-aligned to sit flush with the cover and takeaways above. */
-  .body { max-width: 74ch; padding-top: 40px; padding-bottom: 56px; }
+  .body { max-width: 74ch; padding-top: 40px; padding-bottom: 36px; }
   .body :global(h2) { font-size: 30px; margin: 44px 0 16px; }
   .body :global(h3) { font-size: 22px; margin: 32px 0 12px; }
   .body :global(p) { font-size: 18px; line-height: 1.72; color: var(--ink-2); margin: 0 0 20px; text-wrap: pretty; }
@@ -215,6 +264,32 @@ const breadcrumbs = [
     text-wrap: pretty;
   }
   .body :global(blockquote p) { font-size: inherit; color: inherit; margin: 0; line-height: inherit; }
+
+  .toolbox {
+    display: grid; gap: 4px; max-width: 74ch; margin: 0 0 28px; padding: 22px 24px;
+    background: #fff; border: 1px solid var(--line); border-left: 6px solid var(--brand);
+    border-radius: var(--radius); color: inherit;
+  }
+  .toolbox:hover { box-shadow: var(--shadow-md); color: inherit; }
+  .tb-label { font-family: var(--display); font-size: 13.5px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+  .toolbox strong { font-family: var(--display); font-weight: 600; font-size: 23px; color: var(--ink); }
+  .toolbox:hover strong { color: var(--brand); }
+  .tb-blurb { font-size: 16px; line-height: 1.55; color: var(--ink-3); }
+  .tb-go { font-family: var(--display); font-weight: 600; font-size: 16px; color: var(--brand); margin-top: 6px; }
+
+  .author {
+    display: grid; grid-template-columns: 72px minmax(0, 1fr); gap: 20px; max-width: 74ch;
+    padding: 26px 0 56px; border-top: 2px solid var(--ink);
+  }
+  .author img, .mono { width: 72px; height: 72px; border-radius: var(--r-sm); object-fit: cover; }
+  .mono {
+    background: var(--navy); color: #fff; display: grid; place-items: center;
+    font-family: var(--display); font-weight: 700; font-size: 26px; box-shadow: inset 0 -4px 0 var(--brand);
+  }
+  .a-label { display: block; font-family: var(--display); font-size: 13.5px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+  .author strong { font-family: var(--display); font-weight: 600; font-size: 22px; }
+  .author p { font-size: 16px; line-height: 1.6; color: var(--ink-2); margin: 6px 0 0; }
+  .a-links { font-weight: 600; }
 
   .unwritten {
     max-width: 62ch;

@@ -1,0 +1,204 @@
+---
+import Base from '../layouts/Base.astro';
+
+const title = 'Google Search Preview Checker for Dealership Pages';
+const description =
+  'See how a page title and description will look in Google, check the length, and catch the local SEO misses — city, brand and a reason to click.';
+
+const breadcrumbs = [
+  { label: 'Home', url: '/' },
+  { label: 'Tools', url: '/tools' },
+  { label: 'Search preview checker', url: '/search-preview-checker' },
+];
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'How long should a dealership page title be?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Aim for roughly 50 to 60 characters. Google cuts titles by pixel width, at around 580 pixels on desktop, so wide letters and capitals use the space faster. Put the model or service and the city first, and the store name last.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'How long should a meta description be?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'About 120 to 155 characters. Google often rewrites descriptions, but a clear one that names the vehicle or service, the city and a reason to click is still worth writing.',
+      },
+    },
+  ],
+};
+---
+
+<Base title={title} description={description} path="/search-preview-checker" schema={schema} breadcrumbs={breadcrumbs}>
+  <section class="page-hero">
+    <div class="wrap">
+      <div class="kicker">Free tool</div>
+      <h1>How does your page look in Google?</h1>
+      <p class="lede">
+        The title and description are your ad in the search results — and most dealer pages
+        waste them. Paste yours in to see the preview, check the length and catch the local misses.
+      </p>
+    </div>
+  </section>
+
+  <section class="wrap section">
+    <div class="calc">
+      <form id="f" class="calc-inputs text" novalidate>
+        <label>
+          <span>Page title</span>
+          <input name="title" type="text" value="Used Trucks for Sale in Halifax, NS | Example Motors" maxlength="200" />
+          <small id="t-count"></small>
+        </label>
+        <label>
+          <span>Meta description</span>
+          <textarea name="desc" rows="3" maxlength="400">Browse used trucks in Halifax with real photos, prices and history reports. Trade-ins welcome and financing available. Book a test drive today.</textarea>
+          <small id="d-count"></small>
+        </label>
+        <label>
+          <span>Page address</span>
+          <input name="url" type="text" value="examplemotors.ca/used/trucks" maxlength="200" />
+        </label>
+        <div class="calc-row">
+          <label>
+            <span>Your city</span>
+            <input name="city" type="text" value="Halifax" maxlength="60" />
+          </label>
+          <label>
+            <span>What the page is about</span>
+            <input name="topic" type="text" value="used trucks" maxlength="60" />
+            <small>A model, brand or service.</small>
+          </label>
+        </div>
+      </form>
+
+      <div aria-live="polite">
+        <div class="serp" aria-label="Search result preview">
+          <div class="s-url" id="p-url"></div>
+          <div class="s-title" id="p-title"></div>
+          <div class="s-desc" id="p-desc"></div>
+        </div>
+        <p class="serp-note">Desktop preview. Google sometimes rewrites titles and descriptions, so treat this as a close guide.</p>
+        <h2 class="check-h">The checks</h2>
+        <ul class="checks-list" id="checks"></ul>
+      </div>
+    </div>
+
+    <div class="calc-note">
+      <h3>A simple pattern that works</h3>
+      <p>
+        <strong>Title:</strong> what it is + where + store name. "Used Trucks for Sale in Halifax, NS | Example Motors".
+        <strong>Description:</strong> what they'll find, one reason to choose you, and what to do next.
+      </p>
+      <p>
+        Do this for your homepage, each model page and each service page — every page needs its own.
+        Not sure which searches to write them for? <a href="/local-keyword-planner">Use the local keyword planner →</a>
+      </p>
+    </div>
+  </section>
+
+  <section class="cta-strip">
+    <div class="wrap">
+      <div>
+        <h2>Want every page checked?</h2>
+        <p>The free audit looks at your titles, descriptions and local pages across the whole site, and tells you which to fix first.</p>
+      </div>
+      <a href="/contact" class="btn btn-primary">Request the audit</a>
+    </div>
+  </section>
+</Base>
+
+<script>
+  const form = document.getElementById('f');
+  const $ = (id) => document.getElementById(id);
+
+  // Google truncates by rendered width, not characters. Measure the way the
+  // results page draws them: ~20px Arial titles, ~14px Arial descriptions.
+  const ctx = document.createElement('canvas').getContext('2d');
+  const width = (text, font) => { ctx.font = font; return ctx.measureText(text).width; };
+  const TITLE_FONT = '20px Arial';
+  const DESC_FONT = '14px Arial';
+  const TITLE_MAX = 580;
+  const DESC_MAX = 920; // about two lines on desktop
+
+  function truncate(text, font, max) {
+    if (width(text, font) <= max) return text;
+    let out = text;
+    while (out.length && width(out + ' …', font) > max) out = out.slice(0, -1);
+    return out.replace(/\s+\S*$/, '') + ' …';
+  }
+
+  const has = (text, needle) => needle && text.toLowerCase().includes(needle.trim().toLowerCase());
+
+  function render() {
+    const title = form.title.value.trim();
+    const desc = form.desc.value.trim();
+    const url = form.url.value.trim().replace(/^https?:\/\//, '');
+    const city = form.city.value.trim();
+    const topic = form.topic.value.trim();
+
+    $('p-title').textContent = title ? truncate(title, TITLE_FONT, TITLE_MAX) : 'Your page title';
+    $('p-desc').textContent = desc ? truncate(desc, DESC_FONT, DESC_MAX) : 'Your description shows here.';
+    const [host, ...path] = url.split('/');
+    $('p-url').textContent = [host || 'yourstore.ca', ...path.filter(Boolean)].join(' › ');
+
+    const tw = Math.round(width(title, TITLE_FONT));
+    $('t-count').textContent = `${title.length} characters · about ${tw} of ${TITLE_MAX} pixels`;
+    $('d-count').textContent = `${desc.length} characters`;
+
+    const checks = [];
+    const add = (ok, good, bad) => checks.push({ ok, text: ok ? good : bad });
+
+    if (!title) add(false, '', 'Add a title. Without one, Google makes one up from the page.');
+    else {
+      add(tw <= TITLE_MAX, 'Title fits without being cut off.', 'Title is too long and will be cut off. Move the important words to the front and trim the rest.');
+      add(title.length >= 30, 'Title uses the space well.', 'Title is short. You have room to add the city or a detail like "for sale" or "service".');
+      if (city) add(has(title, city), `Title includes ${city}.`, `Title doesn't mention ${city}. Local searches lean on it.`);
+      if (topic) {
+        add(has(title, topic), `Title includes "${topic}".`, `Title doesn't include "${topic}". Say what the page is about, in the shopper's words.`);
+        if (has(title, topic)) add(title.toLowerCase().indexOf(topic.toLowerCase()) < 25, 'The main topic is near the front.', 'Move the main topic closer to the front. Store name goes last.');
+      }
+      add(title !== title.toUpperCase() || title.length < 8, 'Not in all capitals.', 'Avoid ALL CAPS. It reads as shouting and uses more width.');
+    }
+
+    if (!desc) add(false, '', 'Add a description. It is your chance to give a reason to click.');
+    else {
+      add(desc.length >= 110, 'Description is long enough to be useful.', 'Description is short. Aim for 120 to 155 characters.');
+      add(width(desc, DESC_FONT) <= DESC_MAX, 'Description fits in two lines.', 'Description will be cut off. Keep the key point in the first 150 characters.');
+      if (city) add(has(desc, city), `Description mentions ${city}.`, `Description doesn't mention ${city}.`);
+      add(/\b(book|call|view|browse|see|shop|schedule|get|visit|compare|check)\b/i.test(desc), 'Tells the shopper what to do next.', 'Add a next step: "Book a test drive", "View inventory", "Call today".');
+    }
+
+    const list = $('checks');
+    list.innerHTML = '';
+    for (const c of checks.filter((c) => !c.ok).concat(checks.filter((c) => c.ok))) {
+      const li = document.createElement('li');
+      li.className = c.ok ? 'ok' : 'warn';
+      const span = document.createElement('span');
+      span.textContent = c.text;
+      li.append(span);
+      list.append(li);
+    }
+  }
+
+  form.addEventListener('input', render);
+  render();
+</script>
+
+<style>
+  .serp {
+    background: #fff; border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 22px 24px; font-family: Arial, sans-serif; overflow: hidden;
+  }
+  .s-url { font-size: 14px; color: #4d5156; margin-bottom: 4px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .s-title { font-size: 20px; line-height: 1.3; color: #1a0dab; margin-bottom: 4px; overflow-wrap: anywhere; }
+  .s-desc { font-size: 14px; line-height: 1.58; color: #4d5156; overflow-wrap: anywhere; }
+  .serp-note { font-size: 14px; color: var(--muted); margin: 10px 0 0; }
+  .check-h { font-size: 22px; margin: 28px 0 12px; }
+  .calc-note strong { color: var(--ink); }
+</style>

@@ -5,7 +5,7 @@
 // `topic` groups the hub page. `time` is honest: how long a dealer actually
 // spends to get an answer, not how long the page takes to load.
 
-export const toolTopics = ['Leads & sales', 'Local search', 'Reputation', 'AI search', 'Ad spend'];
+export const toolTopics = ['Leads & sales', 'Local search & SEO', 'Reputation', 'AI search', 'Ad spend & tracking'];
 
 export const tools = [
   {
@@ -21,7 +21,6 @@ export const tools = [
     blurb: 'Work back from your unit target to the leads, appointments and shows it takes — and which rate to fix first.',
     topic: 'Leads & sales',
     time: '1 min',
-    isNew: true,
   },
   {
     href: '/scorecard',
@@ -34,7 +33,30 @@ export const tools = [
     href: '/google-profile-checkup',
     name: 'Google profile checkup',
     blurb: 'Fourteen quick checks on your Google Business Profile. Get a score out of 100 and the three fixes to do first.',
-    topic: 'Local search',
+    topic: 'Local search & SEO',
+    time: '3 min',
+  },
+  {
+    href: '/local-keyword-planner',
+    name: 'Local keyword planner',
+    blurb: 'Enter your brand, models, city and nearby towns. Get the search phrases to target and the page each belongs on.',
+    topic: 'Local search & SEO',
+    time: '2 min',
+    isNew: true,
+  },
+  {
+    href: '/search-preview-checker',
+    name: 'Search preview checker',
+    blurb: 'See how a page title and description look in Google, and catch the length and local-keyword misses.',
+    topic: 'Local search & SEO',
+    time: '1 min',
+    isNew: true,
+  },
+  {
+    href: '/dealer-schema-generator',
+    name: 'Dealer schema generator',
+    blurb: 'Fill in your store details and get copy-paste structured data so Google and AI read your hours and brands right.',
+    topic: 'Local search & SEO',
     time: '3 min',
     isNew: true,
   },
@@ -70,7 +92,15 @@ export const tools = [
     href: '/ad-budget-planner',
     name: 'Ad budget planner',
     blurb: 'Enter your monthly spend and store type. Get a starting split across search, conquest, retargeting and social.',
-    topic: 'Ad spend',
+    topic: 'Ad spend & tracking',
     time: '1 min',
+  },
+  {
+    href: '/tracking-link-builder',
+    name: 'Tracking link builder',
+    blurb: 'Tag links from your Google profile, Facebook, email and texts so analytics shows where each lead came from.',
+    topic: 'Ad spend & tracking',
+    time: '1 min',
+    isNew: true,
   },
 ];

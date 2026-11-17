@@ -366,13 +366,13 @@ main > .hero:first-child a:not(.btn), .page-hero a:not(.btn) { color: #fff; }
   font-size: 12.5px; font-weight: 600; letter-spacing: 0.08em;
   text-transform: uppercase; color: var(--ink-3);
 }
-.calc-inputs input, .calc-inputs select {
+.calc-inputs input, .calc-inputs select, .calc-inputs textarea {
   width: 100%; padding: 14px 16px; font-size: 19px;
   font-family: var(--display); font-weight: 700;
   border: 1px solid var(--line); border-radius: var(--r-sm);
   background: var(--surface); color: var(--ink); outline: none;
 }
-.calc-inputs input:focus, .calc-inputs select:focus { border-color: var(--ink); box-shadow: 0 0 0 3px rgba(15, 23, 34, 0.08); }
+.calc-inputs input:focus, .calc-inputs select:focus, .calc-inputs textarea:focus { border-color: var(--ink); box-shadow: 0 0 0 3px rgba(15, 23, 34, 0.08); }
 .calc-inputs small { font-size: 13px; color: var(--ink-3); line-height: 1.45; }
 .calc-err { color: #b4482a; font-size: 14px; margin: 0; }
 .calc-err:empty { display: none; }
@@ -420,3 +420,28 @@ main > .hero:first-child a:not(.btn), .page-hero a:not(.btn) { color: #fff; }
 @media (max-width: 520px) {
   .result-grid { grid-template-columns: minmax(0, 1fr); }
 }
+
+/* Text-heavy tools (titles, URLs, lists) want body-weight text in their
+   fields, not the big display numerals the calculators use. */
+.calc-inputs.text input, .calc-inputs.text select, .calc-inputs.text textarea {
+  font-family: var(--body); font-weight: 400; font-size: 17px; line-height: 1.45;
+}
+.calc-inputs textarea { resize: vertical; min-height: 84px; }
+.calc-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+@media (max-width: 520px) { .calc-row { grid-template-columns: minmax(0, 1fr); } }
+
+.copy-btn {
+  font-family: var(--display); font-weight: 600; font-size: 15px; letter-spacing: 0.02em;
+  padding: 9px 14px; border-radius: var(--r-sm); border: 1px solid var(--ink-3);
+  background: #fff; color: var(--ink); cursor: pointer;
+}
+.copy-btn:hover { background: var(--ink); color: #fff; border-color: var(--ink); }
+.checks-list { list-style: none; margin: 0; padding: 0; border-top: 2px solid var(--ink); }
+.checks-list li {
+  display: grid; grid-template-columns: 26px minmax(0, 1fr); gap: 8px;
+  padding: 13px 0; border-bottom: 1px solid var(--line); font-size: 16px; line-height: 1.5; color: var(--ink-2);
+}
+.checks-list li::before { font-weight: 700; }
+.checks-list li.ok::before { content: '✓'; color: var(--green); }
+.checks-list li.warn::before { content: '!'; color: #b4482a; }
+.checks-list li strong { color: var(--ink); }

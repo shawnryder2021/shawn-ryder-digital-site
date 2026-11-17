@@ -1,0 +1,187 @@
+---
+import Base from '../layouts/Base.astro';
+
+const title = 'Dealership Schema Markup Generator (Free, No Code Needed)';
+const description =
+  'Fill in your store details and get ready-to-paste AutoDealer structured data, so Google and AI assistants read your hours, address and brands correctly.';
+
+const breadcrumbs = [
+  { label: 'Home', url: '/' },
+  { label: 'Tools', url: '/tools' },
+  { label: 'Dealer schema generator', url: '/dealer-schema-generator' },
+];
+---
+
+<Base title={title} description={description} path="/dealer-schema-generator" breadcrumbs={breadcrumbs}>
+  <section class="page-hero">
+    <div class="wrap">
+      <div class="kicker">Free tool</div>
+      <h1>Tell Google exactly who you are.</h1>
+      <p class="lede">
+        Schema markup is a small block of code that spells out your store's name, address, hours
+        and brands for search engines and AI assistants. Fill in the form and hand the result to
+        whoever looks after your website.
+      </p>
+    </div>
+  </section>
+
+  <section class="wrap section">
+    <div class="calc">
+      <form id="f" class="calc-inputs text" novalidate>
+        <label>
+          <span>Business type</span>
+          <select name="type">
+            <option value="AutoDealer">Car dealership (sales)</option>
+            <option value="AutoRepair">Service department</option>
+          </select>
+        </label>
+        <label><span>Store name</span><input name="name" type="text" value="Example Motors" maxlength="100" /></label>
+        <label><span>Website address</span><input name="url" type="text" value="https://www.examplemotors.ca" maxlength="200" /></label>
+        <label><span>Phone</span><input name="phone" type="text" value="+1-902-555-0100" maxlength="30" /></label>
+        <label><span>Street address</span><input name="street" type="text" value="123 Main Street" maxlength="120" /></label>
+        <div class="calc-row">
+          <label><span>City</span><input name="city" type="text" value="Halifax" maxlength="60" /></label>
+          <label><span>Province or state</span><input name="region" type="text" value="NS" maxlength="40" /></label>
+        </div>
+        <div class="calc-row">
+          <label><span>Postal or ZIP code</span><input name="postal" type="text" value="B3H 0A1" maxlength="12" /></label>
+          <label>
+            <span>Country</span>
+            <select name="country"><option value="CA">Canada</option><option value="US">United States</option></select>
+          </label>
+        </div>
+        <label>
+          <span>Brands you sell</span>
+          <input name="brands" type="text" value="Hyundai" maxlength="200" />
+          <small>Separate with commas. Leave blank for an independent store.</small>
+        </label>
+        <fieldset>
+          <legend>Opening hours</legend>
+          <div class="hours">
+            <span>Mon–Fri</span><input name="wk_open" type="time" value="09:00" aria-label="Weekday opening time" /><input name="wk_close" type="time" value="18:00" aria-label="Weekday closing time" />
+            <span>Saturday</span><input name="sat_open" type="time" value="09:00" aria-label="Saturday opening time" /><input name="sat_close" type="time" value="17:00" aria-label="Saturday closing time" />
+            <span>Sunday</span><input name="sun_open" type="time" value="" aria-label="Sunday opening time" /><input name="sun_close" type="time" value="" aria-label="Sunday closing time" />
+          </div>
+          <small>Leave a day blank if you're closed.</small>
+        </fieldset>
+        <label>
+          <span>Profile links</span>
+          <textarea name="same" rows="3" placeholder="One per line: Google Maps, Facebook, Instagram"></textarea>
+          <small>One link per line. These help Google connect your profiles to your site.</small>
+        </label>
+      </form>
+
+      <div class="out">
+        <div class="bar">
+          <strong>Your structured data</strong>
+          <button type="button" class="copy-btn" id="copy">Copy code</button>
+        </div>
+        <pre id="code" tabindex="0"></pre>
+        <ol class="next">
+          <li><strong>Send it to your website provider</strong> and ask them to add it to the <code>&lt;head&gt;</code> of your homepage and contact page.</li>
+          <li><strong>Test it</strong> with Google's Rich Results Test once it's live.</li>
+          <li><strong>Keep it matching</strong> your Google Business Profile exactly — same name, address, phone and hours.</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="calc-note">
+      <h3>Does this replace what my website provider does?</h3>
+      <p>
+        Many dealer platforms add some schema automatically, and some add none. Ask your provider
+        what's there now before adding more — two conflicting blocks are worse than one good one.
+        Vehicle listings need their own markup on each vehicle page, which your inventory provider
+        should handle.
+        <a href="/guides/schema-markup-for-dealership-websites">Read the plain-English schema guide →</a>
+      </p>
+    </div>
+  </section>
+
+  <section class="cta-strip">
+    <div class="wrap">
+      <div>
+        <h2>Not sure what's on your site now?</h2>
+        <p>The free audit checks your existing structured data and whether AI crawlers can read your site at all.</p>
+      </div>
+      <a href="/contact" class="btn btn-primary">Request the audit</a>
+    </div>
+  </section>
+</Base>
+
+<script>
+  const form = document.getElementById('f');
+  const code = document.getElementById('code');
+  const copy = document.getElementById('copy');
+  const v = (n) => form[n].value.trim();
+
+  function hours() {
+    const spec = [];
+    const add = (days, open, close) => {
+      if (open && close) spec.push({ '@type': 'OpeningHoursSpecification', dayOfWeek: days, opens: open, closes: close });
+    };
+    add(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'], v('wk_open'), v('wk_close'));
+    add(['Saturday'], v('sat_open'), v('sat_close'));
+    add(['Sunday'], v('sun_open'), v('sun_close'));
+    return spec;
+  }
+
+  function build() {
+    const brands = v('brands').split(',').map((s) => s.trim()).filter(Boolean);
+    const same = form.same.value.split('\n').map((s) => s.trim()).filter((s) => /^https?:\/\//.test(s));
+    const data = {
+      '@context': 'https://schema.org',
+      '@type': v('type'),
+      name: v('name'),
+      url: v('url'),
+      telephone: v('phone'),
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: v('street'),
+        addressLocality: v('city'),
+        addressRegion: v('region'),
+        postalCode: v('postal'),
+        addressCountry: v('country'),
+      },
+      openingHoursSpecification: hours(),
+      brand: brands.map((name) => ({ '@type': 'Brand', name })),
+      sameAs: same,
+    };
+    // Drop anything left empty so the output never ships blank fields.
+    const clean = (o) => {
+      for (const [k, val] of Object.entries(o)) {
+        if (val === '' || (Array.isArray(val) && !val.length)) delete o[k];
+        else if (val && typeof val === 'object' && !Array.isArray(val)) clean(val);
+      }
+      return o;
+    };
+    return '<script type="application/ld+json">\n' + JSON.stringify(clean(data), null, 2).replace(/</g, '\\u003c') + '\n</' + 'script>';
+  }
+
+  function render() { code.textContent = build(); }
+
+  copy.addEventListener('click', async () => {
+    await navigator.clipboard.writeText(code.textContent);
+    copy.textContent = 'Copied';
+    setTimeout(() => (copy.textContent = 'Copy code'), 1500);
+  });
+  form.addEventListener('input', render);
+  render();
+</script>
+
+<style>
+  fieldset { border: 0; margin: 0; padding: 0; display: grid; gap: 8px; }
+  legend { font-size: 12.5px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 8px; padding: 0; }
+  .hours { display: grid; grid-template-columns: 90px minmax(0, 1fr) minmax(0, 1fr); gap: 8px; align-items: center; }
+  .hours span { font-size: 15.5px; color: var(--ink-2); }
+  .out { position: sticky; top: 100px; min-width: 0; }
+  .bar { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 12px; }
+  .bar strong { font-family: var(--display); font-size: 20px; }
+  pre {
+    margin: 0; background: var(--navy); color: #dfe4ea; border-radius: var(--radius); padding: 20px;
+    font-size: 13.5px; line-height: 1.55; overflow: auto; max-height: 460px; white-space: pre;
+  }
+  .next { margin: 22px 0 0; padding-left: 22px; display: grid; gap: 10px; font-size: 16px; line-height: 1.55; color: var(--ink-2); }
+  .next strong { color: var(--ink); }
+  code { font-size: 0.92em; background: var(--surface-2); padding: 1px 5px; border-radius: 3px; }
+  @media (max-width: 900px) { .out { position: static; } }
+</style>

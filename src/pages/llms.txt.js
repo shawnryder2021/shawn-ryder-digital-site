@@ -69,6 +69,11 @@ All of them run in the browser with no signup, email or payment. The full list i
 - [Sales goal calculator](${site.url}/sales-goal-calculator): works back from a monthly unit target to the leads, appointments and shows needed, and which conversion rate is worth improving first.
 - [Google Business Profile checkup](${site.url}/google-profile-checkup): fourteen checks on a dealership's Google Business Profile with a score out of 100 and the top three fixes.
 - [Start here](${site.url}/start-here): reading paths by role — dealer principal, sales manager, BDC, marketing, service and used cars.
+- [Local keyword planner](${site.url}/local-keyword-planner): builds a list of local search phrases for a dealership from its brand, models, city and nearby towns, grouped by the page each belongs on.
+- [Search preview checker](${site.url}/search-preview-checker): previews a page title and meta description as Google shows them and checks length and local keywords.
+- [Dealer schema generator](${site.url}/dealer-schema-generator): generates AutoDealer or AutoRepair JSON-LD structured data from a store's details.
+- [Tracking link builder](${site.url}/tracking-link-builder): builds UTM-tagged links for Google Business Profile, social, email and text.
+- [Sample audit](${site.url}/sample-audit): a worked example of the free dealership audit, using a made-up store.
 - [Ad budget planner](${site.url}/ad-budget-planner): a starting split of a monthly dealership ad budget across brand search, inventory ads, conquest, retargeting, social and testing.
 
 ## Guides
